@@ -62,6 +62,11 @@ import Observation
             selectedNode = selectedNode == node ? nil : node
         } else { selectedNode = nil }
     }
+    // A list entry already specifies the complete action; it must not toggle board selection.
+    func play(_ action: EngineAction) {
+        guard isHumanTurn, !isThinking else { return }
+        apply(action)
+    }
     private func apply(_ action: EngineAction) {
         guard var next = game, let position, position.legal.contains(action) else { return }
         next.moves.append(MoveRecord(notation: action.notation, side: position.side))

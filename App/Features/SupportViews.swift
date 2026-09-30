@@ -31,8 +31,7 @@ struct LegalMovesView: View {
         NavigationStack {
             PagedRows(items: store.position?.legal ?? []) { _, action in
                 Button(action.notation) {
-                    if action.kind == 1 { store.tap(action.from) }
-                    store.tap(action.to)
+                    store.play(action)
                     dismiss()
                 }.frame(maxWidth: .infinity, alignment: .leading).frame(minHeight: 44)
                     .disabled(!store.isHumanTurn || store.isThinking)

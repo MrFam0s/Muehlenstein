@@ -6,6 +6,8 @@
 
 All game rules, legal actions, geometry, captures and outcomes come from Rust. Swift only chooses among the supplied legal actions and renders the supplied state. No mirrored Swift rules or substitute Swift AI exist.
 
+Board taps manage selection, while an explicit entry from the legal-move chooser goes through `GameStore.play`. That entry is checked against the current legal actions and human-turn/thinking state before applying it. It must not simulate two taps: an already selected origin would toggle off, which could turn a Lasker move into a placement.
+
 The small C ABI accepts a versioned JSON request and returns owned JSON. Swift frees every returned string exactly once. Requests are independent, so background searches never mutate the UI's session. The engine validates preset, version, level, input length and every recorded move. Panics are caught at the C boundary. Internal OOM/abort conditions remain process failures.
 
 ## Replay and persistence
@@ -13,6 +15,8 @@ The small C ABI accepts a versioned JSON request and returns owned JSON. Swift f
 A saved game records schema, pinned engine revision, preset/opponent/level/search algorithm/effort and canonical notation with actor labels. The development save format is now schema 2 with five difficulty levels. No migration of earlier development saves is provided; unknown enum values are rejected. The current state is always reconstructed using `GameKernel::apply`, including the upstream full-history repetition path. Writes are atomic in the app's Application Support directory. Incompatible or invalid saves show an error and remain untouched until the user explicitly starts a replacement game.
 
 A snapshot request replays the bounded log (maximum 2048 individual actions). This is intentionally simple for the first integration milestone. Profile replay costs before longer records, analysis trees or networking. If an owned session handle replaces this transport later, preserve the versioned transcript as the durable interchange format.
+
+`Tests/Fixtures/offline-games.json` freezes 18 completed games (1,000 actions) from the archived search comparison, with archive SHA-256 and original outcome/FEN expectations. Rust replays every prefix and checks terminal results, flying and rejection of actions after game end. Swift plays the same corpus through board input, persists and reloads after each action, checks pending captures and repetition-based endings, then undoes to the opening. The fixture is a model-test resource only and is not bundled in the app. Separate cases cover protected mills, multiple captures, Lasker placement/movement, corrupt save metadata and search interruption.
 
 ## Search
 

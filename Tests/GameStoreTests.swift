@@ -4,6 +4,18 @@ import UIKit
 @testable import Muehlenstein
 
 final class GameStoreTests: XCTestCase {
+    private struct OfflineFixtures: Decodable {
+        struct Game: Decodable {
+            let name: String
+            let preset: Int
+            let moves: [String]
+            let outcome: String
+            let winner: Int
+            let reason: String
+            let fen: String
+        }
+        let games: [Game]
+    }
     @MainActor private func waitForHuman(_ store: GameStore, timeout: Duration = .seconds(6)) async throws {
         let deadline = ContinuousClock.now.advanced(by: timeout)
         while store.isThinking || !store.isHumanTurn {
@@ -174,6 +186,153 @@ final class GameStoreTests: XCTestCase {
         XCTAssertEqual(restored.game?.settings.algorithm, .pvs)
         XCTAssertEqual(restored.game?.settings.effort, .extended)
         XCTAssertEqual(restored.game?.moves, store.game?.moves)
+    }
+
+    @MainActor func testCompleteArchivedGamesRestoreAfterEveryActionAndUndoToOpening() throws {
+        let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "offline-games", withExtension: "json"))
+        let fixtures = try JSONDecoder().decode(OfflineFixtures.self, from: Data(contentsOf: url))
+        XCTAssertEqual(fixtures.games.count, 18)
+        let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: file) }
+        for fixture in fixtures.games {
+            var store = GameStore(storageURL: file)
+            store.start(GameSettings(variant: try XCTUnwrap(Variant(rawValue: fixture.preset)), opponent: .local))
+            let opening = try XCTUnwrap(store.position)
+            for notation in fixture.moves {
+                let action = try XCTUnwrap(store.position?.legal.first { $0.notation == notation }, "\(fixture.name): \(notation)")
+                if action.kind == 1 { store.tap(action.from) }
+                store.tap(action.to)
+                XCTAssertEqual(store.game?.moves.last?.notation, notation)
+                XCTAssertNil(store.errorMessage)
+                let restored = GameStore(storageURL: file)
+                XCTAssertNil(restored.errorMessage)
+                XCTAssertEqual(restored.game?.moves, store.game?.moves)
+                XCTAssertEqual(restored.position?.fen, store.position?.fen)
+                XCTAssertEqual(restored.position?.legal, store.position?.legal)
+                XCTAssertEqual(restored.position?.lastTurn, store.position?.lastTurn)
+                store = restored
+            }
+            XCTAssertEqual(store.position?.outcome, fixture.outcome, fixture.name)
+            XCTAssertEqual(store.position?.winner, fixture.winner, fixture.name)
+            XCTAssertEqual(store.position?.reason, fixture.reason, fixture.name)
+            XCTAssertEqual(store.position?.fen, fixture.fen, fixture.name)
+            XCTAssertTrue(store.position?.legal.isEmpty == true)
+            store.tap(23)
+            store.requestHint()
+            store.resumeComputer()
+            XCTAssertFalse(store.isThinking)
+            XCTAssertEqual(store.game?.moves.count, fixture.moves.count)
+            store.undo()
+            XCTAssertFalse(try XCTUnwrap(store.position).isOver)
+            let last = try XCTUnwrap(store.position?.legal.first { $0.notation == fixture.moves.last })
+            store.play(last)
+            XCTAssertEqual(store.position?.reason, fixture.reason)
+            for _ in fixture.moves { store.undo() }
+            XCTAssertTrue(store.game?.moves.isEmpty == true)
+            XCTAssertEqual(store.position?.fen, opening.fen)
+            XCTAssertFalse(store.canUndo)
+        }
+    }
+
+    @MainActor func testExplicitActionIgnoresSelectionAndRejectsStaleAndIllegalMoves() throws {
+        let store = GameStore(inMemory: true)
+        store.start(GameSettings(variant: .lasker, opponent: .local))
+        store.tap(try XCTUnwrap(store.position?.nodes.first { $0.label == "a7" }?.id))
+        store.tap(try XCTUnwrap(store.position?.nodes.first { $0.label == "g7" }?.id))
+        let action = try XCTUnwrap(store.position?.legal.first { $0.notation == "a7-d7" })
+        store.tap(action.from)
+        XCTAssertEqual(store.selectedNode, action.from)
+        let hand = store.position?.hand
+        store.play(action)
+        XCTAssertEqual(store.game?.moves.last?.notation, "a7-d7")
+        XCTAssertEqual(store.position?.hand, hand)
+        XCTAssertNil(store.selectedNode)
+        let moves = store.game?.moves
+        store.play(action) // Old list entry after the turn changed.
+        store.play(EngineAction(kind: 0, from: -1, to: 99, notation: "z9"))
+        XCTAssertEqual(store.game?.moves, moves)
+        XCTAssertNil(store.errorMessage)
+    }
+
+    @MainActor func testInvalidSaveMetadataAndTranscriptsArePreserved() throws {
+        let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: file) }
+        var wrongSchema = SavedGame(settings: GameSettings()); wrongSchema.schema = 1
+        var wrongEngine = SavedGame(settings: GameSettings()); wrongEngine.engineRevision = "unknown"
+        let wrongActor = SavedGame(settings: GameSettings(), moves: [MoveRecord(notation: "a7", side: 1)])
+        let illegalMoves = SavedGame(settings: GameSettings(), moves: [MoveRecord(notation: "a7", side: 0), MoveRecord(notation: "a7", side: 1)])
+        for saved in [wrongSchema, wrongEngine, wrongActor, illegalMoves, SavedGame(settings: GameSettings(level: 6))] {
+            let data = try JSONEncoder().encode(saved)
+            try data.write(to: file)
+            let store = GameStore(storageURL: file)
+            XCTAssertNil(store.game)
+            XCTAssertNil(store.position)
+            XCTAssertNotNil(store.errorMessage)
+            XCTAssertEqual(try Data(contentsOf: file), data)
+        }
+    }
+
+    @MainActor func testRestartBetweenMorabarabaCapturesKeepsTurnAndUndoHistory() throws {
+        let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: file) }
+        var store = GameStore(storageURL: file)
+        store.start(GameSettings(variant: .morabaraba, opponent: .local))
+        for notation in ["b6", "a7", "f6", "g7", "d7", "a1", "d5", "g1", "d6", "xa7"] {
+            store.play(try XCTUnwrap(store.position?.legal.first { $0.notation == notation }))
+        }
+        store = GameStore(storageURL: file)
+        XCTAssertEqual(store.position?.side, 0)
+        XCTAssertEqual(store.position?.action, 2)
+        XCTAssertEqual(store.position?.lastTurn.map(\.notation), ["d6", "xa7"])
+        store.play(try XCTUnwrap(store.position?.legal.first { $0.notation == "xg7" }))
+        XCTAssertEqual(store.position?.side, 1)
+        store.undo()
+        XCTAssertEqual(store.position?.side, 0)
+        XCTAssertEqual(store.position?.action, 2)
+        XCTAssertEqual(store.game?.moves.last?.notation, "xa7")
+    }
+
+    @MainActor func testComputerCanRestartFromInterruptedMillAndUndoWholeRound() async throws {
+        let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: file) }
+        let moves = ["a7", "c5", "d7", "d5", "g1", "e5"]
+        let saved = SavedGame(settings: GameSettings(level: 1), moves: moves.enumerated().map { MoveRecord(notation: $0.element, side: $0.offset % 2) })
+        try JSONEncoder().encode(saved).write(to: file)
+        let store = GameStore(storageURL: file, pacing: ComputerPacing(fixedDelay: .milliseconds(250)))
+        XCTAssertEqual(store.position?.action, 2)
+        store.resumeComputer()
+        let pendingMoves = store.game?.moves
+        store.undo() // Locked while a computer action is being presented.
+        store.play(try XCTUnwrap(store.position?.legal.first))
+        XCTAssertEqual(store.game?.moves, pendingMoves)
+        store.suspend()
+        try await Task.sleep(for: .milliseconds(300))
+        XCTAssertEqual(store.game?.moves, pendingMoves)
+        let restored = GameStore(storageURL: file, pacing: ComputerPacing(fixedDelay: .milliseconds(10)))
+        restored.resumeComputer()
+        try await waitForHuman(restored)
+        XCTAssertEqual(restored.game?.moves.count, 7)
+        XCTAssertEqual(restored.position?.lastTurn.count, 2)
+        restored.undo()
+        XCTAssertEqual(restored.game?.moves.map(\.notation), Array(moves.prefix(4)))
+        XCTAssertEqual(restored.position?.side, 0)
+        XCTAssertNil(restored.errorMessage)
+    }
+
+    @MainActor func testCancelledHintCannotChangeReplacementGame() async throws {
+        let store = GameStore(inMemory: true)
+        store.start(GameSettings(level: 5, effort: .extended))
+        store.requestHint()
+        XCTAssertEqual(store.activity, .hint)
+        store.suspend()
+        store.start(GameSettings(variant: .twelve, opponent: .local))
+        try await Task.sleep(for: .milliseconds(400))
+        XCTAssertNil(store.hint)
+        XCTAssertNil(store.selectedNode)
+        XCTAssertNil(store.errorMessage)
+        XCTAssertFalse(store.isThinking)
+        XCTAssertEqual(store.game?.settings.variant, .twelve)
+        XCTAssertTrue(store.game?.moves.isEmpty == true)
     }
 
 }

@@ -939,6 +939,7 @@
 			<key>buildPhases</key>
 			<array>
 				<string>CB2D0DF3C5358F2721D87DF1</string>
+				<string>AE4CF4536DAFA1DFC023448C</string>
 			</array>
 			<key>dependencies</key>
 			<array>
@@ -1250,6 +1251,7 @@
 			<array>
 				<string>79E733E174F92F637918EF92</string>
 				<string>C631202EA3CD5FB03B27DBEC</string>
+				<string>2FDD64FD32FE1A65AFBDDB17</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -1378,6 +1380,50 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>4A100CA3F46051EF38AA1C43</string>
+		</dict>
+		<key>2FDD64FD32FE1A65AFBDDB17</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Fixtures</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>children</key>
+			<array>
+				<string>46475440055C3F4326AF00E8</string>
+			</array>
+		</dict>
+		<key>46475440055C3F4326AF00E8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.json</string>
+			<key>path</key>
+			<string>offline-games.json</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FED60EECF5D70FDBFA850141</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>46475440055C3F4326AF00E8</string>
+		</dict>
+		<key>AE4CF4536DAFA1DFC023448C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>buildActionMask</key>
+			<integer>2147483647</integer>
+			<key>files</key>
+			<array>
+				<string>FED60EECF5D70FDBFA850141</string>
+			</array>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>rootObject</key>

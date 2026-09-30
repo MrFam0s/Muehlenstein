@@ -59,6 +59,73 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["undo"].tap()
         XCTAssertTrue(app.staticTexts["0 Aktionen"].exists)
     }
+    @MainActor func testLegalMoveChooserMovesAlreadySelectedLaskerStone() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["variant_lasker"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["node_a7"].tap()
+        app.buttons["node_g7"].tap()
+        app.buttons["node_a7"].tap() // Already selected, as it may also be after a hint.
+        app.buttons["game_options"].tap()
+        app.buttons["Mögliche Züge als Liste"].tap()
+        let move = app.buttons["a7-d7"]
+        for _ in 0..<12 {
+            if move.exists { break }
+            guard app.buttons["next_page"].isEnabled else { break }
+            app.buttons["next_page"].tap()
+        }
+        XCTAssertTrue(move.exists)
+        move.tap()
+        XCTAssertTrue(app.staticTexts["3 Aktionen"].waitForExistence(timeout: 3))
+        XCTAssertFalse(app.buttons["node_a7"].label.contains("Weiß"), "The chosen move must vacate its origin")
+        XCTAssertTrue(app.buttons["node_d7"].label.contains("Weiß"))
+        app.buttons["history"].tap()
+        XCTAssertTrue(app.staticTexts["a7-d7"].exists, "The selected move must not become a placement")
+    }
+    @MainActor func testPendingCaptureSurvivesBackgroundAndRelaunch() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        for coordinate in ["c5", "a7", "d5", "d7", "e5"] { app.buttons["node_\(coordinate)"].tap() }
+        XCTAssertTrue(app.staticTexts["Eine Mühle."].exists)
+        XCUIDevice.shared.press(.home)
+        app.activate()
+        XCTAssertTrue(app.staticTexts["Eine Mühle."].waitForExistence(timeout: 3))
+        app.terminate()
+        app.launch()
+        app.buttons["continue_game"].tap()
+        XCTAssertTrue(app.staticTexts["Eine Mühle."].waitForExistence(timeout: 3))
+        app.buttons["node_a7"].tap()
+        XCTAssertTrue(app.staticTexts["Schwarz ist am Zug."].exists)
+        XCTAssertTrue(app.staticTexts["6 Aktionen"].exists)
+        app.buttons["undo"].tap()
+        XCTAssertTrue(app.staticTexts["Eine Mühle."].exists)
+        XCTAssertTrue(app.buttons["node_a7"].label.contains("Schwarz"))
+    }
+    @MainActor func testComputerReplyRemainsSingleAcrossBackgroundAndRelaunch() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        app.buttons["new_game"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["node_a7"].tap()
+        XCUIDevice.shared.press(.home)
+        app.activate()
+        XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["2 Aktionen"].exists)
+        app.terminate()
+        app.launch()
+        app.buttons["continue_game"].tap()
+        XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["2 Aktionen"].exists)
+        app.buttons["undo"].tap()
+        XCTAssertTrue(app.staticTexts["0 Aktionen"].exists)
+    }
     @MainActor func testPreviewScreenshot() {
         let app = launch(demo: true)
         XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 5))

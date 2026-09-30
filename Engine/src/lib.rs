@@ -296,6 +296,126 @@ mod tests {
         );
     }
     #[test]
+    fn archived_games_keep_outcomes_and_history_through_replay() {
+        let fixtures: Value =
+            serde_json::from_str(include_str!("../../Tests/Fixtures/offline-games.json")).unwrap();
+        let mut flying_moves = 0;
+        for game in fixtures["games"].as_array().unwrap() {
+            let moves: Vec<&str> = game["moves"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|v| v.as_str().unwrap())
+                .collect();
+            let preset = game["preset"].as_i64().unwrap() as i32;
+            for index in 0..moves.len() {
+                let position = request(preset, &moves[..index], false).unwrap();
+                assert_eq!(
+                    position["outcome"], "ongoing",
+                    "{} before action {index}",
+                    game["name"]
+                );
+                let action = position["legal"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .find(|a| a["notation"] == moves[index])
+                    .unwrap();
+                if action["kind"] == 1 {
+                    let adjacent = position["edges"].as_array().unwrap().iter().any(|edge| {
+                        (edge[0] == action["from"] && edge[1] == action["to"])
+                            || (edge[1] == action["from"] && edge[0] == action["to"])
+                    });
+                    if !adjacent {
+                        flying_moves += 1;
+                        let side = position["side"].as_u64().unwrap() as usize;
+                        assert_eq!(position["hand"][side], 0);
+                        assert_eq!(position["onBoard"][side], 3);
+                    }
+                }
+            }
+            let end = request(preset, &moves, true).unwrap();
+            for key in ["outcome", "winner", "reason", "fen"] {
+                assert_eq!(end[key], game[key], "{}: {key}", game["name"]);
+            }
+            assert!(end["legal"].as_array().unwrap().is_empty());
+            assert!(end["best"].is_null());
+            let mut extra = moves.clone();
+            extra.push("a7");
+            assert!(
+                request(preset, &extra, false).is_err(),
+                "Terminal game must reject further actions"
+            );
+        }
+        assert!(
+            flying_moves > 0,
+            "Fixtures must exercise actual non-adjacent flying moves"
+        );
+    }
+    #[test]
+    fn capture_protects_mills_unless_all_opponent_stones_are_in_mills() {
+        for preset in [0, 1, 3, 5] {
+            let protected = request(
+                preset,
+                &["c5", "a7", "d5", "d7", "a1", "g7", "xa1", "g1", "b6", "e5"],
+                false,
+            )
+            .unwrap();
+            let legal: Vec<_> = protected["legal"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|a| a["notation"].as_str().unwrap())
+                .collect();
+            assert_eq!(legal, ["xb6"]);
+            let all_in_mill = request(
+                preset,
+                &["c5", "a7", "d5", "d7", "g1", "g7", "xg1", "e5"],
+                false,
+            )
+            .unwrap();
+            let mut legal: Vec<_> = all_in_mill["legal"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .map(|a| a["notation"].as_str().unwrap())
+                .collect();
+            legal.sort();
+            assert_eq!(legal, ["xa7", "xd7", "xg7"]);
+        }
+    }
+    #[test]
+    fn double_mill_has_variant_specific_capture_count() {
+        let mut moves = vec!["b6", "a7", "f6", "g7", "d7", "a1", "d5", "g1", "d6"];
+        for preset in [0, 1, 3, 5] {
+            let mill = request(preset, &moves, false).unwrap();
+            assert_eq!(mill["side"], 0);
+            assert_eq!(mill["action"], 2);
+            moves.push("xa7");
+            let capture = request(preset, &moves, false).unwrap();
+            assert_eq!(capture["side"], if preset == 3 { 0 } else { 1 });
+            if preset == 3 {
+                assert_eq!(capture["action"], 2);
+                moves.push("xg7");
+                let second = request(preset, &moves, false).unwrap();
+                assert_eq!(second["side"], 1);
+                assert_eq!(second["lastTurn"].as_array().unwrap().len(), 3);
+                moves.pop();
+            }
+            moves.pop();
+        }
+    }
+    #[test]
+    fn only_lasker_allows_movement_with_stones_in_hand() {
+        let moves = ["a7", "g7", "a7-d7"];
+        let lasker = request(5, &moves, false).unwrap();
+        assert_eq!(lasker["hand"], json!([9, 9]));
+        assert_eq!(lasker["onBoard"], json!([1, 1]));
+        for preset in [0, 1, 3] {
+            assert!(request(preset, &moves, false).is_err());
+        }
+    }
+    #[test]
     fn search_returns_legal_action_for_initial_and_capture_positions() {
         for moves in [vec![], vec!["c5", "a7", "d5", "d7", "e5"]] {
             let v = request(0, &moves, true).unwrap();
@@ -402,6 +522,42 @@ mod tests {
         cancellation::ms_search_cancel(id);
         cancellation::ms_search_release(id);
         assert!(flag.load(Ordering::Relaxed));
+    }
+    #[test]
+    fn active_long_search_stops_promptly_when_cancelled() {
+        for algorithm in ["mtdf", "pvs"] {
+            let id = cancellation::ms_search_create();
+            let flag = cancellation::flag(Some(id)).unwrap();
+            let (send, receive) = std::sync::mpsc::channel();
+            let worker = std::thread::spawn(move || {
+                let result = process(
+                    &json!({"version":1,"preset":0,"moves":["a7"],
+                    "search":true,"level":5,"level_scale":"five","effort":"extended",
+                    "algorithm":algorithm,"search_id":id})
+                    .to_string(),
+                );
+                send.send(result).unwrap();
+            });
+            // Registry + observer + running request: wait until the request owns its abort flag.
+            let deadline = Instant::now() + Duration::from_secs(2);
+            while Arc::strong_count(&flag) < 3 && Instant::now() < deadline {
+                std::thread::yield_now();
+            }
+            std::thread::sleep(Duration::from_millis(25));
+            let was_running = matches!(
+                receive.try_recv(),
+                Err(std::sync::mpsc::TryRecvError::Empty)
+            );
+            cancellation::ms_search_cancel(id);
+            let stopped = receive.recv_timeout(Duration::from_secs(1));
+            worker.join().unwrap();
+            cancellation::ms_search_release(id);
+            assert!(
+                was_running,
+                "Fixture must still be calculating when cancelled"
+            );
+            assert_eq!(stopped.unwrap().unwrap_err(), "cancelled");
+        }
     }
     #[test]
     fn complete_games_roundtrip_through_bridge_for_visible_variants() {
