@@ -39,6 +39,7 @@ import Observation
         return game.settings.opponent == .local || position.side == 0
     }
     var canUndo: Bool { !(game?.moves.isEmpty ?? true) && !isThinking }
+    var hasOngoingGame: Bool { position?.isOver == false }
 
     func start(_ settings: GameSettings) {
         cancelWork()

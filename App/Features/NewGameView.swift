@@ -4,7 +4,7 @@ import SwiftUI
 struct NewGameView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicType
-    let hasCurrentGame: Bool
+    let hasOngoingGame: Bool
     let start: (GameSettings) -> Void
     @State private var settings = GameSettings()
     @State private var confirm = false
@@ -20,7 +20,7 @@ struct NewGameView: View {
             VStack(spacing: 12) {
                 GameSetupEditor(settings: $settings, expanded: $expanded)
                 Button {
-                    if hasCurrentGame { confirm = true } else { begin() }
+                    if hasOngoingGame { confirm = true } else { begin() }
                 } label: {
                     Text(L10n.text("start_game")).font(.headline).frame(maxWidth: .infinity)
                         .padding(.vertical, 12).foregroundStyle(Color("AccentContent"))

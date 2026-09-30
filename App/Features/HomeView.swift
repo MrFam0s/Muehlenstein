@@ -46,7 +46,7 @@ struct HomeView: View {
             }
             .navigationDestination(for: String.self) { _ in GameView(store: store) }
             .sheet(isPresented: $showingNewGame) {
-                NewGameView(hasCurrentGame: store.game != nil) { settings in
+                NewGameView(hasOngoingGame: store.hasOngoingGame) { settings in
                     store.start(settings)
                     if store.position != nil { path = ["game"] }
                 }

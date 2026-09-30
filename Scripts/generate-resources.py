@@ -29,7 +29,7 @@ copy = {
 'morabaraba_rules': ('Zwölf Steine und Diagonalen. Wenn ein Zug mehrere neue Mühlen schließt, darfst du entsprechend mehrere gegnerische Steine entfernen.', 'Twelve stones and diagonal lines. A move that forms multiple new mills allows multiple captures.'),
 'lasker': ('Lasker-Mühle', 'Lasker Morris'), 'lasker_detail': ('10 Steine · früher in Bewegung', '10 stones · move during placement'),
 'lasker_rules': ('Zehn Steine pro Seite. Schon während des Setzens kannst du stattdessen einen deiner Steine auf einen benachbarten freien Punkt ziehen.', 'Ten stones per side. During placement you may instead move one of your stones to an adjacent empty point.'),
-'replace_game': ('Die gespeicherte Partie durch eine neue ersetzen?', 'Replace the saved game with a new one?'),
+'replace_game': ('Die laufende Partie durch eine neue ersetzen?', 'Replace the ongoing game with a new one?'),
 'replace_and_start': ('Ersetzen und beginnen', 'Replace and start'),
 'white': ('Weiß', 'White'), 'black': ('Schwarz', 'Black'), 'empty': ('frei', 'empty'), 'selected': ('ausgewählt', 'selected'), 'legal_target': ('mögliches Ziel', 'legal destination'),
 'your_turn': ('Du bist am Zug.', 'Your move.'), 'side_to_move': ('%@ ist am Zug.', '%@ to move.'),

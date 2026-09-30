@@ -202,6 +202,7 @@ final class GameStoreTests: XCTestCase {
             store.start(GameSettings(variant: try XCTUnwrap(Variant(rawValue: fixture.preset)), opponent: .local))
             let opening = try XCTUnwrap(store.position)
             for notation in fixture.moves {
+                XCTAssertTrue(store.hasOngoingGame, fixture.name)
                 let action = try XCTUnwrap(store.position?.legal.first { $0.notation == notation }, "\(fixture.name): \(notation)")
                 if action.kind == 1 { store.tap(action.from) }
                 store.tap(action.to)
@@ -216,6 +217,7 @@ final class GameStoreTests: XCTestCase {
                 store = restored
             }
             XCTAssertEqual(store.position?.outcome, fixture.outcome, fixture.name)
+            XCTAssertFalse(store.hasOngoingGame, fixture.name)
             XCTAssertEqual(store.position?.winner, fixture.winner, fixture.name)
             XCTAssertEqual(store.position?.reason, fixture.reason, fixture.name)
             XCTAssertEqual(store.position?.fen, fixture.fen, fixture.name)
@@ -227,6 +229,7 @@ final class GameStoreTests: XCTestCase {
             XCTAssertEqual(store.game?.moves.count, fixture.moves.count)
             store.undo()
             XCTAssertFalse(try XCTUnwrap(store.position).isOver)
+            XCTAssertTrue(store.hasOngoingGame, fixture.name)
             let last = try XCTUnwrap(store.position?.legal.first { $0.notation == fixture.moves.last })
             store.play(last)
             XCTAssertEqual(store.position?.reason, fixture.reason)
@@ -277,7 +280,9 @@ final class GameStoreTests: XCTestCase {
 
     @MainActor func testNewGameResetsVisualIdentityButMovesAndUndoDoNot() throws {
         let store = GameStore(inMemory: true)
+        XCTAssertFalse(store.hasOngoingGame)
         store.start(GameSettings(opponent: .local))
+        XCTAssertTrue(store.hasOngoingGame)
         let identity = store.boardID
         store.tap(23)
         XCTAssertEqual(store.boardID, identity)

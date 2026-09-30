@@ -1,6 +1,6 @@
 # Mühlenstein — Designsprache 0.1
 
-Stand: 30.09.2026. Beschlossene Namen: **Mühlenstein** auf Deutsch, **Muehlenstein** international und technisch. Die Gestaltung ist ein erster umgesetzter Vorschlag zur Beurteilung in der laufenden App.
+Stand: 01.10.2026. Beschlossene Namen: **Mühlenstein** auf Deutsch, **Muehlenstein** international und technisch. Die Gestaltung ist ein erster umgesetzter Vorschlag zur Beurteilung in der laufenden App.
 
 ## Ruhig, präzise, greifbar
 
@@ -21,7 +21,7 @@ Systemschrift mit Serifen für Produkt- und Zugüberschriften; serifenlose Syste
 ## Bildschirmaufbau
 
 1. **Start:** Nur Name/Marke, Brettillustration sowie Fortsetzen, neue Partie und Spielregeln. Die bisherigen Werbesätze und die Fußzeile entfallen vollständig.
-2. **Neue Partie:** Kompakte Auswahl von Gegenspieler, Spielstärke und Variante, mit fest erreichbarer Startaktion. Das Ersetzen einer gespeicherten Partie wird bestätigt.
+2. **Neue Partie:** Kompakte Auswahl von Gegenspieler, Spielstärke und Variante, mit fest erreichbarer Startaktion. Nur das Ersetzen einer noch laufenden Partie wird bestätigt. Nach Sieg, Niederlage oder Remis startet die gewählte neue Partie ohne weitere Rückfrage.
 3. **Partie:** Zugstatus, kompakter Vorrat beider Seiten, festes Brett, Rücknahme/Tipp/Verlauf. Details zu Variante, Steinzahlen und aktueller Aktion sind über die Info-Taste erreichbar. Bei einer Mühle wechselt der Hinweis zur Steinabnahme. Formmarkierungen ergänzen die Farbe.
 4. **Verlauf und Zugauswahl:** Nummerierte Aktionen auf Seiten mit Vor-/Zurück-Tasten. Die Zeilenzahl richtet sich nach verfügbarer Höhe und Schriftgröße.
 5. **Regeln, Herkunft und Lizenz:** Vollständige Texte mit explizitem Seitenwechsel. Die Lizenz wird weder gekürzt noch zusammengefasst.
@@ -36,7 +36,7 @@ Bei großer Schrift entfällt die dekorative Brettillustration, wenn nicht genug
 
 Computerzüge bleiben vor ihrer Ausführung ungefähr eine Sekunde sichtbar angekündigt: 850–1150 ms beim Setzen und 950–1250 ms beim Ziehen. Nach einer Mühle folgt die Steinabnahme mit einer eigenen Pause von 650–900 ms. Die tatsächliche Berechnung läuft innerhalb dieser Zeit; langsamere Antworten bekommen keine zusätzliche Wartezeit. Tipps erscheinen ohne künstliche Verzögerung.
 
-Steine gleiten beim Ziehen und Springen in 320 ms mit sanftem Beschleunigen und Abbremsen zum Ziel. Beim Setzen und Entfernen werden sie in derselben Zeit ein- bzw. ausgeblendet, ohne Hüpfen oder Nachfedern. Die Darstellung folgt auch beim Zurücknehmen derselben Steinidentität. Eine neue Partie setzt die visuelle Identität zurück; beim Öffnen einer gespeicherten Partie erscheint unmittelbar der gespeicherte Stand.
+Steine gleiten beim Ziehen und Springen in 320 ms mit sanftem Beschleunigen und Abbremsen zum Ziel. Der Auswahlring verschwindet beim Antippen des Ziels sofort, ohne Ausblenden oder Mitgleiten. Beim Setzen und Entfernen werden Steine in derselben Zeit ein- bzw. ausgeblendet, ohne Hüpfen oder Nachfedern. Die Darstellung folgt auch beim Zurücknehmen derselben Steinidentität. Eine neue Partie setzt die visuelle Identität zurück; beim Öffnen einer gespeicherten Partie erscheint unmittelbar der gespeicherte Stand.
 
 Die Einstellung „Steinanimationen“ steht unter „Spielhilfen“, ist standardmäßig aktiv und bleibt auf dem Gerät gespeichert. Ausgeschaltet oder bei aktiver iOS-Option „Bewegung reduzieren“ wechseln Steine sofort. Die Animation betrifft nur die Zeichenebene: Die 24 Bretttasten behalten ihre Koordinaten, Eingaben und Spielzustand werden nicht verzögert. Die Denkpause des Computers wird unabhängig davon gesteuert.
 

@@ -39,7 +39,7 @@
 "lasker" = "Lasker-Mühle";
 "lasker_detail" = "10 Steine · früher in Bewegung";
 "lasker_rules" = "Zehn Steine pro Seite. Schon während des Setzens kannst du stattdessen einen deiner Steine auf einen benachbarten freien Punkt ziehen.";
-"replace_game" = "Die gespeicherte Partie durch eine neue ersetzen?";
+"replace_game" = "Die laufende Partie durch eine neue ersetzen?";
 "replace_and_start" = "Ersetzen und beginnen";
 "white" = "Weiß";
 "black" = "Schwarz";

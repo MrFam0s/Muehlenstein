@@ -97,7 +97,7 @@ struct BoardView: View {
                 // update immediately, so a transition never queues or blocks a player's input.
                 ZStack {
                     ForEach(pieces) { piece in
-                        Stone(side: piece.side, selected: selected == piece.node, size: min(32, size * 0.09))
+                        Stone(side: piece.side, size: min(32, size * 0.09))
                             .overlay {
                                 if destination(piece.node) || hint?.to == piece.node {
                                     Circle().strokeBorder(Color(piece.side == 0 ? "WhiteStoneMark" : "BlackStoneMark"),
@@ -111,6 +111,16 @@ struct BoardView: View {
                     }
                 }.frame(width: size, height: size)
                     .animation(animateStones && !reduceMotion ? .easeInOut(duration: 0.32) : nil, value: pieces)
+                    .allowsHitTesting(false).accessibilityHidden(true)
+                // Selection belongs to the fixed board, not the animated stone. Remove it
+                // immediately when a move starts, without a fading or travelling ring.
+                ZStack {
+                    if let selected {
+                        Circle().strokeBorder(Color.petrol, lineWidth: 2)
+                            .frame(width: min(32, size * 0.09) + 8, height: min(32, size * 0.09) + 8)
+                            .position(point(selected, size: size))
+                    }
+                }.transaction { $0.animation = nil }
                     .allowsHitTesting(false).accessibilityHidden(true)
             }
         }.aspectRatio(1, contentMode: .fit)

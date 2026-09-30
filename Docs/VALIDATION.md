@@ -134,6 +134,18 @@ Eine Simulatoraufnahme wurde bildweise geprüft (`.build/stone-motion-final.mp4`
 
 Vollständige VoiceOver- und Akkutests bleiben wie gewünscht zurückgestellt. Die Reduce-Motion-Systemoption wurde über die native SwiftUI-Umgebung angebunden, nicht als neue vollständige assistive Geräteabnahme ausgegeben. Referenz: [Apple SwiftUI-Animationen](https://developer.apple.com/documentation/swiftui/animations), [Reduce Motion](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilityreducemotion).
 
+## Neustart nach Spielende und unmittelbare Auswahlrückmeldung — 01.10.2026
+
+Die Rückfrage beim Starten einer neuen Partie richtet sich jetzt an beiden Einstiegen nach dem tatsächlichen Spielstatus. Nach Sieg, Niederlage oder Remis entfällt sie; eine noch laufende Partie bleibt geschützt. Der deutsche und englische Dialog benennt ausdrücklich die laufende Partie. Eine Rücknahme des letzten, spielbeendenden Zuges macht die Partie wieder schutzbedürftig.
+
+Der Auswahlring liegt außerhalb der animierten Steinebene. Beim Zug verschwindet er unmittelbar, ohne Ausblenden oder Mitgleiten; die Steinbewegung behält ihre 320 ms. Die aktivierbaren Markierungen des letzten Zuges bleiben davon unabhängig.
+
+**Nachweise:** Zwei fokussierte Modelltests bestehen (`.build/Restart-Markers-Models-02.xcresult`), darunter alle 18 Referenzpartien mit laufenden, wiederhergestellten und beendeten Ständen sowie Rücknahme. Die Bedienungsprüfungen decken den direkten Neustart nach einer tatsächlich ausgespielten Partie von Brett und Startseite, Abbrechen/Bestätigen beim Ersetzen einer laufenden Partie sowie Bewegung mit aktivierter/deaktivierter Animation ab. Der erste Abbruch-Test adressierte eine im nativen iOS-27-Popover nicht sichtbare Abbrechen-Taste; er verwendet nun die native Abbruchgeste außerhalb des Popovers. Die Simulatoraufnahme `.build/restart-markers.mp4` wurde in Einzelbildern geprüft: Beim Beginn des Gleitens ist der Auswahlring bereits entfernt, ohne Nachbild an Ausgangspunkt oder bewegtem Stein.
+
+Der signierte Gerätebuild wurde auf FA-iPhone installiert. Ein erneuter automatischer Start scheiterte am inzwischen gesperrten Gerät; für diese Änderung wird keine zusätzliche physische Bedienungsprüfung behauptet. VoiceOver- und Akkutests bleiben zurückgestellt.
+
+Alle drei Bedienungsprüfungen bestehen im abschließenden Lauf `.build/Restart-Markers-Verified.xcresult`.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

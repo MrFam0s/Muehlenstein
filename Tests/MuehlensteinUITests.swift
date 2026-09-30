@@ -170,6 +170,63 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["undo"].tap()
         XCTAssertTrue(app.staticTexts["0 Aktionen"].exists)
     }
+    @MainActor func testOngoingGameReplacementRequiresConfirmationFromHomeAndBoard() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["node_a7"].tap()
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.buttons["new_game"].tap()
+        let cancelFrame = app.navigationBars.buttons["Abbrechen"].frame
+        let outsideConfirmation = app.coordinate(withNormalizedOffset: .zero).withOffset(
+            CGVector(dx: cancelFrame.midX - app.frame.minX, dy: cancelFrame.midY - app.frame.minY))
+        app.buttons["start_game"].tap()
+        XCTAssertTrue(app.staticTexts["Die laufende Partie durch eine neue ersetzen?"].waitForExistence(timeout: 3))
+        // iOS presents this confirmation as a popover: tapping outside cancels it.
+        outsideConfirmation.tap()
+        XCTAssertFalse(app.buttons["Ersetzen und beginnen"].exists)
+        app.navigationBars.buttons["Abbrechen"].tap()
+        app.buttons["continue_game"].tap()
+        XCTAssertTrue(app.buttons["node_a7"].label.contains("Weiß"))
+        XCTAssertTrue(app.staticTexts["1 Aktionen"].exists)
+        app.buttons["game_options"].tap()
+        app.buttons["Neue Partie"].tap()
+        app.buttons["start_game"].tap()
+        XCTAssertTrue(app.staticTexts["Die laufende Partie durch eine neue ersetzen?"].waitForExistence(timeout: 3))
+        app.buttons["Ersetzen und beginnen"].tap()
+        XCTAssertTrue(app.staticTexts["0 Aktionen"].waitForExistence(timeout: 3))
+    }
+    @MainActor func testFinishedGameStartsAgainWithoutReplacementConfirmation() {
+        let app = launch()
+        // Shortest classic win from offline-games.json (0-loseNoLegalMoves).
+        let moves = ["d6", "a4", "g1", "d2", "f4", "b4", "c4", "d1", "d3", "f2", "b2", "a7",
+                     "a1", "g7", "d7", "d5", "e4", "g4", "e4-e5", "d5-c5", "e5-d5", "xc5", "b4-b6", "c4-b4"]
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        // Check both entry points against a real engine-completed game.
+        for fromHome in [false, true] {
+            for move in moves {
+                for node in move.replacingOccurrences(of: "x", with: "").split(separator: "-") {
+                    app.buttons["node_\(node)"].tap()
+                }
+            }
+            XCTAssertTrue(app.buttons["play_again"].waitForExistence(timeout: 3))
+            if fromHome {
+                app.navigationBars.buttons.element(boundBy: 0).tap()
+                XCTAssertEqual(app.buttons["continue_game"].label, "Partie ansehen")
+                app.buttons["new_game"].tap()
+            } else {
+                app.buttons["play_again"].tap()
+            }
+            app.buttons["opponent_local"].tap()
+            app.buttons["start_game"].tap()
+            XCTAssertTrue(app.staticTexts["0 Aktionen"].waitForExistence(timeout: 3))
+            XCTAssertFalse(app.buttons["Ersetzen und beginnen"].exists)
+            XCTAssertTrue(app.buttons["node_a7"].label.contains("frei"))
+        }
+    }
     @MainActor func testLegalMoveChooserMovesAlreadySelectedLaskerStone() {
         let app = launch()
         app.buttons["new_game"].tap()
