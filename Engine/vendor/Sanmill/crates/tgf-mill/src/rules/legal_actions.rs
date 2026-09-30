@@ -1,0 +1,548 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Mill move generation and the supporting helpers consumed by
+// `crate::rules::legal_apply::apply`:
+//
+//   * `legal_actions_ctx`        — context-aware move ordering driven
+//                                  by the search's MoveOrderContext.
+//   * `maybe_handle_stalemate` / `check_if_game_is_over`
+//                                  — phase-transition helpers that decide
+//                                  whether a position is terminal.
+//   * `generate_*_actions`       — kind-specific generators (move, remove,
+//                                  capture-only-remove, regular remove).
+//   * `is_restricted_repeated_mill` — `restrict_repeated_mills_formation`
+//                                  filter applied during move generation.
+//
+// The companion `mod.rs` exposes every collaborator (state field,
+// transition helper, capture detector, …) as `pub(super)` so this file
+// can `use super::*` and stay close to the original layout.
+
+use super::legacy_squares::LEGACY_SQUARE_ORDER_NODES;
+use super::move_priority::static_move_priority_for_search;
+use super::*;
+
+impl MillRules {
+    pub(super) fn legal_actions_ctx<const N: usize>(
+        &self,
+        state: &MillState,
+        out: &mut ActionList<N>,
+        ctx: &tgf_core::MoveOrderContext,
+    ) {
+        let priority_storage;
+        let priority = if ctx.shuffling {
+            priority_storage = move_priority_list_for_search(&self.options, ctx);
+            &priority_storage
+        } else {
+            static_move_priority_for_search(&self.options, ctx)
+        };
+        match state.action_for_legal_generation() {
+            MillActionState::Remove => {
+                if state.pending_removals[state.side_to_move as usize] > 0 {
+                    self.generate_remove_actions(state, out, priority);
+                }
+            }
+            MillActionState::Place => {
+                if state.pieces_in_hand[state.side_to_move as usize] > 0 {
+                    let occupied = board_occupied_bitboard(state);
+                    for &node in priority {
+                        if (occupied & node_bit(node)) == 0 {
+                            out.push(Action {
+                                kind_tag: MillActionKind::Place as i16,
+                                from_node: -1,
+                                to_node: node as i16,
+                                aux: -1,
+                                payload_bits: 0,
+                            });
+                        }
+                    }
+                }
+                if self.options.may_move_in_placing_phase {
+                    self.generate_move_actions_with_priority(state, out, false, priority);
+                }
+            }
+            MillActionState::Select => {
+                if state.phase == MillPhase::Moving {
+                    self.generate_move_actions_with_priority(state, out, true, priority);
+                }
+            }
+            MillActionState::GameOver => {}
+        }
+    }
+
+    pub(super) fn maybe_handle_stalemate(&self, state: &mut MillState) -> bool {
+        if state.phase != MillPhase::Moving || state.side_to_move < 0 {
+            return false;
+        }
+        let side = state.side_to_move as usize;
+        if state.pending_removals[side] != 0 {
+            return false;
+        }
+        // When flying is enabled and at least one board point is empty, a
+        // side at or below the fly threshold always has a legal destination.
+        // This mirrors the early return inside `is_all_surrounded` but avoids
+        // calling into the full stalemate scan at every search node.
+        if self.options.may_fly && state.pieces_on_board[side] <= self.options.fly_piece_count {
+            let occupied_count = state.pieces_on_board[0] + state.pieces_on_board[1];
+            if occupied_count < 24 {
+                return false;
+            }
+        }
+        if !evaluation::is_all_surrounded(state, &self.options, state.side_to_move) {
+            return false;
+        }
+
+        match self.options.stalemate_action {
+            StalemateAction::EndWithStalemateLoss => {
+                state.phase = MillPhase::GameOver;
+                state.winner = state.side_to_move ^ 1;
+                state.outcome_reason = MillOutcomeReason::LoseNoLegalMoves;
+            }
+            StalemateAction::ChangeSideToMove => {
+                // C++ runs change_side_to_move() -> set_side_to_move(),
+                // which re-derives the phase from the new active side's
+                // hand count.
+                state.side_to_move ^= 1;
+                sync_phase_with_active_hand(state);
+            }
+            StalemateAction::RemoveOpponentsPieceAndMakeNextMove => {
+                let side = state.side_to_move as usize;
+                state.pending_removals[side] = 1;
+                state.set_stalemate_removing(true);
+                state.set_mill_available_at_removal(false);
+                clear_capture_state(state);
+            }
+            StalemateAction::RemoveOpponentsPieceAndChangeSideToMove => {
+                let side = state.side_to_move as usize;
+                state.pending_removals[side] = 1;
+                state.set_mill_available_at_removal(false);
+                clear_capture_state(state);
+            }
+            StalemateAction::EndWithStalemateDraw => {
+                state.phase = MillPhase::GameOver;
+                state.winner = 2;
+                state.outcome_reason = MillOutcomeReason::DrawStalemate;
+            }
+            StalemateAction::BothPlayersRemoveOpponentsPiece => {
+                let side = state.side_to_move as usize;
+                state.pending_removals[side] = 1;
+                state.pending_removals[side ^ 1] = 1;
+                state.set_both_stalemate_removing(true);
+                state.set_mill_available_at_removal(false);
+                clear_capture_state(state);
+            }
+        }
+        // Mirror the tail of master Position::check_if_game_is_over
+        // (position.cpp): `if (pieceToRemoveCount[sideToMove] != 0)
+        // action = Action::remove;`.  Without this resync the action
+        // stays at Select after a stalemate arms pending removals, and
+        // move generation would return an empty list instead of the
+        // removal targets.
+        sync_action_state(state);
+        true
+    }
+
+    pub(super) fn check_if_game_is_over(&self, state: &mut MillState) {
+        if state.phase == MillPhase::GameOver || state.side_to_move < 0 {
+            return;
+        }
+        // Mirror master src/position.cpp:2069 Position::check_if_game_is_over:
+        // terminal conditions are evaluated after FEN import just as they are
+        // after normal moves.
+        maybe_finish_full_board(state, &self.options);
+        if state.phase == MillPhase::GameOver {
+            return;
+        }
+        maybe_draw_by_n_move_rule(state, &self.options, true);
+        if state.phase == MillPhase::GameOver {
+            return;
+        }
+        if state.phase == MillPhase::Moving {
+            for side in 0..2 {
+                let pieces_total =
+                    u32::from(state.pieces_on_board[side]) + u32::from(state.pieces_in_hand[side]);
+                if pieces_total < u32::from(self.options.pieces_at_least_count) {
+                    state.phase = MillPhase::GameOver;
+                    state.winner = (side ^ 1) as i8;
+                    state.outcome_reason = MillOutcomeReason::LoseFewerThanThree;
+                    state.side_to_move = -1;
+                    return;
+                }
+            }
+        }
+        self.maybe_handle_stalemate(state);
+    }
+
+    pub(super) fn generate_move_actions<const N: usize>(
+        &self,
+        state: &MillState,
+        out: &mut ActionList<N>,
+        allow_fly: bool,
+    ) {
+        let priority = default_dense_priority();
+        self.generate_move_actions_with_priority(state, out, allow_fly, &priority);
+    }
+
+    fn generate_move_actions_with_priority<const N: usize>(
+        &self,
+        state: &MillState,
+        out: &mut ActionList<N>,
+        allow_fly: bool,
+        priority: &[usize; 24],
+    ) {
+        let side = state.side_to_move as usize;
+        // Mirror master src/movegen.cpp:87 generate<MOVE> and
+        // src/movegen.cpp:157 generate<LEGAL>: movement, including
+        // Lasker-style leap and fly moves, is only generated when the active
+        // side has no pieces left in hand.
+        let no_pieces_in_hand = state.pieces_in_hand[side] == 0;
+        let can_fly = allow_fly
+            && self.options.may_fly
+            && no_pieces_in_hand
+            && state.pieces_on_board[side] <= self.options.fly_piece_count;
+        let own_bb = state.by_color_bb[side];
+        let opponent_bb = state.by_color_bb[side ^ 1];
+        let occupied = board_occupied_bitboard(state);
+        // Leap moves are emitted *in addition to* regular adjacency moves
+        // (mirrors master generate<MOVE>'s `tryAddLeap` superset).  They
+        // require leap_capture.enabled, the active phase to be allowed,
+        // and — when in placing — that may_move_in_placing_phase opens
+        // movement.  In fly state, every empty square is already
+        // reachable so the leap superset is redundant.
+        // Use capture_piece_count_allowed_leap (not the generic variant) so that
+        // onlyAvailableWhenOwnPiecesLeq3 is enforced in placing phase too,
+        // matching master's checkLeapCapture which checks the condition outside
+        // any phase guard.
+        let leap_enabled = !can_fly
+            && no_pieces_in_hand
+            && self.options.leap_capture.enabled
+            && capture_phase_allowed(&self.options.leap_capture, state.phase)
+            && capture_piece_count_allowed_leap(&self.options.leap_capture, state)
+            && (state.phase == MillPhase::Moving
+                || (state.phase == MillPhase::Placing
+                    && self.options.may_move_in_placing_phase
+                    && self.options.leap_capture.in_placing_phase));
+        if state.delayed_marked_pieces == 0
+            && !self.options.restrict_repeated_mills_formation
+            && !leap_enabled
+        {
+            if can_fly {
+                for &from in priority.iter().rev() {
+                    if (own_bb & node_bit(from)) == 0 {
+                        continue;
+                    }
+                    for &to in LEGACY_SQUARE_ORDER_NODES.iter() {
+                        if (occupied & node_bit(to)) == 0 {
+                            out.push(move_action(from, to));
+                        }
+                    }
+                }
+            } else if self.options.has_diagonal_lines {
+                for &from in priority.iter().rev() {
+                    if (own_bb & node_bit(from)) == 0 {
+                        continue;
+                    }
+                    // Fast path without delayed marks, repeated-mill
+                    // filtering, or leap captures: the adjacency mask is
+                    // only an empty-neighbor precheck.  We still iterate the
+                    // ordered diagonal neighbor slice below so the emitted
+                    // move list keeps the same order as the legacy tables.
+                    let empty_neighbors =
+                        crate::topology::diagonal_neighbor_mask_for(from) & !occupied;
+                    if empty_neighbors == 0 {
+                        continue;
+                    }
+                    for &to in crate::topology::diagonal_neighbors_for(from) {
+                        let to = to as usize;
+                        if (empty_neighbors & node_bit(to)) != 0 {
+                            out.push(move_action(from, to));
+                        }
+                    }
+                }
+            } else {
+                for &from in priority.iter().rev() {
+                    if (own_bb & node_bit(from)) == 0 {
+                        continue;
+                    }
+                    // Standard-board counterpart of the diagonal fast path:
+                    // keep this branch outside the per-piece loop so the
+                    // standard Nine Men's Morris hot path does not re-test
+                    // the rule shape for every owned piece.
+                    let empty_neighbors =
+                        crate::topology::standard_neighbor_mask_for(from) & !occupied;
+                    if empty_neighbors == 0 {
+                        continue;
+                    }
+                    for &to in crate::topology::standard_neighbors_for(from) {
+                        let to = to as usize;
+                        if (empty_neighbors & node_bit(to)) != 0 {
+                            out.push(move_action(from, to));
+                        }
+                    }
+                }
+            }
+            return;
+        }
+        for &from in priority.iter().rev() {
+            // Use live_piece() rather than the raw board value so that
+            // mark-and-delay MARKED_PIECE squares are treated as empty
+            // (not movable) — mirrors C++ generate<MOVE>'s byColorBB filter.
+            if (own_bb & node_bit(from)) == 0 {
+                continue;
+            }
+            if can_fly {
+                for &to in LEGACY_SQUARE_ORDER_NODES.iter() {
+                    if (occupied & node_bit(to)) == 0
+                        && !self.is_restricted_repeated_mill(state, from, to)
+                    {
+                        out.push(move_action(from, to));
+                    }
+                }
+                continue;
+            }
+            let empty_neighbors =
+                crate::topology::neighbor_mask_for(from, self.options.has_diagonal_lines)
+                    & !occupied;
+            // Empty-neighbor masks cheaply skip surrounded pieces in the
+            // normal move path.  Do not skip when leap is enabled: a leap can
+            // be legal even if every adjacent square is occupied, because the
+            // destination is the far end of a capture line rather than a
+            // direct neighbor.
+            if empty_neighbors == 0 && !leap_enabled {
+                continue;
+            }
+            // Keep using the topology's ordered neighbor slice for actual
+            // emission.  The mask only answers "is this neighbor currently
+            // empty?" and must not reorder moves, especially when the search
+            // compares node counts and root move lists against master.
+            for &to in self.topology.neighbors(from as u16) {
+                let to = to as usize;
+                if (empty_neighbors & node_bit(to)) != 0
+                    && !self.is_restricted_repeated_mill(state, from, to)
+                {
+                    out.push(move_action(from, to));
+                }
+            }
+            if leap_enabled {
+                // For every three-point line with `from` at one end, jumping
+                // over an opponent in the middle to the empty far end is a
+                // legal leap move.  master generate<MOVE> calls checkLeapCapture
+                // which also validates that the captured middle piece is actually
+                // removable under mill-protection rules (P0-A.2). We replicate
+                // that check here via leap_capture_target_is_removable.
+                for line in active_capture_lines(&self.options.leap_capture, &self.options) {
+                    let (a, mid, b) = (line[0], line[1], line[2]);
+                    let jumps_from_a = from == a
+                        && (occupied & node_bit(b)) == 0
+                        && (opponent_bb & node_bit(mid)) != 0;
+                    let jumps_from_b = from == b
+                        && (occupied & node_bit(a)) == 0
+                        && (opponent_bb & node_bit(mid)) != 0;
+                    if jumps_from_a {
+                        if !self.is_restricted_repeated_mill(state, from, b)
+                            && leap_capture_target_is_removable(state, &self.options, mid)
+                        {
+                            out.push(move_action(from, b));
+                        }
+                    } else if jumps_from_b
+                        && !self.is_restricted_repeated_mill(state, from, a)
+                        && leap_capture_target_is_removable(state, &self.options, mid)
+                    {
+                        out.push(move_action(from, a));
+                    }
+                }
+            }
+        }
+    }
+
+    fn is_restricted_repeated_mill(&self, state: &MillState, from: usize, to: usize) -> bool {
+        if !self.options.restrict_repeated_mills_formation {
+            return false;
+        }
+        // Per-side last-mill tracking, matching C++ position.cpp
+        // `lastMillFromSquare[c]` / `lastMillToSquare[c]`.
+        let side = state.side_to_move as usize;
+        if side >= 2 {
+            return false;
+        }
+        let last_from = state.last_mill_from[side];
+        let last_to = state.last_mill_to[side];
+        if last_from < 0 || last_to < 0 {
+            return false;
+        }
+        if from != last_to as usize || to != last_from as usize {
+            return false;
+        }
+        // Mirror master src/position.cpp:1068 / potential_mills_count:
+        // restrict only when `from` currently counts as a usable mill and
+        // moving back to `to` would form another usable mill.  Under
+        // oneTimeUseMill, potential_mills_count filters out lines already
+        // recorded in formedMillsBB, so an already consumed mill must not
+        // keep the reverse move restricted.
+        if potential_mills_count_at(state, &self.options, from, state.side_to_move, None) == 0 {
+            return false;
+        }
+        potential_mills_count_at(state, &self.options, to, state.side_to_move, Some(from)) > 0
+    }
+
+    pub(super) fn generate_remove_actions<const N: usize>(
+        &self,
+        state: &MillState,
+        out: &mut ActionList<N>,
+        priority: &[usize; 24],
+    ) {
+        let us = state.side_to_move as usize;
+        let capture_targets = if us < 2 {
+            state.custodian_targets[us] | state.intervention_targets[us] | state.leap_targets[us]
+        } else {
+            0
+        };
+        if capture_targets != 0 {
+            self.generate_capture_remove_actions(state, out, capture_targets);
+            // Mirror master generate<REMOVE>'s `totalRemovals <= captureCount`
+            // cutoff (P0-A.1): when pending removals are fully covered by
+            // capture obligations, only capture targets are legal this turn.
+            if us >= 2 || state.pending_removals[us] <= capture_total(state) {
+                return;
+            }
+            // pending_removals[us] > capture_total: the current player formed
+            // a mill simultaneously with a capture, so also generate the
+            // regular mill-remove targets below (excluding capture targets
+            // already emitted above).
+        }
+
+        if us < 2 && state.remove_own_piece(us) {
+            // Mirror master src/position.cpp:1773 remove_piece:
+            // negative pieceToRemoveCount switches the target colour to the
+            // mover's own pieces, then the common stalemate and mill
+            // protection filters at lines 1793-1801 still run.
+            self.generate_regular_remove_actions_for_piece(
+                state,
+                out,
+                state.side_to_move + 1,
+                0,
+                priority,
+            );
+            return;
+        }
+
+        let opponent_piece = (state.side_to_move ^ 1) + 1;
+        self.generate_regular_remove_actions_for_piece(
+            state,
+            out,
+            opponent_piece,
+            capture_targets,
+            priority,
+        );
+    }
+
+    fn generate_regular_remove_actions_for_piece<const N: usize>(
+        &self,
+        state: &MillState,
+        out: &mut ActionList<N>,
+        target_piece: i8,
+        excluded_targets: u32,
+        priority: &[usize; 24],
+    ) {
+        // When `may_remove_from_mills_always` is set the rule simplifies:
+        // every target-colour piece is legal, regardless of whether
+        // it sits in a mill.  Otherwise we mirror the C++ default (and
+        // the FIDE Mill rule): mill pieces can only be removed when no
+        // non-mill alternative exists.  Capture targets already emitted
+        // above are skipped to avoid duplicate Remove actions, mirroring
+        // master generate<REMOVE>'s `if (combinedTargets & square_bb(s)) continue;`.
+        // Marked pieces are filtered out via `live_piece` to mirror
+        // legacy `removeColorPiece` matching against `byColorBB[c]`,
+        // which excludes MARKED_PIECE squares.
+        let target_bb = piece_bitboard(state, target_piece);
+        // Mirror master generate<REMOVE>'s branch structure: the
+        // stalemate-removal path applies ONLY the "adjacent to the
+        // remover's pieces" filter (own-colour targets are unrestricted)
+        // and returns before any mill-protection check, so a piece
+        // sitting in a mill is still removable during a stalemate
+        // removal.  Mill protection applies exclusively to the regular
+        // (non-stalemate) path.
+        let stalemate_removal = self.is_stalemate_removal_context(state);
+        let removing_own = state.side_to_move >= 0 && target_piece == state.side_to_move + 1;
+        let use_mill_protection = !self.options.may_remove_from_mills_always && !stalemate_removal;
+        let mill_members = if use_mill_protection {
+            mill_members_mask_for_piece(state, &self.options, target_piece)
+        } else {
+            0
+        };
+        // Precompute the mill-protected target set once.  The old shape asked
+        // `is_piece_in_mill()` for every candidate, which rescanned up to
+        // three lines per node.  This mask keeps the same rule test but turns
+        // the repeated checks into `target_bb & !mill_members` and a single
+        // membership bit.
+        let has_non_mill_target = use_mill_protection && (target_bb & !mill_members) != 0;
+
+        for &node in priority.iter().rev() {
+            if (target_bb & node_bit(node)) == 0 {
+                continue;
+            }
+            if (excluded_targets & node_bit(node)) != 0 {
+                continue;
+            }
+            if stalemate_removal {
+                if !removing_own && !is_adjacent_to_side_piece(state, &self.options, node) {
+                    continue;
+                }
+            } else if !self.options.may_remove_from_mills_always
+                && has_non_mill_target
+                && (mill_members & node_bit(node)) != 0
+            {
+                continue;
+            }
+            out.push(Action {
+                kind_tag: MillActionKind::Remove as i16,
+                from_node: -1,
+                to_node: node as i16,
+                aux: -1,
+                payload_bits: 0,
+            });
+        }
+    }
+
+    fn generate_capture_remove_actions<const N: usize>(
+        &self,
+        state: &MillState,
+        out: &mut ActionList<N>,
+        targets: u32,
+    ) {
+        let opponent_piece = (state.side_to_move ^ 1) + 1;
+        let target_bb = piece_bitboard(state, opponent_piece);
+        let mut legal_targets = targets & target_bb;
+        while legal_targets != 0 {
+            // Popping the least-significant bit preserves the previous
+            // 0..24 ascending dense-node order without scanning empty bits.
+            let node = legal_targets.trailing_zeros() as usize;
+            legal_targets &= legal_targets - 1;
+            out.push(Action {
+                kind_tag: MillActionKind::Remove as i16,
+                from_node: -1,
+                to_node: node as i16,
+                aux: -1,
+                payload_bits: 0,
+            });
+        }
+    }
+
+    fn is_stalemate_removal_context(&self, state: &MillState) -> bool {
+        if state.stalemate_removing() || state.both_stalemate_removing() {
+            return true;
+        }
+        // Mirror master src/position.cpp:3475 is_board_full_removal_at_placing_phase_end:
+        // the board-full branch is only a placing-phase predicate. Rust arms
+        // the removals after transitioning to Moving, so board_full_removing
+        // is persisted only as UI/FEN metadata and never enables stalemate
+        // adjacency filtering.
+        matches!(
+            self.options.stalemate_action,
+            StalemateAction::RemoveOpponentsPieceAndMakeNextMove
+                | StalemateAction::RemoveOpponentsPieceAndChangeSideToMove
+                | StalemateAction::BothPlayersRemoveOpponentsPiece
+        ) && state.phase == MillPhase::Moving
+            && state.side_to_move >= 0
+            && state.pending_removals[state.side_to_move as usize] > 0
+            && evaluation::is_all_surrounded(state, &self.options, state.side_to_move)
+    }
+}

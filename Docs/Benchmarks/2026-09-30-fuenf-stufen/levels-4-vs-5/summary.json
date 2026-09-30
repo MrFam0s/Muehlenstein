@@ -1,0 +1,219 @@
+{
+  "plan": {
+    "a": {
+      "algorithm": "mtdf",
+      "effort": "standard",
+      "level": 4,
+      "level_scale": "five"
+    },
+    "b": {
+      "algorithm": "mtdf",
+      "effort": "standard",
+      "level": 5,
+      "level_scale": "five"
+    },
+    "max_actions": 512,
+    "max_seconds": 180,
+    "pairs_per_variant": 8,
+    "presets": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "seed": 2026093004
+  },
+  "completion": {
+    "complete": false,
+    "elapsed_s": 180,
+    "games": 22,
+    "planned_games": 64
+  },
+  "variants": [
+    {
+      "preset": 0,
+      "games": 6,
+      "valid_pairs": 3,
+      "excluded_games": 0,
+      "errors": 0,
+      "capped": 0,
+      "a_wins": 0,
+      "draws": 0,
+      "b_wins": 6,
+      "score_a": 0.0,
+      "pair_score_counts": [
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "identical_transcript_pairs": 0,
+      "hoeffding_95": [
+        0,
+        0.7841002756996854
+      ],
+      "simultaneous_95": [
+        0,
+        0.9197077266930898
+      ],
+      "timing_observations": {
+        "a": {
+          "actions": 159,
+          "median_ms": 2.923,
+          "mean_ms": 24.48738993710692,
+          "p95_ms": 163.546,
+          "mean_completed_depth": 8
+        },
+        "b": {
+          "actions": 184,
+          "median_ms": 64.824,
+          "mean_ms": 246.15477717391303,
+          "p95_ms": 1200.147,
+          "mean_completed_depth": 11.782608695652174
+        }
+      }
+    },
+    {
+      "preset": 1,
+      "games": 6,
+      "valid_pairs": 3,
+      "excluded_games": 0,
+      "errors": 0,
+      "capped": 0,
+      "a_wins": 2,
+      "draws": 0,
+      "b_wins": 4,
+      "score_a": 0.3333333333333333,
+      "pair_score_counts": [
+        1,
+        0,
+        2,
+        0,
+        0
+      ],
+      "identical_transcript_pairs": 0,
+      "hoeffding_95": [
+        0,
+        1
+      ],
+      "simultaneous_95": [
+        0,
+        1
+      ],
+      "timing_observations": {
+        "a": {
+          "actions": 133,
+          "median_ms": 3.622,
+          "mean_ms": 5.286105263157895,
+          "p95_ms": 16.698,
+          "mean_completed_depth": 8
+        },
+        "b": {
+          "actions": 153,
+          "median_ms": 84.405,
+          "mean_ms": 200.1305751633987,
+          "p95_ms": 889.325,
+          "mean_completed_depth": 11.96078431372549
+        }
+      }
+    },
+    {
+      "preset": 3,
+      "games": 6,
+      "valid_pairs": 2,
+      "excluded_games": 2,
+      "errors": 0,
+      "capped": 1,
+      "a_wins": 0,
+      "draws": 1,
+      "b_wins": 3,
+      "score_a": 0.125,
+      "pair_score_counts": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "identical_transcript_pairs": 0,
+      "hoeffding_95": [
+        0,
+        1
+      ],
+      "simultaneous_95": [
+        0,
+        1
+      ],
+      "timing_observations": {
+        "a": {
+          "actions": 103,
+          "median_ms": 2.062,
+          "mean_ms": 3.5601747572815534,
+          "p95_ms": 10.431,
+          "mean_completed_depth": 8
+        },
+        "b": {
+          "actions": 120,
+          "median_ms": 37.378,
+          "mean_ms": 102.640125,
+          "p95_ms": 355.469,
+          "mean_completed_depth": 11.991666666666667
+        }
+      }
+    },
+    {
+      "preset": 5,
+      "games": 4,
+      "valid_pairs": 2,
+      "excluded_games": 0,
+      "errors": 0,
+      "capped": 0,
+      "a_wins": 1,
+      "draws": 0,
+      "b_wins": 3,
+      "score_a": 0.25,
+      "pair_score_counts": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "identical_transcript_pairs": 0,
+      "hoeffding_95": [
+        0,
+        1
+      ],
+      "simultaneous_95": [
+        0,
+        1
+      ],
+      "timing_observations": {
+        "a": {
+          "actions": 171,
+          "median_ms": 7.62,
+          "mean_ms": 27.976169590643273,
+          "p95_ms": 103.516,
+          "mean_completed_depth": 8
+        },
+        "b": {
+          "actions": 171,
+          "median_ms": 218.989,
+          "mean_ms": 482.1664678362573,
+          "p95_ms": 1200.384,
+          "mean_completed_depth": 11.649122807017545
+        }
+      }
+    }
+  ],
+  "interval_method": "Hoeffding on bounded opening-pair means; independent-opening assumption; simultaneous interval accounts for planned variants",
+  "limitations": [
+    "Synthetic non-capture placement openings, not a representative sample of human games.",
+    "Finite unique opening pool; confidence bounds assume independent sampling of pairs.",
+    "Timing samples come from different played positions; not a matched-position speed or energy benchmark.",
+    "Mac host release binary with the production bridge; no physical iPhone measurements.",
+    "Only the configured level/effort; no chess Elo or calibrated human rating.",
+    "Any incomplete planned run is exploratory, not a completed fixed-sample comparison."
+  ]
+}

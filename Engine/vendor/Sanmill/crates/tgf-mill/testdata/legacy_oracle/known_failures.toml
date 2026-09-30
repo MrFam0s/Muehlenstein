@@ -1,0 +1,26 @@
+# Oracle replay known failures.
+#
+# Each entry in [[failures]] marks a rule_idx for which the oracle replay
+# test is expected to diverge from the LegacyKernel reference.
+# Remove entries as rule-correctness fixes are applied.
+#
+# Fields:
+#   rule_idx   - integer 0-10
+#   reason     - human-readable explanation
+#   phase      - "all" or "placing"/"moving" to narrow scope
+#
+# No known failures: all 11 rule presets replay clean against the
+# committed oracle snapshots.  The historical Phase X1 entries were:
+#   rule 2 (Dooz)     - fixed by deriving the phase from the active
+#                       side's hand count on every side switch (mirror
+#                       of legacy Position::set_side_to_move), so a
+#                       player whose hand was emptied by
+#                       RemoveOpponentsPieceFromHandThenOpponentsTurn
+#                       moves while the opponent keeps placing.
+#   rule 8 (Zhi Qi)   - fixed by re-syncing the action state after
+#                       maybe_handle_stalemate arms a stalemate removal
+#                       (mirror of check_if_game_is_over's tail) and by
+#                       skipping mill protection on the stalemate
+#                       removal path (mirror of generate<REMOVE>).
+#   rule 9 (El Filja) - resolved by the earlier RemovalBasedOnMillCounts
+#                       placing-phase fixes; the entry was stale.

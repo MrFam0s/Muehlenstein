@@ -1,0 +1,49 @@
+# Architecture
+
+## Ownership
+
+`App/` is SwiftUI, navigation, presentation, localization and local persistence. `Engine/src/` is our Rust C boundary. `Engine/vendor/Sanmill/crates/` preserves the upstream core, mill and search crates unchanged, with their original tests and notices.
+
+All game rules, legal actions, geometry, captures and outcomes come from Rust. Swift only chooses among the supplied legal actions and renders the supplied state. No mirrored Swift rules or substitute Swift AI exist.
+
+The small C ABI accepts a versioned JSON request and returns owned JSON. Swift frees every returned string exactly once. Requests are independent, so background searches never mutate the UI's session. The engine validates preset, version, level, input length and every recorded move. Panics are caught at the C boundary. Internal OOM/abort conditions remain process failures.
+
+## Replay and persistence
+
+A saved game records schema, pinned engine revision, preset/opponent/level/search algorithm/effort and canonical notation with actor labels. The development save format is now schema 2 with five difficulty levels. No migration of earlier development saves is provided; unknown enum values are rejected. The current state is always reconstructed using `GameKernel::apply`, including the upstream full-history repetition path. Writes are atomic in the app's Application Support directory. Incompatible or invalid saves show an error and remain untouched until the user explicitly starts a replacement game.
+
+A snapshot request replays the bounded log (maximum 2048 individual actions). This is intentionally simple for the first integration milestone. Profile replay costs before longer records, analysis trees or networking. If an owned session handle replaces this transport later, preserve the versioned transcript as the durable interchange format.
+
+## Search
+
+A detached Swift task receives an immutable transcript. Rust reconstructs it and runs the original monomorphized `Searcher<MillGame>`, selected MTD(f) or PVS, removal quiescence policy and repetition history. The algorithm also reaches the upstream move-order context. Iterations retain the latest fully completed legal result. Five standard depth/time profiles: 2/150 ms, 4/250 ms, 5/450 ms, 8/800 ms, 12/1200 ms; extended profiles: 4/600 ms, 6/1000 ms, 8/1800 ms, 12/2600 ms, 16/3600 ms. Default level 3 is the original middle profile. No compatibility code is maintained for old app saves. The JSON/C bridge explicitly receives `level_scale: "five"`; its separate legacy three-level request scale remains available for reproducing archived benchmark plans. Both use 16 MiB TT per search. These labels are provisional and not calibrated ratings. Time limits are cooperative search budgets, not a guaranteed total wall-clock response time.
+
+New-game setup exposes opponent choice, a five-stop difficulty slider and a two-column variant grid. Algorithm and thinking-time buttons expand inline. Contextual info buttons open reading sheets. The in-game computer sheet reuses the same editor and draft behavior. Sheets use compact detents on iPhone and explicit iPad presentation size proposals; a GeometryReader alone has no useful intrinsic sheet height. When large text cannot fit, compact section tabs expose controls within the same sheet without scrolling. Applying changes during a game preserves the transcript, opponent and variant, validates the configuration, cancels the previous native search and invalidates its generation. A new search starts if it is still the computer's turn. Settings apply to future hint calculations as well. Cancelling the sheet discards the draft. No opponent personality or automatic level adaptation is implied by algorithm choice.
+
+Each search owns a cancellation ID backed by a mutex-protected Rust registry of `Arc<AtomicBool>` values. Swift retains its handle across the C call and connects task cancellation to the upstream searcher's abort flag. Navigation, backgrounding and replacement games cancel replay/search cooperatively. Releasing the registry entry cannot invalidate an in-flight search's owned Arc. Generation tokens additionally discard stale results. Background energy measurements remain pending.
+
+Computer presentation uses a monotonic, cancellable minimum deadline: placement 850–1150 ms, movement 950–1250 ms, capture 650–900 ms. Calculation overlaps this time; a slower search adds no artificial pause. Captures are separate visible actions, including when they follow a mill. Hint requests have no presentation delay. Tests inject a fixed duration rather than depending on random pacing.
+
+The replay response includes `lastTurn`, the actions by the last recorded actor (move/placement plus any captures). When enabled, the board displays a destination ring, a dashed movement origin/path and a cross for removed stones; the status describes the computer's last action. This presentation is reconstructed after restoration and undo, without adding fields to the saved-game format.
+
+`AppPreferences` stores independent display booleans in local UserDefaults: legal targets, last move, and level badge. All default to enabled. UI-test launches use an isolated defaults suite; the optional test-save identifier permits relaunch tests. Turning off targets hides both visual and accessibility destination annotations, never changes the legal action list, and uses instructions that do not refer to invisible markers. Explicit hints and the separately requested legal-move list remain available. The selected own stone remains marked as interaction feedback.
+
+The Flutter-side opening book → Human DB → search → optional Perfect DB policy is not yet ported. Algorithms and evaluator are upstream; end-to-end strength equivalence is not claimed.
+
+## Fixed screen layout
+
+Home, game and setup contain no scroll containers. Flexible square board regions consume the space remaining after controls; wide viewports use a side-by-side arrangement. Status text reserves line counts and the thinking indicator has a fixed slot so changing game state cannot shift board coordinates. At accessibility sizes, secondary text is available through a separate detail sheet, with a paged legal-action chooser as an alternative to board targeting.
+
+History and legal moves use height-dependent paged rows. Rules, credits and the full bundled license use TextKit pagination and a non-scrolling UITextView with matching font/insets. Dynamic Type changes page count; UTF-16 ranges preserve the source text exactly, covered by a full-license and Unicode round-trip test. Presentation remains separate from game rules and saves.
+
+## Networking seam
+
+Future network commands should carry protocol version, game ID, variant configuration hash, sequence number, expected prior position hash and canonical action. Receivers must replay/validate before accepting. Distinguish transport/identity (GameKit or later server) from rules. Add reconnection, idempotency, abandonment and time control policies in the dedicated network milestone. Current saves are an internal format, not an authenticated network protocol.
+
+## Build
+
+The Xcode pre-build step links an arm64 Rust static library into the Swift application. A project-local official Rust 1.98.1 toolchain avoids Homebrew's incompatible metadata build tag. Apple Silicon iPhone simulator and physical iOS targets are supported. Intel simulator and Catalyst are not configured. No Flutter runtime is included.
+
+## Xcode project maintenance
+
+The project navigator now mirrors the on-disk App/Core, App/Design, App/Features, App/Resources and Tests directories. `Configuration/App.xcconfig` supplies the shared team and exact bundle ID `org.amosystems.Muehlenstein`; app and test targets inherit it in Debug and Release. The former project generator has become an additive Swift-source synchronizer. Existing settings, schemes and capabilities are retained, including overrides edited in Xcode. Its regression check inserts a source while preserving customized signing/entitlement values and verifies idempotence.

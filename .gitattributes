@@ -1,0 +1,4 @@
+# Preserve generated document, image and benchmark archive bytes.
+*.pdf binary
+*.png binary
+*.gz binary

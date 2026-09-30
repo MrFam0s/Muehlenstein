@@ -1,0 +1,146 @@
+NAMENSVORSCHLÄGE UND APP-STORE-VORPRÜFUNG
+Stand: 30.09.2026 | Zeitzone: Europe/Berlin
+
+Status: Vorschläge, keine Namensentscheidung, keine Registrierung.
+Für die fünf Kandidaten wurden Apples öffentliche Software-Suche in Deutschland (DE), Österreich (AT), Schweiz (CH), USA (US) und Großbritannien (GB) sowie ergänzende Websuchen verwendet.
+Die Suche ist unscharf und liefert teilweise fachfremde Ergebnisse. Bewertet wurden die zurückgegebenen App-Titel, nicht bloß die Zahl aller Treffer. Keine Abfrage erreichte das Limit von 200.
+Kein gleichnamiger Titel gefunden bedeutet nicht, dass ein Name reservierbar, weltweit unbenutzt oder markenrechtlich freigegeben ist. Unveröffentlichte bzw. reservierte Namen werden so nicht vollständig sichtbar. App Store Connect und gezielte Markenprüfung folgen vor der Festlegung.
+
+EMPFEHLUNGEN
+
+STEINZUG
+Deutscher Store-Titel: Steinzug – Mühle (16 Zeichen)
+Prägnant, deutsch, Spielstein und strategischer Zug. Funktioniert für verschiedene Mühlevarianten. International weniger selbsterklärend.
+Eigene Einschätzung: stärkster deutscher Name. Ruhige Materialien, Warmweiß, Graphit, dezenter Akzent.
+Ergebnis: In den unten dokumentierten Abfragen kein App-Titel mit diesem Namen gefunden.
+  DE: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Steinzug&country=de&entity=software&limit=200
+  AT: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Steinzug&country=at&entity=software&limit=200
+  CH: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Steinzug&country=ch&entity=software&limit=200
+  US: 28 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Steinzug&country=us&entity=software&limit=200
+  GB: 25 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Steinzug&country=gb&entity=software&limit=200
+
+MORRIS FORMA
+Deutscher Store-Titel: Morris Forma – Mühle (20 Zeichen)
+Internationaler Bezug zu Morris; Forma passt zur Geometrie des Bretts. Im deutschen Titel sollte Mühle stehen.
+Eigene Einschätzung: stärkster international ausgerichteter Kandidat. Klare Linien, reduzierte Flächen, präzise Typografie.
+Ergebnis: In den unten dokumentierten Abfragen kein App-Titel mit diesem Namen gefunden.
+  DE: 1 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Forma&country=de&entity=software&limit=200
+  AT: 1 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Forma&country=at&entity=software&limit=200
+  CH: 1 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Forma&country=ch&entity=software&limit=200
+  US: 5 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Forma&country=us&entity=software&limit=200
+  GB: 2 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Forma&country=gb&entity=software&limit=200
+
+MÜHLESINN
+Deutscher Store-Titel: Mühlesinn (9 Zeichen)
+Spielart sofort erkennbar; verbindet Mühle und Nachdenken. Sprachlich besonders für den deutschsprachigen Markt geeignet.
+Freundlicher, zugänglicher Auftritt. Umlaut bei technischen Namen als ue schreiben.
+Ergebnis: In den unten dokumentierten Abfragen kein App-Titel mit diesem Namen gefunden.
+  DE: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=M%C3%BChlesinn&country=de&entity=software&limit=200
+  AT: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=M%C3%BChlesinn&country=at&entity=software&limit=200
+  CH: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=M%C3%BChlesinn&country=ch&entity=software&limit=200
+  US: 130 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=M%C3%BChlesinn&country=us&entity=software&limit=200
+  GB: 159 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=M%C3%BChlesinn&country=gb&entity=software&limit=200
+
+DREILINIE
+Deutscher Store-Titel: Dreilinie – Mühle (17 Zeichen)
+Eigenständiger deutscher Name, erinnert an die Dreierreihe. Brettspielbezug muss Titelzusatz und Icon vermitteln.
+Geometrischer Auftritt; drei Punkte als wiederkehrendes Motiv.
+Ergebnis: In den unten dokumentierten Abfragen kein App-Titel mit diesem Namen gefunden.
+  DE: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Dreilinie&country=de&entity=software&limit=200
+  AT: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Dreilinie&country=at&entity=software&limit=200
+  CH: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Dreilinie&country=ch&entity=software&limit=200
+  US: 4 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Dreilinie&country=us&entity=software&limit=200
+  GB: 4 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Dreilinie&country=gb&entity=software&limit=200
+
+MORRIS ATELIER
+Deutscher Store-Titel: Morris Atelier (14 Zeichen)
+Betont Gestaltung und den handwerklichen Charakter eines Brettspiels. Länger und weniger direkt als Steinzug.
+Warmer, sorgfältig gestalteter Auftritt mit taktil wirkenden Steinen.
+Ergebnis: In den unten dokumentierten Abfragen kein App-Titel mit diesem Namen gefunden.
+  DE: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Atelier&country=de&entity=software&limit=200
+  AT: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Atelier&country=at&entity=software&limit=200
+  CH: 0 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Atelier&country=ch&entity=software&limit=200
+  US: 2 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Atelier&country=us&entity=software&limit=200
+  GB: 2 zurückgegebene Ergebnisse; 0 Titel mit dem Kandidatennamen.
+  Quelle: https://itunes.apple.com/search?term=Morris+Atelier&country=gb&entity=software&limit=200
+
+ERGÄNZENDE PRÜFUNG
+Mühlesinn wurde ergänzend als Muehlesinn in DE und US abgefragt. Resultate siehe gespeicherte Recherche.
+Ergänzende Websuchen: exakte Kandidatennamen, App/Game/Software und gezielte Suche auf apps.apple.com.
+Die deutschen Wörter haben teilweise andere Verwendungen; daraus wird keine Freigabe abgeleitet.
+
+AUSGESCHIEDENE ODER ZURÜCKGESTELLTE IDEEN
+Mühlewerk: bereits als Mühle-Spiel im App Store nachgewiesen.
+https://apps.apple.com/ch/app/m%C3%BChlewerk/id6811305171
+Millio: unter anderem bestehende Fahrtenbuch-App.
+https://apps.apple.com/de/app/millio/id6755807994
+Merrilo: bestehende App für Geschenklisten.
+https://apps.apple.com/ar/app/merrilo-lista-de-regalos/id6809854801
+Merelio: gleichnamiger Software-/App-Anbieter, daher zurückgestellt.
+https://merelioinc.com/
+Neunwerk: etablierte Nutzung durch ein Architekturbüro; außerdem sprachliche Verengung auf neun Steine.
+https://www.neunwerk.de/
+Morriva: keine identische App in DE/US gefunden; anderweitige kommerzielle Namensnutzung, deshalb nicht in der engeren Auswahl.
+https://www.morriva.co.uk/
+
+METADATEN-VORSCHLAG
+Favorit DE: Steinzug – Mühle
+Favorit international: Morris Forma (DE: Morris Forma – Mühle)
+Deutscher Untertitel: Mühle, Varianten und starke KI (30 Zeichen)
+Englischer Untertitel: Nine Men’s Morris & Variants (28 Zeichen)
+Apple erlaubt für Name und Untertitel jeweils maximal 30 Zeichen:
+https://developer.apple.com/help/app-store-connect/reference/app-information/app-information/
+
+METHODIK
+Öffentliche Apple Search API; entity=software, limit=200, term=<Kandidat>, country=<Store>.
+https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/Searching.html
+Prüfumfang: öffentliche iOS-Software-Suche in fünf Ländern und ergänzende indexierte Webeinträge; keine vollständige weltweite oder markenrechtliche Recherche.
+Namenswahl und visuelle Richtungen sind eigene kreative Empfehlungen, keine extern belegten Qualitätsurteile.
+
+
+NACHTRAG: MÜHLENSTEIN (30.09.2026)
+Schreibweisen Mühlenstein und Muehlenstein in DE, AT, CH, US, GB geprüft. Keine gleichnamigen oder den vollständigen Namen enthaltenden App-Titel gefunden. Öffentliche Suche; keine Reservierungs- oder Markenprüfung.
+Mühlenstein / DE: 0 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=M%C3%BChlenstein&country=de&entity=software&limit=200
+Mühlenstein / AT: 0 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=M%C3%BChlenstein&country=at&entity=software&limit=200
+Mühlenstein / CH: 0 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=M%C3%BChlenstein&country=ch&entity=software&limit=200
+Mühlenstein / US: 5 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=M%C3%BChlenstein&country=us&entity=software&limit=200
+Mühlenstein / GB: 5 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=M%C3%BChlenstein&country=gb&entity=software&limit=200
+Muehlenstein / DE: 0 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=Muehlenstein&country=de&entity=software&limit=200
+Muehlenstein / AT: 0 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=Muehlenstein&country=at&entity=software&limit=200
+Muehlenstein / CH: 0 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=Muehlenstein&country=ch&entity=software&limit=200
+Muehlenstein / US: 35 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=Muehlenstein&country=us&entity=software&limit=200
+Muehlenstein / GB: 42 Suchergebnisse insgesamt; 0 Namensübereinstimmungen.
+https://itunes.apple.com/search?term=Muehlenstein&country=gb&entity=software&limit=200

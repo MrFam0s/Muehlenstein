@@ -1,0 +1,388 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+import XCTest
+
+final class MuehlensteinUITests: XCTestCase {
+    @MainActor private func launch(demo: Bool = false) -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"] + (demo ? ["-ui-demo"] : [])
+        app.launch()
+        return app
+    }
+    @MainActor func testLocalMillCaptureUndoAndHistory() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        XCTAssertTrue(app.buttons["node_c5"].waitForExistence(timeout: 5))
+        for coordinate in ["c5", "a7", "d5", "d7", "e5"] { app.buttons["node_\(coordinate)"].tap() }
+        XCTAssertTrue(app.staticTexts["Eine Mühle."].exists)
+        app.buttons["node_a7"].tap()
+        XCTAssertTrue(app.staticTexts["Schwarz ist am Zug."].exists)
+        app.buttons["undo"].tap()
+        XCTAssertTrue(app.staticTexts["Eine Mühle."].exists)
+        app.buttons["history"].tap()
+        XCTAssertTrue(app.staticTexts["e5"].waitForExistence(timeout: 3))
+        XCTAssertFalse(app.staticTexts["xa7"].exists)
+    }
+    @MainActor func testComputerRepliesAndUndoReturnsToOpening() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["node_a7"].tap()
+        XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Computer:")).firstMatch.exists)
+        let marked = app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges"))
+        XCTAssertEqual(marked.count, 1)
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = "Computer-Move-Visible"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+        app.buttons["history"].tap()
+        XCTAssertTrue(app.staticTexts["2"].waitForExistence(timeout: 3))
+        app.buttons["Fertig"].tap()
+        app.buttons["undo"].tap()
+        XCTAssertTrue(app.staticTexts["0 Aktionen"].exists)
+    }
+    @MainActor func testSavedGameSurvivesRelaunch() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["node_a7"].tap()
+        app.terminate()
+        app.launch()
+        app.buttons["continue_game"].tap()
+        XCTAssertTrue(app.staticTexts["Schwarz ist am Zug."].exists)
+        XCTAssertTrue(app.buttons["node_a7"].label.contains("Weiß"))
+        app.buttons["undo"].tap()
+        XCTAssertTrue(app.staticTexts["0 Aktionen"].exists)
+    }
+    @MainActor func testPreviewScreenshot() {
+        let app = launch(demo: true)
+        XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 5))
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = "Muehlenstein-Game"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+    @MainActor func testEnglishNameAndHomeScreenshot() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Muehlenstein"].exists)
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = "Muehlenstein-Home-English"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+    @MainActor private func assertVisible(_ element: XCUIElement, in app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertTrue(element.exists, file: file, line: line)
+        XCTAssertTrue(app.windows.firstMatch.frame.insetBy(dx: -1, dy: -1).contains(element.frame), "Clipped: \(element.identifier) \(element.frame)", file: file, line: line)
+        XCTAssertTrue(element.isHittable, file: file, line: line)
+    }
+    @MainActor private func record(_ name: String, app: XCUIApplication) {
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+    @MainActor private func toggleSwitch(_ key: String, in app: XCUIApplication) {
+        let toggle = app.switches[key].firstMatch
+        let before = toggle.value as? String
+        // SwiftUI exposes the whole labelled row as a Switch; its actual control is at the trailing edge.
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 1, dy: 0.5))
+            .withOffset(CGVector(dx: -25, dy: 0)).tap()
+        XCTAssertNotEqual(toggle.value as? String, before)
+    }
+    @MainActor private func assertFixedBoard(_ app: XCUIApplication) {
+        XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.scrollViews.count, 0)
+        let nodes = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "node_"))
+        XCTAssertEqual(nodes.count, 24)
+        for node in nodes.allElementsBoundByIndex { assertVisible(node, in: app) }
+        for key in ["undo", "hint", "history"] { assertVisible(app.buttons[key], in: app) }
+        let before = app.buttons["node_a7"].frame
+        app.buttons["node_d1"].press(forDuration: 0.05, thenDragTo: app.buttons["node_d2"])
+        XCTAssertEqual(app.buttons["node_a7"].frame, before, "Dragging on the board must not shift the surface")
+        app.buttons["node_a1"].tap()
+        XCTAssertEqual(app.buttons["node_a7"].frame, before, "A new turn must not move the board")
+    }
+    @MainActor func testHomeAndSetupFitWithoutScrolling() {
+        let app = launch()
+        XCTAssertEqual(app.scrollViews.count, 0)
+        XCTAssertFalse(app.staticTexts["ZEIT FÜR EINEN GUTEN ZUG"].exists)
+        assertVisible(app.buttons["new_game"], in: app)
+        assertVisible(app.buttons["learn_rules"], in: app)
+        record("Fixed-Home", app: app)
+        app.buttons["new_game"].tap()
+        XCTAssertEqual(app.scrollViews.count, 0)
+        assertVisible(app.buttons["start_game"], in: app)
+        assertVariantsVisible(app)
+        record("Fixed-Setup", app: app)
+    }
+    @MainActor func testBoardStaysFixedInPortrait() {
+        let app = launch(demo: true)
+        assertFixedBoard(app)
+        record("Fixed-Game-Portrait", app: app)
+    }
+    @MainActor func testBoardAndSetupFitInLandscape() {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let app = launch(demo: true)
+        assertFixedBoard(app)
+        record("Fixed-Game-Landscape", app: app)
+        app.navigationBars.buttons.firstMatch.tap()
+        assertVisible(app.buttons["continue_game"], in: app)
+        assertVisible(app.buttons["new_game"], in: app)
+        app.buttons["new_game"].tap()
+        XCTAssertEqual(app.scrollViews.count, 0)
+        assertVisible(app.buttons["start_game"], in: app)
+        assertVariantsVisible(app)
+        record("Fixed-Setup-Landscape", app: app)
+    }
+    @MainActor func testLargestTextKeepsBoardAndHomeAccessible() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-demo", "-AppleLanguages", "(de)", "-AppleLocale", "de_DE",
+                               "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        assertFixedBoard(app)
+        assertVisible(app.buttons["legal_moves"], in: app)
+        record("Fixed-Game-Largest-Text", app: app)
+        app.buttons["legal_moves"].tap()
+        assertVisible(app.buttons["next_page"], in: app)
+        app.buttons["next_page"].tap()
+        XCTAssertTrue(app.staticTexts["page_count"].label.hasPrefix("2"))
+        app.buttons["Fertig"].tap()
+        app.navigationBars.buttons.firstMatch.tap()
+        assertVisible(app.buttons["continue_game"], in: app)
+        assertVisible(app.buttons["new_game"], in: app)
+        assertVisible(app.buttons["learn_rules"], in: app)
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("Fixed-Home-Largest-Text", app: app)
+        app.buttons["new_game"].tap()
+        assertVisible(app.buttons["start_game"], in: app)
+        assertVariantsVisible(app)
+        record("Fixed-Setup-Largest-Text", app: app)
+    }
+    @MainActor func testLargestTextFitsLandscape() {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-demo", "-AppleLanguages", "(de)", "-AppleLocale", "de_DE",
+                               "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        assertFixedBoard(app)
+        record("Fixed-Game-Largest-Landscape", app: app)
+        app.navigationBars.buttons.firstMatch.tap()
+        assertVisible(app.buttons["continue_game"], in: app)
+        assertVisible(app.buttons["new_game"], in: app)
+        assertVisible(app.buttons["learn_rules"], in: app)
+        record("Fixed-Home-Largest-Landscape", app: app)
+        app.buttons["new_game"].tap()
+        assertVisible(app.buttons["start_game"], in: app)
+        assertVariantsVisible(app)
+        record("Fixed-Setup-Largest-Landscape", app: app)
+    }
+    @MainActor func testLicenseAndAboutFitLargestLandscapeText() {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-AppleLanguages", "(de)", "-AppleLocale", "de_DE",
+                               "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        app.buttons["about"].tap()
+        for _ in 0..<3 {
+            if app.buttons["license"].exists && app.buttons["license"].isHittable { break }
+            app.buttons["next_page"].tap()
+        }
+        assertVisible(app.buttons["license"], in: app)
+        app.buttons["license"].tap()
+        XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("GNU AFFERO") == true)
+        // NavigationStack may retain the disabled pager of the preceding screen in its AX tree.
+        let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
+        assertVisible(next, in: app)
+        let firstPage = app.textViews.firstMatch.value as? String
+        next.tap()
+        XCTAssertNotEqual(app.textViews.firstMatch.value as? String, firstPage)
+        record("Fixed-License-Largest-Landscape", app: app)
+    }
+    @MainActor func testRulesUsePagesWithoutScrolling() {
+        let app = launch()
+        app.buttons["learn_rules"].tap()
+        let firstText = app.textViews.firstMatch.value as? String
+        XCTAssertFalse(firstText?.isEmpty ?? true)
+        app.buttons["next_page"].tap()
+        XCTAssertNotEqual(app.textViews.firstMatch.value as? String, firstText)
+        app.buttons["previous_page"].tap()
+        XCTAssertEqual(app.textViews.firstMatch.value as? String, firstText)
+        record("Paged-Rules", app: app)
+    }
+
+    @MainActor func testPlayingAidsCanBeHiddenAndPersistAcrossRelaunch() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        app.buttons["new_game"].tap()
+        app.buttons["start_game"].tap()
+        XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "mögliches Ziel")).count, 24)
+        app.buttons["node_a7"].tap()
+        XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
+        XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges")).count, 1)
+        XCTAssertTrue(app.otherElements["player_1"].label.contains("Stufe 3/5"))
+        let boardFrame = app.buttons["node_a7"].frame
+        app.buttons["game_options"].tap()
+        app.buttons["Spielhilfen"].tap()
+        record("Options-Playing-Aids", app: app)
+        for key in ["show_legal", "show_last", "show_level"] { toggleSwitch(key, in: app) }
+        app.buttons["display_done"].tap()
+        XCTAssertEqual(app.buttons["node_a7"].frame, boardFrame)
+        for fragment in ["mögliches Ziel", "Ziel des letzten Zuges"] {
+            XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", fragment)).count, 0)
+        }
+        XCTAssertFalse(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Computer:")).firstMatch.exists)
+        XCTAssertFalse(app.otherElements["player_1"].label.contains("Stufe"))
+        record("Options-Clean-Board", app: app)
+        app.terminate()
+        app.launch()
+        app.buttons["continue_game"].tap()
+        XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "mögliches Ziel")).count, 0)
+        XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges")).count, 0)
+        app.buttons["game_options"].tap()
+        app.buttons["Spielhilfen"].tap()
+        for key in ["show_legal", "show_last", "show_level"] {
+            XCTAssertEqual(app.switches[key].firstMatch.value as? String, "0")
+            toggleSwitch(key, in: app)
+        }
+        app.buttons["display_done"].tap()
+        XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "mögliches Ziel")).count, 22)
+        XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges")).count, 1)
+    }
+
+    @MainActor private func showSetupPanel(_ key: String, in app: XCUIApplication) {
+        if app.buttons["setup_tab_" + key].exists {
+            app.buttons["setup_tab_" + key].tap()
+        } else if key == "advanced" && !app.buttons["algorithm_pvs"].exists {
+            app.buttons["advanced_options"].tap()
+        }
+    }
+    @MainActor private func assertVariantsVisible(_ app: XCUIApplication) {
+        showSetupPanel("variant", in: app)
+        for key in ["classic", "twelve", "morabaraba", "lasker"] {
+            assertVisible(app.buttons["variant_" + key], in: app)
+            XCTAssertLessThanOrEqual(app.buttons["variant_" + key].frame.maxY, app.buttons["start_game"].frame.minY - 2, "Variant must not overlap the start button")
+        }
+    }
+    @MainActor func testAdvancedSearchSelectionAndExplanations() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        XCTAssertFalse(app.buttons["computer_options"].exists)
+        XCTAssertFalse(app.buttons["algorithm_pvs"].exists)
+        XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("3"))
+        assertVariantsVisible(app)
+        record("Inline-Setup", app: app)
+        showSetupPanel("advanced", in: app)
+        XCTAssertTrue(app.buttons["algorithm_mtdf"].isSelected)
+        app.buttons["algorithm_pvs"].tap()
+        app.buttons["effort_extended"].tap()
+        XCTAssertTrue(app.navigationBars["Neue Partie"].exists)
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("Inline-Setup-Advanced", app: app)
+        app.buttons["info_search_comparison"].tap()
+        var explanation = ""
+        for _ in 0..<12 {
+            explanation += (app.textViews.firstMatch.value as? String) ?? ""
+            let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
+            if !next.exists { break }
+            next.tap()
+        }
+        for fragment in ["MTD(f) · Voreinstellung", "PVS · Alternative", "Stärke:", "Schwäche:", "mittleren Stufe", "keinen belastbaren"] {
+            XCTAssertTrue(explanation.contains(fragment))
+        }
+        app.navigationBars["Suchverfahren erklärt"].buttons["Fertig"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Computer einstellen"].tap()
+        showSetupPanel("advanced", in: app)
+        XCTAssertTrue(app.buttons["algorithm_pvs"].isSelected)
+        XCTAssertTrue(app.buttons["effort_extended"].isSelected)
+        record("Inline-Computer-Options", app: app)
+        app.buttons["computer_done"].tap()
+        app.buttons["node_a7"].tap()
+        XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
+    }
+
+    @MainActor func testFiveLevelsAndCancelledAdvancedChanges() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        for level in 1...5 {
+            app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: CGFloat(level - 1) / 4)
+            XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("\(level) ·"))
+        }
+        for key in ["twelve", "morabaraba", "lasker", "classic"] {
+            app.buttons["variant_" + key].tap()
+            XCTAssertTrue(app.buttons["variant_" + key].isSelected)
+        }
+        app.buttons["opponent_local"].tap()
+        XCTAssertFalse(app.sliders["difficulty_slider"].exists)
+        XCTAssertFalse(app.buttons["advanced_options"].exists)
+        app.buttons["opponent_computer"].tap()
+        XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("5"))
+        app.buttons["start_game"].tap()
+        XCTAssertTrue(app.otherElements["player_1"].label.contains("Stufe 5/5"))
+        app.buttons["game_options"].tap()
+        app.buttons["Computer einstellen"].tap()
+        showSetupPanel("advanced", in: app)
+        app.buttons["algorithm_pvs"].tap()
+        app.buttons["effort_extended"].tap()
+        app.navigationBars["Computer"].buttons["Abbrechen"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Computer einstellen"].tap()
+        showSetupPanel("advanced", in: app)
+        XCTAssertTrue(app.buttons["algorithm_mtdf"].isSelected)
+        XCTAssertTrue(app.buttons["effort_standard"].isSelected)
+        app.buttons["computer_done"].tap()
+        app.buttons["node_a7"].tap()
+        XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
+    }
+
+    @MainActor func testOptionsFitLargestTextInLandscapeWithoutScrolling() {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-AppleLanguages", "(de)", "-AppleLocale", "de_DE",
+                               "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        app.buttons["display_options"].tap()
+        for key in ["show_legal", "show_last", "show_level"] {
+            let toggle = app.switches[key].firstMatch
+            if !toggle.exists { app.buttons["next_page"].tap() }
+            assertVisible(toggle, in: app)
+            toggleSwitch(key, in: app)
+            XCTAssertEqual(app.scrollViews.count, 0)
+        }
+        record("Inline-Playing-Aids-Largest-Landscape", app: app)
+        app.buttons["display_done"].tap()
+        app.buttons["new_game"].tap()
+        showSetupPanel("difficulty", in: app)
+        assertVisible(app.sliders["difficulty_slider"], in: app)
+        assertVisible(app.buttons["info_computer_help"], in: app)
+        record("Inline-Difficulty-Largest-Landscape", app: app)
+        assertVariantsVisible(app)
+        for key in ["classic", "twelve", "morabaraba", "lasker"] {
+            app.buttons["variant_" + key].tap()
+            XCTAssertTrue(app.buttons["variant_" + key].isSelected)
+            XCTAssertTrue(app.navigationBars["Neue Partie"].exists)
+        }
+        record("Inline-Variants-Largest-Landscape", app: app)
+        showSetupPanel("advanced", in: app)
+        for key in ["algorithm_mtdf", "algorithm_pvs", "effort_standard", "effort_extended", "info_search_comparison", "info_search_help"] {
+            assertVisible(app.buttons[key], in: app)
+            XCTAssertLessThanOrEqual(app.buttons[key].frame.maxY, app.buttons["start_game"].frame.minY - 2)
+        }
+        XCTAssertEqual(app.scrollViews.count, 0)
+        assertVisible(app.buttons["start_game"], in: app)
+        record("Inline-Advanced-Largest-Landscape", app: app)
+    }
+}

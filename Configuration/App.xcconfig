@@ -1,0 +1,5 @@
+// Shared app identity. This file is not generated.
+// Target-level changes in Xcode override these defaults and are retained by the source sync script.
+DEVELOPMENT_TEAM = 4WHV5UZ8E5
+MUEHLENSTEIN_BUNDLE_ID = org.amosystems.Muehlenstein
+CODE_SIGN_STYLE = Automatic

@@ -1,0 +1,25 @@
+[package]
+name        = "tgf-mill"
+version     = "0.1.0"
+edition     = "2024"
+description = "TGF – Mill (Nine/Ten/Twelve Men's Morris) game implementation"
+license     = "AGPL-3.0-or-later"
+
+[features]
+serde = ["dep:serde"]
+
+[dependencies]
+arrayvec = "0.7"
+serde = { version = "1", features = ["derive"], optional = true }
+tgf-core = { path = "../tgf-core" }
+
+[dev-dependencies]
+# tgf-search powers the integration tests below that exercise the generic
+# searcher against MillGame.  Keeping these tests in tgf-mill keeps
+# tgf-search game-neutral while still validating end-to-end behaviour.
+tgf-search = { path = "../tgf-search" }
+criterion  = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name    = "searcher"
+harness = false

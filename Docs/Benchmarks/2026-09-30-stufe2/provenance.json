@@ -1,0 +1,15 @@
+{
+  "source_sha256": {
+    "Engine/src/lib.rs": "9d37b39acc4383522f367f775adca00f587f6937c8ac11736fc620616d7097ff",
+    "Engine/src/cancellation.rs": "0027b4130ee01d9aea12e614181e1e271519f783ffbb92bf2462af7d6fc92a3e",
+    "Engine/examples/compare_search.rs": "382a146be6e1a65dbd88b5bb291c89d62709292e6a7b99ca1e77838a4994fe8c",
+    "Engine/Cargo.lock": "3ae111f0c41342fa32348ab14ceb13cd9ef6529c488eaf5ed42d8c13e1917018",
+    "Engine/UPSTREAM_SHA256.json": "b95fd09aebdf83bf2ac817995c7f0e312001a496e34eb479c2f78f0f64655376",
+    "Scripts/compare-search.sh": "ddd082ac15c800bcab43c13f91f1fc818e00b9f7b4b0119968d0384037e1b531",
+    "Scripts/summarize-search.py": "18a78dc249d951176f2e3a2f57e7955b9a558c5f63cde7effe381c2d33f7a7e3",
+    "Engine/target/release/examples/compare_search": "2a57921b14d756d04770dfd0331b818da00ba0d5ebef19ecf1050f357e19065b"
+  },
+  "verified_upstream_files": 85,
+  "host": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "arm64"
+}

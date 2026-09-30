@@ -1,0 +1,9 @@
+{
+  "seed": 2026093003,
+  "pairs_per_variant": 256,
+  "presets": [0, 1, 3, 5],
+  "a": {"algorithm": "mtdf", "level": 2, "effort": "standard"},
+  "b": {"algorithm": "pvs", "level": 2, "effort": "standard"},
+  "max_actions": 512,
+  "max_seconds": 600
+}
