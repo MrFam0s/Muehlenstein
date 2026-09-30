@@ -128,8 +128,8 @@ struct GameSetupEditor: View {
             HStack {
                 ForEach(GameSettings.levels, id: \.self) { level in
                     if level > 1 { Spacer(minLength: 0) }
-                    Text("\(level)").font(.caption).monospacedDigit()
-                        .foregroundStyle(level == settings.level ? Color.petrol : Color.quietInk)
+                    Text("\(level)").font(.caption.weight(level == settings.level ? .semibold : .medium)).monospacedDigit()
+                        .foregroundStyle(Color.ink)
                 }
             }.padding(.horizontal, 3).accessibilityHidden(true)
         }
@@ -195,7 +195,8 @@ struct GameSetupEditor: View {
     }
     private func info(_ key: String) -> some View {
         Button { help = Help(id: key, title: L10n.text(key), text: L10n.text(key + "_body")) } label: {
-            Image(systemName: "info.circle").font(.system(size: dynamicType.isAccessibilitySize ? 26 : 18)).frame(width: 44, height: 44)
+            Image(systemName: "info.circle").font(.system(size: dynamicType.isAccessibilitySize ? 26 : 18))
+                .frame(width: 44, height: 44).contentShape(Rectangle())
         }.buttonStyle(.plain).foregroundStyle(Color.petrol)
             .accessibilityLabel(L10n.text(key)).accessibilityIdentifier("info_" + key)
     }

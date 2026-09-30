@@ -8,6 +8,60 @@ final class MuehlensteinUITests: XCTestCase {
         app.launch()
         return app
     }
+    @MainActor func testAccessibleTargetsAndLabelsHome() throws {
+        let app = launch()
+        try auditAccessibility(app)
+    }
+    @MainActor func testAccessibleTargetsAndLabelsSetup() throws {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        app.buttons["advanced_options"].tap()
+        record("Audit-Setup-Before", app: app)
+        try auditAccessibility(app)
+    }
+    @MainActor func testAccessibleTargetsAndLabelsGame() throws {
+        let app = launch(demo: true)
+        XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 5))
+        try auditAccessibility(app)
+    }
+    @MainActor private func auditAccessibility(_ app: XCUIApplication) throws {
+        // Aggregate every finding into one failure to keep the device result export manageable.
+        // No findings from these checks are waived. Sheet contrast/font heuristics have
+        // unresolved findings documented in VALIDATION; actual font growth is tested below.
+        var findings: [String] = []
+        for (name, type): (String, XCUIAccessibilityAuditType) in [
+            ("elements", .elementDetection), ("targets", .hitRegion),
+            ("labels", .sufficientElementDescription), ("traits", .trait)
+        ] {
+            try app.performAccessibilityAudit(for: type) { issue in
+                let message = "\(name): \(issue.compactDescription) · \(issue.element?.label ?? "unknown") · \(issue.element?.identifier ?? "") · \(String(describing: issue.element?.frame)) · \(issue.detailedDescription)"
+                print("ACCESSIBILITY: \(message)")
+                findings.append(message)
+                return true
+            }
+        }
+        XCTAssertTrue(findings.isEmpty, findings.joined(separator: "\n"))
+    }
+    @MainActor func testSetupTextScalesAtLargestSize() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        let normal = app.staticTexts["difficulty_value"].frame.height
+        app.terminate()
+        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        app.buttons["new_game"].tap()
+        showSetupPanel("difficulty", in: app)
+        let enlarged = app.staticTexts["difficulty_value"]
+        assertVisible(enlarged, in: app)
+        XCTAssertGreaterThan(enlarged.frame.height, normal * 1.8, "The actual rendered type must grow substantially")
+        record("Audit-Setup-Largest-Difficulty", app: app)
+        showSetupPanel("variant", in: app)
+        assertVariantsVisible(app)
+        record("Audit-Setup-Largest-Variants", app: app)
+        showSetupPanel("advanced", in: app)
+        for key in ["algorithm_mtdf", "algorithm_pvs", "effort_standard", "effort_extended"] { assertVisible(app.buttons[key], in: app) }
+        record("Audit-Setup-Largest-Advanced", app: app)
+    }
     @MainActor func testLocalMillCaptureUndoAndHistory() {
         let app = launch()
         app.buttons["new_game"].tap()

@@ -194,7 +194,7 @@ struct GameView: View {
         HStack(spacing: 8) {
             Circle().fill(Color.petrol).frame(width: 5, height: 5)
             Text(L10n.text(position.isOver ? "finished" : position.action == 2 ? "capture_phase" : position.phase == 2 ? "moving_phase" : "placing_phase"))
-            Text("·")
+            Circle().fill(Color.quietInk).frame(width: 3, height: 3).accessibilityHidden(true)
             Text(L10n.format("action_count", store.game?.moves.count ?? 0))
         }.font(.caption).foregroundStyle(Color.quietInk).lineLimit(1)
     }

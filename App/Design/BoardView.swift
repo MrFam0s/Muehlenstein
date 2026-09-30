@@ -89,8 +89,6 @@ struct BoardView: View {
                     .accessibilityIdentifier("node_\(node.label)")
                     .position(point(node.id, size: size))
                 }
-                Text("M").font(.system(size: 12, design: .serif)).foregroundStyle(Color.quietInk.opacity(0.6))
-                    .accessibilityHidden(true)
             }
         }.aspectRatio(1, contentMode: .fit)
     }

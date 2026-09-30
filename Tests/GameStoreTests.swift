@@ -335,4 +335,21 @@ final class GameStoreTests: XCTestCase {
         XCTAssertTrue(store.game?.moves.isEmpty == true)
     }
 
+    private func measureSearch(level: Int, effort: SearchEffort) {
+        let moves = ["a7", "f6", "d6", "g1", "c5", "d3"]
+        let game = SavedGame(settings: GameSettings(level: level, effort: effort), moves:
+            moves.enumerated().map { MoveRecord(notation: $0.element, side: $0.offset % 2) })
+        let options = XCTMeasureOptions()
+        options.iterationCount = 5
+        // Measures calculation, including its TT allocation; intentional UI pacing is excluded.
+        measure(metrics: [XCTClockMetric(), XCTCPUMetric(), XCTMemoryMetric()], options: options) {
+            do {
+                let result = try Engine.query(game, search: true)
+                XCTAssertTrue(result.legal.contains(try XCTUnwrap(result.best)))
+            } catch { XCTFail("Measured search failed: \(error)") }
+        }
+    }
+    func testPerformanceStandardSearch() { measureSearch(level: 3, effort: .standard) }
+    func testPerformanceExtendedSearch() { measureSearch(level: 5, effort: .extended) }
+
 }

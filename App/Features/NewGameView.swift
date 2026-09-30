@@ -29,7 +29,7 @@ struct NewGameView: View {
             }.padding(16).frame(maxWidth: 760).frame(maxWidth: .infinity)
                 .background(Color.limestone)
                 .navigationTitle(L10n.text("new_game")).navigationBarTitleDisplayMode(.inline)
-                .toolbar { ToolbarItem(placement: .cancellationAction) { Button(L10n.text("cancel")) { dismiss() } } }
+                .toolbar { ToolbarItem(placement: .cancellationAction) { Button(L10n.text("cancel")) { dismiss() }.tint(.ink) } }
                 .confirmationDialog(L10n.text("replace_game"), isPresented: $confirm, titleVisibility: .visible) {
                     Button(L10n.text("replace_and_start"), role: .destructive) { begin() }
                     Button(L10n.text("cancel"), role: .cancel) { }

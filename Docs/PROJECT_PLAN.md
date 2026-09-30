@@ -6,7 +6,7 @@ Aktualisiert am 30.09.2026. Die ursprüngliche Rechts- und Produktplanung liegt 
 | --- | --- | --- |
 | 0 — Grundlage | Deutsche/internationale Benennung, Arbeitsordner, Preis-/Open-Source-Modell, festgehaltener Sanmill-Quellstand | Lokal umgesetzt |
 | 1 — Design und native Anbindung | SwiftUI-Start, Partie, Konfiguration, iPhone/iPad, Hell/Dunkel, echter Rust-Spielkern, lokale Speicherung, Simulatorprüfung | Bestätigter spielbarer Prototyp; erster lokaler Commit erstellt |
-| 2 — Offline-Stabilität | Vollständige Partien einschließlich Ziehen/Springen/Schlagen/Remis, Varianten, Wiederherstellung und Abbruch, Geräte-/VoiceOver-/Energietests | Lokale Regressionsprüfungen erfolgreich: 18 feste Partien, Wiederherstellung nach 1.000 Aktionen, Sonderregeln und Unterbrechungen; echte Geräte, ältere iOS-Versionen, VoiceOver und Energie offen |
+| 2 — Offline-Stabilität | Vollständige Partien einschließlich Ziehen/Springen/Schlagen/Remis, Varianten, Wiederherstellung und Abbruch, Geräte-/VoiceOver-/Energietests | Lokale Prüfungen und erster physischer iPhone-Gesamtlauf erfolgreich; erste CPU-/Speicherwerte vorhanden. Weitere Geräte, ältere iOS-Versionen, vollständige Barrierefreiheit und Energie-Langzeittest offen |
 | 3 — Sanmill-Funktionsumfang | Weitere sieben Presets und erweiterte Regeln, zusätzliche Suchverfahren, KI gegen KI, Analyse/Stellungseditor, Eröffnungsbuch/Human DB/Perfect DB mit Herkunftsnachweisen | Teilweise: MTD(f)/PVS und Rechenzeitwahl mit Erläuterungen umgesetzt; übriger Umfang geplant |
 | 4 — Lernen und Sammlung | Einführung, Rätsel mit geklärten Inhaltsrechten, Import/Export, navigierbare Nachspiel- und Analyseansicht | Geplant |
 | 5 — Veröffentlichung | Quellarchiv passend zum Binary, Rechte-/Abhängigkeitsprüfung, Signierung, Datenschutz/Barrierefreiheit/Geräte, Support/Store-Inhalte, deutscher Zielpreis 0,99 € | Geplant |
@@ -29,7 +29,7 @@ Als Nächstes wird Meilenstein 2 abgeschlossen:
 
 Die nächste Arbeit erweitert damit vor allem die Verlässlichkeit des bestätigten Bedienkonzepts. Eine zahlenmäßige Elo-Anzeige bleibt bis zur belastbaren Kalibrierung zurückgestellt.
 
-Fortschritt: Die Punkte 1 und 2 sind mit festen Referenzpartien, ergänzenden Regelprüfungen und App-Unterbrechungstests lokal geprüft. Ein Fehler in der Zugliste bei bereits ausgewähltem Stein wurde reproduziert und korrigiert. Der vorhandene Simulator läuft mit iOS 27; ältere Laufzeiten und echte Geräte waren nicht erreichbar. Punkt 3 bleibt daher ausdrücklich offen. Die Einzelbefunde stehen in `VALIDATION.md`.
+Fortschritt: Die Punkte 1 und 2 sind mit festen Referenzpartien, ergänzenden Regelprüfungen und App-Unterbrechungstests lokal geprüft. Ein Fehler in der Zugliste bei bereits ausgewähltem Stein wurde reproduziert und korrigiert. Der erste vollständige Gerätelauf auf iPhone 18 Pro / iOS 27.0.1 besteht, ebenso die Nachprüfungen verbesserter Bedienflächen und echter Textvergrößerung. Erste CPU-/Speichermessungen sind archiviert. Punkt 3 bleibt für weitere Geräte, ältere iOS-Versionen, manuelles VoiceOver, offene Inspector-Befunde und Energie über längere Partien offen. Die Einzelbefunde stehen in `VALIDATION.md`.
 
 ## Umfang und offene Produktangaben
 

@@ -1,0 +1,185 @@
+{
+  "device": "iPhone 18 Pro",
+  "os": "iOS 27.0.1",
+  "date": "2026-09-30",
+  "swiftConfiguration": "Debug",
+  "rustConfiguration": "Release",
+  "engineRevision": "8901a06f088bf49a1602fee8686ed25ac5a33925",
+  "algorithm": "mtdf",
+  "positionMoves": [
+    "a7",
+    "f6",
+    "d6",
+    "g1",
+    "c5",
+    "d3"
+  ],
+  "profiles": {
+    "testPerformanceStandardSearch": {
+      "level": 3,
+      "effort": "standard"
+    },
+    "testPerformanceExtendedSearch": {
+      "level": 5,
+      "effort": "extended"
+    }
+  },
+  "iterations": 5,
+  "sourceLog": ".build/hardware-final-fa-iphone.log",
+  "limitations": [
+    "One fixed position, warm repeated queries, not a complete game or battery-life estimate.",
+    "CPU metrics cover the model-test app process, including incidental app work. Memory peak is the process footprint; allocation deltas are not a leak diagnosis.",
+    "Intentional computer presentation pauses are excluded."
+  ],
+  "metrics": {
+    "testPerformanceExtendedSearch": {
+      "Memory Physical, kB": {
+        "samples": [
+          -458.752,
+          -16891.928,
+          -425.984,
+          16597.016,
+          16.384
+        ],
+        "mean": -232.65280000000004,
+        "min": -16891.928,
+        "max": 16597.016
+      },
+      "CPU Cycles, kC": {
+        "samples": [
+          6605873.371,
+          6613807.426,
+          6615363.266,
+          6615165.153,
+          6656437.608
+        ],
+        "mean": 6621329.3648,
+        "min": 6605873.371,
+        "max": 6656437.608
+      },
+      "Clock Monotonic Time, s": {
+        "samples": [
+          1.319757,
+          1.326622,
+          1.330886,
+          1.332144,
+          1.341321
+        ],
+        "mean": 1.330146,
+        "min": 1.319757,
+        "max": 1.341321
+      },
+      "CPU Time, s": {
+        "samples": [
+          1.319709,
+          1.326413,
+          1.330898,
+          1.331984,
+          1.341031
+        ],
+        "mean": 1.330007,
+        "min": 1.319709,
+        "max": 1.341031
+      },
+      "CPU Instructions Retired, kI": {
+        "samples": [
+          30792007.221,
+          30793605.865,
+          30801851.268,
+          30801361.355,
+          30791962.649
+        ],
+        "mean": 30796157.6716,
+        "min": 30791962.649,
+        "max": 30801851.268
+      },
+      "Memory Peak Physical, kB": {
+        "samples": [
+          39323.464,
+          38864.712,
+          38750.024,
+          38356.808,
+          38176.584
+        ],
+        "mean": 38694.3184,
+        "min": 38176.584,
+        "max": 39323.464
+      }
+    },
+    "testPerformanceStandardSearch": {
+      "Memory Physical, kB": {
+        "samples": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          16.384
+        ],
+        "mean": 3.2768,
+        "min": 0.0,
+        "max": 16.384
+      },
+      "CPU Cycles, kC": {
+        "samples": [
+          3230.775,
+          3144.672,
+          3352.825,
+          3171.168,
+          3300.028
+        ],
+        "mean": 3239.8936,
+        "min": 3144.672,
+        "max": 3352.825
+      },
+      "Clock Monotonic Time, s": {
+        "samples": [
+          0.000533,
+          0.000516,
+          0.000552,
+          0.000518,
+          0.000544
+        ],
+        "mean": 0.0005326,
+        "min": 0.000516,
+        "max": 0.000552
+      },
+      "CPU Time, s": {
+        "samples": [
+          0.000669,
+          0.000653,
+          0.000694,
+          0.000659,
+          0.000683
+        ],
+        "mean": 0.0006716,
+        "min": 0.000653,
+        "max": 0.000694
+      },
+      "CPU Instructions Retired, kI": {
+        "samples": [
+          13688.22,
+          13660.677,
+          13674.433,
+          13689.682,
+          13742.026
+        ],
+        "mean": 13691.0076,
+        "min": 13660.677,
+        "max": 13742.026
+      },
+      "Memory Peak Physical, kB": {
+        "samples": [
+          42534.728,
+          42534.728,
+          42534.728,
+          42534.728,
+          42551.112
+        ],
+        "mean": 42538.0048,
+        "min": 42534.728,
+        "max": 42551.112
+      }
+    }
+  },
+  "resultBundle": ".build/Hardware-Final-FA-iPhone.xcresult"
+}

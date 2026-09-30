@@ -6,6 +6,8 @@ import SwiftUI
     @State private var preferences: AppPreferences
     init() {
         let isTest = ProcessInfo.processInfo.arguments.contains("-ui-testing")
+        // Keep an attached phone awake only during UI tests; ordinary launches use its normal timer.
+        if isTest { UIApplication.shared.isIdleTimerDisabled = true }
         let args = ProcessInfo.processInfo.arguments
         var testStorage: URL?
         if isTest, let index = args.firstIndex(of: "-ui-save"), args.indices.contains(index + 1),
