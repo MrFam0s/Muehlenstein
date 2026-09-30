@@ -10,7 +10,7 @@ struct HistoryView: View {
                 if let game, !game.moves.isEmpty {
                     PagedRows(items: game.moves) { index, move in
                         HStack(spacing: 14) {
-                            Text("\(index + 1)").font(.caption).monospacedDigit().foregroundStyle(.secondary).frame(minWidth: 28)
+                            Text("\(index + 1)").font(.caption).monospacedDigit().foregroundStyle(Color.quietInk).frame(minWidth: 28)
                             Stone(side: move.side, size: 18)
                             Text(move.notation).font(.system(.body, design: .monospaced))
                             Spacer(minLength: 0)

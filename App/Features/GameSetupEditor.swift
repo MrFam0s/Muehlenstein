@@ -86,6 +86,7 @@ struct GameSetupEditor: View {
                         Image(systemName: item.icon).font(.system(size: 23))
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .background(selected == item ? Color.petrol.opacity(0.13) : Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
+                            .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(selected == item ? Color.petrol : .clear, lineWidth: 1.5) }
                     }.buttonStyle(.plain).foregroundStyle(Color.petrol)
                         .accessibilityLabel(L10n.text(item.key))
                         .accessibilityAddTraits(selected == item ? .isSelected : [])

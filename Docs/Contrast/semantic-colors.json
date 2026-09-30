@@ -1,0 +1,244 @@
+{
+  "method": "WCAG sRGB relative luminance; 4.5:1 text, 3:1 meaningful graphics",
+  "scope": "Semantic color roles. Selected fills composited over Limestone. Stone gradients have monotonic channels, so both endpoints bound the marker contrast. Excludes native system materials and disabled controls; these need visual review.",
+  "checks": [
+    {
+      "appearance": "light",
+      "role": "Ink / Limestone",
+      "ratio": 11.754875373395949,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "QuietInk / Limestone",
+      "ratio": 5.543107377188523,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "AccentColor / Limestone",
+      "ratio": 5.877376663271544,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Stone edge / Limestone",
+      "ratio": 4.1788336599186335,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Ink / BoardSurface",
+      "ratio": 10.668100399082705,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "QuietInk / BoardSurface",
+      "ratio": 5.030629772271198,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "AccentColor / BoardSurface",
+      "ratio": 5.333994817921457,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Stone edge / BoardSurface",
+      "ratio": 3.7924874249176432,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Primary action text",
+      "ratio": 6.517163261396711,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Selected label / fill 0.12",
+      "ratio": 4.95317044838402,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Selected label / fill 0.13",
+      "ratio": 4.88076096901299,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Board lines / board",
+      "ratio": 3.4608695723785554,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Move paths, rings and empty targets / board",
+      "ratio": 5.333994817921457,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "White stone marker / Top",
+      "ratio": 6.214622217555026,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "White stone marker / Bottom",
+      "ratio": 4.660095016525489,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Black stone marker / Top",
+      "ratio": 5.080452361116938,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "light",
+      "role": "Black stone marker / Bottom",
+      "ratio": 7.427353735657962,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Ink / Limestone",
+      "ratio": 14.426501561470943,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "QuietInk / Limestone",
+      "ratio": 8.279764952579326,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "AccentColor / Limestone",
+      "ratio": 9.600554366599034,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Stone edge / Limestone",
+      "ratio": 7.039241110713704,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Ink / BoardSurface",
+      "ratio": 12.093072211200779,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "QuietInk / BoardSurface",
+      "ratio": 6.940545844511871,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "AccentColor / BoardSurface",
+      "ratio": 8.047702814722003,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Stone edge / BoardSurface",
+      "ratio": 5.900671808836961,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Primary action text",
+      "ratio": 8.48244031794082,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Selected label / fill 0.12",
+      "ratio": 7.445422960049671,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Selected label / fill 0.13",
+      "ratio": 7.268750327214592,
+      "minimum": 4.5,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Board lines / board",
+      "ratio": 4.409047035136456,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Move paths, rings and empty targets / board",
+      "ratio": 8.047702814722003,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "White stone marker / Top",
+      "ratio": 6.214622217555026,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "White stone marker / Bottom",
+      "ratio": 4.660095016525489,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Black stone marker / Top",
+      "ratio": 5.080452361116938,
+      "minimum": 3,
+      "passes": true
+    },
+    {
+      "appearance": "dark",
+      "role": "Black stone marker / Bottom",
+      "ratio": 7.427353735657962,
+      "minimum": 3,
+      "passes": true
+    }
+  ]
+}

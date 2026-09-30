@@ -1,0 +1,7 @@
+Rules: Fertig · Optional((311.0, 82.0, 71.0, 36.0)) · Contrast failed for element
+Playing-Aids: Fertig · Optional((306.62189054726366, 564.497512437811, 68.17412935323392, 34.56716417910445)) · Contrast failed for element
+Setup: Abbrechen · Optional((27.203980099502488, 334.0497512437811, 103.38142620232172, 34.56716417910445)) · Contrast failed for element
+Setup: 3 · Optional((197.1592039800995, 519.3681592039801, 7.681592039801018, 13.762852404643468)) · Contrast failed for element
+Advanced: Abbrechen · Optional((27.203980099502488, 238.02985074626864, 103.38142620232172, 34.56716417910454)) · Contrast failed for element
+Advanced: 3 · Optional((197.1592039800995, 423.34825870646773, 7.681592039801018, 13.76285240464341)) · Contrast failed for element
+History: Fertig · Optional((311.0, 82.0, 71.0, 36.0)) · Contrast failed for element

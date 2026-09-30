@@ -11,9 +11,10 @@ Ein klassisches Brettspiel mit Raum zum Nachdenken. Warme Kalktöne, Graphit, de
 | Kalk | #F6F3EB | #171D20 | Hintergrund |
 | Brett | #EDE8DD | #222C30 | Spielfläche, Bedienleiste |
 | Graphit | #263337 | #EFECE4 | Haupttext |
-| Nebenfarbe | #616B68 | #ADB7B4 | Ergänzende Angaben |
+| Nebenfarbe | #596460 | #ADB7B4 | Ergänzende Angaben |
 | Petrol | #17695F | #8AD0BD | Auswahl und Aktionen |
-| Brettlinien | #88918A | #81938C | Geometrie |
+| Brettlinien | #727E77 | #81938C | Geometrie |
+| Steinrand | #6D7772 | #9BAAA4 | Kontur beider Steinfarben |
 
 Systemschrift mit Serifen für Produkt- und Zugüberschriften; serifenlose Systemschrift für Bedienung und Erläuterungen. Die Schrift folgt Dynamic Type. Native Navigation, Menüs und Dialoge greifen die aktuelle iOS-Darstellung auf. Das Brett selbst erhält eine ruhige, stabile Fläche.
 
@@ -39,10 +40,20 @@ Währenddessen nennt die Ansicht den Computer ausdrücklich als aktiven Spieler.
 
 ## Icon und Medien
 
-Der erste Icon-Entwurf abstrahiert drei Quadrate und zwei Spielsteine. Die Geometrie wurde neu erstellt. Sanmills Logo, Sounds und Store-Grafiken wurden nicht übernommen. Eigene dezente Klänge können nach der Beurteilung der Bedienung folgen.
+Der überarbeitete Entwurf verwendet drei verbundene Quadrate, einen hellen und einen dunkel umrandeten Stein auf Petrol. Die größeren Steine und kräftigeren Linien bleiben auch bei 29–60 Punkten erkennbar. Die Dunkelvariante verwendet Graphit mit hellen Petrol-Linien; die Graustufenvorlage wird vom Betriebssystem eingefärbt. Alle drei Assets sind quadratische, deckende sRGB-PNGs mit 1024 × 1024 Pixeln. Die Systemmaske wird nicht in die Assets eingebrannt. `Scripts/generate-icon.swift` ist die editierbare Vektorquelle und erstellt außerdem `Previews/App-Icon-Appearances.png`. Die Vorschau zeigt nur eine angenäherte Eckenmaske; Tönung und weitere Systemeffekte hängen von iOS ab.
+
+Ein Fehler des bisherigen AppKit-Bitmap-Exports hatte eine praktisch schwarze Icon-Datei erzeugt. Der neue Export benutzt einen expliziten Core-Graphics-RGB-Kontext und bricht bei leerer/einfarbiger Ausgabe ab. Die Geometrie und alle Assets sind eigenständig erstellt. Sanmills Logo, Sounds und Store-Grafiken wurden nicht übernommen. Ein mehrschichtiges Icon-Composer-Dokument ist in dieser Etappe nicht enthalten.
 
 ## Nächste Designprüfung
 
-Die tatsächlichen Simulatoransichten auf Wärme, Steinkontrast, Brettproportionen und Lesbarkeit beurteilen. Danach Icon, Abstände und Rückmeldungen verfeinern. Alternative Materialien erst ergänzen, wenn diese Grundrichtung bewertet ist.
+Die aktuellen Hell-/Dunkelansichten, die deutlicheren Steinränder und das Icon in der laufenden App beurteilen. Die Grundrichtung bleibt warme Steinfarben mit Petrol. Vollständige VoiceOver- und Akkutests sind vorerst zurückgestellt.
+
+## Kontrast
+
+Textfarben werden mit mindestens 4,5:1, bedeutungstragende Brettgrafiken mit mindestens 3:1 geprüft. `Scripts/check-contrast.py` liest die tatsächlichen Farbassets und berücksichtigt die transparenten Auswahlflächen sowie beide Enden der Steinverläufe. Die 34 erfassten Farbrollen bestehen; das schwächste Textpaar erreicht 4,88:1, die schwächste Brettgrafik 3,46:1. Das ist eine Prüfung dieser Farbrollen, keine pauschale WCAG-Zertifizierung.
+
+Brettlinien sind 2 pt stark. Zugwege und äußere Zielringe verwenden die volle Akzentfarbe. Innere Abnahmeringe bleiben auf hellen Steinen dunkelpetrol und auf dunklen Steinen hellpetrol, unabhängig vom Erscheinungsbild. So verliert eine helle Figur im Dunkelmodus ihre Markierung nicht. Ausgewählte kompakte Einstellungsreiter erhalten wie die anderen Auswahlen zusätzlich eine Kontur. Gedrückte primäre Schaltflächen verkleinern sich leicht, ohne den Textkontrast durch Ausblenden abzusenken.
+
+Grundlage: [W3C Textkontrast](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum), [W3C Nicht-Text-Kontrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html), [Apple App-Icons](https://developer.apple.com/design/human-interface-guidelines/app-icons). Native Glasflächen werden zusätzlich am gerenderten Bild geprüft; Inspector-Warnungen werden dokumentiert und nicht stillschweigend verworfen.
 
 Referenz: [Apple Human Interface Guidelines — Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility). Simulatoransichten sind in `Previews/` abgelegt; sie sind Entwicklungsnachweise und keine fertigen Store-Screenshots.

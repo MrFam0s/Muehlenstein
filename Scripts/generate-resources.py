@@ -118,8 +118,12 @@ for i, lang in enumerate(['de','en']):
     (folder/'InfoPlist.strings').write_text(f'"CFBundleDisplayName" = "{copy["app_name"][i]}";\n')
 colors={
 'Limestone': ('F6F3EB','171D20'), 'BoardSurface': ('EDE8DD','222C30'),
-'Ink': ('263337','EFECE4'), 'QuietInk': ('616B68','ADB7B4'),
-'AccentColor': ('17695F','8AD0BD'), 'AccentContent': ('FFFFFF','102B26'), 'BoardLine': ('88918A','81938C')}
+'Ink': ('263337','EFECE4'), 'QuietInk': ('596460','ADB7B4'),
+'AccentColor': ('17695F','8AD0BD'), 'AccentContent': ('FFFFFF','102B26'), 'BoardLine': ('727E77','81938C'),
+'StoneEdge': ('6D7772','9BAAA4'),
+'WhiteStoneTop': ('FFF9ED','FFF9ED'), 'WhiteStoneBottom': ('E3D9C7','E3D9C7'),
+'BlackStoneTop': ('3E4B51','3E4B51'), 'BlackStoneBottom': ('263237','263237'),
+'WhiteStoneMark': ('17695F','17695F'), 'BlackStoneMark': ('8AD0BD','8AD0BD')}
 assets=resources/'Assets.xcassets'; assets.mkdir(exist_ok=True)
 (assets/'Contents.json').write_text(json.dumps({'info':{'version':1,'author':'xcode'}}))
 for name,values in colors.items():

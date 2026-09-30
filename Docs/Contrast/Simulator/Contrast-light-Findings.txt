@@ -1,0 +1,7 @@
+Playing-Aids: Fertig · Optional((294.73333333333335, 534.8820512820514, 68.08717948717953, 34.52307692307693)) · Contrast failed for SwiftUI.AccessibilityNode
+Setup: Abbrechen · Optional((27.179487179487186, 304.7282051282052, 103.24957264957266, 34.52307692307693)) · Contrast failed for SwiftUI.AccessibilityNode
+Setup: 2 · Optional((108.6923076923077, 489.81025641025644, 7.671794871794873, 13.745299145299043)) · Contrast failed for SwiftUI.AccessibilityNode
+Setup: 3 · Optional((191.1641025641026, 489.81025641025644, 7.671794871794873, 13.745299145299043)) · Contrast failed for SwiftUI.AccessibilityNode
+Advanced: Abbrechen · Optional((27.179487179487186, 208.8307692307693, 103.24957264957266, 34.52307692307693)) · Contrast failed for SwiftUI.AccessibilityNode
+Advanced: 2 · Optional((108.6923076923077, 393.9128205128206, 7.671794871794873, 13.745299145299214)) · Contrast failed for SwiftUI.AccessibilityNode
+Advanced: 3 · Optional((191.1641025641026, 393.9128205128206, 7.671794871794873, 13.745299145299214)) · Contrast failed for SwiftUI.AccessibilityNode

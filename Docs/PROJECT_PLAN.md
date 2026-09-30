@@ -14,13 +14,13 @@ Aktualisiert am 30.09.2026. Die ursprüngliche Rechts- und Produktplanung liegt 
 
 ## Jetzt beurteilen
 
-Die warme Steinrichtung wurde positiv beurteilt. Computerzüge erhalten auf Wunsch ein ruhigeres Tempo und dauerhafte Markierungen des letzten Zuges. Auf Wunsch sind Start-, Spiel- und weitere Ansichten nun ohne Scrollbereiche aufgebaut; längere Inhalte werden in Seiten aufgeteilt. Die Layoutabnahme umfasst kompakte Geräte, Querformat, Großschrift und unbewegliche Brettkoordinaten bei Gesten/Zugwechseln. Offen bleiben insbesondere die echte Geräte-/VoiceOver-Abnahme und das Energie-/Speicherverhalten bei längeren Partien. Änderungen am lokalen Prototyp benötigen keine erneute grundsätzliche Freigabe.
+Die warme Steinrichtung wurde positiv beurteilt. Computerzüge erhalten auf Wunsch ein ruhigeres Tempo und dauerhafte Markierungen des letzten Zuges. Auf Wunsch sind Start-, Spiel- und weitere Ansichten nun ohne Scrollbereiche aufgebaut; längere Inhalte werden in Seiten aufgeteilt. Die Layoutabnahme umfasst kompakte Geräte, Querformat, Großschrift und unbewegliche Brettkoordinaten bei Gesten/Zugwechseln. Die erste echte iPhone-Prüfung ist abgeschlossen. VoiceOver und Akkutests sind auf Wunsch vom 30.09.2026 zurückgestellt; sie bleiben vor einer Veröffentlichung einzuplanen. Änderungen am lokalen Prototyp benötigen keine erneute grundsätzliche Freigabe.
 
 ## Nächste Etappe nach dem ersten Commit
 
 Der aktuelle Stand ist als spielbarer Entwicklungsmeilenstein bereit für die erste lokale Versionierung: Die direkte Partie-Konfiguration wurde bestätigt, die Projektidentität bleibt erhalten und die dokumentierten Simulator- und Build-Prüfungen bestehen. Die Abnahme für eine Veröffentlichung steht weiterhin aus.
 
-Als Nächstes wird Meilenstein 2 abgeschlossen:
+Die verbleibenden Arbeiten an Meilenstein 2 sind:
 
 1. Vollständige Offline-Partien und Randfälle gezielt abnehmen: Setzen, Ziehen, Springen, mehrfache Mühlen, erlaubte Abnahmen, Blockade und Remis in allen vier sichtbaren Varianten. Vorhandene Tests verwenden und nur belegte Lücken ergänzen.
 2. Unterbrechungen und Speicherung prüfen: Hintergrund/Vordergrund, Beenden und Wiederöffnen, Rücknahme und neue Partie während einer Computersuche. Ergebnisse und Wiederherstellung müssen konsistent bleiben.
@@ -30,6 +30,14 @@ Als Nächstes wird Meilenstein 2 abgeschlossen:
 Die nächste Arbeit erweitert damit vor allem die Verlässlichkeit des bestätigten Bedienkonzepts. Eine zahlenmäßige Elo-Anzeige bleibt bis zur belastbaren Kalibrierung zurückgestellt.
 
 Fortschritt: Die Punkte 1 und 2 sind mit festen Referenzpartien, ergänzenden Regelprüfungen und App-Unterbrechungstests lokal geprüft. Ein Fehler in der Zugliste bei bereits ausgewähltem Stein wurde reproduziert und korrigiert. Der erste vollständige Gerätelauf auf iPhone 18 Pro / iOS 27.0.1 besteht, ebenso die Nachprüfungen verbesserter Bedienflächen und echter Textvergrößerung. Erste CPU-/Speichermessungen sind archiviert. Punkt 3 bleibt für weitere Geräte, ältere iOS-Versionen, manuelles VoiceOver, offene Inspector-Befunde und Energie über längere Partien offen. Die Einzelbefunde stehen in `VALIDATION.md`.
+
+## Aktuelle Priorität: Kontrast und App-Icon
+
+Auf Wunsch vom 30.09.2026 folgen jetzt die Kontrastprüfung und das App-Icon. Vollständige VoiceOver-Abnahme und Akkutests werden vorläufig zurückgestellt. Das ist eine Umpriorisierung, keine Abnahme dieser offenen Punkte.
+
+- Umgesetzt: Kontrast der Texte, Brettlinien, Steinränder, Auswahl- und Abnahmemarkierungen in Hell und Dunkel messen; transparente und native Systemflächen anhand gerenderter Ansichten beurteilen. Ergebnisse unter `Contrast/` und in `VALIDATION.md`.
+- Umgesetzt: Eigenes Icon aus Mühle-Geometrie und zwei Steinen, mit Standard-, Dunkel- und Tönungsvorlage. Export, kleine Größen und Xcode-Integration prüfen; Gestaltung anschließend in der laufenden App beurteilen.
+- Nach dieser Gestaltungsetappe den nächsten Funktionsumfang auswählen. Netzwerk bleibt eine spätere Etappe.
 
 ## Umfang und offene Produktangaben
 

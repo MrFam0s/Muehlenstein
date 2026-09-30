@@ -1,0 +1,818 @@
+{
+  "method": "Exact semantic glyph color verified in the reported frame; WCAG luminance against its most frequent background pixel. Screenshot sRGB, @3x.",
+  "limits": "Representative sample of each inspector finding, not a full pixel minimum, not every possible backdrop. Antialias edge pixels deliberately excluded. Inspector warnings remain in the raw reports.",
+  "samples": [
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "Rules",
+      "label": "Fertig",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-Rules.png",
+      "sha256": "730d3b73622783c11c4cb0682523b48f6d3b2deb8900e96e37a793f583f1459c",
+      "frame_points": [
+        299.0,
+        67.0,
+        71.0,
+        36.0
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        138,
+        208,
+        189
+      ],
+      "exact_foreground_pixels": 1654,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 6208,
+      "sampled_ratio": 6.3426363537199855,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "Playing-Aids",
+      "label": "Fertig",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-Playing-Aids.png",
+      "sha256": "94475a429bf1f67a716bee15a79a4a32f488a69a43313918b2ad3fb444838d71",
+      "frame_points": [
+        294.73333333333335,
+        534.8820512820514,
+        68.08717948717953,
+        34.52307692307693
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        138,
+        208,
+        189
+      ],
+      "exact_foreground_pixels": 1180,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 5433,
+      "sampled_ratio": 6.3426363537199855,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "Setup",
+      "label": "Abbrechen",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-Setup.png",
+      "sha256": "b8639e860c24ea9ebb8c93afd9d1e91bac92700b463bfc41f5c23fd6b5d82ab5",
+      "frame_points": [
+        27.179487179487186,
+        304.7282051282052,
+        103.24957264957266,
+        34.52307692307693
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 1109,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 9806,
+      "sampled_ratio": 9.531029585941225,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "Setup",
+      "label": "2",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-Setup.png",
+      "sha256": "b8639e860c24ea9ebb8c93afd9d1e91bac92700b463bfc41f5c23fd6b5d82ab5",
+      "frame_points": [
+        108.6923076923077,
+        489.81025641025644,
+        7.671794871794873,
+        13.745299145299043
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 72,
+      "dominant_background_rgb": [
+        23,
+        29,
+        32
+      ],
+      "dominant_background_pixels": 651,
+      "sampled_ratio": 14.426695018110166,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "Setup",
+      "label": "3",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-Setup.png",
+      "sha256": "b8639e860c24ea9ebb8c93afd9d1e91bac92700b463bfc41f5c23fd6b5d82ab5",
+      "frame_points": [
+        191.1641025641026,
+        489.81025641025644,
+        7.671794871794873,
+        13.745299145299043
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 78,
+      "dominant_background_rgb": [
+        23,
+        29,
+        32
+      ],
+      "dominant_background_pixels": 388,
+      "sampled_ratio": 14.426695018110166,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "Advanced",
+      "label": "Abbrechen",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-Advanced.png",
+      "sha256": "3bfbdb359ec4ed5da5d9fabfb89e995ff92929c88cb97d7df23efafe5339e010",
+      "frame_points": [
+        27.179487179487186,
+        208.8307692307693,
+        103.24957264957266,
+        34.52307692307693
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 1092,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 9610,
+      "sampled_ratio": 9.531029585941225,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "Advanced",
+      "label": "2",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-Advanced.png",
+      "sha256": "3bfbdb359ec4ed5da5d9fabfb89e995ff92929c88cb97d7df23efafe5339e010",
+      "frame_points": [
+        108.6923076923077,
+        393.9128205128206,
+        7.671794871794873,
+        13.745299145299214
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 75,
+      "dominant_background_rgb": [
+        23,
+        29,
+        32
+      ],
+      "dominant_background_pixels": 641,
+      "sampled_ratio": 14.426695018110166,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "Advanced",
+      "label": "3",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-Advanced.png",
+      "sha256": "3bfbdb359ec4ed5da5d9fabfb89e995ff92929c88cb97d7df23efafe5339e010",
+      "frame_points": [
+        191.1641025641026,
+        393.9128205128206,
+        7.671794871794873,
+        13.745299145299214
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 83,
+      "dominant_background_rgb": [
+        23,
+        29,
+        32
+      ],
+      "dominant_background_pixels": 372,
+      "sampled_ratio": 14.426695018110166,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "dark",
+      "screen": "History",
+      "label": "Fertig",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-dark-History.png",
+      "sha256": "b6a7ac4c5e2dd90d94348eeee1df6dc2a0c3014c39b7ada30459e59081c0d8cd",
+      "frame_points": [
+        299.0,
+        67.0,
+        71.0,
+        36.0
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        138,
+        208,
+        189
+      ],
+      "exact_foreground_pixels": 1459,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 6052,
+      "sampled_ratio": 6.3426363537199855,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "light",
+      "screen": "Playing-Aids",
+      "label": "Fertig",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-light-Playing-Aids.png",
+      "sha256": "fc384bf97376270e0f98425e85c81bf38a5f3bf45793d33b6b84e292b61b00b9",
+      "frame_points": [
+        294.73333333333335,
+        534.8820512820514,
+        68.08717948717953,
+        34.52307692307693
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        23,
+        105,
+        95
+      ],
+      "exact_foreground_pixels": 1168,
+      "dominant_background_rgb": [
+        251,
+        248,
+        241
+      ],
+      "dominant_background_pixels": 3906,
+      "sampled_ratio": 6.144350803822258,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "light",
+      "screen": "Setup",
+      "label": "Abbrechen",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-light-Setup.png",
+      "sha256": "e0fe4cfa01073493688c3680afc7e26317cf69c44fd0df073349c75dc0c2b1b5",
+      "frame_points": [
+        27.179487179487186,
+        304.7282051282052,
+        103.24957264957266,
+        34.52307692307693
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 1109,
+      "dominant_background_rgb": [
+        251,
+        248,
+        241
+      ],
+      "dominant_background_pixels": 7383,
+      "sampled_ratio": 12.289019984265906,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "light",
+      "screen": "Setup",
+      "label": "2",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-light-Setup.png",
+      "sha256": "e0fe4cfa01073493688c3680afc7e26317cf69c44fd0df073349c75dc0c2b1b5",
+      "frame_points": [
+        108.6923076923077,
+        489.81025641025644,
+        7.671794871794873,
+        13.745299145299043
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 72,
+      "dominant_background_rgb": [
+        246,
+        243,
+        235
+      ],
+      "dominant_background_pixels": 651,
+      "sampled_ratio": 11.754887650498924,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "light",
+      "screen": "Setup",
+      "label": "3",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-light-Setup.png",
+      "sha256": "e0fe4cfa01073493688c3680afc7e26317cf69c44fd0df073349c75dc0c2b1b5",
+      "frame_points": [
+        191.1641025641026,
+        489.81025641025644,
+        7.671794871794873,
+        13.745299145299043
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 78,
+      "dominant_background_rgb": [
+        246,
+        243,
+        235
+      ],
+      "dominant_background_pixels": 197,
+      "sampled_ratio": 11.754887650498924,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "light",
+      "screen": "Advanced",
+      "label": "Abbrechen",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-light-Advanced.png",
+      "sha256": "346b1009e9dbf1d47061dd47de8f0cfadd835d703ab72704e08ed224572e1104",
+      "frame_points": [
+        27.179487179487186,
+        208.8307692307693,
+        103.24957264957266,
+        34.52307692307693
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 1092,
+      "dominant_background_rgb": [
+        251,
+        248,
+        241
+      ],
+      "dominant_background_pixels": 7581,
+      "sampled_ratio": 12.289019984265906,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "light",
+      "screen": "Advanced",
+      "label": "2",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-light-Advanced.png",
+      "sha256": "346b1009e9dbf1d47061dd47de8f0cfadd835d703ab72704e08ed224572e1104",
+      "frame_points": [
+        108.6923076923077,
+        393.9128205128206,
+        7.671794871794873,
+        13.745299145299214
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 75,
+      "dominant_background_rgb": [
+        246,
+        243,
+        235
+      ],
+      "dominant_background_pixels": 641,
+      "sampled_ratio": 11.754887650498924,
+      "passes": true
+    },
+    {
+      "device": "Simulator",
+      "appearance": "light",
+      "screen": "Advanced",
+      "label": "3",
+      "screenshot": "Docs/Contrast/Simulator/Contrast-light-Advanced.png",
+      "sha256": "346b1009e9dbf1d47061dd47de8f0cfadd835d703ab72704e08ed224572e1104",
+      "frame_points": [
+        191.1641025641026,
+        393.9128205128206,
+        7.671794871794873,
+        13.745299145299214
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 83,
+      "dominant_background_rgb": [
+        246,
+        243,
+        235
+      ],
+      "dominant_background_pixels": 185,
+      "sampled_ratio": 11.754887650498924,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "dark",
+      "screen": "Rules",
+      "label": "Fertig",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-dark-Rules.png",
+      "sha256": "646cbfaa03737b2005aa3ab7543caad621a43a6fafaa1a6949255da83cc2eb7c",
+      "frame_points": [
+        311.0,
+        82.0,
+        71.0,
+        36.0
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        138,
+        208,
+        189
+      ],
+      "exact_foreground_pixels": 1654,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 5858,
+      "sampled_ratio": 6.3426363537199855,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "dark",
+      "screen": "Playing-Aids",
+      "label": "Fertig",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-dark-Playing-Aids.png",
+      "sha256": "5169b7eb3706ffb5601f37b2b0f8d71a75d2fb47660ded4be9b5240ecefbb185",
+      "frame_points": [
+        306.62189054726366,
+        564.497512437811,
+        68.17412935323392,
+        34.56716417910445
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        138,
+        208,
+        189
+      ],
+      "exact_foreground_pixels": 1185,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 5151,
+      "sampled_ratio": 6.3426363537199855,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "dark",
+      "screen": "Setup",
+      "label": "Abbrechen",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-dark-Setup.png",
+      "sha256": "3861da8572cedb596737bcc3f1af2f6a3228e6ec50e5fb203260b9ebf60a40bd",
+      "frame_points": [
+        27.203980099502488,
+        334.0497512437811,
+        103.38142620232172,
+        34.56716417910445
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 1139,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 9197,
+      "sampled_ratio": 9.531029585941225,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "dark",
+      "screen": "Setup",
+      "label": "3",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-dark-Setup.png",
+      "sha256": "3861da8572cedb596737bcc3f1af2f6a3228e6ec50e5fb203260b9ebf60a40bd",
+      "frame_points": [
+        197.1592039800995,
+        519.3681592039801,
+        7.681592039801018,
+        13.762852404643468
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 82,
+      "dominant_background_rgb": [
+        23,
+        29,
+        32
+      ],
+      "dominant_background_pixels": 396,
+      "sampled_ratio": 14.426695018110166,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "dark",
+      "screen": "Advanced",
+      "label": "Abbrechen",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-dark-Advanced.png",
+      "sha256": "4f50c46b07ffc8f4dd0808c00a9db2bab3f037cc96443bbef2d5854b42ccb5e4",
+      "frame_points": [
+        27.203980099502488,
+        238.02985074626864,
+        103.38142620232172,
+        34.56716417910454
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 1148,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 9206,
+      "sampled_ratio": 9.531029585941225,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "dark",
+      "screen": "Advanced",
+      "label": "3",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-dark-Advanced.png",
+      "sha256": "4f50c46b07ffc8f4dd0808c00a9db2bab3f037cc96443bbef2d5854b42ccb5e4",
+      "frame_points": [
+        197.1592039800995,
+        423.34825870646773,
+        7.681592039801018,
+        13.76285240464341
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        239,
+        236,
+        228
+      ],
+      "exact_foreground_pixels": 82,
+      "dominant_background_rgb": [
+        23,
+        29,
+        32
+      ],
+      "dominant_background_pixels": 396,
+      "sampled_ratio": 14.426695018110166,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "dark",
+      "screen": "History",
+      "label": "Fertig",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-dark-History.png",
+      "sha256": "7b9813442f749566294a1cbc8b298c5f9efe9abe5b6975d6b18d1980f9ef925e",
+      "frame_points": [
+        311.0,
+        82.0,
+        71.0,
+        36.0
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        138,
+        208,
+        189
+      ],
+      "exact_foreground_pixels": 1654,
+      "dominant_background_rgb": [
+        52,
+        60,
+        64
+      ],
+      "dominant_background_pixels": 5858,
+      "sampled_ratio": 6.3426363537199855,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "light",
+      "screen": "Playing-Aids",
+      "label": "Fertig",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-light-Playing-Aids.png",
+      "sha256": "4985b9f45715c04c59fe0615e9e232aa7ea540cc20c9a25f907800efac54dc25",
+      "frame_points": [
+        306.62189054726366,
+        564.497512437811,
+        68.17412935323392,
+        34.56716417910445
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        23,
+        105,
+        95
+      ],
+      "exact_foreground_pixels": 1160,
+      "dominant_background_rgb": [
+        251,
+        248,
+        241
+      ],
+      "dominant_background_pixels": 3279,
+      "sampled_ratio": 6.144350803822258,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "light",
+      "screen": "Setup",
+      "label": "Abbrechen",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-light-Setup.png",
+      "sha256": "4d4a0bd9ff38ddff9bc663437cf08609a0cff255318b669dc7ad1dd099d69bc4",
+      "frame_points": [
+        27.203980099502488,
+        334.0497512437811,
+        103.38142620232172,
+        34.56716417910445
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 1139,
+      "dominant_background_rgb": [
+        251,
+        248,
+        241
+      ],
+      "dominant_background_pixels": 6417,
+      "sampled_ratio": 12.289019984265906,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "light",
+      "screen": "Setup",
+      "label": "3",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-light-Setup.png",
+      "sha256": "4d4a0bd9ff38ddff9bc663437cf08609a0cff255318b669dc7ad1dd099d69bc4",
+      "frame_points": [
+        197.1592039800995,
+        519.3681592039801,
+        7.681592039801018,
+        13.762852404643468
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 82,
+      "dominant_background_rgb": [
+        246,
+        243,
+        235
+      ],
+      "dominant_background_pixels": 185,
+      "sampled_ratio": 11.754887650498924,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "light",
+      "screen": "Advanced",
+      "label": "Abbrechen",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-light-Advanced.png",
+      "sha256": "43d087a9576c9412355353fd68171d5fe6ab1e571b5e1ae3df09cbd81692dd0c",
+      "frame_points": [
+        27.203980099502488,
+        238.02985074626864,
+        103.38142620232172,
+        34.56716417910454
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 1148,
+      "dominant_background_rgb": [
+        251,
+        248,
+        241
+      ],
+      "dominant_background_pixels": 6284,
+      "sampled_ratio": 12.289019984265906,
+      "passes": true
+    },
+    {
+      "device": "iPhone",
+      "appearance": "light",
+      "screen": "Advanced",
+      "label": "3",
+      "screenshot": "Docs/Contrast/iPhone/Contrast-light-Advanced.png",
+      "sha256": "43d087a9576c9412355353fd68171d5fe6ab1e571b5e1ae3df09cbd81692dd0c",
+      "frame_points": [
+        197.1592039800995,
+        423.34825870646773,
+        7.681592039801018,
+        13.76285240464341
+      ],
+      "scale": 3,
+      "foreground_rgb": [
+        38,
+        51,
+        55
+      ],
+      "exact_foreground_pixels": 84,
+      "dominant_background_rgb": [
+        246,
+        243,
+        235
+      ],
+      "dominant_background_pixels": 184,
+      "sampled_ratio": 11.754887650498924,
+      "passes": true
+    }
+  ]
+}

@@ -21,6 +21,16 @@ import SwiftUI
         _preferences = State(initialValue: AppPreferences(defaults: defaults))
     }
     var body: some Scene {
-        WindowGroup { HomeView(store: store).environment(preferences).tint(.petrol) }
+        WindowGroup {
+            HomeView(store: store).environment(preferences).tint(.petrol)
+                .preferredColorScheme(testColorScheme)
+        }
+    }
+    // Screenshot/audit runs must cover both appearances without changing device preferences.
+    private var testColorScheme: ColorScheme? {
+        let args = ProcessInfo.processInfo.arguments
+        guard args.contains("-ui-testing"), let index = args.firstIndex(of: "-ui-appearance"),
+              args.indices.contains(index + 1) else { return nil }
+        return args[index + 1] == "dark" ? .dark : .light
     }
 }

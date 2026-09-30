@@ -47,13 +47,13 @@ struct BoardView: View {
                         path.move(to: point(edge[0], size: size))
                         path.addLine(to: point(edge[1], size: size))
                     }
-                }.stroke(Color.boardLine, style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
+                }.stroke(Color.boardLine, style: StrokeStyle(lineWidth: 2, lineCap: .round))
                 Path { path in
                     for action in recentActions where action.kind == 1 {
                         path.move(to: point(action.from, size: size))
                         path.addLine(to: point(action.to, size: size))
                     }
-                }.stroke(Color.petrol.opacity(0.65), style: StrokeStyle(lineWidth: 2, dash: [4, 5]))
+                }.stroke(Color.petrol, style: StrokeStyle(lineWidth: 2, dash: [4, 5]))
                     .allowsHitTesting(false).accessibilityHidden(true)
                 ForEach(position.nodes) { node in
                     let stone = position.board[node.id]
@@ -65,7 +65,7 @@ struct BoardView: View {
                                 Circle().fill(Color.boardLine).frame(width: 5, height: 5)
                             }
                             if recentActions.contains(where: { $0.kind != 2 && $0.to == node.id }) {
-                                Circle().strokeBorder(Color.petrol.opacity(0.75), lineWidth: 1.5).frame(width: 43, height: 43)
+                                Circle().strokeBorder(Color.petrol, lineWidth: 2).frame(width: 43, height: 43)
                             }
                             if recentActions.contains(where: { $0.kind == 1 && $0.from == node.id }) {
                                 Circle().strokeBorder(Color.petrol, style: StrokeStyle(lineWidth: 1.5, dash: [2, 3])).frame(width: 23, height: 23)
@@ -77,7 +77,9 @@ struct BoardView: View {
                             if destination(node.id), stone == 0, selected == nil, hint?.to != node.id {
                                 Circle().fill(Color.petrol).frame(width: 9, height: 9)
                             } else if destination(node.id) || hint?.to == node.id {
-                                Circle().strokeBorder(Color.petrol, style: StrokeStyle(lineWidth: 2, dash: stone > 0 ? [3, 3] : []))
+                                // This ring is inside an occupied stone, so contrast follows its material,
+                                // not the system appearance (a light stone stays light in dark mode).
+                                Circle().strokeBorder(stone == 0 ? Color.petrol : Color(stone == 1 ? "WhiteStoneMark" : "BlackStoneMark"), style: StrokeStyle(lineWidth: 2, dash: stone > 0 ? [3, 3] : []))
                                     .frame(width: 22, height: 22)
                             }
                         }.frame(width: 44, height: 44).contentShape(Circle())

@@ -2,6 +2,63 @@
 import XCTest
 
 final class MuehlensteinUITests: XCTestCase {
+    // These review runs capture every inspector finding, including native controls.
+    // They are evidence collection, not a claim that an empty/heuristic audit certifies WCAG.
+    @MainActor func testContrastReviewLight() throws { try captureContrastReview("light") }
+    @MainActor func testContrastReviewDark() throws { try captureContrastReview("dark") }
+    @MainActor private func captureContrastReview(_ appearance: String) throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-appearance", appearance, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        var findings: [String] = []
+        func capture(_ screen: String) throws {
+            try app.performAccessibilityAudit(for: .contrast) { issue in
+                findings.append("\(screen): \(issue.element?.label ?? "unknown") · \(String(describing: issue.element?.frame)) · \(issue.detailedDescription)")
+                return true // All findings go into the review attachment; none are discarded.
+            }
+            // Capture after the audit has traversed the screen, so tap feedback has settled.
+            record("Contrast-\(appearance)-\(screen)", app: app)
+        }
+        try capture("Home")
+        app.buttons["learn_rules"].tap()
+        try capture("Rules")
+        app.buttons["Fertig"].tap()
+        app.buttons["display_options"].tap()
+        try capture("Playing-Aids")
+        app.buttons["display_done"].tap()
+        app.buttons["new_game"].tap()
+        assertVariantsVisible(app)
+        try capture("Setup")
+        showSetupPanel("advanced", in: app)
+        try capture("Advanced")
+        app.buttons["Abbrechen"].tap()
+        app.terminate()
+        app.launchArguments += ["-ui-demo"]
+        app.launch()
+        XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 5))
+        try capture("Game")
+        app.buttons["history"].tap()
+        try capture("History")
+        app.terminate()
+        app.launchArguments.removeAll { $0 == "-ui-demo" }
+        app.launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        for coordinate in ["c5", "a7", "d5", "d7", "e5"] { app.buttons["node_\(coordinate)"].tap() }
+        XCTAssertTrue(app.staticTexts["Eine Mühle."].exists)
+        try capture("Capture-Black-Stones")
+        app.buttons["node_a7"].tap()
+        for coordinate in ["g7", "b6", "a7"] { app.buttons["node_\(coordinate)"].tap() }
+        XCTAssertTrue(app.staticTexts["Eine Mühle."].exists)
+        try capture("Capture-White-Stones")
+        let report = findings.isEmpty ? "No contrast findings." : findings.joined(separator: "\n")
+        print("CONTRAST-REVIEW \(appearance): \(report)")
+        let attachment = XCTAttachment(string: report)
+        attachment.name = "Contrast-\(appearance)-Findings"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
     @MainActor private func launch(demo: Bool = false) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = ["-ui-testing", "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"] + (demo ? ["-ui-demo"] : [])
