@@ -67,7 +67,7 @@ struct ComputerOptionsView: View {
                         Button(L10n.text("done")) { apply(settings); dismiss() }.accessibilityIdentifier("computer_done")
                     }
                 }
-        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(expanded ? 410 : 300)])
-            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : (expanded ? 410 : 300)))
+        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(expanded ? 480 : 300)])
+            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : (expanded ? 480 : 300)))
     }
 }

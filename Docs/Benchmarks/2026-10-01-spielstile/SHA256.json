@@ -1,0 +1,19 @@
+{
+  "confirmation/completion.json": "c72a2bc3128d902b938e09a1f5f12ed63dd7f7b066c710a48c821869102f99d1",
+  "confirmation/games.jsonl.gz": "5a4036c69216b6fee42a45b688f331e4ed688e87d6698278f3033a4d6e55f47c",
+  "confirmation/manifest.json": "1ee60a3b71d91b025f351002b50e79f5aa33aaa947b02f03cdabb88b1f1867ee",
+  "confirmation/provenance.json": "822b0ec210b7339c2ac8bb4fe3534438fc41cb5bb89b4c4db93067afea0e3fe1",
+  "confirmation/summary.json": "298fa24ddadb9ba0d15befeb2534d6010e31f31fcacee96668f8f594f3ca52f2",
+  "pilot/completion.json": "fd522e8c9acf55421bda78989b81320e70d74b8b323ff90851c9f14b9c78790d",
+  "pilot/games.jsonl.gz": "a4c4349421e0d81ebf9cfc87d1b31dea742ea2fa771e9ed5a0e6162ca1829f2e",
+  "pilot/manifest.json": "ea1200b9effe01eee039e7b2d2d1148f302672ad1aae9bfa7498f07de7040bd4",
+  "pilot/provenance.json": "822b0ec210b7339c2ac8bb4fe3534438fc41cb5bb89b4c4db93067afea0e3fe1",
+  "pilot/summary.json": "c92ac501664cc2a0f2d7adaf77e3878fcc43514cd93392bc4fb22ed7a34b4dea",
+  "sources/Engine/Cargo.lock": "3ae111f0c41342fa32348ab14ceb13cd9ef6529c488eaf5ed42d8c13e1917018",
+  "sources/Engine/UPSTREAM_SHA256.json": "b95fd09aebdf83bf2ac817995c7f0e312001a496e34eb479c2f78f0f64655376",
+  "sources/Engine/examples/compare_search.rs": "b2a213eef3ee5d53aabe0c19825c6682960dc550b07e866ed72d8c42d8efcdeb",
+  "sources/Engine/src/cancellation.rs": "0027b4130ee01d9aea12e614181e1e271519f783ffbb92bf2462af7d6fc92a3e",
+  "sources/Engine/src/lib.rs": "d3f8f0ff14ff4eeac9d8cc710c6a1d7a6fc8012be981631b0db00492748ac9ef",
+  "sources/Scripts/compare-search.sh": "ddd082ac15c800bcab43c13f91f1fc818e00b9f7b4b0119968d0384037e1b531",
+  "sources/Scripts/summarize-search.py": "18a78dc249d951176f2e3a2f57e7955b9a558c5f63cde7effe381c2d33f7a7e3"
+}

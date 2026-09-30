@@ -109,6 +109,7 @@ import Observation
         next.settings.level = settings.level
         next.settings.algorithm = settings.algorithm
         next.settings.effort = settings.effort
+        next.settings.style = settings.style
         guard next.settings != game?.settings else { return }
         do {
             let updated = try Engine.query(next)

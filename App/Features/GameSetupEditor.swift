@@ -21,11 +21,11 @@ struct GameSetupEditor: View {
     @ScaledMetric(relativeTo: .subheadline) private var advancedLabelWidth: CGFloat = 118
 
     private enum Panel: String, CaseIterable {
-        case opponent, difficulty, variant, advanced
+        case opponent, difficulty, variant, advanced, style
         var icon: String {
-            switch self { case .opponent: "person.2"; case .difficulty: "slider.horizontal.3"; case .variant: "square.grid.2x2"; case .advanced: "gearshape" }
+            switch self { case .opponent: "person.2"; case .difficulty: "slider.horizontal.3"; case .variant: "square.grid.2x2"; case .advanced: "gearshape"; case .style: "arrow.triangle.branch" }
         }
-        var key: String { self == .advanced ? "advanced_options" : rawValue }
+        var key: String { self == .advanced ? "advanced_options" : self == .style ? "computer_style" : rawValue }
     }
     private struct Help: Identifiable { let id: String; let title: String; let text: String }
 
@@ -77,9 +77,9 @@ struct GameSetupEditor: View {
     private func compactControls(wide: Bool) -> some View {
         let panels: [Panel] = includesGame
             ? (settings.opponent == .computer ? Panel.allCases : [.opponent, .variant])
-            : [.difficulty, .advanced]
+            : [.difficulty, .advanced, .style]
         let selected = panels.contains(panel) ? panel : panels[0]
-        return VStack(spacing: 8) {
+        return VStack(spacing: dynamicType.isAccessibilitySize ? 4 : 8) {
             HStack(spacing: 8) {
                 ForEach(panels, id: \.self) { item in
                     Button { panel = item } label: {
@@ -98,7 +98,8 @@ struct GameSetupEditor: View {
             case .opponent: opponent
             case .difficulty: difficulty
             case .variant: variants(showHeading: false)
-            case .advanced: advanced(wide: wide)
+            case .advanced: advanced(wide: wide, includesStyle: false)
+            case .style: style(wide: wide)
             }
         }
     }
@@ -161,7 +162,7 @@ struct GameSetupEditor: View {
             }
         }.foregroundStyle(Color.ink)
     }
-    private func advanced(wide: Bool) -> some View {
+    private func advanced(wide: Bool, includesStyle: Bool = true) -> some View {
         VStack(spacing: 4) {
             let layout = dynamicType.isAccessibilitySize && !wide ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4)) : AnyLayout(HStackLayout(spacing: 8))
             layout {
@@ -180,6 +181,20 @@ struct GameSetupEditor: View {
                     ForEach(SearchEffort.allCases, id: \.self) { effort in
                         choice(L10n.text("effort_" + effort.rawValue), selected: settings.effort == effort, id: "effort_" + effort.rawValue) { settings.effort = effort }
                     }
+                }
+            }
+            if includesStyle { style(wide: wide) }
+        }.foregroundStyle(Color.ink)
+    }
+    private func style(wide: Bool) -> some View {
+        let layout = dynamicType.isAccessibilitySize && !wide ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4)) : AnyLayout(HStackLayout(spacing: 8))
+        return layout {
+            HStack(spacing: 0) { Text(L10n.text("computer_style")).font(.subheadline); info("style_help") }
+                .frame(width: dynamicType.isAccessibilitySize ? nil : advancedLabelWidth, alignment: .leading)
+            HStack(spacing: 6) {
+                ForEach(ComputerStyle.allCases, id: \.self) { style in
+                    choice(L10n.text("style_" + style.rawValue), selected: settings.style == style,
+                           id: "style_" + style.rawValue) { settings.style = style }
                 }
             }
         }.foregroundStyle(Color.ink)

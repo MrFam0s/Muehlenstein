@@ -75,7 +75,8 @@ struct GameView: View {
                      L10n.format("side_counts", L10n.text("white"), position.onBoard[0], position.hand[0]),
                      L10n.format("side_counts", L10n.text("black"), position.onBoard[1], position.hand[1]),
                      game.settings.opponent == .computer ? L10n.format("computer_configuration", game.settings.level,
-                        L10n.text("level_\(game.settings.level)")) : ""].filter { !$0.isEmpty }.joined(separator: "\n\n"))
+                        L10n.text("level_\(game.settings.level)")) : "",
+                     game.settings.opponent == .computer ? L10n.text("computer_style") + ": " + L10n.text("style_" + game.settings.style.rawValue) : ""].filter { !$0.isEmpty }.joined(separator: "\n\n"))
             }
         }
         .onAppear { store.resumeComputer() }

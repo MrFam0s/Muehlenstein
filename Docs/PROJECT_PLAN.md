@@ -1,6 +1,6 @@
 # Muehlenstein — Projektplanung
 
-Aktualisiert am 30.09.2026. Die ursprüngliche Rechts- und Produktplanung liegt unverändert in `Research/Projektplanung_native_iOS_Muehle.pdf`; daneben steht das Rechercheprotokoll zur Namensgebung. Name und Arbeitsordner sind nun festgelegt.
+Aktualisiert am 01.10.2026. Die ursprüngliche Rechts- und Produktplanung liegt unverändert in `Research/Projektplanung_native_iOS_Muehle.pdf`; daneben steht das Rechercheprotokoll zur Namensgebung. Name und Arbeitsordner sind nun festgelegt.
 
 | Meilenstein | Ergebnis und Abnahme | Stand |
 | --- | --- | --- |
@@ -40,6 +40,10 @@ Auf Wunsch vom 30.09.2026 folgen jetzt die Kontrastprüfung und das App-Icon. Vo
 - Nach dieser Gestaltungsetappe den nächsten Funktionsumfang auswählen. Netzwerk bleibt eine spätere Etappe.
 
 ## Umfang und offene Produktangaben
+
+Die Original-KI-Optionen wurden am 01.10.2026 erneut gegen den aktuellen öffentlichen Sanmill-Stand geprüft (`AI_OPTIONS.md`). Fünf Suchstufen bleiben bestehen. Beweglichkeit ist bereits automatisch aktiv; der nun optionale Blockierstil gehört ausschließlich in die erweiterten Einstellungen. Zwei getrennte Stilserien mit insgesamt 576 vollständigen Partien begründen keine automatische Aktivierung als Stärkeverbesserung. Die Stufenbudgets bleiben unverändert.
+
+Für spätere KI-Erweiterungen zuerst ein geprüftes klassisches Eröffnungsbuch mit Legalitätsprüfung und Such-Fallback bewerten. Eine perfekte Datenbank benötigt danach eine eigene Daten-/Speicher- und Regelkompatibilitätsprüfung; sie ist kein allgemeiner Stufe-10-Schalter. Zehn Stufen erst bei belegbaren Zwischenabstufungen, Sprachmodell-Erklärungen nur als eigenständige optionale Trainerfunktion. Diese Punkte ersetzen weder die geplante Netzwerkphase noch die zurückgestellten Geräte-/Energieprüfungen.
 
 Die ursprünglichen 70–110 Personentage sind die erste Planungsspanne für das gesamte Offline-Produkt. Dieser Prototyp erfüllt noch nicht diesen Gesamtumfang. Nach Geräteintegration und genauer Funktionsabnahme neu schätzen. Die vorläufige Netzwerkplanung bleibt separat: 4–7 Wochen mit Game Center oder 8–14 Wochen mit eigenem Dienst, abhängig vom Umfang.
 

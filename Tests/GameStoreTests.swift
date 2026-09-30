@@ -168,6 +168,23 @@ final class GameStoreTests: XCTestCase {
             XCTAssertThrowsError(try Engine.query(SavedGame(settings: GameSettings(level: level))))
         }
     }
+    func testComputerStylesPersistWithoutChangingRules() throws {
+        for variant in Variant.allCases {
+            let moves = [MoveRecord(notation: "a7", side: 0), MoveRecord(notation: "g7", side: 1)]
+            let balanced = SavedGame(settings: GameSettings(variant: variant), moves: moves)
+            var blocking = balanced
+            blocking.settings.style = .blocking
+            let restored = try JSONDecoder().decode(SavedGame.self, from: JSONEncoder().encode(blocking))
+            XCTAssertEqual(restored.settings.style, .blocking)
+            let before = try Engine.query(balanced)
+            let after = try Engine.query(restored)
+            XCTAssertEqual(before.fen, after.fen)
+            XCTAssertEqual(before.legal, after.legal)
+            XCTAssertEqual(before.actors, after.actors)
+        }
+        let settings = Data(#"{"variant":0,"opponent":"computer","level":3,"algorithm":"mtdf","effort":"standard"}"#.utf8)
+        XCTAssertEqual(try JSONDecoder().decode(GameSettings.self, from: settings).style, .balanced)
+    }
 
     @MainActor func testChangingComputerSettingsRestartsPendingSearchAndPreservesGame() async throws {
         let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
@@ -177,7 +194,7 @@ final class GameStoreTests: XCTestCase {
         store.tap(23)
         XCTAssertTrue(store.isThinking)
         // Only computer configuration may change; variant and opponent must be preserved.
-        store.updateComputerSettings(GameSettings(variant: .lasker, opponent: .local, level: 1, algorithm: .pvs, effort: .extended))
+        store.updateComputerSettings(GameSettings(variant: .lasker, opponent: .local, level: 1, algorithm: .pvs, effort: .extended, style: .blocking))
         XCTAssertEqual(store.game?.moves, [MoveRecord(notation: "a7", side: 0)])
         XCTAssertEqual(store.game?.settings.variant, .classic)
         XCTAssertEqual(store.game?.settings.opponent, .computer)
@@ -188,6 +205,7 @@ final class GameStoreTests: XCTestCase {
         let restored = GameStore(storageURL: file)
         XCTAssertEqual(restored.game?.settings.algorithm, .pvs)
         XCTAssertEqual(restored.game?.settings.effort, .extended)
+        XCTAssertEqual(restored.game?.settings.style, .blocking)
         XCTAssertEqual(restored.game?.moves, store.game?.moves)
     }
 

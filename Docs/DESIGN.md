@@ -32,6 +32,8 @@ Keine eigene Haupt-, Spiel-, Konfigurations- oder Leseansicht enthält einen Scr
 
 Bei großer Schrift entfällt die dekorative Brettillustration, wenn nicht genug Platz bleibt. Im Spiel werden umfangreiche Texte in die Zugdetails ausgelagert und die Aktionsleiste verwendet beschriftete Accessibility-Symbole. Dynamic Type bleibt aktiv; längere Dokumente erhalten entsprechend mehr Seiten. Bei großer Schrift stehen auch die Vorratszahlen und die Aktionszahl in den Zugdetails, damit das Brett ausreichend Platz behält. VoiceOver erhält Koordinaten, Belegung, Auswahl und letzte Zugmarkierung. Ein vollständiger Test mit VoiceOver auf einem Gerät steht noch aus.
 
+Unter Erweitert steht zusätzlich der Spielstil Ausgewogen/Blockierend mit einer eigenen Info-Taste. Ausgewogen bleibt auf jeder Stufe voreingestellt. Bei sehr großer Schrift steht der Stil in einem eigenen Abschnitt desselben Konfigurationsblatts; die Starttaste bleibt fest erreichbar. Die Partiedetails nennen den gewählten Stil.
+
 ## Spieltempo und letzter Zug
 
 Computerzüge bleiben vor ihrer Ausführung ungefähr eine Sekunde sichtbar angekündigt: 850–1150 ms beim Setzen und 950–1250 ms beim Ziehen. Nach einer Mühle folgt die Steinabnahme mit einer eigenen Pause von 650–900 ms. Die tatsächliche Berechnung läuft innerhalb dieser Zeit; langsamere Antworten bekommen keine zusätzliche Wartezeit. Tipps erscheinen ohne künstliche Verzögerung.

@@ -146,6 +146,18 @@ Der signierte Gerätebuild wurde auf FA-iPhone installiert. Ein erneuter automat
 
 Alle drei Bedienungsprüfungen bestehen im abschließenden Lauf `.build/Restart-Markers-Verified.xcresult`.
 
+## Original-KI-Optionen und optionaler Spielstil — 01.10.2026
+
+Der öffentliche Sanmill-HEAD wurde gegen den importierten Stand abgeglichen und ist identisch. `AI_OPTIONS.md` bewertet die Original-Einstellungen einzeln, einschließlich irreführender deutscher Bezeichnungen, Datenbankabhängigkeiten, Fallenanzeige gegenüber Fehlerkorrektur und Sprachmodell-Analyse. Die fünf Suchbudgets und die Voreinstellung bleiben erhalten. Der eigene Adapter übergibt optional Sanmills originalen Blockierparameter; alle 85 importierten Dateien sind unverändert.
+
+**Engine und Speicherung:** Alle 19 Brückentests bestehen (`.build/Styles-Rust.log`), darunter beide Stile mit beiden Suchverfahren, beiden Rechenzeitmodi und allen vier Varianten; die 1.000 Referenzaktionen behalten beim Stilwechsel denselben exportierten Spielzustand. Ein fehlender Stil behält die bisherige Zugwahl. Fünf Tests des Vergleichsläufers und vier Python-Prüfungen bestehen. Drei fokussierte Swift-Tests bestehen (`.build/Styles-Models.xcresult`): Stil speichern/laden, unveränderte Regeln, bisherige fünf Stufen und Wechsel während einer laufenden Suche mit genau einer gültigen Computerantwort.
+
+**Vergleichspartien:** 64 reguläre Partien auf Stufe 2 und separat 512 auf Stufe 3; keine Fehler oder künstlichen Abbrüche. Auf Stufe 3 erreicht Blockierend 30,9–44,5 % der Punkte je Variante. Die konservativen simultanen Intervalle schließen 50 % ein; keine allgemeine Rangfolge oder Elo wird behauptet. Pläne, Rohdaten, Quellstände und Grenzen sind unter `Benchmarks/SPIELSTILE-2026-10-01.md` und dem zugehörigen Archiv festgehalten. Es gibt keine neue Energie- oder Geräteleistungsmessung.
+
+**Bedienung:** Auswahl beider Stile, Erklärungen mit Vor-/Nachteilen, Verwerfen, Übernehmen und Fortbestehen nach App-Neustart bestehen auf iPhone 17e; der identische Einstellungs-/Erklärungsablauf besteht auf iPad mini (`.build/Styles-UI-iPad.xcresult`). Bei größter Schrift im Querformat bestand der iPhone-SE-Test sofort (`.build/Styles-UI-Compact.xcresult`). Auf iPhone 17e fand der erste Lauf eine Überlappung der Rechenzeittasten mit der Starttaste um weniger als einen Punkt, statt des geforderten Mindestabstands von zwei Punkten. Weniger Zwischenraum oberhalb der kompakten Inhalte behebt dies ohne kleinere Tasten oder Schrift. Der Nachlauf besteht (`.build/Styles-Layout-Final.xcresult`). Der erste iPhone-Lauf bleibt wegen dieses korrigierten Layoutfehlers als fehlgeschlagenes Protokoll `.build/Styles-UI-iPhone.log` erhalten; sein hängender Xcode-Ergebnisexport wurde beendet.
+
+Die erweiterten iPad- und kompakten SE-Ansichten wurden visuell geprüft. Der signierte Gerätebuild ist auf FA-iPhone installiert; der anschließende normale Start wurde vom gesperrten Gerät abgelehnt. Die vollständigen VoiceOver- und Akkutests bleiben wie vereinbart zurückgestellt; die neuen Bedienungsprüfungen erfolgten im Simulator.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

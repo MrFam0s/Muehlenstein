@@ -41,3 +41,7 @@ Für die höchste Stufe ist eine größere, gesonderte Serie nötig, weil hier Z
 ## Fünf Spielstufen
 
 Neue Pläne geben pro Spieler `"level_scale": "five"` und eine Stufe von 1 bis 5 an. Fehlt dieses Feld, gilt unverändert die alte Skala 1 bis 3; insbesondere werden archivierte Pläne nicht stillschweigend neu interpretiert. Die neuen Pläne unter `level-plans/` vergleichen benachbarte Stufen bei MTD(f) und normaler Rechenzeit. Ergebnisse und Einschränkungen stehen in `SPIELSTUFEN-2026-09-30.md`.
+
+## Optionale Spielstile
+
+Seit 01.10.2026 unterstützt ein Spieler zusätzlich `"style": "balanced"` oder `"style": "blocking"`. Ohne Feld bleibt die bisherige ausgewogene Bewertung erhalten. Die beiden Stilpläne vergleichen ausschließlich diesen Parameter bei ansonsten gleichen Einstellungen. Ergebnisse der getrennten Vor- und Folgeserie stehen in `SPIELSTILE-2026-10-01.md`; die Option wird nicht als zusätzliche Stärkeordnung ausgegeben.

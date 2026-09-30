@@ -526,7 +526,7 @@ final class MuehlensteinUITests: XCTestCase {
     @MainActor private func showSetupPanel(_ key: String, in app: XCUIApplication) {
         if app.buttons["setup_tab_" + key].exists {
             app.buttons["setup_tab_" + key].tap()
-        } else if key == "advanced" && !app.buttons["algorithm_pvs"].exists {
+        } else if ["advanced", "style"].contains(key) && !app.buttons["algorithm_pvs"].exists {
             app.buttons["advanced_options"].tap()
         }
     }
@@ -538,7 +538,9 @@ final class MuehlensteinUITests: XCTestCase {
         }
     }
     @MainActor func testAdvancedSearchSelectionAndExplanations() {
-        let app = launch()
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
         app.buttons["new_game"].tap()
         XCTAssertFalse(app.buttons["computer_options"].exists)
         XCTAssertFalse(app.buttons["algorithm_pvs"].exists)
@@ -549,6 +551,22 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.buttons["algorithm_mtdf"].isSelected)
         app.buttons["algorithm_pvs"].tap()
         app.buttons["effort_extended"].tap()
+        showSetupPanel("style", in: app)
+        XCTAssertTrue(app.buttons["style_balanced"].isSelected)
+        app.buttons["style_blocking"].tap()
+        app.buttons["info_style_help"].tap()
+        var styleExplanation = ""
+        for _ in 0..<12 {
+            styleExplanation += (app.textViews.firstMatch.value as? String) ?? ""
+            let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
+            if !next.exists { break }
+            next.tap()
+        }
+        for text in ["Voreinstellung", "Stärke:", "Schwäche:", "schwächer", "unabhängig von der Spielstufe"] {
+            XCTAssertTrue(styleExplanation.contains(text))
+        }
+        app.navigationBars["Spielstil erklärt"].buttons["Fertig"].tap()
+        showSetupPanel("advanced", in: app)
         XCTAssertTrue(app.navigationBars["Neue Partie"].exists)
         XCTAssertEqual(app.scrollViews.count, 0)
         record("Inline-Setup-Advanced", app: app)
@@ -570,10 +588,25 @@ final class MuehlensteinUITests: XCTestCase {
         showSetupPanel("advanced", in: app)
         XCTAssertTrue(app.buttons["algorithm_pvs"].isSelected)
         XCTAssertTrue(app.buttons["effort_extended"].isSelected)
+        showSetupPanel("style", in: app)
+        XCTAssertTrue(app.buttons["style_blocking"].isSelected)
         record("Inline-Computer-Options", app: app)
         app.buttons["computer_done"].tap()
         app.buttons["node_a7"].tap()
         XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
+        app.terminate()
+        app.launch()
+        app.buttons["continue_game"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Computer einstellen"].tap()
+        showSetupPanel("style", in: app)
+        XCTAssertTrue(app.buttons["style_blocking"].isSelected)
+        app.buttons["style_balanced"].tap()
+        app.buttons["computer_done"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Computer einstellen"].tap()
+        showSetupPanel("style", in: app)
+        XCTAssertTrue(app.buttons["style_balanced"].isSelected)
     }
 
     @MainActor func testFiveLevelsAndCancelledAdvancedChanges() {
@@ -599,12 +632,16 @@ final class MuehlensteinUITests: XCTestCase {
         showSetupPanel("advanced", in: app)
         app.buttons["algorithm_pvs"].tap()
         app.buttons["effort_extended"].tap()
+        showSetupPanel("style", in: app)
+        app.buttons["style_blocking"].tap()
         app.navigationBars["Computer"].buttons["Abbrechen"].tap()
         app.buttons["game_options"].tap()
         app.buttons["Computer einstellen"].tap()
         showSetupPanel("advanced", in: app)
         XCTAssertTrue(app.buttons["algorithm_mtdf"].isSelected)
         XCTAssertTrue(app.buttons["effort_standard"].isSelected)
+        showSetupPanel("style", in: app)
+        XCTAssertTrue(app.buttons["style_balanced"].isSelected)
         app.buttons["computer_done"].tap()
         app.buttons["node_a7"].tap()
         XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
@@ -647,5 +684,14 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(app.scrollViews.count, 0)
         assertVisible(app.buttons["start_game"], in: app)
         record("Inline-Advanced-Largest-Landscape", app: app)
+        showSetupPanel("style", in: app)
+        for key in ["style_balanced", "style_blocking", "info_style_help"] {
+            assertVisible(app.buttons[key], in: app)
+            XCTAssertLessThanOrEqual(app.buttons[key].frame.maxY, app.buttons["start_game"].frame.minY - 2)
+        }
+        app.buttons["style_blocking"].tap()
+        XCTAssertTrue(app.buttons["style_blocking"].isSelected)
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("Inline-Style-Largest-Landscape", app: app)
     }
 }

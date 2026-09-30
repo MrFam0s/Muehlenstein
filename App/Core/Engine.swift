@@ -56,6 +56,9 @@ enum SearchAlgorithm: String, Codable, CaseIterable, Sendable {
 enum SearchEffort: String, Codable, CaseIterable, Sendable {
     case standard, extended
 }
+enum ComputerStyle: String, Codable, CaseIterable, Sendable {
+    case balanced, blocking
+}
 struct GameSettings: Codable, Equatable, Sendable {
     static let levels = 1...5
     var variant: Variant = .classic
@@ -63,6 +66,20 @@ struct GameSettings: Codable, Equatable, Sendable {
     var level = 3
     var algorithm: SearchAlgorithm = .mtdf
     var effort: SearchEffort = .standard
+    var style: ComputerStyle = .balanced
+
+    enum CodingKeys: String, CodingKey { case variant, opponent, level, algorithm, effort, style }
+}
+extension GameSettings {
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        variant = try values.decode(Variant.self, forKey: .variant)
+        opponent = try values.decode(Opponent.self, forKey: .opponent)
+        level = try values.decode(Int.self, forKey: .level)
+        algorithm = try values.decode(SearchAlgorithm.self, forKey: .algorithm)
+        effort = try values.decode(SearchEffort.self, forKey: .effort)
+        style = try values.decodeIfPresent(ComputerStyle.self, forKey: .style) ?? .balanced
+    }
 }
 struct MoveRecord: Codable, Equatable, Sendable {
     let notation: String
@@ -102,12 +119,14 @@ enum Engine {
         let level_scale = "five"
         let algorithm: SearchAlgorithm
         let effort: SearchEffort
+        let style: ComputerStyle
         let search_id: UInt64?
     }
     static func query(_ game: SavedGame, search: Bool = false, cancellation: SearchCancellation? = nil) throws -> Position {
         let data = try JSONEncoder().encode(Request(preset: game.settings.variant.rawValue,
             moves: game.moves.map(\.notation), search: search, level: game.settings.level,
-            algorithm: game.settings.algorithm, effort: game.settings.effort, search_id: cancellation?.id))
+            algorithm: game.settings.algorithm, effort: game.settings.effort, style: game.settings.style,
+            search_id: cancellation?.id))
         let input = String(decoding: data, as: UTF8.self)
         let output = withExtendedLifetime(cancellation) {
             input.withCString { ms_request($0) }
