@@ -6,7 +6,7 @@ struct DisplayOptionsView: View {
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(AppPreferences.self) private var preferences
     @State private var showingHelp = false
-    private let keys = ["show_legal", "show_last", "show_level"]
+    private let keys = ["show_legal", "show_last", "show_level", "animate_stones"]
 
     var body: some View {
         NavigationStack {
@@ -25,12 +25,18 @@ struct DisplayOptionsView: View {
                 .sheet(isPresented: $showingHelp) {
                     ReadingSheet(title: L10n.text("display_help"), text: L10n.text("display_help_body"))
                 }
-        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(300)])
-            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : 300))
+        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(340)])
+            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : 340))
     }
     private func row(_ key: String) -> some View {
         @Bindable var preferences = preferences
-        let value = key == "show_legal" ? $preferences.showLegalMoves : key == "show_last" ? $preferences.showLastMove : $preferences.showLevel
+        let value: Binding<Bool>
+        switch key {
+        case "show_legal": value = $preferences.showLegalMoves
+        case "show_last": value = $preferences.showLastMove
+        case "show_level": value = $preferences.showLevel
+        default: value = $preferences.animateStones
+        }
         return HStack(spacing: 8) {
             Toggle(L10n.text(key), isOn: value).accessibilityIdentifier(key)
             Button { showingHelp = true } label: { Image(systemName: "info.circle").font(.system(size: 22)).frame(width: 44, height: 44) }

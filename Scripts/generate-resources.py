@@ -81,6 +81,7 @@ copy.update({
 'show_legal': ('Zugziele', 'Legal targets'),
 'show_last': ('Letzter Zug', 'Last move'),
 'show_level': ('Spielstufe', 'Level badge'),
+'animate_stones': ('Steinanimationen', 'Stone animations'),
 'display_help': ('Hinweise', 'About these options'),
 'display_help_body': ('Zugziele\nMarkiert freie Setzpunkte, mögliche Ziele des ausgewählten Steins und erlaubte Schlagziele. Ausgeschaltet gelten dieselben Regeln; nur die Markierungen entfallen.\n\nLetzter Zug\nZeigt Ziel, Ausgangspunkt und entfernte Steine des letzten Zuges. Bei Computerzügen erscheint zusätzlich eine kurze Beschreibung. Der Verlauf bleibt unabhängig davon verfügbar.\n\nSpielstufe\nZeigt die gewählte Computerstufe neben dem Steinvorrat. Bei großer Schrift steht sie in den Partiedetails. Sie ist keine gemessene Elo-Wertung.\n\nDie Einstellungen werden auf diesem Gerät gespeichert. Ein ausdrücklich angeforderter Tipp und die Liste möglicher Züge bleiben auch bei ausgeschalteten Markierungen verfügbar.', 'Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nLevel badge\nShows the selected computer level beside its reserve. At large text sizes, find it in the turn details. This is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move list remain available when markers are off.'),
 'computer_options': ('Computer einstellen', 'Computer settings'),
@@ -111,6 +112,9 @@ copy.update({
 })
 copy['computer_help_body'] = tuple(t.replace('Fertig übernimmt deine Auswahl für die nächsten Züge.', 'Bei einer neuen Partie gilt deine Auswahl mit Spielbeginn. Während einer Partie übernimmt Fertig die Auswahl für die nächsten Züge.').replace('Done applies your selection to future moves', 'Starting a new game applies your selection. During a game, Done applies it to future moves') for t in copy['computer_help_body'])
 copy['search_help_body'] = tuple(t.replace('Fertig auf der Computer-Seite übernimmt die Auswahl, Abbrechen verwirft sie.', 'Beginne die neue Partie, um die Auswahl zu übernehmen. Während einer Partie übernimmt Fertig die Auswahl, Abbrechen verwirft sie.').replace('Done on the Computer page applies your selection; Cancel discards it.', 'Start a new game to apply your selection. During a game, Done applies your changes; Cancel discards them.') for t in copy['search_help_body'])
+copy['display_help_body'] = tuple(text + addition for text, addition in zip(copy['display_help_body'], (
+    '\n\nSteinanimationen\nSteine gleiten sanft zu ihrem Ziel und werden beim Setzen oder Entfernen kurz ein- bzw. ausgeblendet. Ausgeschaltet wechseln sie sofort. Die iOS-Einstellung „Bewegung reduzieren“ hat Vorrang. Die Denkpause des Computers bleibt unverändert.',
+    '\n\nStone animations\nStones glide to their destination and briefly fade in or out when placed or captured. Turn this off for immediate changes. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.')))
 copy.pop(' twelve')
 for i, lang in enumerate(['de','en']):
     folder=resources / f'{lang}.lproj'; folder.mkdir(parents=True, exist_ok=True)

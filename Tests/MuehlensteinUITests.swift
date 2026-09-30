@@ -195,6 +195,34 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["history"].tap()
         XCTAssertTrue(app.staticTexts["a7-d7"].exists, "The selected move must not become a placement")
     }
+    @MainActor func testStoneMovementKeepsBoardTargetsFixedWithAndWithoutAnimation() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["variant_lasker"].tap()
+        app.buttons["start_game"].tap()
+        let origin = app.buttons["node_a7"].frame
+        let target = app.buttons["node_d7"].frame
+        print("MOTION-NODES: \(origin) -> \(target)")
+        for node in ["a7", "g7", "a7", "d7"] { app.buttons["node_\(node)"].tap() }
+        XCTAssertTrue(app.buttons["node_d7"].label.contains("Weiß"))
+        XCTAssertTrue(app.buttons["node_a7"].label.contains("frei"))
+        XCTAssertEqual(app.buttons["node_a7"].frame, origin)
+        XCTAssertEqual(app.buttons["node_d7"].frame, target)
+        app.buttons["undo"].tap()
+        XCTAssertTrue(app.buttons["node_a7"].label.contains("Weiß"))
+        app.buttons["game_options"].tap()
+        app.buttons["Spielhilfen"].tap()
+        XCTAssertEqual(app.switches["animate_stones"].firstMatch.value as? String, "1")
+        toggleSwitch("animate_stones", in: app)
+        record("Stone-Animation-Option", app: app)
+        app.buttons["display_done"].tap()
+        for node in ["a7", "d7"] { app.buttons["node_\(node)"].tap() }
+        XCTAssertTrue(app.buttons["node_d7"].label.contains("Weiß"))
+        XCTAssertEqual(app.buttons["node_a7"].frame, origin)
+        XCTAssertEqual(app.buttons["node_d7"].frame, target)
+        XCTAssertEqual(app.scrollViews.count, 0)
+    }
     @MainActor func testPendingCaptureSurvivesBackgroundAndRelaunch() {
         let app = XCUIApplication()
         app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
@@ -413,7 +441,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["game_options"].tap()
         app.buttons["Spielhilfen"].tap()
         record("Options-Playing-Aids", app: app)
-        for key in ["show_legal", "show_last", "show_level"] { toggleSwitch(key, in: app) }
+        for key in ["show_legal", "show_last", "show_level", "animate_stones"] { toggleSwitch(key, in: app) }
         app.buttons["display_done"].tap()
         XCTAssertEqual(app.buttons["node_a7"].frame, boardFrame)
         for fragment in ["mögliches Ziel", "Ziel des letzten Zuges"] {
@@ -429,7 +457,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges")).count, 0)
         app.buttons["game_options"].tap()
         app.buttons["Spielhilfen"].tap()
-        for key in ["show_legal", "show_last", "show_level"] {
+        for key in ["show_legal", "show_last", "show_level", "animate_stones"] {
             XCTAssertEqual(app.switches[key].firstMatch.value as? String, "0")
             toggleSwitch(key, in: app)
         }
@@ -533,7 +561,7 @@ final class MuehlensteinUITests: XCTestCase {
                                "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
         app.buttons["display_options"].tap()
-        for key in ["show_legal", "show_last", "show_level"] {
+        for key in ["show_legal", "show_last", "show_level", "animate_stones"] {
             let toggle = app.switches[key].firstMatch
             if !toggle.exists { app.buttons["next_page"].tap() }
             assertVisible(toggle, in: app)

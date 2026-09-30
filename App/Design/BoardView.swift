@@ -2,7 +2,10 @@
 import SwiftUI
 
 struct BoardView: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let position: Position
+    var moves: [MoveRecord]? = nil
+    var animateStones = true
     var selected: Int? = nil
     var hint: EngineAction? = nil
     var recentActions: [EngineAction] = []
@@ -40,6 +43,7 @@ struct BoardView: View {
     var body: some View {
         GeometryReader { geo in
             let size = geo.size.width
+            let pieces = BoardPiece.layout(position: position, moves: moves)
             ZStack {
                 RoundedRectangle(cornerRadius: 26).fill(Color.boardSurface)
                 Path { path in
@@ -56,14 +60,14 @@ struct BoardView: View {
                 }.stroke(Color.petrol, style: StrokeStyle(lineWidth: 2, dash: [4, 5]))
                     .allowsHitTesting(false).accessibilityHidden(true)
                 ForEach(position.nodes) { node in
+                    Circle().fill(Color.boardLine).frame(width: 5, height: 5)
+                        .position(point(node.id, size: size))
+                }.allowsHitTesting(false).accessibilityHidden(true)
+                ForEach(position.nodes) { node in
                     let stone = position.board[node.id]
                     Button { tap(node.id) } label: {
                         ZStack {
-                            if stone > 0 {
-                                Stone(side: stone - 1, selected: selected == node.id, size: min(32, size * 0.09))
-                            } else {
-                                Circle().fill(Color.boardLine).frame(width: 5, height: 5)
-                            }
+                            Color.clear
                             if recentActions.contains(where: { $0.kind != 2 && $0.to == node.id }) {
                                 Circle().strokeBorder(Color.petrol, lineWidth: 2).frame(width: 43, height: 43)
                             }
@@ -76,10 +80,8 @@ struct BoardView: View {
                             }
                             if destination(node.id), stone == 0, selected == nil, hint?.to != node.id {
                                 Circle().fill(Color.petrol).frame(width: 9, height: 9)
-                            } else if destination(node.id) || hint?.to == node.id {
-                                // This ring is inside an occupied stone, so contrast follows its material,
-                                // not the system appearance (a light stone stays light in dark mode).
-                                Circle().strokeBorder(stone == 0 ? Color.petrol : Color(stone == 1 ? "WhiteStoneMark" : "BlackStoneMark"), style: StrokeStyle(lineWidth: 2, dash: stone > 0 ? [3, 3] : []))
+                            } else if stone == 0 && (destination(node.id) || hint?.to == node.id) {
+                                Circle().strokeBorder(Color.petrol, lineWidth: 2)
                                     .frame(width: 22, height: 22)
                             }
                         }.frame(width: 44, height: 44).contentShape(Circle())
@@ -91,12 +93,31 @@ struct BoardView: View {
                     .accessibilityIdentifier("node_\(node.label)")
                     .position(point(node.id, size: size))
                 }
+                // Only this visual layer animates. Board coordinates, buttons and game state
+                // update immediately, so a transition never queues or blocks a player's input.
+                ZStack {
+                    ForEach(pieces) { piece in
+                        Stone(side: piece.side, selected: selected == piece.node, size: min(32, size * 0.09))
+                            .overlay {
+                                if destination(piece.node) || hint?.to == piece.node {
+                                    Circle().strokeBorder(Color(piece.side == 0 ? "WhiteStoneMark" : "BlackStoneMark"),
+                                                          style: StrokeStyle(lineWidth: 2, dash: [3, 3]))
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
+                            .position(point(piece.node, size: size))
+                            .transition(.opacity)
+                            .zIndex(position.lastTurn.contains { $0.kind == 1 && $0.to == piece.node } ? 1 : 0)
+                    }
+                }.frame(width: size, height: size)
+                    .animation(animateStones && !reduceMotion ? .easeInOut(duration: 0.32) : nil, value: pieces)
+                    .allowsHitTesting(false).accessibilityHidden(true)
             }
         }.aspectRatio(1, contentMode: .fit)
     }
 }
 
-// Keep stone materials opaque when interaction is disabled (AI turn / illustration).
+// Keep board marks opaque when interaction is disabled (AI turn / illustration).
 private struct BoardPointStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View { configuration.label }
 }

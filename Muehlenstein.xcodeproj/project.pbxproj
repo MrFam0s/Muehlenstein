@@ -307,6 +307,7 @@
 				<string>05D2CB08715C9B8C7DA9079D</string>
 				<string>9DFB4F70043871F9D97ECA9F</string>
 				<string>0FCFA4E149973B1E78FFDA4B</string>
+				<string>04A0B316563586286592CE00</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -355,6 +356,7 @@
 				<string>F3CEE002121A7E3E09E609EF</string>
 				<string>60E3AB5054ED2E9EFFF6F953</string>
 				<string>DED8C464573E14E97B058E98</string>
+				<string>165C88AD79BF6CF2EDC37B4E</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
@@ -1424,6 +1426,24 @@
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<integer>0</integer>
+		</dict>
+		<key>04A0B316563586286592CE00</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>BoardPiece.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>165C88AD79BF6CF2EDC37B4E</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>04A0B316563586286592CE00</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

@@ -22,7 +22,7 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 - Nine Men's Morris, Twelve Men's Morris, Morabaraba, Lasker Morris.
 - Placement, movement, flying, mill capture and results adjudicated by Sanmill.
 - Human hint, undo, automatic save and replay-validated restoration.
-- Natural computer pacing, separate mill/capture steps, persistent last-turn markers and a text description of the computer's move.
+- Natural computer pacing, separate mill/capture steps, persistent last-turn markers and a text description of the computer's move. Stable stone identities allow gentle movement, placement and capture transitions; a saved Stone animations switch and iOS Reduce Motion can disable them.
 - Five difficulty levels (default 3), with MTD(f) as the default search. New-game setup offers a stepped slider and a four-tile variant grid; algorithm and thinking-time choices expand inline under Advanced. Explanations open from adjacent info buttons. Development saves use schema 2 without migrating earlier saves.
 - Saved display preferences for legal targets, last-turn feedback and the computer level badge; advanced search/time options with an in-app comparison of both algorithms' strengths and limitations.
 - Reproducible paired engine tournaments through the production bridge, with archived results: [2,048-game comparison at the original middle level](Docs/Benchmarks/ERGEBNISSE-2026-09-30.md). No reliable playing-strength advantage was established for either search method under those conditions.

@@ -106,8 +106,9 @@
 "show_legal" = "Legal targets";
 "show_last" = "Last move";
 "show_level" = "Level badge";
+"animate_stones" = "Stone animations";
 "display_help" = "About these options";
-"display_help_body" = "Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nLevel badge\nShows the selected computer level beside its reserve. At large text sizes, find it in the turn details. This is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move list remain available when markers are off.";
+"display_help_body" = "Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nLevel badge\nShows the selected computer level beside its reserve. At large text sizes, find it in the turn details. This is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move list remain available when markers are off.\n\nStone animations\nStones glide to their destination and briefly fade in or out when placed or captured. Turn this off for immediate changes. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.";
 "computer_options" = "Computer settings";
 "search_algorithm" = "Search";
 "search_comparison" = "Compare search methods";

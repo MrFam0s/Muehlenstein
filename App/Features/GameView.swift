@@ -139,9 +139,11 @@ struct GameView: View {
     private func fittedBoard(_ position: Position) -> some View {
         GeometryReader { geometry in
             let side = max(0, min(geometry.size.width, geometry.size.height, 700))
-            BoardView(position: position, selected: store.selectedNode, hint: store.hint,
+            BoardView(position: position, moves: store.game?.moves, animateStones: preferences.animateStones,
+                      selected: store.selectedNode, hint: store.hint,
                       recentActions: preferences.showLastMove ? position.lastTurn : [], showLegalMoves: preferences.showLegalMoves,
                       interactive: store.isHumanTurn && !store.isThinking, tap: store.tap)
+                .id(store.boardID)
                 .frame(width: side, height: side)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }.frame(maxWidth: .infinity, maxHeight: .infinity)

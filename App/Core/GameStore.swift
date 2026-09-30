@@ -5,6 +5,7 @@ import Observation
 @MainActor @Observable final class GameStore {
     private(set) var game: SavedGame?
     private(set) var position: Position?
+    private(set) var boardID = UUID()
     enum Activity { case computer, hint }
     private(set) var activity: Activity?
     var isThinking: Bool { activity != nil }
@@ -44,6 +45,7 @@ import Observation
         do {
             let next = SavedGame(settings: settings)
             let position = try Engine.query(next)
+            boardID = UUID()
             game = next
             self.position = position
             selectedNode = nil

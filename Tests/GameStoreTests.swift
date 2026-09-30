@@ -144,13 +144,16 @@ final class GameStoreTests: XCTestCase {
         XCTAssertTrue(preferences.showLegalMoves)
         XCTAssertTrue(preferences.showLastMove)
         XCTAssertTrue(preferences.showLevel)
+        XCTAssertTrue(preferences.animateStones)
         preferences.showLegalMoves = false
         preferences.showLastMove = false
         preferences.showLevel = false
+        preferences.animateStones = false
         let restored = AppPreferences(defaults: defaults)
         XCTAssertFalse(restored.showLegalMoves)
         XCTAssertFalse(restored.showLastMove)
         XCTAssertFalse(restored.showLevel)
+        XCTAssertFalse(restored.animateStones)
     }
 
     func testFiveLevelSettingsRoundtripThroughSaveAndEngine() throws {
@@ -232,6 +235,56 @@ final class GameStoreTests: XCTestCase {
             XCTAssertEqual(store.position?.fen, opening.fen)
             XCTAssertFalse(store.canUndo)
         }
+    }
+
+    func testStoneIdentitiesFollowReferenceMovesCapturesAndUndo() throws {
+        let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "offline-games", withExtension: "json"))
+        let fixtures = try JSONDecoder().decode(OfflineFixtures.self, from: Data(contentsOf: url))
+        var moved = 0
+        var captured = 0
+        for fixture in fixtures.games {
+            var game = SavedGame(settings: GameSettings(variant: try XCTUnwrap(Variant(rawValue: fixture.preset)), opponent: .local))
+            var position = try Engine.query(game)
+            for notation in fixture.moves {
+                let before = try XCTUnwrap(BoardPiece.tracked(position: position, moves: game.moves))
+                let action = try XCTUnwrap(position.legal.first { $0.notation == notation })
+                game.moves.append(MoveRecord(notation: notation, side: position.side))
+                let next = try Engine.query(game)
+                let after = try XCTUnwrap(BoardPiece.tracked(position: next, moves: game.moves), fixture.name + ": " + notation)
+                XCTAssertEqual(Set(after.map(\.id)).count, after.count)
+                switch action.kind {
+                case 0:
+                    XCTAssertEqual(after.count, before.count + 1)
+                    XCTAssertEqual(after.first { $0.node == action.to }?.side, position.side)
+                case 1:
+                    moved += 1
+                    XCTAssertEqual(after.count, before.count)
+                    XCTAssertEqual(before.first { $0.node == action.from }?.id, after.first { $0.node == action.to }?.id)
+                    XCTAssertNil(after.first { $0.node == action.from })
+                default:
+                    captured += 1
+                    let removed = try XCTUnwrap(before.first { $0.node == action.to })
+                    XCTAssertEqual(Set(after.map(\.id)), Set(before.map(\.id)).subtracting([removed.id]))
+                }
+                // Undo reconstructs the original identities, including a stone returned after capture.
+                XCTAssertEqual(BoardPiece.tracked(position: position, moves: Array(game.moves.dropLast())), before)
+                position = next
+            }
+        }
+        XCTAssertGreaterThan(moved, 100)
+        XCTAssertGreaterThan(captured, 20)
+    }
+
+    @MainActor func testNewGameResetsVisualIdentityButMovesAndUndoDoNot() throws {
+        let store = GameStore(inMemory: true)
+        store.start(GameSettings(opponent: .local))
+        let identity = store.boardID
+        store.tap(23)
+        XCTAssertEqual(store.boardID, identity)
+        store.undo()
+        XCTAssertEqual(store.boardID, identity)
+        store.start(GameSettings(opponent: .local))
+        XCTAssertNotEqual(store.boardID, identity)
     }
 
     @MainActor func testExplicitActionIgnoresSelectionAndRejectsStaleAndIllegalMoves() throws {

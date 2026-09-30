@@ -14,7 +14,7 @@ Aktualisiert am 30.09.2026. Die ursprüngliche Rechts- und Produktplanung liegt 
 
 ## Jetzt beurteilen
 
-Die warme Steinrichtung wurde positiv beurteilt. Computerzüge erhalten auf Wunsch ein ruhigeres Tempo und dauerhafte Markierungen des letzten Zuges. Auf Wunsch sind Start-, Spiel- und weitere Ansichten nun ohne Scrollbereiche aufgebaut; längere Inhalte werden in Seiten aufgeteilt. Die Layoutabnahme umfasst kompakte Geräte, Querformat, Großschrift und unbewegliche Brettkoordinaten bei Gesten/Zugwechseln. Die erste echte iPhone-Prüfung ist abgeschlossen. VoiceOver und Akkutests sind auf Wunsch vom 30.09.2026 zurückgestellt; sie bleiben vor einer Veröffentlichung einzuplanen. Änderungen am lokalen Prototyp benötigen keine erneute grundsätzliche Freigabe.
+Die warme Steinrichtung wurde positiv beurteilt. Computerzüge erhalten auf Wunsch ein ruhigeres Tempo und dauerhafte Markierungen des letzten Zuges. Steine gleiten mit einer kurzen, sanften Animation; diese ist unter Spielhilfen abschaltbar und berücksichtigt „Bewegung reduzieren“. Auf Wunsch sind Start-, Spiel- und weitere Ansichten nun ohne Scrollbereiche aufgebaut; längere Inhalte werden in Seiten aufgeteilt. Die Layoutabnahme umfasst kompakte Geräte, Querformat, Großschrift und unbewegliche Brettkoordinaten bei Gesten/Zugwechseln. Die erste echte iPhone-Prüfung ist abgeschlossen. VoiceOver und Akkutests sind auf Wunsch vom 30.09.2026 zurückgestellt; sie bleiben vor einer Veröffentlichung einzuplanen. Änderungen am lokalen Prototyp benötigen keine erneute grundsätzliche Freigabe.
 
 ## Nächste Etappe nach dem ersten Commit
 
