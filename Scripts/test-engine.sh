@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+python3 "$ROOT/Scripts/generate-opening-book.py" --check
 export PATH="/opt/homebrew/bin:$PATH"
 export CARGO_HOME="$ROOT/.build/cargo"
 export RUSTC="$ROOT/.build/rust-sysroot/bin/rustc"

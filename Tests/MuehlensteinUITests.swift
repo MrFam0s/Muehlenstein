@@ -526,7 +526,7 @@ final class MuehlensteinUITests: XCTestCase {
     @MainActor private func showSetupPanel(_ key: String, in app: XCUIApplication) {
         if app.buttons["setup_tab_" + key].exists {
             app.buttons["setup_tab_" + key].tap()
-        } else if ["advanced", "style"].contains(key) && !app.buttons["algorithm_pvs"].exists {
+        } else if ["advanced", "style", "book"].contains(key) && !app.buttons["algorithm_pvs"].exists {
             app.buttons["advanced_options"].tap()
         }
     }
@@ -566,6 +566,21 @@ final class MuehlensteinUITests: XCTestCase {
             XCTAssertTrue(styleExplanation.contains(text))
         }
         app.navigationBars["Spielstil erklärt"].buttons["Fertig"].tap()
+        showSetupPanel("book", in: app)
+        XCTAssertTrue(app.buttons["book_automatic"].isSelected)
+        app.buttons["book_off"].tap()
+        app.buttons["info_book_help"].tap()
+        var bookExplanation = ""
+        for _ in 0..<12 {
+            bookExplanation += (app.textViews.firstMatch.value as? String) ?? ""
+            let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
+            if !next.exists { break }
+            next.tap()
+        }
+        for text in ["Stufe 4 und 5", "offline", "keinen perfekten", "Spielstil"] {
+            XCTAssertTrue(bookExplanation.contains(text))
+        }
+        app.navigationBars["Eröffnungsbuch"].buttons["Fertig"].tap()
         showSetupPanel("advanced", in: app)
         XCTAssertTrue(app.navigationBars["Neue Partie"].exists)
         XCTAssertEqual(app.scrollViews.count, 0)
@@ -602,11 +617,16 @@ final class MuehlensteinUITests: XCTestCase {
         showSetupPanel("style", in: app)
         XCTAssertTrue(app.buttons["style_blocking"].isSelected)
         app.buttons["style_balanced"].tap()
+        showSetupPanel("book", in: app)
+        XCTAssertTrue(app.buttons["book_off"].isSelected)
+        app.buttons["book_automatic"].tap()
         app.buttons["computer_done"].tap()
         app.buttons["game_options"].tap()
         app.buttons["Computer einstellen"].tap()
         showSetupPanel("style", in: app)
         XCTAssertTrue(app.buttons["style_balanced"].isSelected)
+        showSetupPanel("book", in: app)
+        XCTAssertTrue(app.buttons["book_automatic"].isSelected)
     }
 
     @MainActor func testFiveLevelsAndCancelledAdvancedChanges() {
@@ -634,6 +654,8 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["effort_extended"].tap()
         showSetupPanel("style", in: app)
         app.buttons["style_blocking"].tap()
+        showSetupPanel("book", in: app)
+        app.buttons["book_off"].tap()
         app.navigationBars["Computer"].buttons["Abbrechen"].tap()
         app.buttons["game_options"].tap()
         app.buttons["Computer einstellen"].tap()
@@ -642,6 +664,8 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.buttons["effort_standard"].isSelected)
         showSetupPanel("style", in: app)
         XCTAssertTrue(app.buttons["style_balanced"].isSelected)
+        showSetupPanel("book", in: app)
+        XCTAssertTrue(app.buttons["book_automatic"].isSelected)
         app.buttons["computer_done"].tap()
         app.buttons["node_a7"].tap()
         XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
@@ -693,5 +717,14 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.buttons["style_blocking"].isSelected)
         XCTAssertEqual(app.scrollViews.count, 0)
         record("Inline-Style-Largest-Landscape", app: app)
+        showSetupPanel("book", in: app)
+        for key in ["book_automatic", "book_off", "info_book_help"] {
+            assertVisible(app.buttons[key], in: app)
+            XCTAssertLessThanOrEqual(app.buttons[key].frame.maxY, app.buttons["start_game"].frame.minY - 2)
+        }
+        app.buttons["book_off"].tap()
+        XCTAssertTrue(app.buttons["book_off"].isSelected)
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("Inline-Book-Largest-Landscape", app: app)
     }
 }

@@ -12,7 +12,7 @@ struct NewGameView: View {
     private var sheetHeight: CGFloat {
         if dynamicType.isAccessibilitySize { return 760 }
         if settings.opponent == .local { return 400 }
-        return expanded ? 700 : 540
+        return expanded ? 750 : 540
     }
 
     var body: some View {

@@ -34,6 +34,7 @@ struct Position: Decodable, Sendable {
     let best: EngineAction?
     let searchDepth: Int
     let searchNodes: Int
+    let moveSource: String?
     var isOver: Bool { outcome != "ongoing" }
 }
 
@@ -67,8 +68,9 @@ struct GameSettings: Codable, Equatable, Sendable {
     var algorithm: SearchAlgorithm = .mtdf
     var effort: SearchEffort = .standard
     var style: ComputerStyle = .balanced
+    var openingBook = true
 
-    enum CodingKeys: String, CodingKey { case variant, opponent, level, algorithm, effort, style }
+    enum CodingKeys: String, CodingKey { case variant, opponent, level, algorithm, effort, style, openingBook }
 }
 extension GameSettings {
     init(from decoder: Decoder) throws {
@@ -79,6 +81,7 @@ extension GameSettings {
         algorithm = try values.decode(SearchAlgorithm.self, forKey: .algorithm)
         effort = try values.decode(SearchEffort.self, forKey: .effort)
         style = try values.decodeIfPresent(ComputerStyle.self, forKey: .style) ?? .balanced
+        openingBook = try values.decodeIfPresent(Bool.self, forKey: .openingBook) ?? true
     }
 }
 struct MoveRecord: Codable, Equatable, Sendable {
@@ -120,12 +123,14 @@ enum Engine {
         let algorithm: SearchAlgorithm
         let effort: SearchEffort
         let style: ComputerStyle
+        let opening_book: Bool
         let search_id: UInt64?
     }
     static func query(_ game: SavedGame, search: Bool = false, cancellation: SearchCancellation? = nil) throws -> Position {
         let data = try JSONEncoder().encode(Request(preset: game.settings.variant.rawValue,
             moves: game.moves.map(\.notation), search: search, level: game.settings.level,
             algorithm: game.settings.algorithm, effort: game.settings.effort, style: game.settings.style,
+            opening_book: game.settings.openingBook,
             search_id: cancellation?.id))
         let input = String(decoding: data, as: UTF8.self)
         let output = withExtendedLifetime(cancellation) {

@@ -168,6 +168,27 @@ final class GameStoreTests: XCTestCase {
             XCTAssertThrowsError(try Engine.query(SavedGame(settings: GameSettings(level: level))))
         }
     }
+    func testOpeningBookPolicyAndPersistence() throws {
+        var game = SavedGame(settings: GameSettings(level: 4), moves: [MoveRecord(notation: "b4", side: 0)])
+        let book = try Engine.query(game, search: true)
+        XCTAssertEqual(book.moveSource, "book")
+        XCTAssertEqual(book.searchNodes, 0)
+        XCTAssertTrue(book.legal.contains(try XCTUnwrap(book.best)))
+        game.settings.openingBook = false
+        let restored = try JSONDecoder().decode(SavedGame.self, from: JSONEncoder().encode(game))
+        XCTAssertFalse(restored.settings.openingBook)
+        let searched = try Engine.query(restored, search: true)
+        XCTAssertEqual(searched.moveSource, "search")
+        XCTAssertEqual(book.fen, searched.fen)
+        XCTAssertEqual(book.legal, searched.legal)
+        game.settings.openingBook = true
+        game.settings.level = 3
+        XCTAssertEqual(try Engine.query(game, search: true).moveSource, "search")
+        game.settings.variant = .twelve
+        game.settings.level = 4
+        XCTAssertEqual(try Engine.query(game, search: true).moveSource, "search")
+    }
+
     func testComputerStylesPersistWithoutChangingRules() throws {
         for variant in Variant.allCases {
             let moves = [MoveRecord(notation: "a7", side: 0), MoveRecord(notation: "g7", side: 1)]
@@ -194,7 +215,7 @@ final class GameStoreTests: XCTestCase {
         store.tap(23)
         XCTAssertTrue(store.isThinking)
         // Only computer configuration may change; variant and opponent must be preserved.
-        store.updateComputerSettings(GameSettings(variant: .lasker, opponent: .local, level: 1, algorithm: .pvs, effort: .extended, style: .blocking))
+        store.updateComputerSettings(GameSettings(variant: .lasker, opponent: .local, level: 1, algorithm: .pvs, effort: .extended, style: .blocking, openingBook: false))
         XCTAssertEqual(store.game?.moves, [MoveRecord(notation: "a7", side: 0)])
         XCTAssertEqual(store.game?.settings.variant, .classic)
         XCTAssertEqual(store.game?.settings.opponent, .computer)
@@ -206,6 +227,7 @@ final class GameStoreTests: XCTestCase {
         XCTAssertEqual(restored.game?.settings.algorithm, .pvs)
         XCTAssertEqual(restored.game?.settings.effort, .extended)
         XCTAssertEqual(restored.game?.settings.style, .blocking)
+        XCTAssertEqual(restored.game?.settings.openingBook, false)
         XCTAssertEqual(restored.game?.moves, store.game?.moves)
     }
 

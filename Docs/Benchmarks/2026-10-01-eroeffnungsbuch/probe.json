@@ -1,0 +1,622 @@
+{
+  "records": [
+    {
+      "best": "d2",
+      "depth": 0,
+      "micros": 164,
+      "moves": [],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 29999,
+      "moves": [],
+      "nodesAtLastDepth": 175168,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 19423,
+      "moves": [
+        "d5"
+      ],
+      "nodesAtLastDepth": 105849,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 19246,
+      "moves": [
+        "d5"
+      ],
+      "nodesAtLastDepth": 105849,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 26899,
+      "moves": [
+        "e5"
+      ],
+      "nodesAtLastDepth": 159980,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23470,
+      "moves": [
+        "e5"
+      ],
+      "nodesAtLastDepth": 159980,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 21392,
+      "moves": [
+        "e4"
+      ],
+      "nodesAtLastDepth": 110838,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 21450,
+      "moves": [
+        "e4"
+      ],
+      "nodesAtLastDepth": 110838,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23451,
+      "moves": [
+        "e3"
+      ],
+      "nodesAtLastDepth": 151714,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 25138,
+      "moves": [
+        "e3"
+      ],
+      "nodesAtLastDepth": 151714,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 24042,
+      "moves": [
+        "d3"
+      ],
+      "nodesAtLastDepth": 138665,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 24075,
+      "moves": [
+        "d3"
+      ],
+      "nodesAtLastDepth": 138665,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23816,
+      "moves": [
+        "c3"
+      ],
+      "nodesAtLastDepth": 148998,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 26544,
+      "moves": [
+        "c3"
+      ],
+      "nodesAtLastDepth": 148998,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23225,
+      "moves": [
+        "c4"
+      ],
+      "nodesAtLastDepth": 144678,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 24330,
+      "moves": [
+        "c4"
+      ],
+      "nodesAtLastDepth": 144678,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 26152,
+      "moves": [
+        "c5"
+      ],
+      "nodesAtLastDepth": 160132,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23412,
+      "moves": [
+        "c5"
+      ],
+      "nodesAtLastDepth": 160132,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d2",
+      "depth": 0,
+      "micros": 107,
+      "moves": [
+        "d6"
+      ],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "d2",
+      "depth": 8,
+      "micros": 21758,
+      "moves": [
+        "d6"
+      ],
+      "nodesAtLastDepth": 143165,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "b4",
+      "depth": 0,
+      "micros": 109,
+      "moves": [
+        "f6"
+      ],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "d2",
+      "depth": 8,
+      "micros": 11176,
+      "moves": [
+        "f6"
+      ],
+      "nodesAtLastDepth": 106699,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "b4",
+      "depth": 0,
+      "micros": 107,
+      "moves": [
+        "f4"
+      ],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "b4",
+      "depth": 8,
+      "micros": 21400,
+      "moves": [
+        "f4"
+      ],
+      "nodesAtLastDepth": 146448,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 0,
+      "micros": 105,
+      "moves": [
+        "f2"
+      ],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 15722,
+      "moves": [
+        "f2"
+      ],
+      "nodesAtLastDepth": 106609,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 0,
+      "micros": 109,
+      "moves": [
+        "d2"
+      ],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 21751,
+      "moves": [
+        "d2"
+      ],
+      "nodesAtLastDepth": 144954,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "f4",
+      "depth": 0,
+      "micros": 117,
+      "moves": [
+        "b2"
+      ],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 19910,
+      "moves": [
+        "b2"
+      ],
+      "nodesAtLastDepth": 133787,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "f4",
+      "depth": 0,
+      "micros": 124,
+      "moves": [
+        "b4"
+      ],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "f4",
+      "depth": 8,
+      "micros": 21678,
+      "moves": [
+        "b4"
+      ],
+      "nodesAtLastDepth": 140944,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d2",
+      "depth": 0,
+      "micros": 111,
+      "moves": [
+        "b6"
+      ],
+      "nodesAtLastDepth": 0,
+      "openingBook": true,
+      "source": "book"
+    },
+    {
+      "best": "f4",
+      "depth": 8,
+      "micros": 11367,
+      "moves": [
+        "b6"
+      ],
+      "nodesAtLastDepth": 84465,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 17740,
+      "moves": [
+        "d7"
+      ],
+      "nodesAtLastDepth": 114010,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 17998,
+      "moves": [
+        "d7"
+      ],
+      "nodesAtLastDepth": 114010,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23244,
+      "moves": [
+        "g7"
+      ],
+      "nodesAtLastDepth": 157428,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23986,
+      "moves": [
+        "g7"
+      ],
+      "nodesAtLastDepth": 157428,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 19034,
+      "moves": [
+        "g4"
+      ],
+      "nodesAtLastDepth": 111097,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 18641,
+      "moves": [
+        "g4"
+      ],
+      "nodesAtLastDepth": 111097,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 24913,
+      "moves": [
+        "g1"
+      ],
+      "nodesAtLastDepth": 152844,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 24149,
+      "moves": [
+        "g1"
+      ],
+      "nodesAtLastDepth": 152844,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23437,
+      "moves": [
+        "d1"
+      ],
+      "nodesAtLastDepth": 138495,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 22784,
+      "moves": [
+        "d1"
+      ],
+      "nodesAtLastDepth": 138495,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 24230,
+      "moves": [
+        "a1"
+      ],
+      "nodesAtLastDepth": 149494,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 24006,
+      "moves": [
+        "a1"
+      ],
+      "nodesAtLastDepth": 149494,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 25004,
+      "moves": [
+        "a4"
+      ],
+      "nodesAtLastDepth": 144594,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 25192,
+      "moves": [
+        "a4"
+      ],
+      "nodesAtLastDepth": 144594,
+      "openingBook": false,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 23197,
+      "moves": [
+        "a7"
+      ],
+      "nodesAtLastDepth": 157381,
+      "openingBook": true,
+      "source": "search"
+    },
+    {
+      "best": "d6",
+      "depth": 8,
+      "micros": 22285,
+      "moves": [
+        "a7"
+      ],
+      "nodesAtLastDepth": 157381,
+      "openingBook": false,
+      "source": "search"
+    }
+  ],
+  "selfplay": {
+    "bookHits": 12,
+    "moves": [
+      "d2",
+      "d6",
+      "f4",
+      "b4",
+      "f2",
+      "b2",
+      "f6",
+      "xb2",
+      "b2",
+      "b6",
+      "a1",
+      "c3",
+      "d1",
+      "g1",
+      "a4",
+      "a7",
+      "c4",
+      "xb6",
+      "b6",
+      "e4",
+      "f4-g4",
+      "e4-f4",
+      "g4-g7",
+      "c4-c5",
+      "c3-c4",
+      "d6-d7",
+      "f6-d6",
+      "c5-d5",
+      "c4-c5",
+      "d5-e5",
+      "c5-d5",
+      "b4-c4",
+      "b6-b4",
+      "c4-c3",
+      "d2-d3",
+      "b2-d2",
+      "d6-f6",
+      "d7-d6",
+      "g7-g4",
+      "e5-e4",
+      "a7-d7",
+      "a4-a7",
+      "d7-g7",
+      "xd1",
+      "c3-c4",
+      "g1-d1",
+      "a7-d7",
+      "d1-g1",
+      "xf4",
+      "e4-f4",
+      "g1-d1",
+      "a1-a4",
+      "d1-g1",
+      "xf4",
+      "c4-c5",
+      "g4-f4",
+      "xd2",
+      "c5-c4",
+      "f4-g4",
+      "xc4",
+      "a4-f4",
+      "g1-d1",
+      "d7-d2",
+      "d1-g1",
+      "xf4"
+    ],
+    "outcome": "win",
+    "reason": "loseFewerThanThree"
+  }
+}

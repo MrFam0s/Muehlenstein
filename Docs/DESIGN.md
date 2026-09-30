@@ -52,6 +52,8 @@ Ein Fehler des bisherigen AppKit-Bitmap-Exports hatte eine praktisch schwarze Ic
 
 ## Nächste Designprüfung
 
+Unter Erweitert ergänzt eine Zeile „Eröffnung“ die Auswahl Automatisch/Aus samt Informationssymbol. Die Erklärung nennt klassische Mühle, Stufe 4/5, Offline-Verfügbarkeit, Grenzen und das Zusammenspiel mit dem Stil. Bei wenig Platz hat die Eröffnung einen eigenen Buch-Reiter innerhalb desselben Blatts; es entsteht keine zusätzliche Einstellungsseite und kein Scrollbereich. Neue-Partie-/Computer-Blätter erhalten beim Aufklappen Platz für die zusätzliche Zeile.
+
 Die aktuellen Hell-/Dunkelansichten, die deutlicheren Steinränder und das Icon in der laufenden App beurteilen. Die Grundrichtung bleibt warme Steinfarben mit Petrol. Vollständige VoiceOver- und Akkutests sind vorerst zurückgestellt.
 
 ## Kontrast

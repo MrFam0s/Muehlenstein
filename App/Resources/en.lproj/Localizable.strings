@@ -97,7 +97,7 @@
 "privacy" = "Privacy";
 "privacy_body" = "This version plays entirely on your device. It uses no analytics services or accounts. Your current game is saved locally.";
 "credits" = "Credits & license";
-"credits_body" = "An independent Sanmill fork. Rules and search: calcitem and Sanmill contributors. Source revision: 8901a06f088b. Interface and Swift bridge: Muehlenstein. GNU AGPL v3 or later. The complete source archive of this app must be provided before public distribution.";
+"credits_body" = "An independent Sanmill fork. Rules, search and opening data: calcitem and Sanmill contributors. Source revision: 8901a06f088b. Interface and Swift bridge: Muehlenstein. GNU AGPL v3 or later. The complete source archive of this app must be provided before public distribution.";
 "engine_error" = "The game calculation could not be completed. Please try again.";
 "restore_error" = "The saved game could not be loaded. Its file has not been changed.";
 "save_error" = "The game could not be saved. It remains open for this session.";
@@ -111,6 +111,11 @@
 "display_help_body" = "Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nLevel badge\nShows the selected computer level beside its reserve. At large text sizes, find it in the turn details. This is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move list remain available when markers are off.\n\nStone animations\nStones glide to their destination and briefly fade in or out when placed or captured. Turn this off for immediate changes. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.";
 "computer_options" = "Computer settings";
 "computer_style" = "Play style";
+"opening_book" = "Opening";
+"book_automatic" = "Automatic";
+"book_off" = "Off";
+"book_help" = "Opening book";
+"book_help_body" = "Automatic · Default\nIn Nine Men’s Morris at levels 4 and 5, the computer uses known opening moves from Sanmill. The book is included in the app and works offline. Levels 1 to 3 and the other variants continue to use normal search.\n\nStrength: Known placement positions require no new search. This can save computation and gives the opening a consistent direction. The comfortable thinking pause is preserved.\n\nLimit: The book covers selected positions and does not guarantee a perfect move or a win. Whenever a position is missing, the computer resumes searching with your chosen level, thinking time and style. Search settings do not determine a move supplied by the book.\n\nOff\nThe computer searches even in known openings. For example, Blocking style then applies from the very first move.\n\nThis selection is saved with the game. Starting a new game applies it; during a game, Done applies changes.";
 "style_balanced" = "Balanced";
 "style_blocking" = "Blocking";
 "style_help" = "About play styles";
@@ -125,7 +130,7 @@
 "effort_standard" = "Normal";
 "effort_extended" = "Longer";
 "computer_help" = "About difficulty";
-"computer_help_body" = "Five levels\n1 · Very easy\n2 · Easy\n3 · Medium\n4 · Hard\n5 · Very hard\n\nStart at level 3. Choose a lower level for a more relaxed game or a higher one for more challenge. You can change the level during a game.\n\nHigher levels allow deeper and longer calculations. These labels describe levels within this app; they do not imply an Elo rating or a fixed chance of winning. The effect also depends on the position, Morris variant and device.\n\nEvery level already considers stone count and mobility. Higher levels allow more lookahead; they do not switch play styles.\n\nAdvanced lets you change search, thinking time and play style. Balanced remains recommended; Blocking is an alternative and may play worse. The defaults are enough to start playing.\n\nStarting a new game applies your selection. During a game, Done applies it to future moves and restarts any computer move currently being calculated. Your game, hints and undo remain available.";
+"computer_help_body" = "Five levels\n1 · Very easy\n2 · Easy\n3 · Medium\n4 · Hard\n5 · Very hard\n\nStart at level 3. Choose a lower level for a more relaxed game or a higher one for more challenge. You can change the level during a game.\n\nHigher levels allow deeper and longer calculations. These labels describe levels within this app; they do not imply an Elo rating or a fixed chance of winning. The effect also depends on the position, Morris variant and device.\n\nEvery level already considers stone count and mobility. Higher levels allow more lookahead; they do not switch play styles.\n\nAdvanced lets you change search, thinking time and play style. Balanced remains recommended; Blocking is an alternative and may play worse. The defaults are enough to start playing.\n\nStarting a new game applies your selection. During a game, Done applies it to future moves and restarts any computer move currently being calculated. Your game, hints and undo remain available.\n\nIn Nine Men’s Morris, levels 4 and 5 also use a small opening book. You can turn it off under Advanced → Opening. Unknown positions use normal search.";
 "level_badge" = "Level %d/5";
 "computer_configuration" = "Computer: level %d/5 · %@";
 "capture_unmarked" = "Remove an eligible opposing stone.";

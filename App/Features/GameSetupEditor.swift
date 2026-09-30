@@ -21,11 +21,11 @@ struct GameSetupEditor: View {
     @ScaledMetric(relativeTo: .subheadline) private var advancedLabelWidth: CGFloat = 118
 
     private enum Panel: String, CaseIterable {
-        case opponent, difficulty, variant, advanced, style
+        case opponent, difficulty, variant, advanced, style, book
         var icon: String {
-            switch self { case .opponent: "person.2"; case .difficulty: "slider.horizontal.3"; case .variant: "square.grid.2x2"; case .advanced: "gearshape"; case .style: "arrow.triangle.branch" }
+            switch self { case .opponent: "person.2"; case .difficulty: "slider.horizontal.3"; case .variant: "square.grid.2x2"; case .advanced: "gearshape"; case .style: "arrow.triangle.branch"; case .book: "book.closed" }
         }
-        var key: String { self == .advanced ? "advanced_options" : self == .style ? "computer_style" : rawValue }
+        var key: String { self == .advanced ? "advanced_options" : self == .style ? "computer_style" : self == .book ? "opening_book" : rawValue }
     }
     private struct Help: Identifiable { let id: String; let title: String; let text: String }
 
@@ -77,10 +77,10 @@ struct GameSetupEditor: View {
     private func compactControls(wide: Bool) -> some View {
         let panels: [Panel] = includesGame
             ? (settings.opponent == .computer ? Panel.allCases : [.opponent, .variant])
-            : [.difficulty, .advanced, .style]
+            : [.difficulty, .advanced, .style, .book]
         let selected = panels.contains(panel) ? panel : panels[0]
         return VStack(spacing: dynamicType.isAccessibilitySize ? 4 : 8) {
-            HStack(spacing: 8) {
+            HStack(spacing: 4) {
                 ForEach(panels, id: \.self) { item in
                     Button { panel = item } label: {
                         Image(systemName: item.icon).font(.system(size: 23))
@@ -100,6 +100,7 @@ struct GameSetupEditor: View {
             case .variant: variants(showHeading: false)
             case .advanced: advanced(wide: wide, includesStyle: false)
             case .style: style(wide: wide)
+            case .book: openingBook(wide: wide)
             }
         }
     }
@@ -183,7 +184,7 @@ struct GameSetupEditor: View {
                     }
                 }
             }
-            if includesStyle { style(wide: wide) }
+            if includesStyle { style(wide: wide); openingBook(wide: wide) }
         }.foregroundStyle(Color.ink)
     }
     private func style(wide: Bool) -> some View {
@@ -196,6 +197,17 @@ struct GameSetupEditor: View {
                     choice(L10n.text("style_" + style.rawValue), selected: settings.style == style,
                            id: "style_" + style.rawValue) { settings.style = style }
                 }
+            }
+        }.foregroundStyle(Color.ink)
+    }
+    private func openingBook(wide: Bool) -> some View {
+        let layout = dynamicType.isAccessibilitySize && !wide ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4)) : AnyLayout(HStackLayout(spacing: 8))
+        return layout {
+            HStack(spacing: 0) { Text(L10n.text("opening_book")).font(.subheadline); info("book_help") }
+                .frame(width: dynamicType.isAccessibilitySize ? nil : advancedLabelWidth, alignment: .leading)
+            HStack(spacing: 6) {
+                choice(L10n.text("book_automatic"), selected: settings.openingBook, id: "book_automatic") { settings.openingBook = true }
+                choice(L10n.text("book_off"), selected: !settings.openingBook, id: "book_off") { settings.openingBook = false }
             }
         }.foregroundStyle(Color.ink)
     }

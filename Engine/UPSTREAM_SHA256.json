@@ -83,5 +83,6 @@
   "crates/tgf-search/src/searcher/qsearch.rs": "30fd445afc6b81420e59d36a66d14f9e8aa7dc716da2355db264d858c8e696fa",
   "crates/tgf-search/src/tests.rs": "7f4bd1c729cb3bb965281d14535421326300478d6c02e2afe0164162e2cc44fe",
   "crates/tgf-search/src/thread_pool.rs": "0c6188741e3c0b3d53eb98d3c85b94020f674ee5157fe285d20ca847b3faf26b",
-  "crates/tgf-search/src/tt.rs": "e12411ad99d6eac7c4c1440005ea2f09abd77e9151d6d198f8073ead097b0736"
+  "crates/tgf-search/src/tt.rs": "e12411ad99d6eac7c4c1440005ea2f09abd77e9151d6d198f8073ead097b0736",
+  "src/ui/flutter_app/tool/mill_opening_book_oracle_source.dart": "a3d4a92677ae3bbaf35c7a1d77681a80992b2ffb3c36ad9771ab1c79606413e6"
 }

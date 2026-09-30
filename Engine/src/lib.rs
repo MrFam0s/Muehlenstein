@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 //! Muehlenstein's C boundary. Sanmill owns all rules, topology and search.
 mod cancellation;
+mod opening_book;
 
 use serde::Deserialize;
 use serde_json::{Value, json};
@@ -29,6 +30,9 @@ struct Request {
     effort: Effort,
     #[serde(default)]
     style: PlayStyle,
+    // Old bridge callers and archived comparisons retain search-only behavior.
+    #[serde(default)]
+    opening_book: bool,
     #[serde(default)]
     search_id: Option<u64>,
 }
@@ -163,9 +167,21 @@ fn process(input: &str) -> Result<Value, String> {
         "legal": legal.iter().copied().map(action_json).collect::<Vec<_>>(),
         "nodes": nodes, "edges": edges, "lines": topology.line_groups(),
         "fen": rules.export_fen(&state), "best": null,
-        "searchDepth": 0, "searchNodes": 0
+        "searchDepth": 0, "searchNodes": 0, "moveSource": null
     });
     if request.search && outcome_kind == "ongoing" && !legal.is_empty() {
+        if let Some(action) = opening_book::lookup(
+            request.preset,
+            level,
+            request.opening_book,
+            result["fen"].as_str().expect("exported FEN"),
+            &legal,
+        ) {
+            check_cancelled()?;
+            result["best"] = action_json(action);
+            result["moveSource"] = json!("book");
+            return Ok(result);
+        }
         let history =
             MillRules::repetition_history_from_snapshots(&snapshot, kernel.history_snapshots());
         let game = MillGame::new_with_repetition_history(preset.options, history);
@@ -216,6 +232,7 @@ fn process(input: &str) -> Result<Value, String> {
         }
         check_cancelled()?;
         result["best"] = action_json(best.ok_or("searchIncomplete")?);
+        result["moveSource"] = json!("search");
     }
     Ok(result)
 }
@@ -266,6 +283,36 @@ mod tests {
             &json!({"version":1,"preset":preset,"moves":moves,"search":search,"level":1})
                 .to_string(),
         )
+    }
+    #[test]
+    fn book_hits_and_search_fallback_use_the_same_bridge_and_rules() {
+        let mut input = json!({"version":1,"preset":0,"moves":["b4"],"search":true,
+            "level":4,"level_scale":"five","opening_book":true});
+        let book = process(&input.to_string()).unwrap();
+        assert_eq!(book["moveSource"], "book");
+        assert_eq!(book["searchNodes"], 0);
+        assert!(book["legal"].as_array().unwrap().contains(&book["best"]));
+        input["search"] = json!(false);
+        let snapshot = process(&input.to_string()).unwrap();
+        assert!(snapshot["best"].is_null());
+        input["search"] = json!(true);
+        input["opening_book"] = json!(false);
+        let searched = process(&input.to_string()).unwrap();
+        assert_eq!(searched["moveSource"], "search");
+        for key in ["fen", "legal", "actors", "lastTurn", "outcome"] {
+            assert_eq!(book[key], searched[key]);
+        }
+        input["opening_book"] = json!(true);
+        input["moves"] = json!(["a7"]); // Outer-corner opening is absent from the oracle.
+        let miss = process(&input.to_string()).unwrap();
+        assert_eq!(miss["moveSource"], "search");
+        assert!(miss["legal"].as_array().unwrap().contains(&miss["best"]));
+        let id = cancellation::ms_search_create();
+        cancellation::ms_search_cancel(id);
+        input["moves"] = json!(["b4"]);
+        input["search_id"] = json!(id);
+        assert_eq!(process(&input.to_string()).unwrap_err(), "cancelled");
+        cancellation::ms_search_release(id);
     }
     #[test]
     fn all_presets_expose_valid_topology_and_opening() {

@@ -45,3 +45,7 @@ Neue Pläne geben pro Spieler `"level_scale": "five"` und eine Stufe von 1 bis 5
 ## Optionale Spielstile
 
 Seit 01.10.2026 unterstützt ein Spieler zusätzlich `"style": "balanced"` oder `"style": "blocking"`. Ohne Feld bleibt die bisherige ausgewogene Bewertung erhalten. Die beiden Stilpläne vergleichen ausschließlich diesen Parameter bei ansonsten gleichen Einstellungen. Ergebnisse der getrennten Vor- und Folgeserie stehen in `SPIELSTILE-2026-10-01.md`; die Option wird nicht als zusätzliche Stärkeordnung ausgegeben.
+
+## Eröffnungsbuch-Probe
+
+`2026-10-01-eroeffnungsbuch/probe.json` enthält einen gesonderten Quellen-/Laufzeitcheck (leeres Brett + 24 erste Steine, jeweils Buch ein/aus) und eine vollständige Selbstpartie. Ausgeführt durch `Engine/examples/check_opening_book.rs`; Umfang, Quellen, Reproduktion und Grenzen stehen in `../OPENING_AND_DATABASE.md`. Dies ist kein Stärketurnier. Der bisherige Turnierläufer sendet kein `opening_book` und prüft damit bewusst weiterhin reine Suchprofile. Archivierte Stufen-/Stilvergleiche behaupten keine neue Einordnung der Buchzüge.
