@@ -2,6 +2,7 @@
 import SwiftUI
 
 struct GameView: View {
+    @Environment(\.accentPalette) private var palette
     @Bindable var store: GameStore
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicType
@@ -127,7 +128,7 @@ struct GameView: View {
             }.buttonStyle(.plain).accessibilityLabel(L10n.text("hint_explanation"))
                 .accessibilityIdentifier("hint_explanation")
                 .disabled(store.hintExplanation == nil)
-        }.frame(maxWidth: .infinity, minHeight: 44).foregroundStyle(Color.petrol)
+        }.frame(maxWidth: .infinity, minHeight: 44).foregroundStyle(palette.color)
     }
     private func statusText(_ position: Position) -> String {
         if position.isOver {
@@ -219,7 +220,7 @@ struct GameView: View {
     }
     private func phaseNote(_ position: Position) -> some View {
         HStack(spacing: 8) {
-            Circle().fill(Color.petrol).frame(width: 5, height: 5)
+            Circle().fill(palette.color).frame(width: 5, height: 5)
             Text(L10n.text(position.isOver ? "finished" : position.action == 2 ? "capture_phase" : position.phase == 2 ? "moving_phase" : "placing_phase"))
             Circle().fill(Color.quietInk).frame(width: 3, height: 3).accessibilityHidden(true)
             Text(L10n.moveCount(store.game?.moves.count ?? 0))

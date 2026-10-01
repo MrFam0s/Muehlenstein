@@ -2,6 +2,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.accentPalette) private var palette
     @Bindable var store: GameStore
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(\.verticalSizeClass) private var verticalSize
@@ -109,8 +110,8 @@ struct HomeView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity).padding(.vertical, 15)
             }
-            .font(.headline).foregroundStyle(store.game == nil ? Color("AccentContent") : Color.petrol)
-            .background(store.game == nil ? Color.petrol : Color.boardSurface, in: RoundedRectangle(cornerRadius: 18))
+            .font(.headline).foregroundStyle(store.game == nil ? Color("AccentContent") : palette.color)
+            .background(store.game == nil ? palette.color : Color.boardSurface, in: RoundedRectangle(cornerRadius: 18))
             .accessibilityIdentifier("new_game")
         }.frame(maxWidth: horizontal ? .infinity : 420).frame(maxWidth: .infinity)
     }

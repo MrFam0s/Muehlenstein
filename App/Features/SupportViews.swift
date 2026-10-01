@@ -56,6 +56,7 @@ struct HistoryView: View {
     }
 }
 struct LegalMovesView: View {
+    @Environment(\.accentPalette) private var palette
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Bindable var store: GameStore
@@ -69,7 +70,7 @@ struct LegalMovesView: View {
                     Text(action.notation).font(.system(.body, design: .monospaced)).lineLimit(1)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
-                }.buttonStyle(.plain).foregroundStyle(Color.petrol)
+                }.buttonStyle(.plain).foregroundStyle(palette.color)
                     .accessibilityIdentifier("legal_action_" + action.notation)
                     .disabled(!store.isHumanTurn || store.isThinking)
             }.navigationTitle(L10n.text("legal_moves")).navigationBarTitleDisplayMode(.inline)

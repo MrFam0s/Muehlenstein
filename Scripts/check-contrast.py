@@ -40,24 +40,25 @@ def composite(foreground, background, alpha):
 
 def audit():
     rows = []
-    for mode in ('light', 'dark'):
-        def add(role, foreground, background, minimum):
-            ratio = contrast(foreground, background)
-            rows.append(dict(appearance=mode, role=role, ratio=ratio, minimum=minimum, passes=ratio >= minimum))
-        def c(name): return asset(name, mode)
-        for surface in ('Limestone', 'BoardSurface'):
-            for text in ('Ink', 'QuietInk', 'AccentColor'):
-                add(f'{text} / {surface}', c(text), c(surface), 4.5)
-            add(f'Stone edge / {surface}', c('StoneEdge'), c(surface), 3)
-        add('Primary action text', c('AccentContent'), c('AccentColor'), 4.5)
-        for opacity in (.12, .13):
-            add(f'Selected label / fill {opacity}', c('AccentColor'),
-                composite(c('AccentColor'), c('Limestone'), opacity), 4.5)
-        add('Board lines / board', c('BoardLine'), c('BoardSurface'), 3)
-        add('Move paths, rings and empty targets / board', c('AccentColor'), c('BoardSurface'), 3)
-        for side in ('White', 'Black'):
-            for endpoint in ('Top', 'Bottom'):
-                add(f'{side} stone marker / {endpoint}', c(side + 'StoneMark'), c(side + 'Stone' + endpoint), 3)
+    for accent in ('AccentColor', 'Accent-slate', 'Accent-aubergine', 'Accent-terracotta', 'Accent-petrol'):
+        for mode in ('light', 'dark'):
+            def add(role, foreground, background, minimum):
+                ratio = contrast(foreground, background)
+                rows.append(dict(palette=accent, appearance=mode, role=role, ratio=ratio, minimum=minimum, passes=ratio >= minimum))
+            def c(name): return asset(accent if name == 'AccentColor' else name, mode)
+            for surface in ('Limestone', 'BoardSurface'):
+                for text in ('Ink', 'QuietInk', 'AccentColor'):
+                    add(f'{text} / {surface}', c(text), c(surface), 4.5)
+                add(f'Stone edge / {surface}', c('StoneEdge'), c(surface), 3)
+            add('Primary action text', c('AccentContent'), c('AccentColor'), 4.5)
+            for opacity in (.12, .13):
+                add(f'Selected label / fill {opacity}', c('AccentColor'),
+                    composite(c('AccentColor'), c('Limestone'), opacity), 4.5)
+            add('Board lines / board', c('BoardLine'), c('BoardSurface'), 3)
+            add('Move paths, rings and empty targets / board', c('AccentColor'), c('BoardSurface'), 3)
+            for side in ('White', 'Black'):
+                for endpoint in ('Top', 'Bottom'):
+                    add(f'{side} stone marker / {endpoint}', asset(accent, 'light' if side == 'White' else 'dark'), c(side + 'Stone' + endpoint), 3)
     return rows
 
 
@@ -73,5 +74,5 @@ if __name__ == '__main__':
         args.json.parent.mkdir(parents=True, exist_ok=True)
         args.json.write_text(json.dumps(result, indent=2) + '\n')
     for row in rows:
-        print(f"{'PASS' if row['passes'] else 'FAIL'} {row['appearance']:5} {row['ratio']:5.2f}:1 >= {row['minimum']} {row['role']}")
+        print(f"{'PASS' if row['passes'] else 'FAIL'} {row['palette']:18} {row['appearance']:5} {row['ratio']:5.2f}:1 >= {row['minimum']} {row['role']}")
     raise SystemExit(0 if all(row['passes'] for row in rows) else 1)

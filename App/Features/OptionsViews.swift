@@ -7,13 +7,27 @@ struct DisplayOptionsView: View {
     @Environment(AppPreferences.self) private var preferences
     @State private var showingHelp = false
     private let keys = ["show_legal", "show_last", "disable_stone_animations"]
+    private var items: [String] { keys + AccentPalette.allCases.map(\.rawValue) }
 
     var body: some View {
         NavigationStack {
             ViewThatFits(in: .vertical) {
-                VStack(spacing: 8) { ForEach(keys, id: \.self) { row($0) } }
-                    .padding(16).fixedSize(horizontal: false, vertical: true)
-                PagedRows(items: keys) { _, key in row(key) }
+                VStack(spacing: 16) {
+                    VStack(spacing: 8) { ForEach(keys, id: \.self) { row($0) } }
+                    Divider()
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(L10n.text("accent_color")).font(.headline).foregroundStyle(Color.ink)
+                            .accessibilityAddTraits(.isHeader)
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
+                            ForEach(AccentPalette.allCases) { colorChoice($0) }
+                        }
+                    }
+                }.padding(16).fixedSize(horizontal: false, vertical: true)
+                // Keep every control reachable at large type sizes and in short landscape sheets.
+                PagedRows(items: items) { _, key in
+                    if let palette = AccentPalette(rawValue: key) { colorChoice(palette) }
+                    else { row(key) }
+                }
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .background(Color.limestone)
                 .navigationTitle(L10n.text("display_options")).navigationBarTitleDisplayMode(.inline)
@@ -25,8 +39,30 @@ struct DisplayOptionsView: View {
                 .sheet(isPresented: $showingHelp) {
                     ReadingSheet(title: L10n.text("display_help"), text: L10n.text("display_help_body"))
                 }
-        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(290)])
-            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : 290))
+        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(500)])
+            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : 500))
+    }
+    private func colorChoice(_ palette: AccentPalette) -> some View {
+        let selected = preferences.accentPalette == palette
+        return Button { preferences.accentPalette = palette } label: {
+            HStack(spacing: 8) {
+                Circle().fill(palette.color).frame(width: 26, height: 26)
+                    .overlay {
+                        if selected {
+                            Image(systemName: "checkmark").font(.system(size: 13, weight: .bold))
+                                .foregroundStyle(Color("AccentContent"))
+                        }
+                    }
+                Text(palette.name).font(.subheadline).fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+            }.padding(.horizontal, 10).frame(maxWidth: .infinity, minHeight: 44)
+                .background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 12).strokeBorder(selected ? palette.color : .clear, lineWidth: 1.5)
+                }
+        }.buttonStyle(.plain).foregroundStyle(Color.ink)
+            .accessibilityLabel(palette.name).accessibilityAddTraits(selected ? [.isSelected] : [])
+            .accessibilityIdentifier("accent_" + palette.rawValue)
     }
     private func row(_ key: String) -> some View {
         @Bindable var preferences = preferences

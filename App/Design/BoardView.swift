@@ -2,6 +2,7 @@
 import SwiftUI
 
 struct BoardView: View {
+    @Environment(\.accentPalette) private var palette
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let position: Position
     var moves: [MoveRecord]? = nil
@@ -57,7 +58,7 @@ struct BoardView: View {
                         path.move(to: point(action.from, size: size))
                         path.addLine(to: point(action.to, size: size))
                     }
-                }.stroke(Color.petrol, style: StrokeStyle(lineWidth: 2, dash: [4, 5]))
+                }.stroke(palette.color, style: StrokeStyle(lineWidth: 2, dash: [4, 5]))
                     .allowsHitTesting(false).accessibilityHidden(true)
                 ForEach(position.nodes) { node in
                     Circle().fill(Color.boardLine).frame(width: 5, height: 5)
@@ -69,19 +70,19 @@ struct BoardView: View {
                         ZStack {
                             Color.clear
                             if recentActions.contains(where: { $0.kind != 2 && $0.to == node.id }) {
-                                Circle().strokeBorder(Color.petrol, lineWidth: 2).frame(width: 43, height: 43)
+                                Circle().strokeBorder(palette.color, lineWidth: 2).frame(width: 43, height: 43)
                             }
                             if recentActions.contains(where: { $0.kind == 1 && $0.from == node.id }) {
-                                Circle().strokeBorder(Color.petrol, style: StrokeStyle(lineWidth: 1.5, dash: [2, 3])).frame(width: 23, height: 23)
+                                Circle().strokeBorder(palette.color, style: StrokeStyle(lineWidth: 1.5, dash: [2, 3])).frame(width: 23, height: 23)
                             }
                             if recentActions.contains(where: { $0.kind == 2 && $0.to == node.id }) {
                                 Circle().fill(Color.boardSurface).frame(width: 23, height: 23)
-                                Image(systemName: "xmark").font(.system(size: 12, weight: .medium)).foregroundStyle(Color.petrol)
+                                Image(systemName: "xmark").font(.system(size: 12, weight: .medium)).foregroundStyle(palette.color)
                             }
                             if destination(node.id), stone == 0, selected == nil, hint?.to != node.id {
-                                Circle().fill(Color.petrol).frame(width: 9, height: 9)
+                                Circle().fill(palette.color).frame(width: 9, height: 9)
                             } else if stone == 0 && (destination(node.id) || hint?.to == node.id) {
-                                Circle().strokeBorder(Color.petrol, lineWidth: 2)
+                                Circle().strokeBorder(palette.color, lineWidth: 2)
                                     .frame(width: 22, height: 22)
                             }
                         }.frame(width: 44, height: 44).contentShape(Circle())
@@ -100,7 +101,7 @@ struct BoardView: View {
                         Stone(side: piece.side, size: min(32, size * 0.09))
                             .overlay {
                                 if destination(piece.node) || hint?.to == piece.node {
-                                    Circle().strokeBorder(Color(piece.side == 0 ? "WhiteStoneMark" : "BlackStoneMark"),
+                                    Circle().strokeBorder(palette.stoneMark(side: piece.side),
                                                           style: StrokeStyle(lineWidth: 2, dash: [3, 3]))
                                         .frame(width: 22, height: 22)
                                 }
@@ -116,7 +117,7 @@ struct BoardView: View {
                 // immediately when a move starts, without a fading or travelling ring.
                 ZStack {
                     if let selected {
-                        Circle().strokeBorder(Color.petrol, lineWidth: 2)
+                        Circle().strokeBorder(palette.color, lineWidth: 2)
                             .frame(width: min(32, size * 0.09) + 8, height: min(32, size * 0.09) + 8)
                             .position(point(selected, size: size))
                     }

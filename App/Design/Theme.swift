@@ -6,10 +6,28 @@ extension Color {
     static let boardSurface = Color("BoardSurface")
     static let ink = Color("Ink")
     static let quietInk = Color("QuietInk")
-    static let petrol = Color("AccentColor")
     static let boardLine = Color("BoardLine")
 }
+
+private struct AccentPaletteKey: EnvironmentKey {
+    static let defaultValue = AccentPalette.forest
+}
+extension EnvironmentValues {
+    var accentPalette: AccentPalette {
+        get { self[AccentPaletteKey.self] }
+        set { self[AccentPaletteKey.self] = newValue }
+    }
+}
+extension AccentPalette {
+    var color: Color { Color(assetName) }
+    // A marker lies on the stone, so its contrast follows the stone rather than the system appearance.
+    func stoneMark(side: Int) -> Color {
+        let traits = UITraitCollection(userInterfaceStyle: side == 0 ? .light : .dark)
+        return Color(uiColor: UIColor(named: assetName)?.resolvedColor(with: traits) ?? .label)
+    }
+}
 struct Stone: View {
+    @Environment(\.accentPalette) private var palette
     var side: Int
     var selected = false
     var size: CGFloat = 30
@@ -22,19 +40,21 @@ struct Stone: View {
             .overlay { Circle().inset(by: size * 0.21).strokeBorder(side == 0 ? Color.black.opacity(0.09) : Color.white.opacity(0.13), lineWidth: 1) }
             .shadow(color: .black.opacity(0.18), radius: 2, y: 2)
             .padding(4)
-            .overlay { if selected { Circle().strokeBorder(Color.petrol, lineWidth: 2) } }
+            .overlay { if selected { Circle().strokeBorder(palette.color, lineWidth: 2) } }
             .frame(width: size + 8, height: size + 8)
             .accessibilityHidden(true)
     }
 }
 struct PrimaryButton: ButtonStyle {
+    @Environment(\.accentPalette) private var palette
     func makeBody(configuration: Configuration) -> some View {
         configuration.label.font(.headline).frame(maxWidth: .infinity).padding(.vertical, 17)
-            .foregroundStyle(Color("AccentContent")).background(Color.petrol, in: RoundedRectangle(cornerRadius: 18))
+            .foregroundStyle(Color("AccentContent")).background(palette.color, in: RoundedRectangle(cornerRadius: 18))
             .scaleEffect(configuration.isPressed ? 0.98 : 1)
     }
 }
 struct BrandMark: View {
+    @Environment(\.accentPalette) private var palette
     var body: some View {
         ZStack {
             Path { path in
@@ -47,10 +67,10 @@ struct BrandMark: View {
                                      (CGPoint(x: 30, y: 26), CGPoint(x: 47, y: 26))] {
                     path.move(to: start); path.addLine(to: end)
                 }
-            }.stroke(Color.petrol, style: StrokeStyle(lineWidth: 1.8, lineCap: .round, lineJoin: .round))
+            }.stroke(palette.color, style: StrokeStyle(lineWidth: 1.8, lineCap: .round, lineJoin: .round))
             ForEach([false, true], id: \.self) { dark in
                 Circle().fill(Color.limestone).frame(width: 14, height: 14)
-                    .overlay { Circle().fill(dark ? Color.ink : Color.petrol).frame(width: 10, height: 10) }
+                    .overlay { Circle().fill(dark ? Color.ink : palette.color).frame(width: 10, height: 10) }
                     .offset(x: dark ? 21 : -21, y: dark ? 21 : -21)
             }
         }.frame(width: 52, height: 52).accessibilityHidden(true)

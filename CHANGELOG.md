@@ -2,6 +2,11 @@
 
 ## Noch nicht markierte Änderungen
 
+- Waldgrün ist der neue Standardakzent. Unter „Darstellung“ sind außerdem
+  Schieferblau, Aubergine, Terrakotta und Petrol wählbar. Die Auswahl gilt sofort
+  für die gesamte Oberfläche in Hell und Dunkel und wird dauerhaft gespeichert.
+  Alle fünf Paletten sind auf Text- und Brettkontrast geprüft.
+
 - Logo und Name auf der Startseite behalten ihre freigegebene Position zwischen
   Werkzeugleiste und Vorschaubrett. Die Unterzeile entfällt.
 - Alle Lizenzansichten führen feste Textdatei-Zeilen zu lesbaren Absätzen zusammen.

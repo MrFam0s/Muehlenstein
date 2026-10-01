@@ -84,6 +84,7 @@ private struct AboutSection<Content: View>: View {
 }
 
 private struct AboutLink: View {
+    @Environment(\.accentPalette) private var palette
     let key: String
     let title: String
     let icon: String
@@ -93,7 +94,7 @@ private struct AboutLink: View {
         Link(destination: url) {
             Label(title, systemImage: icon).fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
-        }.foregroundStyle(Color.petrol)
+        }.foregroundStyle(palette.color)
             .accessibilityLabel(L10n.text(key)).accessibilityIdentifier(key)
     }
 }
@@ -225,6 +226,7 @@ private struct LicenseDocument: View {
 }
 
 private struct LicenseReadingText: UIViewRepresentable {
+    @Environment(\.accentPalette) private var palette
     let blocks: [LicenseText.Block]
     let markdown: Bool
     @ScaledMetric(relativeTo: .body) private var fontSize = 17
@@ -235,11 +237,11 @@ private struct LicenseReadingText: UIViewRepresentable {
         view.backgroundColor = .clear
         view.textContainer.lineFragmentPadding = 0
         view.textContainerInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
-        view.linkTextAttributes = [.foregroundColor: UIColor(Color.petrol), .underlineStyle: NSUnderlineStyle.single.rawValue]
         return view
     }
 
     func updateUIView(_ view: UITextView, context: Context) {
+        view.linkTextAttributes = [.foregroundColor: UIColor(palette.color), .underlineStyle: NSUnderlineStyle.single.rawValue]
         let result = NSMutableAttributedString(string: "")
         for (index, block) in blocks.enumerated() {
             let style = NSMutableParagraphStyle()

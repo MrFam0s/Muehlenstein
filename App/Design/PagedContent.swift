@@ -3,6 +3,7 @@ import SwiftUI
 import UIKit
 
 struct PageControls: View {
+    @Environment(\.accentPalette) private var palette
     @Binding var page: Int
     let count: Int
     var body: some View {
@@ -15,7 +16,7 @@ struct PageControls: View {
             Spacer(minLength: 0)
             Button { page += 1 } label: { Image(systemName: "chevron.right").font(.system(size: 20)).frame(width: 52, height: 44) }
                 .disabled(page + 1 >= count).accessibilityLabel(L10n.text("next_page")).accessibilityIdentifier("next_page")
-        }.foregroundStyle(Color.petrol)
+        }.foregroundStyle(palette.color)
     }
 }
 

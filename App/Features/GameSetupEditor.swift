@@ -12,6 +12,7 @@ struct SettingsSheetSizing: PresentationSizing {
 
 /// One draft shared by setup and the in-game computer sheet. No settings navigation stack.
 struct GameSetupEditor: View {
+    @Environment(\.accentPalette) private var palette
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Binding var settings: GameSettings
     @Binding var expanded: Bool
@@ -64,7 +65,7 @@ struct GameSetupEditor: View {
                         Spacer()
                         Image(systemName: expanded ? "chevron.up" : "chevron.down").font(.system(size: 13, weight: .semibold))
                     }.font(.subheadline).frame(minHeight: 44).contentShape(Rectangle())
-                }.buttonStyle(.plain).foregroundStyle(Color.petrol)
+                }.buttonStyle(.plain).foregroundStyle(palette.color)
                     .accessibilityValue(L10n.text(expanded ? "expanded" : "collapsed"))
                     .accessibilityIdentifier("advanced_options")
                 if expanded { advanced(wide: wide) }
@@ -85,9 +86,9 @@ struct GameSetupEditor: View {
                     Button { panel = item } label: {
                         Image(systemName: item.icon).font(.system(size: 23))
                             .frame(maxWidth: .infinity, minHeight: 44)
-                            .background(selected == item ? Color.petrol.opacity(0.13) : Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
-                            .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(selected == item ? Color.petrol : .clear, lineWidth: 1.5) }
-                    }.buttonStyle(.plain).foregroundStyle(Color.petrol)
+                            .background(selected == item ? palette.color.opacity(0.13) : Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
+                            .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(selected == item ? palette.color : .clear, lineWidth: 1.5) }
+                    }.buttonStyle(.plain).foregroundStyle(palette.color)
                         .accessibilityLabel(L10n.text(item.key))
                         .accessibilityAddTraits(selected == item ? .isSelected : [])
                         .accessibilityIdentifier("setup_tab_" + item.rawValue)
@@ -121,7 +122,7 @@ struct GameSetupEditor: View {
                 info("computer_help")
                 Spacer(minLength: 0)
                 Text("\(settings.level) · \(L10n.text("level_\(settings.level)"))")
-                    .font(.subheadline).foregroundStyle(Color.petrol).multilineTextAlignment(.trailing)
+                    .font(.subheadline).foregroundStyle(palette.color).multilineTextAlignment(.trailing)
                     .accessibilityIdentifier("difficulty_value")
             }
             Slider(value: Binding(get: { Double(settings.level) }, set: { settings.level = Int($0.rounded()) }), in: 1...5, step: 1)
@@ -151,9 +152,9 @@ struct GameSetupEditor: View {
                                 .fixedSize(horizontal: false, vertical: true)
                             Spacer(minLength: 0)
                         }.padding(.horizontal, 10).padding(.vertical, 8).frame(maxWidth: .infinity, minHeight: 48)
-                            .background(settings.variant == variant ? Color.petrol.opacity(0.12) : Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
-                            .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(settings.variant == variant ? Color.petrol : .clear, lineWidth: 1.5) }
-                    }.buttonStyle(.plain).foregroundStyle(settings.variant == variant ? Color.petrol : Color.ink)
+                            .background(settings.variant == variant ? palette.color.opacity(0.12) : Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
+                            .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(settings.variant == variant ? palette.color : .clear, lineWidth: 1.5) }
+                    }.buttonStyle(.plain).foregroundStyle(settings.variant == variant ? palette.color : Color.ink)
                         .accessibilityAddTraits(settings.variant == variant ? .isSelected : [])
                         .accessibilityLabel(L10n.text(variant.key))
                         .accessibilityIdentifier("variant_" + variant.key)
@@ -215,9 +216,9 @@ struct GameSetupEditor: View {
         Button(action: action) {
             Text(title).font(.subheadline).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, minHeight: 44)
-                .background(selected ? Color.petrol.opacity(0.12) : Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
-                .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(selected ? Color.petrol : .clear, lineWidth: 1.5) }
-        }.buttonStyle(.plain).foregroundStyle(selected ? Color.petrol : Color.ink)
+                .background(selected ? palette.color.opacity(0.12) : Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
+                .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(selected ? palette.color : .clear, lineWidth: 1.5) }
+        }.buttonStyle(.plain).foregroundStyle(selected ? palette.color : Color.ink)
             .accessibilityAddTraits(selected ? .isSelected : [])
             .accessibilityIdentifier(id)
     }
@@ -225,7 +226,7 @@ struct GameSetupEditor: View {
         Button { help = Help(id: key, title: L10n.text(key), text: L10n.text(key + "_body")) } label: {
             Image(systemName: "info.circle").font(.system(size: dynamicType.isAccessibilitySize ? 26 : 18))
                 .frame(width: 44, height: 44).contentShape(Rectangle())
-        }.buttonStyle(.plain).foregroundStyle(Color.petrol)
+        }.buttonStyle(.plain).foregroundStyle(palette.color)
             .accessibilityLabel(L10n.text(key)).accessibilityIdentifier("info_" + key)
     }
 }

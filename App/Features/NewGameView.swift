@@ -2,6 +2,7 @@
 import SwiftUI
 
 struct NewGameView: View {
+    @Environment(\.accentPalette) private var palette
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicType
     let hasOngoingGame: Bool
@@ -24,7 +25,7 @@ struct NewGameView: View {
                 } label: {
                     Text(L10n.text("start_game")).font(.headline).frame(maxWidth: .infinity)
                         .padding(.vertical, 12).foregroundStyle(Color("AccentContent"))
-                        .background(Color.petrol, in: RoundedRectangle(cornerRadius: 16))
+                        .background(palette.color, in: RoundedRectangle(cornerRadius: 16))
                 }.buttonStyle(.plain).accessibilityIdentifier("start_game")
             }.padding(16).frame(maxWidth: 760).frame(maxWidth: .infinity)
                 .background(Color.limestone)

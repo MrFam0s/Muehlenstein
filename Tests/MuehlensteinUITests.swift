@@ -766,6 +766,49 @@ final class MuehlensteinUITests: XCTestCase {
             app.buttons["advanced_options"].tap()
         }
     }
+
+    @MainActor func testAccentPalettesApplyAndPersist() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-ui-appearance", "light",
+                               "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        record("Palette-Forest-Home-Light", app: app)
+        app.buttons["new_game"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Darstellung"].tap()
+        XCTAssertTrue(app.buttons["accent_forest"].isSelected)
+        for name in ["slate", "aubergine", "terracotta", "petrol", "forest"] {
+            let choice = app.buttons["accent_" + name]
+            assertVisible(choice, in: app)
+            choice.tap()
+            XCTAssertTrue(choice.isSelected)
+            XCTAssertEqual(app.scrollViews.count, 0)
+            record("Palette-\(name)-Options-Light", app: app)
+        }
+        app.buttons["accent_aubergine"].tap()
+        app.buttons["display_done"].tap()
+        app.buttons["hint"].tap()
+        XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+        record("Palette-Aubergine-Game-Light", app: app)
+        app.terminate()
+        app.launch()
+        record("Palette-Aubergine-Home-Restored", app: app)
+        app.buttons["continue_game"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Darstellung"].tap()
+        XCTAssertTrue(app.buttons["accent_aubergine"].isSelected)
+        app.buttons["accent_forest"].tap()
+        app.terminate()
+        app.launchArguments = app.launchArguments.map { $0 == "light" ? "dark" : $0 }
+        app.launch()
+        record("Palette-Forest-Home-Dark", app: app)
+        app.buttons["continue_game"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Darstellung"].tap()
+        XCTAssertTrue(app.buttons["accent_forest"].isSelected)
+        record("Palette-Forest-Options-Dark", app: app)
+    }
     @MainActor private func assertVariantsVisible(_ app: XCUIApplication) {
         showSetupPanel("variant", in: app)
         for key in ["classic", "twelve", "morabaraba", "lasker"] {
@@ -924,6 +967,18 @@ final class MuehlensteinUITests: XCTestCase {
             XCTAssertEqual(app.scrollViews.count, 0)
         }
         record("Inline-Appearance-Largest-Landscape", app: app)
+        for name in ["forest", "slate", "aubergine", "terracotta", "petrol"] {
+            let choice = app.buttons["accent_" + name]
+            for _ in 0..<8 {
+                if choice.exists { break }
+                app.buttons["next_page"].tap()
+            }
+            assertVisible(choice, in: app)
+            choice.tap()
+            XCTAssertTrue(choice.isSelected)
+            XCTAssertEqual(app.scrollViews.count, 0)
+        }
+        record("Palette-Largest-Landscape", app: app)
         app.buttons["display_done"].tap()
         app.buttons["game_options"].tap()
         app.buttons["Neue Partie"].tap()

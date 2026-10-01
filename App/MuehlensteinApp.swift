@@ -22,7 +22,8 @@ import SwiftUI
     }
     var body: some Scene {
         WindowGroup {
-            HomeView(store: store).environment(preferences).tint(.petrol)
+            HomeView(store: store).environment(preferences)
+                .environment(\.accentPalette, preferences.accentPalette).tint(preferences.accentPalette.color)
                 .preferredColorScheme(testColorScheme)
         }
     }

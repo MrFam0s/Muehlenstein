@@ -352,6 +352,41 @@ Beide Lokalisierungen und `git diff --check` sind geprüft. Keine neue physische
 Geräte-, VoiceOver- oder Akkuprüfung. Der Tag `v1.0` und das bisherige Archiv
 bleiben unverändert; diese Änderungen liegen im späteren Quellstand auf `main`.
 
+## Wählbare Akzentfarben — 01.10.2026
+
+Waldgrün ist der Standard bei fehlender oder unbekannter gespeicherter Farbauswahl.
+Unter Partie → Mehr → Darstellung stehen zusätzlich Schieferblau, Aubergine,
+Terrakotta und Petrol bereit. Die Auswahl aktualisiert die Oberfläche ohne
+Navigationsneustart und wird unabhängig von der Partie gespeichert. Die vorhandenen
+Darstellungsschalter behalten ihre Werte und Ausgangseinstellungen.
+
+**Prüfungen:** Release-Simulatorbuild erfolgreich. Vier gezielte iPhone-Tests
+bestehen (`.build/Accent-Palettes.xcresult`): Speicherung sämtlicher Paletten und
+Rückfall bei unbekanntem Wert, Auswahl aller Farben mit Wiederherstellung nach
+App-Neustart und Wechsel zwischen Hell/Dunkel, unveränderte Schalterwirkung samt
+Brettposition sowie Erreichbarkeit aller Farben bei größter Schrift im Querformat.
+Die Konfigurationsansichten enthalten weiterhin keinen Scrollbereich. Der zusätzliche
+iPad-Test für Farbauswahl, Speicherung und Hell/Dunkel besteht ebenfalls
+(`.build/Accent-Palettes-iPad.xcresult`); die Anordnung des Einstellungsblatts
+wurde anhand der Originalaufnahme geprüft.
+
+`Scripts/check-contrast.py` prüft jetzt jede Palette anhand der eingebundenen
+Farbassets: **170 von 170 Prüfungen bestanden**. Das schwächste Textpaar erreicht
+4,57:1, die schwächste bedeutungstragende Brettgrafik 3,46:1. Terrakotta ist im
+Hellmodus etwas dunkler als in der Farbstudie, um auch auf getönten Auswahlflächen
+4,5:1 einzuhalten. Abnahmemarkierungen folgen der Palette und der Steinfarbe,
+damit sie in beiden Systemdarstellungen lesbar bleiben. Dies ist eine Prüfung
+der definierten Farbrollen, keine erneute vollständige Accessibility-Abnahme.
+
+Die iPhone-Aufnahmen von Startseite, Farbauswahl in Hell/Dunkel, Spiel mit Tipp
+und größter Schrift im Querformat wurden visuell geprüft. Aktuelle Beispiele:
+[Startseite](Previews/Forest-Home-iPhone-Light.png),
+[Farbauswahl hell](Previews/Accent-Colors-iPhone-Light.png),
+[Farbauswahl dunkel](Previews/Accent-Colors-iPhone-Dark.png).
+Beide Lokalisierungen bestehen `plutil -lint`; `git diff --check` besteht.
+Das App-Icon bleibt ein statisches Asset. Keine neue physische Geräte- oder
+Akkuprüfung; Tag `v1.0` und Release-Archiv bleiben unverändert.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

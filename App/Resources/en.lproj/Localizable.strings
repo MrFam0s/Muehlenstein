@@ -129,7 +129,7 @@
 "show_last" = "Last move";
 "disable_stone_animations" = "Disable stone animations";
 "display_help" = "About these options";
-"display_help_body" = "Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nGame details\nFind difficulty, variant and further information under History → Game details. The level is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move picker remain available when markers are off.\n\nDisable stone animations\nTurn this on for immediate changes. When off, stones glide to their destination and briefly fade in or out when placed or captured. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.\n\nAll three switches are off by default: no legal-target or last-move markers, with gentle stone movements.";
+"display_help_body" = "Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nGame details\nFind difficulty, variant and further information under History → Game details. The level is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move picker remain available when markers are off.\n\nDisable stone animations\nTurn this on for immediate changes. When off, stones glide to their destination and briefly fade in or out when placed or captured. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.\n\nAll three switches are off by default: no legal-target or last-move markers, with gentle stone movements.\n\nAccent color\nForest green is the default. Your color choice applies throughout the app and is saved on this device. Sand, graphite and the playing pieces keep their colors.";
 "computer_options" = "Difficulty";
 "computer_style" = "Play style";
 "opening_book" = "Opening";
@@ -175,3 +175,10 @@
 "credits_engine" = "Game engine & AI";
 "credits_license" = "Free software";
 "about_vat" = "VAT identification";
+
+"accent_color" = "Accent color";
+"accent_forest" = "Forest green";
+"accent_slate" = "Slate blue";
+"accent_aubergine" = "Aubergine";
+"accent_terracotta" = "Terracotta";
+"accent_petrol" = "Teal";
