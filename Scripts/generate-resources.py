@@ -16,7 +16,7 @@ copy = {
 'hint_fact_blocks_line': ('Besetzt den freien Punkt einer Linie mit zwei gegnerischen Steinen. Diese Linie ist damit vorerst blockiert.', 'Occupies the empty point on a line containing two opposing stones, blocking that line for now.'),
 'hint_fact_builds_line': ('Bringt zwei deiner Steine in eine Mühllinie mit einem freien Punkt. Daraus kann später eine Mühle entstehen.', 'Brings two of your stones onto a mill line with one empty point, creating a possible future mill.'),
 'hint_from_book': ('Die Empfehlung stammt aus dem Eröffnungsbuch für diese Stellung. Es enthält bekannte Eröffnungszüge, garantiert aber keinen Gewinn.', 'The recommendation comes from the opening book for this position. It contains known opening moves, but does not guarantee a win.'),
-'hint_from_search': ('Die Empfehlung stammt aus der Vorausberechnung mit der gewählten Spielstufe. Die Hinweise beschreiben unmittelbare Folgen des Zugs; sie sind keine vollständige Erklärung aller berechneten Varianten und keine Gewinnzusage.', 'This recommendation comes from looking ahead at the selected difficulty. These notes describe immediate effects of the move; they do not explain every searched variation or promise a win.'),
+'hint_from_search': ('Die Empfehlung stammt aus der Vorausberechnung mit der gewählten Spielstufe.', 'This recommendation comes from looking ahead at the selected difficulty.'),
 'reserve_count': ('%d im Vorrat', '%d in reserve'),
 'side_counts': ('%@: %d auf dem Brett, %d im Vorrat', '%@: %d on board, %d in reserve'),
 'previous_page': ('Vorherige Seite', 'Previous page'), 'next_page': ('Nächste Seite', 'Next page'),

@@ -9,7 +9,7 @@
 "hint_fact_blocks_line" = "Occupies the empty point on a line containing two opposing stones, blocking that line for now.";
 "hint_fact_builds_line" = "Brings two of your stones onto a mill line with one empty point, creating a possible future mill.";
 "hint_from_book" = "The recommendation comes from the opening book for this position. It contains known opening moves, but does not guarantee a win.";
-"hint_from_search" = "This recommendation comes from looking ahead at the selected difficulty. These notes describe immediate effects of the move; they do not explain every searched variation or promise a win.";
+"hint_from_search" = "This recommendation comes from looking ahead at the selected difficulty.";
 "reserve_count" = "%d in reserve";
 "side_counts" = "%@: %d on board, %d in reserve";
 "previous_page" = "Previous page";

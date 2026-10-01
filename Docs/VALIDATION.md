@@ -182,6 +182,12 @@ Schnelle Tipps zeigen keine Ladeanzeige. Ein abbrechbarer Timer blendet diese er
 
 Der signierte Gerätebuild besteht (`.build/CalmGame-Device.log`). Die App wurde auf Fa-iPhone installiert und erfolgreich normal gestartet. Dies ist kein zusätzlicher physischer Bedienungs- oder Energietest. Die unveränderten Upstream-Dateien wurden nicht bearbeitet; vollständige VoiceOver- und Akkutests bleiben zurückgestellt.
 
+## Ausblendbare Tipps und kürzere Erklärung — 01.10.2026
+
+„Tipp“ schaltet den Zugvorschlag jetzt ein und aus. Der zweite Tastendruck entfernt Vorschlag, Info-Symbol, Tippmarkierung und die automatisch gesetzte Steinauswahl. Er bricht auch eine noch laufende Tippberechnung ab und verwirft deren Ergebnis; die Stellung und der Verlauf ändern sich dabei nicht. Der Erklärungstext endet nach dem Satz zur Vorausberechnung mit der gewählten Spielstufe. Der nachfolgende ausführliche Hinweis entfällt auf Deutsch und Englisch.
+
+Zwei Modelltests und ein Bedienungstest bestehen (`.build/Hint-Toggle.xcresult`): erneutes Anzeigen nach dem Ausblenden, unveränderte Stellung, Entfernen der Auswahl in einer echten Zugstellung, kein spätes Wiederauftauchen nach Abbruch sowie stabile Brettkoordinaten und gekürzter Text in der Oberfläche. Der signierte Gerätebuild besteht (`.build/Hint-Toggle-Device.log`); die App ist auf Fa-iPhone installiert und erfolgreich gestartet. Es wurde keine zusätzliche physische Bedienungs-, VoiceOver- oder Akkuprüfung durchgeführt.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

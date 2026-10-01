@@ -25,7 +25,7 @@ final class GameStoreTests: XCTestCase {
         let store = GameStore(inMemory: true)
         store.start(GameSettings(opponent: .local, level: 4))
         let before = store.position?.fen
-        store.requestHint()
+        store.toggleHint()
         XCTAssertFalse(store.searchProgress.isVisible)
         try await waitForHuman(store)
         XCTAssertEqual(store.hint?.notation, "d2")
@@ -34,10 +34,52 @@ final class GameStoreTests: XCTestCase {
         XCTAssertEqual(store.position?.fen, before)
         XCTAssertTrue(store.game?.moves.isEmpty == true)
         XCTAssertFalse(store.searchProgress.isVisible)
+        store.toggleHint()
+        XCTAssertNil(store.hint)
+        XCTAssertNil(store.hintExplanation)
+        XCTAssertFalse(store.isThinking)
+        XCTAssertEqual(store.position?.fen, before)
+        store.toggleHint()
+        try await waitForHuman(store)
+        XCTAssertNotNil(store.hintExplanation)
         store.tap(23)
         XCTAssertNil(store.hint)
         XCTAssertNil(store.hintExplanation)
         XCTAssertEqual(store.game?.moves.count, 1)
+    }
+
+    @MainActor func testHidingMovingHintClearsSelectionAndPendingResult() async throws {
+        let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "offline-games", withExtension: "json"))
+        let fixtures = try JSONDecoder().decode(OfflineFixtures.self, from: Data(contentsOf: url))
+        let fixture = try XCTUnwrap(fixtures.games.first { $0.preset == 0 })
+        let store = GameStore(inMemory: true)
+        store.start(GameSettings(opponent: .local, level: 1))
+        for notation in fixture.moves {
+            if store.position?.legal.allSatisfy({ $0.kind == 1 }) == true { break }
+            store.play(try XCTUnwrap(store.position?.legal.first { $0.notation == notation }))
+        }
+        let before = store.position?.fen
+        let moves = store.game?.moves
+        store.toggleHint()
+        try await waitForHuman(store)
+        let hint = try XCTUnwrap(store.hint)
+        XCTAssertEqual(hint.kind, 1)
+        XCTAssertEqual(store.selectedNode, hint.from)
+        store.toggleHint()
+        XCTAssertNil(store.hint)
+        XCTAssertNil(store.hintExplanation)
+        XCTAssertNil(store.selectedNode)
+        store.toggleHint()
+        XCTAssertEqual(store.activity, .hint)
+        store.toggleHint()
+        XCTAssertFalse(store.isThinking)
+        try await Task.sleep(for: .milliseconds(350))
+        XCTAssertNil(store.hint)
+        XCTAssertNil(store.hintExplanation)
+        XCTAssertNil(store.selectedNode)
+        XCTAssertFalse(store.searchProgress.isVisible)
+        XCTAssertEqual(store.position?.fen, before)
+        XCTAssertEqual(store.game?.moves, moves)
     }
 
     func testGridPagesKeepEveryMoveInOrderAtEverySize() {
@@ -311,7 +353,7 @@ final class GameStoreTests: XCTestCase {
             XCTAssertEqual(store.position?.fen, fixture.fen, fixture.name)
             XCTAssertTrue(store.position?.legal.isEmpty == true)
             store.tap(23)
-            store.requestHint()
+            store.toggleHint()
             store.resumeComputer()
             XCTAssertFalse(store.isThinking)
             XCTAssertEqual(store.game?.moves.count, fixture.moves.count)
@@ -468,7 +510,7 @@ final class GameStoreTests: XCTestCase {
     @MainActor func testCancelledHintCannotChangeReplacementGame() async throws {
         let store = GameStore(inMemory: true)
         store.start(GameSettings(level: 5, effort: .extended))
-        store.requestHint()
+        store.toggleHint()
         XCTAssertEqual(store.activity, .hint)
         store.suspend()
         store.start(GameSettings(variant: .twelve, opponent: .local))

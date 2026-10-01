@@ -190,7 +190,7 @@ struct GameView: View {
             } else {
                 control("undo", icon: "arrow.uturn.backward", disabled: !store.canUndo) { store.undo() }
             }
-            control("hint", icon: "lightbulb", disabled: !store.isHumanTurn) { store.requestHint() }
+            control("hint", icon: "lightbulb", disabled: !store.isHumanTurn) { store.toggleHint() }
             if dynamicType.isAccessibilitySize {
                 control("legal_moves", icon: "square.grid.3x3", disabled: !store.isHumanTurn || store.isThinking) { showingMoves = true }
             }

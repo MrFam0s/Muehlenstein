@@ -124,8 +124,15 @@ import Observation
             resumeComputer()
         } catch { errorMessage = error.localizedDescription }
     }
-    func requestHint() {
-        guard isHumanTurn, !isThinking else { return }
+    func toggleHint() {
+        guard isHumanTurn else { return }
+        if hint != nil || activity == .hint {
+            cancelWork()
+            hint = nil
+            selectedNode = nil
+            return
+        }
+        guard !isThinking else { return }
         search(isHint: true)
     }
     private func search(isHint: Bool) {

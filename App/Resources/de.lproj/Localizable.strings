@@ -9,7 +9,7 @@
 "hint_fact_blocks_line" = "Besetzt den freien Punkt einer Linie mit zwei gegnerischen Steinen. Diese Linie ist damit vorerst blockiert.";
 "hint_fact_builds_line" = "Bringt zwei deiner Steine in eine Mühllinie mit einem freien Punkt. Daraus kann später eine Mühle entstehen.";
 "hint_from_book" = "Die Empfehlung stammt aus dem Eröffnungsbuch für diese Stellung. Es enthält bekannte Eröffnungszüge, garantiert aber keinen Gewinn.";
-"hint_from_search" = "Die Empfehlung stammt aus der Vorausberechnung mit der gewählten Spielstufe. Die Hinweise beschreiben unmittelbare Folgen des Zugs; sie sind keine vollständige Erklärung aller berechneten Varianten und keine Gewinnzusage.";
+"hint_from_search" = "Die Empfehlung stammt aus der Vorausberechnung mit der gewählten Spielstufe.";
 "reserve_count" = "%d im Vorrat";
 "side_counts" = "%@: %d auf dem Brett, %d im Vorrat";
 "previous_page" = "Vorherige Seite";

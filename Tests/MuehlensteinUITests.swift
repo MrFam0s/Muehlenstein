@@ -47,8 +47,16 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(app.buttons["node_a7"].frame, board, "A hint must not move the board")
         app.buttons["hint_explanation"].tap()
         XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("Zugvorschlag:") == true)
+        XCTAssertFalse((app.textViews.firstMatch.value as? String)?.contains("Die Hinweise beschreiben") == true)
         record("Hint-Explanation", app: app)
         app.buttons["Fertig"].tap()
+        app.buttons["hint"].tap()
+        XCTAssertFalse(app.staticTexts["hint_suggestion"].exists)
+        XCTAssertFalse(app.buttons["hint_explanation"].exists)
+        XCTAssertEqual(app.buttons["node_a7"].frame, board)
+        app.buttons["hint"].tap()
+        XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+        XCTAssertEqual(app.buttons["node_a7"].frame, board)
         app.buttons["history"].tap()
         let first = app.otherElements["history_move_0"]
         let second = app.otherElements["history_move_1"]
