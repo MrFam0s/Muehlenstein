@@ -33,7 +33,7 @@ final class MuehlensteinUITests: XCTestCase {
     @MainActor func testAboutShowsVersionImprintSourceAndBundledNotices() {
         let app = launch()
         app.buttons["about"].tap()
-        XCTAssertTrue(app.staticTexts["about_version"].label.contains("Version 1.0.1 · Build 4"))
+        XCTAssertTrue(app.staticTexts["about_version"].label.contains("Version 1.0.2 · Build 5"))
         XCTAssertTrue(app.scrollViews["about_sections"].exists)
         XCTAssertFalse(app.buttons["next_page"].exists)
         record("About-Overview", app: app)

@@ -9,7 +9,8 @@ import ImageIO
 import UniformTypeIdentifiers
 
 let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
-let assets = root.appendingPathComponent("App/Resources/Assets.xcassets/AppIcon.appiconset")
+let catalog = root.appendingPathComponent("App/Resources/Assets.xcassets")
+let assets = catalog.appendingPathComponent("AppIcon.appiconset")
 let previews = root.appendingPathComponent("Docs/Previews")
 let space = CGColorSpace(name: CGColorSpace.sRGB)!
 
@@ -26,10 +27,10 @@ struct Palette {
     let darkEdge: UInt32
 }
 let palettes = [
-    Palette(name: "AppIcon", background: 0x175B53, line: 0xEDE8DD,
+    Palette(name: "AppIcon", background: 0x4F624A, line: 0xEDE8DD,
             lightStone: 0xFFF9ED, darkStone: 0x263337, darkEdge: 0xEDE8DD),
-    Palette(name: "AppIcon-Dark", background: 0x172326, line: 0x8AD0BD,
-            lightStone: 0xF1E9D9, darkStone: 0x263337, darkEdge: 0x8AD0BD),
+    Palette(name: "AppIcon-Dark", background: 0x171D20, line: 0xADBF9F,
+            lightStone: 0xF1E9D9, darkStone: 0x263337, darkEdge: 0xADBF9F),
     Palette(name: "AppIcon-Tinted", background: 0x161616, line: 0xC4C4C4,
             lightStone: 0xF5F5F5, darkStone: 0x343434, darkEdge: 0xC4C4C4)
 ]
@@ -39,34 +40,86 @@ func context(width: Int, height: Int) -> CGContext {
               bytesPerRow: width * 4, space: space,
               bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
 }
-func drawIcon(_ ctx: CGContext, palette: Palette) {
-    ctx.setFillColor(color(palette.background))
-    ctx.fill(CGRect(x: 0, y: 0, width: 1024, height: 1024))
-    ctx.setStrokeColor(color(palette.line))
-    ctx.setLineWidth(26)
+// A softly rounded Morris board, turned into a diamond. The two opposing
+// stones leave clear gaps in the board, so the silhouette also works at 29 pt.
+// This single geometry renders both the app icons and scalable in-app layers.
+let stoneOffset: CGFloat = 295 * sqrt(2)
+let lightCenter = CGPoint(x: 512, y: 512 + stoneOffset)
+let darkCenter = CGPoint(x: 512, y: 512 - stoneOffset)
+func circle(at point: CGPoint, radius: CGFloat) -> CGRect {
+    CGRect(x: point.x - radius, y: point.y - radius, width: radius * 2, height: radius * 2)
+}
+func drawBoard(_ ctx: CGContext, ink: CGColor) {
+    ctx.saveGState()
+    let mask = CGMutablePath()
+    mask.addRect(CGRect(x: 0, y: 0, width: 1024, height: 1024))
+    for point in [lightCenter, darkCenter] { mask.addEllipse(in: circle(at: point, radius: 98)) }
+    ctx.addPath(mask)
+    ctx.clip(using: .evenOdd)
+    ctx.translateBy(x: 512, y: 512)
+    ctx.rotate(by: .pi / 4)
+    ctx.setStrokeColor(ink)
+    ctx.setLineWidth(30)
     ctx.setLineJoin(.round)
     ctx.setLineCap(.round)
-    // A real Morris board: three squares, connected at the four side midpoints.
-    for inset: CGFloat in [220, 340, 460] {
-        ctx.stroke(CGRect(x: inset, y: inset, width: 1024 - 2 * inset, height: 1024 - 2 * inset))
+    for (halfSide, radius): (CGFloat, CGFloat) in [(295, 52), (192, 38), (89, 22)] {
+        let rect = CGRect(x: -halfSide, y: -halfSide, width: halfSide * 2, height: halfSide * 2)
+        ctx.addPath(CGPath(roundedRect: rect, cornerWidth: radius, cornerHeight: radius, transform: nil))
+        ctx.strokePath()
     }
     for (x1, y1, x2, y2): (CGFloat, CGFloat, CGFloat, CGFloat) in [
-        (512, 220, 512, 460), (512, 564, 512, 804),
-        (220, 512, 460, 512), (564, 512, 804, 512)
+        (0, -295, 0, -89), (0, 89, 0, 295),
+        (-295, 0, -89, 0), (89, 0, 295, 0)
     ] {
         ctx.move(to: CGPoint(x: x1, y: y1)); ctx.addLine(to: CGPoint(x: x2, y: y2)); ctx.strokePath()
     }
-    for (x, y, isLight): (CGFloat, CGFloat, Bool) in [(220, 804, true), (804, 220, false)] {
-        // A clean gap separates each stone from the grid at small Home Screen sizes.
-        ctx.setFillColor(color(palette.background))
-        ctx.fillEllipse(in: CGRect(x: x - 96, y: y - 96, width: 192, height: 192))
-        ctx.setFillColor(color(isLight ? palette.lightStone : palette.darkEdge))
-        ctx.fillEllipse(in: CGRect(x: x - 76, y: y - 76, width: 152, height: 152))
-        if !isLight {
-            ctx.setFillColor(color(palette.darkStone))
-            ctx.fillEllipse(in: CGRect(x: x - 58, y: y - 58, width: 116, height: 116))
-        }
-    }
+    ctx.restoreGState()
+}
+func drawRing(_ ctx: CGContext, center: CGPoint, outer: CGFloat, inner: CGFloat, ink: CGColor) {
+    ctx.setFillColor(ink)
+    ctx.addEllipse(in: circle(at: center, radius: outer))
+    ctx.addEllipse(in: circle(at: center, radius: inner))
+    ctx.drawPath(using: .eoFill)
+}
+func drawMark(_ ctx: CGContext, line: CGColor, lightStone: CGColor, darkStone: CGColor, darkEdge: CGColor) {
+    drawBoard(ctx, ink: line)
+    ctx.setFillColor(lightStone)
+    ctx.fillEllipse(in: circle(at: lightCenter, radius: 76))
+    ctx.setFillColor(darkStone)
+    ctx.fillEllipse(in: circle(at: darkCenter, radius: 58))
+    drawRing(ctx, center: darkCenter, outer: 76, inner: 58, ink: darkEdge)
+}
+func drawIcon(_ ctx: CGContext, palette: Palette) {
+    ctx.setFillColor(color(palette.background))
+    ctx.fill(CGRect(x: 0, y: 0, width: 1024, height: 1024))
+    ctx.saveGState()
+    ctx.translateBy(x: 512, y: 512)
+    ctx.scaleBy(x: 0.78, y: 0.78)
+    ctx.translateBy(x: -512, y: -512)
+    drawMark(ctx, line: color(palette.line), lightStone: color(palette.lightStone),
+             darkStone: color(palette.darkStone), darkEdge: color(palette.darkEdge))
+    ctx.restoreGState()
+}
+
+// PDF templates retain vector data and transparency. SwiftUI tints the board
+// with the selected accent and the second stone with semantic Ink.
+func writeTemplate(name: String, draw: (CGContext) -> Void) throws {
+    let directory = catalog.appendingPathComponent(name + ".imageset")
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    var box = CGRect(x: 0, y: 0, width: 52, height: 52)
+    let ctx = CGContext(directory.appendingPathComponent(name + ".pdf") as CFURL, mediaBox: &box, nil)!
+    ctx.beginPDFPage(nil)
+    ctx.scaleBy(x: 52 / 1024, y: 52 / 1024)
+    draw(ctx)
+    ctx.endPDFPage()
+    ctx.closePDF()
+    let contents: [String: Any] = [
+        "images": [["filename": name + ".pdf", "idiom": "universal"]],
+        "info": ["version": 1, "author": "xcode"],
+        "properties": ["preserves-vector-representation": true, "template-rendering-intent": "template"]
+    ]
+    try JSONSerialization.data(withJSONObject: contents, options: [.prettyPrinted, .sortedKeys])
+        .write(to: directory.appendingPathComponent("Contents.json"))
 }
 func write(_ ctx: CGContext, to url: URL) throws {
     let image = ctx.makeImage()!
@@ -84,6 +137,16 @@ func write(_ ctx: CGContext, to url: URL) throws {
 }
 try FileManager.default.createDirectory(at: assets, withIntermediateDirectories: true)
 try FileManager.default.createDirectory(at: previews, withIntermediateDirectories: true)
+try writeTemplate(name: "BrandBoard") { ctx in
+    drawBoard(ctx, ink: color(0x000000))
+    ctx.setFillColor(color(0x000000))
+    ctx.fillEllipse(in: circle(at: lightCenter, radius: 76))
+    drawRing(ctx, center: darkCenter, outer: 76, inner: 58, ink: color(0x000000))
+}
+try writeTemplate(name: "BrandStone") { ctx in
+    ctx.setFillColor(color(0x000000))
+    ctx.fillEllipse(in: circle(at: darkCenter, radius: 58))
+}
 for palette in palettes {
     let ctx = context(width: 1024, height: 1024)
     drawIcon(ctx, palette: palette)
@@ -107,7 +170,7 @@ func label(_ text: String, x: CGFloat, y: CGFloat, size: CGFloat, ink: UInt32 = 
     preview.textPosition = CGPoint(x: x, y: y); CTLineDraw(line, preview)
 }
 label("Mühlenstein", x: 54, y: 596, size: 34)
-label("Drei Quadrate. Zwei Steine.", x: 54, y: 562, size: 19, ink: 0x596460)
+label("Waldgrün · Mühle als Signet", x: 54, y: 562, size: 19, ink: 0x596460)
 for (index, palette) in palettes.enumerated() {
     let x = CGFloat(54 + index * 342)
     for (side, dx, y): (CGFloat, CGFloat, CGFloat) in [(288, 0, 240), (60, 2, 112), (40, 88, 122), (29, 158, 127)] {
@@ -123,4 +186,4 @@ for (index, palette) in palettes.enumerated() {
     label("60 / 40 / 29 pt", x: x, y: 70, size: 15, ink: 0x596460)
 }
 try write(preview, to: previews.appendingPathComponent("App-Icon-Appearances.png"))
-print("Generated three opaque sRGB icons (1024 × 1024) and review sheet.")
+print("Generated two vector logo layers, three opaque sRGB icons (1024 × 1024) and review sheet.")

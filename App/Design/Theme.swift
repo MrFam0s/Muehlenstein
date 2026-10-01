@@ -57,22 +57,10 @@ struct BrandMark: View {
     @Environment(\.accentPalette) private var palette
     var body: some View {
         ZStack {
-            Path { path in
-                for inset: CGFloat in [5, 13.5, 22] {
-                    path.addRect(CGRect(x: inset, y: inset, width: 52 - 2 * inset, height: 52 - 2 * inset))
-                }
-                for (start, end) in [(CGPoint(x: 26, y: 5), CGPoint(x: 26, y: 22)),
-                                     (CGPoint(x: 26, y: 30), CGPoint(x: 26, y: 47)),
-                                     (CGPoint(x: 5, y: 26), CGPoint(x: 22, y: 26)),
-                                     (CGPoint(x: 30, y: 26), CGPoint(x: 47, y: 26))] {
-                    path.move(to: start); path.addLine(to: end)
-                }
-            }.stroke(palette.color, style: StrokeStyle(lineWidth: 1.8, lineCap: .round, lineJoin: .round))
-            ForEach([false, true], id: \.self) { dark in
-                Circle().fill(Color.limestone).frame(width: 14, height: 14)
-                    .overlay { Circle().fill(dark ? Color.ink : palette.color).frame(width: 10, height: 10) }
-                    .offset(x: dark ? 21 : -21, y: dark ? 21 : -21)
-            }
+            // Both vector layers share the app icon's geometry and preserve
+            // the approved wordmark layout while following the chosen palette.
+            Image("BrandBoard").resizable().scaledToFit().foregroundStyle(palette.color)
+            Image("BrandStone").resizable().scaledToFit().foregroundStyle(Color.ink)
         }.frame(width: 52, height: 52).accessibilityHidden(true)
     }
 }

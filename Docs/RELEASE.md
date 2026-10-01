@@ -2,16 +2,33 @@
 
 This file carries forward the scoped legal research; it is not a legal opinion or a claim of completed clearance. Local development is authorized. No App Store upload has taken place. The source repository is https://github.com/MrFam0s/Muehlenstein; see LICENSE_REVIEW.md for the 2026-10-01 audit and its scope.
 
-Current source version: **1.0.1 (build 4)**, annotated Git tag
-[`v1.0.1`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.1), dated 2026-10-01.
+Current source version: **1.0.2 (build 5)**, annotated Git tag
+[`v1.0.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.2), dated 2026-10-01.
 The app version/build are maintained in `Configuration/App.xcconfig`; internal
 Cargo package versions are independent. See [version notes](../CHANGELOG.md)
 and the [local archive record](../Store/README.md). The source tag does not
 represent an App Store submission. Keep this tag fixed; any later binary
 change needs a new build number and a corresponding source tag. The existing
 1.0 (3) device archive and original Store screenshots are historical artifacts;
-regenerate them for 1.0.1 before distribution. App Store Connect was last verified
+regenerate them for 1.0.2 before distribution. App Store Connect was last verified
 with version 1.0; this source bump does not change that external record.
+
+## Version numbering — verified 2026-10-01
+
+Apple documents the app version (`CFBundleShortVersionString`) as
+**Major.Minor.Patch**; the third integer denotes a maintenance release.
+Patch versions such as **1.0.1** and **1.0.2** are therefore valid. A jump to
+**1.1** is not required. The version in App Store Connect must match the
+binary's app version when that version is prepared for distribution.
+The build string (`CFBundleVersion`) separately identifies a particular build
+and is incremented before archiving a new build. See Apple's
+[version-number definition](https://help.apple.com/xcode/mac/current/en.lproj/devc092854f5.html)
+and [version/build instructions](https://help.apple.com/xcode/mac/current/en.lproj/devba7f53ad4.html).
+
+The logo update follows the already published source tag `v1.0.1` (build 4)
+as `v1.0.2` (build 5). Existing tags stay fixed.
+
+## Remaining distribution work
 
 1. Publish the exact complete corresponding app source (Swift, Rust wrapper, vendored core, lockfile, build scripts, license notices) for each distributed binary under AGPL-3.0-or-later. Charging for a download is consistent with the chosen open-source plan; recipients can also redistribute under the license.
 2. Preserve Sanmill attribution and clearly identify the independent fork. The upstream README contains an explicit AGPL §7 App Store permission, traced to its 2023 introduction and 2026 AGPL update. The remaining question concerns any protected historical contributions carried into `tgf-core`, `tgf-mill`, `tgf-search` and the classical opening oracle; PerfectAI and `perfect-db` are not dependencies of this build. C++-to-Rust migration history prevents assuming a wholly independent rewrite. See `LICENSE_REVIEW.md` and the prepared, unsent `UPSTREAM_LICENSE_INQUIRY.md`. The project owner prefers the existing implementation in the absence of a concrete contrary licensing finding; publication preparation continues on the basis of the express permission. This decision does not establish the missing historical authority. A scoped rights confirmation remains recommended; any actual excluded contribution would need permission or replacement. No external inquiry or submission is authorized by the latest preparation-only instruction.

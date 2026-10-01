@@ -1,6 +1,6 @@
-# Mühlenstein — Designsprache 0.1
+# Mühlenstein — Designsprache
 
-Stand: 01.10.2026. Beschlossene Namen: **Mühlenstein** auf Deutsch, **Muehlenstein** international und technisch. Die Gestaltung ist ein erster umgesetzter Vorschlag zur Beurteilung in der laufenden App.
+Stand: 01.10.2026, App-Version 1.0.2. Beschlossene Namen: **Mühlenstein** auf Deutsch, **Muehlenstein** international und technisch. Dieses Dokument beschreibt die in der nativen App umgesetzte Gestaltung.
 
 ## Ruhig, präzise, greifbar
 
@@ -52,7 +52,9 @@ Währenddessen nennt die Ansicht den Computer ausdrücklich als aktiven Spieler.
 
 ## Icon und Medien
 
-Der überarbeitete Entwurf verwendet drei verbundene Quadrate, einen hellen und einen dunkel umrandeten Stein auf Petrol. Die größeren Steine und kräftigeren Linien bleiben auch bei 29–60 Punkten erkennbar. Die Dunkelvariante verwendet Graphit mit hellen Petrol-Linien; die Graustufenvorlage wird vom Betriebssystem eingefärbt. Alle drei Assets sind quadratische, deckende sRGB-PNGs mit 1024 × 1024 Pixeln. Die Systemmaske wird nicht in die Assets eingebrannt. `Scripts/generate-icon.swift` ist die editierbare Vektorquelle und erstellt außerdem `Previews/App-Icon-Appearances.png`. Die Vorschau zeigt nur eine angenäherte Eckenmaske; Tönung und weitere Systemeffekte hängen von iOS ab.
+Das Signet verbindet drei sanft gerundete Quadrate in Rautenform mit zwei gegenüberliegenden Spielsteinen. Die Verbindungslinien des Mühlebretts bleiben erhalten; klare Aussparungen trennen die Steine von den Linien. Das Standard-Icon verwendet Waldgrün (#4F624A), helle Sandlinien und einen Graphitstein. Die Dunkelvariante verwendet den dunklen App-Hintergrund (#171D20) mit hellem Waldgrün (#ADBF9F); die Graustufenvorlage wird vom Betriebssystem eingefärbt. Alle drei Assets sind quadratische, deckende sRGB-PNGs mit 1024 × 1024 Pixeln. Die Systemmaske wird nicht in die Assets eingebrannt.
+
+`Scripts/generate-icon.swift` ist die gemeinsame editierbare Vektorquelle für App-Icon und Logo. Es erzeugt zusätzlich die beiden transparenten PDF-Vektorlagen `BrandBoard` und `BrandStone` für die App. SwiftUI färbt diese mit dem ausgewählten Akzent und der semantischen Textfarbe; im Dunkelmodus bleibt das Zeichen dadurch erkennbar. Der bestehende 52-pt-Rahmen und die Position von Logo und Wortmarke auf der Startseite bleiben erhalten. Die Vorschau `Previews/App-Icon-Appearances.png` zeigt die drei Icons auch bei 29, 40 und 60 Punkten. Sie verwendet nur eine angenäherte Eckenmaske; Tönung und weitere Systemeffekte hängen von iOS ab.
 
 Ein Fehler des bisherigen AppKit-Bitmap-Exports hatte eine praktisch schwarze Icon-Datei erzeugt. Der neue Export benutzt einen expliziten Core-Graphics-RGB-Kontext und bricht bei leerer/einfarbiger Ausgabe ab. Die Geometrie und alle Assets sind eigenständig erstellt. Sanmills Logo, Sounds und Store-Grafiken wurden nicht übernommen. Ein mehrschichtiges Icon-Composer-Dokument ist in dieser Etappe nicht enthalten.
 

@@ -1,5 +1,20 @@
 # Versionshinweise
 
+## 1.0.2 — 01.10.2026
+
+App-Version **1.0.2**, Build **5**, Quelltag **v1.0.2**. Kein App-Store-Upload
+oder Review-Antrag; die bisherigen Tags bleiben unverändert.
+
+- Eigenständiges Mühle-Signet mit drei sanft gerundeten Quadraten in
+  Rautenform und zwei gegenüberliegenden Spielsteinen. Logo und App-Icon
+  entstehen aus derselben editierbaren Vektorgeometrie.
+- Waldgrünes Standard-Icon, passende Dunkelvariante und Graustufenvorlage
+  für iOS-Tönung. Das Logo in der App folgt weiterhin der gewählten Palette;
+  die bestätigte Anordnung von Logo und Name bleibt erhalten.
+- Versionsschema anhand von Apples Dokumentation geklärt: Auch Patchversionen
+  wie 1.0.1 und 1.0.2 sind vorgesehen; 1.1 ist nicht erforderlich. Quellen und
+  Abgrenzung zur Buildnummer stehen in [RELEASE.md](Docs/RELEASE.md).
+
 ## 1.0.1 — 01.10.2026
 
 App-Version **1.0.1**, Build **4**, Quelltag **v1.0.1**. Diese Version bündelt

@@ -1,19 +1,20 @@
 # App-Store-Vorbereitung
 
 Stand: 01.10.2026. **Bei Apple registriert, noch nicht zur Prüfung eingereicht.**
-Lokale App-Version **1.0.1**, Build **4**, Quellstand
-[`v1.0.1`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.1).
+Lokale App-Version **1.0.2**, Build **5**, Quellstand
+[`v1.0.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.2).
 Auf ausdrücklichen Nutzerwunsch sind die Bundle-ID und der App-Store-Connect-
 Datensatz jetzt angelegt. Kein Build-Upload, TestFlight-Release oder Review-Antrag
 wurde ausgeführt; Verträge und Preise wurden nicht verändert.
 Das Repository bleibt öffentlich. Die bestehende Sanmill-Engine bleibt erhalten;
 die Rechteketten-Restfrage steht unverändert in der [Lizenzprüfung](../Docs/LICENSE_REVIEW.md).
 
-Die Änderungen seit `v1.0` sind in `v1.0.1` enthalten und stehen im
+Die Änderungen seit `v1.0` sind in `v1.0.2` enthalten und stehen im
 [Changelog](../CHANGELOG.md): überarbeitete Anordnung, Darstellungseinstellungen,
 fünf Akzentfarben mit Waldgrün als Standard, scrollbare und formatierte
-Informations-/Lizenzseiten und die Bestätigung einer neuen Partie im Startknopf.
-Das bisherige Gerätearchiv gehört weiterhin zu **1.0 (3)**. Für **1.0.1 (4)**
+Informations-/Lizenzseiten, die Bestätigung einer neuen Partie im Startknopf
+und das neue Rauten-Signet mit waldgrünem App-Icon.
+Das bisherige Gerätearchiv gehört weiterhin zu **1.0 (3)**. Für **1.0.2 (5)**
 sind Gerätearchiv und Store-Aufnahmen vor der Einreichung neu zu erstellen.
 Der lokale Versionswechsel hat den Apple-Datensatz nicht verändert.
 
@@ -50,7 +51,21 @@ Der lokale Versionswechsel hat den Apple-Datensatz nicht verändert.
 - App-Icon: bereits im Asset-Katalog; vollständige Lizenzhinweise und
   Anbieterangaben sind in der App enthalten.
 
-## Aktueller Quellstand und Versionsprüfung — 1.0.1 (4)
+## Aktueller Quellstand und Versionsprüfung — 1.0.2 (5)
+
+Release-Simulatorbuild sowie vier vorhandene Prüfungen für Start/Konfiguration,
+Farbauswahl/Speicherung, „Über Mühlenstein“ und Bundlewerte/Lizenzpaket bestehen
+(`.build/Logo-Forest.xcresult`). Das erzeugte App-Paket bestätigt Bundle-ID
+`org.amosystems.Muehlenstein`, Version **1.0.2**, Build **5**.
+Logo in Hell, Dunkel und nach Farbwechsel sowie die drei Icon-Varianten bei
+29–60 pt gesichtet. Die Icon-PNGs sind 1024 × 1024 Pixel groß, RGB und ohne
+Alphakanal. Quelltag: `v1.0.2`; kein neues Gerätearchiv oder Upload.
+
+Apple sieht ausdrücklich das Schema **Major.Minor.Patch** vor: Auch 1.0.1 und
+1.0.2 sind zulässig; ein Sprung auf 1.1 ist nicht erforderlich.
+Siehe [Versionsschema und Apple-Quellen](../Docs/RELEASE.md#version-numbering--verified-2026-10-01).
+
+## Historische Versionsprüfung — 1.0.1 (4)
 
 Der Release-Simulatorbuild und die vorhandenen Tests für Bundlewerte,
 Lizenzpaket sowie „Über Mühlenstein“ bestehen für **Version 1.0.1 · Build 4**

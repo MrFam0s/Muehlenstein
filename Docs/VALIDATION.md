@@ -1,6 +1,33 @@
-# Prüfstand — 30.09.2026
+# Prüfstand — begonnen 30.09.2026, ergänzt 01.10.2026
 
 Lokaler Entwicklungsstand, Xcode 27.0, Swift 6.4, offizieller projektlokaler Rust-Compiler 1.98.1. Deployment-Ziel iOS 18.0. Die Simulatoren verwenden iOS 27.0.
+
+## Logo und Version 1.0.2 (5) — 01.10.2026
+
+- Gemeinsame Core-Graphics-Geometrie für das neue Rauten-Signet, zwei
+  transparente PDF-Vektorlagen in der App sowie drei App-Icon-Varianten.
+  Der Asset-Katalog kompiliert erfolgreich; keine neue Projektdatei-Referenz
+  nötig. Das bestehende Startseiten-Layout ist unverändert.
+- Drei UI-Tests und ein Modelltest im Release-Simulatorbuild erfolgreich:
+  Start/Konfiguration ohne Scrollen, Farbauswahl mit Speicherung und Neustart,
+  „Über Mühlenstein“ sowie Bundlewerte/Lizenzpaket. Ergebnis:
+  `.build/Logo-Forest.xcresult`, Protokoll `.build/Logo-Forest.log`.
+- Sichtprüfung der exportierten Startseite in Hell, Dunkel und Aubergine:
+  beide Logo-Lagen sichtbar, Akzentwechsel korrekt, Schriftzug und Brett
+  behalten ihre Anordnung. Aktuelle Waldgrün-Aufnahmen unter
+  `Previews/Forest-Home-iPhone-Light.png` und `Previews/Forest-Home-iPhone-Dark.png`.
+- Alle drei Icon-PNGs sind 1024 × 1024 Pixel, sRGB, ohne Alphakanal. Vorschau
+  mit großen Icons sowie 60/40/29 pt in `Previews/App-Icon-Appearances.png`
+  gesichtet; die kleinsten Motive bleiben unterscheidbar. Die Vorschau ersetzt
+  keine erneute Geräteprüfung der iOS-Tönung oder Systemeffekte.
+- Alle 170 bestehenden Farbrollenprüfungen bestehen weiterhin. Keine neuen
+  Abhängigkeiten, Änderungen am Spielkern oder neue Lizenztexte.
+- Die erzeugte App enthält `org.amosystems.Muehlenstein`, Version `1.0.2`,
+  Build `5`. Die Zulässigkeit von Patchversionen ist mit Apple-Quellen in
+  `RELEASE.md` dokumentiert. Kein neues Gerätearchiv, keine Installation auf
+  dem physischen iPhone und kein App-Store-Upload in diesem Schritt.
+
+Die folgenden Abschnitte dokumentieren die jeweiligen früheren Prüfstände.
 
 ## Spielhilfen und Computeroptionen
 
