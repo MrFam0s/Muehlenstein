@@ -1,5 +1,12 @@
 # Versionshinweise
 
+## Noch nicht markierte Änderungen
+
+- In der Übersicht „Über Mühlenstein“ stehen im Kopf nur noch App-Name und
+  Version/Build. Die zusätzliche Anbieterzeile entfällt; das Impressum bleibt
+  vollständig. Diese Änderung ist noch nicht im Tag `v1.0` oder dessen lokalem
+  Release-Archiv enthalten.
+
 ## 1.0 — 01.10.2026
 
 Erste markierte Quellversion der nativen Offline-App. App-Version **1.0**,

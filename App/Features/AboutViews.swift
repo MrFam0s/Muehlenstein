@@ -15,7 +15,6 @@ struct AboutView: View {
                             Text(L10n.text("app_name")).font(.system(.title2, design: .serif))
                             Text(AppInformation.build.display).font(.subheadline).foregroundStyle(Color.quietInk)
                                 .accessibilityIdentifier("about_version")
-                            Text(AppInformation.company).font(.caption).foregroundStyle(Color.quietInk)
                         }
                         Spacer(minLength: 0)
                     }.padding(.horizontal, 20).padding(.top, 16)
