@@ -387,6 +387,32 @@ Beide Lokalisierungen bestehen `plutil -lint`; `git diff --check` besteht.
 Das App-Icon bleibt ein statisches Asset. Keine neue physische Geräte- oder
 Akkuprüfung; Tag `v1.0` und Release-Archiv bleiben unverändert.
 
+## Bestätigung im Startknopf — 01.10.2026
+
+Beim Ersetzen einer laufenden Partie entfällt das native Bestätigungs-Popover.
+Der erste Tipp ändert die Beschriftung des vorhandenen Startknopfs zu
+„Laufende Partie ersetzen“ / „Replace current game“. Erst der zweite Tipp
+ersetzt die Partie. Beide Beschriftungen reservieren dieselbe Fläche;
+Spieloptionen und Knopf verschieben sich dabei nicht. Änderungen an der
+Konfiguration setzen die Bestätigung zurück. Abbrechen erhält den Spielstand.
+Nach einer abgeschlossenen Partie startet die neue Partie weiterhin direkt.
+
+**Prüfungen:** Release-Simulatorbuild und drei gezielte iPhone-Bedienungstests
+bestehen (`.build/Inline-Replacement.xcresult`): Wiederherstellung nach App-Neustart,
+Abbrechen ohne Spielverlust, Bestätigen von Startseite und Brett, Zurücksetzen
+bei geänderten Optionen, direkter Neustart nach tatsächlich ausgespielten Partien
+sowie identische Knopfposition bei größter Schrift im Querformat. Die Aufnahmen
+in Hoch- und Querformat wurden visuell geprüft.
+[Neue Bestätigung](Previews/Replace-Game-Inline-iPhone.png).
+
+Der Ressourcengenerator ist zugleich mit den bereits freigegebenen Informations-
+und Farbtexten sowie Paletten abgeglichen. Ein Probelauf in einem temporären
+Verzeichnis erzeugt semantisch identische deutsche/englische Lokalisierungen
+und alle 18 Farbassets. Dadurch setzt eine spätere Ressourcenerzeugung diese
+Anpassungen nicht zurück. Lokalisierungen bestehen `plutil -lint`, der Diff
+besteht `git diff --check`. Keine neue physische Geräteprüfung; Versionsnummer,
+Tag und Release-Archiv bleiben unverändert.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

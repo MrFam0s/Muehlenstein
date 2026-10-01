@@ -49,8 +49,7 @@
 "lasker" = "Lasker Morris";
 "lasker_detail" = "10 stones · move during placement";
 "lasker_rules" = "Ten stones per side. During placement you may instead move one of your stones to an adjacent empty point.";
-"replace_game" = "Replace the ongoing game with a new one?";
-"replace_and_start" = "Replace and start";
+"replace_ongoing_game" = "Replace current game";
 "white" = "White";
 "black" = "Black";
 "empty" = "empty";

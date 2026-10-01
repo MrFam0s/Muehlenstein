@@ -375,31 +375,47 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["0 Züge"].exists)
     }
     @MainActor func testOngoingGameReplacementRequiresConfirmationFromHomeAndBoard() {
-        let app = launch()
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
         app.buttons["new_game"].tap()
         app.buttons["opponent_local"].tap()
         app.buttons["start_game"].tap()
         app.buttons["node_a7"].tap()
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.terminate()
+        app.launch()
         app.buttons["new_game"].tap()
-        let cancelFrame = app.navigationBars.buttons["Abbrechen"].frame
-        let outsideConfirmation = app.coordinate(withNormalizedOffset: .zero).withOffset(
-            CGVector(dx: cancelFrame.midX - app.frame.minX, dy: cancelFrame.midY - app.frame.minY))
-        app.buttons["start_game"].tap()
-        XCTAssertTrue(app.staticTexts["Die laufende Partie durch eine neue ersetzen?"].waitForExistence(timeout: 3))
-        // iOS presents this confirmation as a popover: tapping outside cancels it.
-        outsideConfirmation.tap()
-        XCTAssertFalse(app.buttons["Ersetzen und beginnen"].exists)
-        app.navigationBars.buttons["Abbrechen"].tap()
+        let start = app.buttons["start_game"]
+        let startFrame = start.frame
+        start.tap()
+        XCTAssertEqual(start.label, "Laufende Partie ersetzen")
+        XCTAssertEqual(start.frame, startFrame)
+        XCTAssertFalse(app.staticTexts["Die laufende Partie durch eine neue ersetzen?"].exists)
+        record("Replace-Game-Inline-Home", app: app)
+        app.navigationBars["Neue Partie"].buttons["Abbrechen"].tap()
         app.buttons["continue_game"].tap()
         XCTAssertTrue(app.buttons["node_a7"].label.contains("Weiß"))
         XCTAssertTrue(app.staticTexts["1 Zug"].exists)
-        app.buttons["game_options"].tap()
-        app.buttons["Neue Partie"].tap()
-        app.buttons["start_game"].tap()
-        XCTAssertTrue(app.staticTexts["Die laufende Partie durch eine neue ersetzen?"].waitForExistence(timeout: 3))
-        app.buttons["Ersetzen und beginnen"].tap()
-        XCTAssertTrue(app.staticTexts["0 Züge"].waitForExistence(timeout: 3))
+        for fromHome in [true, false] {
+            if fromHome {
+                app.navigationBars.buttons.element(boundBy: 0).tap()
+                app.buttons["new_game"].tap()
+            } else {
+                app.buttons["node_a7"].tap()
+                app.buttons["game_options"].tap()
+                app.buttons["Neue Partie"].tap()
+            }
+            XCTAssertEqual(start.label, "Partie beginnen")
+            start.tap()
+            XCTAssertEqual(start.label, "Laufende Partie ersetzen")
+            app.buttons["opponent_local"].tap()
+            XCTAssertEqual(start.label, "Partie beginnen", "Changing the draft must reset confirmation")
+            start.tap()
+            XCTAssertEqual(start.label, "Laufende Partie ersetzen")
+            start.tap()
+            XCTAssertTrue(app.staticTexts["0 Züge"].waitForExistence(timeout: 3))
+            XCTAssertTrue(app.buttons["node_a7"].label.contains("frei"))
+        }
     }
     @MainActor func testFinishedGameStartsAgainWithoutReplacementConfirmation() {
         let app = launch()
@@ -427,7 +443,7 @@ final class MuehlensteinUITests: XCTestCase {
             app.buttons["opponent_local"].tap()
             app.buttons["start_game"].tap()
             XCTAssertTrue(app.staticTexts["0 Züge"].waitForExistence(timeout: 3))
-            XCTAssertFalse(app.buttons["Ersetzen und beginnen"].exists)
+            XCTAssertFalse(app.buttons["Laufende Partie ersetzen"].exists)
             XCTAssertTrue(app.buttons["node_a7"].label.contains("frei"))
         }
     }
@@ -1019,5 +1035,11 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.buttons["book_off"].isSelected)
         XCTAssertEqual(app.scrollViews.count, 0)
         record("Inline-Book-Largest-Landscape", app: app)
+        let startFrame = app.buttons["start_game"].frame
+        app.buttons["start_game"].tap()
+        XCTAssertEqual(app.buttons["start_game"].label, "Laufende Partie ersetzen")
+        XCTAssertEqual(app.buttons["start_game"].frame, startFrame)
+        assertVisible(app.buttons["start_game"], in: app)
+        record("Replace-Game-Inline-Largest-Landscape", app: app)
     }
 }

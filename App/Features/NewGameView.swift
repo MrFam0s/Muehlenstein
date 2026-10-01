@@ -8,7 +8,7 @@ struct NewGameView: View {
     let hasOngoingGame: Bool
     let start: (GameSettings) -> Void
     @State private var settings = GameSettings()
-    @State private var confirm = false
+    @State private var confirmsReplacement = false
     @State private var expanded = false
     private var sheetHeight: CGFloat {
         if dynamicType.isAccessibilitySize { return 760 }
@@ -21,9 +21,17 @@ struct NewGameView: View {
             VStack(spacing: 12) {
                 GameSetupEditor(settings: $settings, expanded: $expanded)
                 Button {
-                    if hasOngoingGame { confirm = true } else { begin() }
+                    if hasOngoingGame && !confirmsReplacement { confirmsReplacement = true }
+                    else { begin() }
                 } label: {
-                    Text(L10n.text("start_game")).font(.headline).frame(maxWidth: .infinity)
+                    ZStack {
+                        // Reserve both labels so confirmation never moves the button or setup controls.
+                        if hasOngoingGame {
+                            Text(L10n.text("replace_ongoing_game")).hidden().accessibilityHidden(true)
+                        }
+                        Text(L10n.text(confirmsReplacement ? "replace_ongoing_game" : "start_game"))
+                    }.font(.headline).multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true).frame(maxWidth: .infinity)
                         .padding(.vertical, 12).foregroundStyle(Color("AccentContent"))
                         .background(palette.color, in: RoundedRectangle(cornerRadius: 16))
                 }.buttonStyle(.plain).accessibilityIdentifier("start_game")
@@ -31,11 +39,9 @@ struct NewGameView: View {
                 .background(Color.limestone)
                 .navigationTitle(L10n.text("new_game")).navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button(L10n.text("cancel")) { dismiss() }.tint(.ink) } }
-                .confirmationDialog(L10n.text("replace_game"), isPresented: $confirm, titleVisibility: .visible) {
-                    Button(L10n.text("replace_and_start"), role: .destructive) { begin() }
-                    Button(L10n.text("cancel"), role: .cancel) { }
-                }
         }
+        .onChange(of: settings) { _, _ in confirmsReplacement = false }
+        .onChange(of: hasOngoingGame) { _, _ in confirmsReplacement = false }
         .presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(sheetHeight)])
         .presentationSizing(SettingsSheetSizing(height: sheetHeight))
     }

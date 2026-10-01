@@ -2,6 +2,10 @@
 
 ## Noch nicht markierte Änderungen
 
+- Beim Ersetzen einer laufenden Partie erfolgt die Bestätigung direkt im
+  Startknopf. Die zusätzliche Einblendung entfällt; beendete Partien starten
+  weiterhin ohne Bestätigung neu.
+
 - Waldgrün ist der neue Standardakzent. Unter „Darstellung“ sind außerdem
   Schieferblau, Aubergine, Terrakotta und Petrol wählbar. Die Auswahl gilt sofort
   für die gesamte Oberfläche in Hell und Dunkel und wird dauerhaft gespeichert.

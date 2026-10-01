@@ -39,8 +39,7 @@ copy = {
 'morabaraba_rules': ('Zwölf Steine und Diagonalen. Wenn ein Zug mehrere neue Mühlen schließt, darfst du entsprechend mehrere gegnerische Steine entfernen.', 'Twelve stones and diagonal lines. A move that forms multiple new mills allows multiple captures.'),
 'lasker': ('Lasker-Mühle', 'Lasker Morris'), 'lasker_detail': ('10 Steine · früher in Bewegung', '10 stones · move during placement'),
 'lasker_rules': ('Zehn Steine pro Seite. Schon während des Setzens kannst du stattdessen einen deiner Steine auf einen benachbarten freien Punkt ziehen.', 'Ten stones per side. During placement you may instead move one of your stones to an adjacent empty point.'),
-'replace_game': ('Die laufende Partie durch eine neue ersetzen?', 'Replace the ongoing game with a new one?'),
-'replace_and_start': ('Ersetzen und beginnen', 'Replace and start'),
+'replace_ongoing_game': ('Laufende Partie ersetzen', 'Replace current game'),
 'white': ('Weiß', 'White'), 'black': ('Schwarz', 'Black'), 'empty': ('frei', 'empty'), 'selected': ('ausgewählt', 'selected'), 'legal_target': ('mögliches Ziel', 'legal destination'),
 'your_turn': ('Du bist am Zug.', 'Your move.'), 'side_to_move': ('%@ ist am Zug.', '%@ to move.'),
  'computer_turn': ('Computer ist am Zug.', 'Computer’s turn.'),
@@ -151,6 +150,25 @@ copy['credits_body'] = tuple(text.replace('Regeln und Suche:', 'Regeln, Suche un
 copy['computer_help_body'] = tuple(text + addition for text, addition in zip(copy['computer_help_body'], (
     '\n\nBei klassischer Mühle verwenden Stufe 4 und 5 zusätzlich ein kleines Eröffnungsbuch. Unter Erweitert → Eröffnung lässt sich das abschalten. Bei unbekannten Stellungen übernimmt die Suche.',
     '\n\nIn Nine Men’s Morris, levels 4 and 5 also use a small opening book. You can turn it off under Advanced → Opening. Unknown positions use normal search.')))
+copy.update({
+'made_in_berlin': ('Entwickelt mit ♥ in Berlin', 'Developed with ♥ in Berlin'),
+'about_provider': ('Anbieter', 'Provider'),
+'about_technical': ('Technische Angaben', 'Technical details'),
+'privacy_play': ('Privat spielen', 'Play privately'),
+'privacy_device': ('Auf deinem Gerät', 'On your device'),
+'privacy_external': ('Externe Links & Kontakt', 'External links & contact'),
+'credits_design': ('Eigenständig gestaltet', 'Independently designed'),
+'credits_engine': ('Spielkern & KI', 'Game engine & AI'),
+'credits_license': ('Freie Software', 'Free software'),
+'about_vat': ('Umsatzsteuer-ID', 'VAT identification'),
+'accent_color': ('Akzentfarbe', 'Accent color'),
+'accent_forest': ('Waldgrün', 'Forest green'),
+'accent_slate': ('Schieferblau', 'Slate blue'),
+'accent_aubergine': ('Aubergine', 'Aubergine'),
+'accent_terracotta': ('Terrakotta', 'Terracotta'),
+'accent_petrol': ('Petrol', 'Teal'),
+})
+copy['display_help_body'] = tuple(text + addition for text, addition in zip(copy['display_help_body'], ('\n\nAkzentfarbe\nWaldgrün ist voreingestellt. Die Farbauswahl gilt für die gesamte App und wird auf diesem Gerät gespeichert. Sand, Graphit und die Spielsteine behalten ihre Farben.', '\n\nAccent color\nForest green is the default. Your color choice applies throughout the app and is saved on this device. Sand, graphite and the playing pieces keep their colors.')))
 copy.pop(' twelve')
 for i, lang in enumerate(['de','en']):
     folder=resources / f'{lang}.lproj'; folder.mkdir(parents=True, exist_ok=True)
@@ -159,7 +177,9 @@ for i, lang in enumerate(['de','en']):
 colors={
 'Limestone': ('F6F3EB','171D20'), 'BoardSurface': ('EDE8DD','222C30'),
 'Ink': ('263337','EFECE4'), 'QuietInk': ('596460','ADB7B4'),
-'AccentColor': ('17695F','8AD0BD'), 'AccentContent': ('FFFFFF','102B26'), 'BoardLine': ('727E77','81938C'),
+'AccentColor': ('4F624A','ADBF9F'), 'AccentContent': ('FFFFFF','171D20'),
+'Accent-slate': ('4A6074','A8BED1'), 'Accent-aubergine': ('72556C','CFB0C7'),
+'Accent-terracotta': ('8F533C','DEB098'), 'Accent-petrol': ('17695F','8AD0BD'), 'BoardLine': ('727E77','81938C'),
 'StoneEdge': ('6D7772','9BAAA4'),
 'WhiteStoneTop': ('FFF9ED','FFF9ED'), 'WhiteStoneBottom': ('E3D9C7','E3D9C7'),
 'BlackStoneTop': ('3E4B51','3E4B51'), 'BlackStoneBottom': ('263237','263237'),
