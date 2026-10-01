@@ -11,8 +11,9 @@ die Rechteketten-Restfrage steht unverändert in der [Lizenzprüfung](../Docs/LI
 
 Die späteren Änderungen auf `main` stehen im [Changelog](../CHANGELOG.md).
 Sie gehören noch nicht zum Archiv und Tag `v1.0`. Vor dem nächsten Release
-sind Archiv und Store-Aufnahmen für die neue Startseite und die geänderten
-Darstellungsvoreinstellungen zu erneuern.
+sind Archiv und Store-Aufnahmen für die neu ausgerichtete Start- und Spielansicht
+und die geänderten Darstellungsvoreinstellungen zu erneuern. Der Berlin-Hinweis
+im Impressum gehört ebenfalls zu diesen späteren Änderungen.
 
 ## Registrierung bei Apple
 

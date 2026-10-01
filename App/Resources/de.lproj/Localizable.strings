@@ -114,6 +114,7 @@
 "save_error" = "Die Partie konnte nicht gespeichert werden. Sie bleibt für diese Sitzung geöffnet.";
 "license_error" = "Lizenzdatei nicht verfügbar.";
 "imprint" = "Impressum & Kontakt";
+"made_in_berlin" = "Entwickelt mit ♥ in Berlin";
 "germany" = "Deutschland";
 "contact" = "Kontakt";
 "contact_email" = "E-Mail schreiben";

@@ -28,7 +28,8 @@ enum AppInformation {
     static var imprint: String {
         [company + "\n" + owner, address + "\n" + L10n.text("germany"),
          L10n.text("contact") + "\n" + email + "\namosystems.org",
-         L10n.text("vat_id") + "\n" + vatID].joined(separator: "\n\n")
+         L10n.text("vat_id") + "\n" + vatID,
+         L10n.text("made_in_berlin")].joined(separator: "\n\n")
     }
     static var credits: String {
         [L10n.text("about_body"), L10n.text("credits_body"),

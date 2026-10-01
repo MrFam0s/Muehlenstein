@@ -230,6 +230,45 @@ Alle vier betroffenen Nachprüfungen bestehen (`.build/Settings-Organization-iPh
 
 Regeln und KI sind unverändert; eine neue vollständige Engine-, physische Geräte-, VoiceOver- oder Akkuprüfung war nicht Teil dieser Änderung. Der Tag `v1.0` und sein Archiv bleiben unverändert; das Changelog und die Store-Unterlagen kennzeichnen die spätere Änderung auf `main` und die vor dem nächsten Release zu erneuernden Aufnahmen.
 
+## Harmonische Brettanordnung und Berlin-Hinweis — 01.10.2026
+
+Das Impressum ergänzt „Entwickelt mit ♥ in Berlin“ bzw. „Developed with ♥ in Berlin“.
+Auf der Startseite werden Logo/Titel, Vorschaubrett und Partietasten als zusammengehörige
+Gruppe mittig angeordnet. Die verfügbare Höhe und die tatsächliche Texthöhe bestimmen
+die Brettgröße. Bei Platzmangel entfällt ausschließlich die dekorative Vorschau;
+die Partietasten dürfen vollständig umbrechen. In der Partie teilen Vorratszeile,
+Brett und Bedienleiste im Hochformat dieselbe Breite. Das Brett sitzt mittig zwischen
+Vorratszeile und Bedienleiste. Im Querformat stehen Status und Bedienelemente als
+mittige Gruppe neben dem Brett.
+
+**Prüfungen:** Release-Simulatorbuild erfolgreich. Auf dem Mühlenstein-iPhone bestehen
+Impressum/Lizenznavigation, deutscher und englischer Start, Partiekonfiguration und
+feste Brettziele in beiden Ausrichtungen (`.build/Harmonious-Layout-iPhone-Run.xcresult`).
+Auf dem iPad bestehen Querformat, Start/Neue Partie, Tipp, Verlauf und Zugauswahl
+(`.build/Harmonious-Layout-iPad.xcresult`). Die erste zusätzliche Zentrierungsprüfung
+verwendete nur den Rahmen des weißen Spielers und meldete deshalb zwei Punkte
+Abweichung, wenn die aktive Markierung beim schwarzen Spieler lag. Der Test misst
+jetzt beide Spielerrahmen; der gezielte Nachlauf besteht mit unveränderter Brettanordnung
+(`.build/Harmonious-Layout-iPad-Center.xcresult`).
+
+Auf dem kompakten iPhone bestehen feste Brettziele, Start/Neue Partie und größte Schrift
+in beiden Ausrichtungen (`.build/Harmonious-Layout-Compact.xcresult`). Die anschließende
+Sichtprüfung fand eine zu kleine dekorative Vorschau und eine gekürzte Fortsetzen-
+Beschriftung bei größter Schrift. Beides wurde korrigiert. Alle drei betroffenen
+kompakten Prüfungen bestehen erneut (`.build/Harmonious-Layout-Compact-Final.xcresult`);
+die Knopftexte sind auf den finalen Aufnahmen vollständig, ohne Scrollen. Die normale
+Startansicht wurde danach auch auf iPhone (DE/EN) und iPad erneut erfolgreich geprüft
+(`.build/Harmonious-Layout-iPhone-Home-Final.xcresult`,
+`.build/Harmonious-Layout-iPad-Home-Final.xcresult`).
+
+Die exportierten Originalaufnahmen von Start, Partie, Querformat, größter Schrift,
+Impressum DE/EN, Konfiguration, Verlauf und Zugauswahl wurden visuell beurteilt.
+Beide Lokalisierungsdateien bestehen `plutil -lint`; `git diff --check` besteht.
+Der erste eingeschränkte Testaufruf konnte CoreSimulator nicht erreichen; der Lauf
+mit Simulatorzugriff ersetzte ihn. Keine neue physische Geräte-, VoiceOver- oder
+Akkuprüfung. Tag `v1.0`, sein Gerätearchiv und die Store-Screenshots bleiben historische
+Stände; vor dem nächsten Upload sind Archiv und Store-Aufnahmen zu erneuern.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

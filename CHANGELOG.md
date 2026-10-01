@@ -2,6 +2,11 @@
 
 ## Noch nicht markierte Änderungen
 
+- Impressum mit „Entwickelt mit ♥ in Berlin“ bzw. „Developed with ♥ in Berlin“.
+- Startseite als mittig angeordnete Gruppe aus Logo/Titel, Vorschaubrett und
+  Startknöpfen. In der Partie sind Vorratsanzeige und Bedienleiste im Hochformat
+  auf die Brettbreite abgestimmt; das Brett sitzt mit gleichen Abständen
+  dazwischen. Im Querformat stehen Status und Bedienelemente mittig neben dem Brett.
 - Klare Einstellungswege: Regelbuch statt Zahnrad auf der Startseite; Darstellung
   und Spielstärke im Mehr-Menü der Partie. Die Partiekonfiguration bleibt bei
   „Neue Partie“.

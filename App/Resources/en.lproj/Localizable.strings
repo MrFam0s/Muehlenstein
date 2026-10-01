@@ -114,6 +114,7 @@
 "save_error" = "The game could not be saved. It remains open for this session.";
 "license_error" = "License file unavailable.";
 "imprint" = "Legal notice & contact";
+"made_in_berlin" = "Developed with ♥ in Berlin";
 "germany" = "Germany";
 "contact" = "Contact";
 "contact_email" = "Write an email";

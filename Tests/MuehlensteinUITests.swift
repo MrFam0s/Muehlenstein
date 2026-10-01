@@ -44,7 +44,7 @@ final class MuehlensteinUITests: XCTestCase {
             if !next.exists { break }
             next.tap()
         }
-        for text in ["Fabian Amos", "Christburger Str. 15/2", "10405 Berlin", "info@fabianamos.com", "DE272109895"] {
+        for text in ["Fabian Amos", "Christburger Str. 15/2", "10405 Berlin", "info@fabianamos.com", "DE272109895", "Entwickelt mit ♥ in Berlin"] {
             XCTAssertTrue(imprint.contains(text))
         }
         XCTAssertTrue(app.buttons["contact_email"].exists)
@@ -508,6 +508,17 @@ final class MuehlensteinUITests: XCTestCase {
         attachment.name = "Muehlenstein-Home-English"
         attachment.lifetime = .keepAlways
         add(attachment)
+        app.buttons["about"].tap()
+        app.buttons["imprint"].tap()
+        var imprint = ""
+        for _ in 0..<8 {
+            imprint += app.textViews.firstMatch.value as? String ?? ""
+            let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
+            if !next.exists { break }
+            next.tap()
+        }
+        XCTAssertTrue(imprint.contains("Developed with ♥ in Berlin"))
+        record("About-Imprint-English", app: app)
     }
     @MainActor private func assertVisible(_ element: XCUIElement, in app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertTrue(element.exists, file: file, line: line)
@@ -549,6 +560,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(app.buttons.matching(identifier: "learn_rules").count, 1)
         assertVisible(app.buttons["new_game"], in: app)
         assertVisible(app.buttons["learn_rules"], in: app)
+        assertVisible(app.staticTexts["home_title"], in: app)
         record("Fixed-Home", app: app)
         app.buttons["new_game"].tap()
         XCTAssertEqual(app.scrollViews.count, 0)
@@ -559,6 +571,15 @@ final class MuehlensteinUITests: XCTestCase {
     @MainActor func testBoardStaysFixedInPortrait() {
         let app = launch(demo: true)
         assertFixedBoard(app)
+        let boardCenter = (app.buttons["node_a7"].frame.midY + app.buttons["node_g1"].frame.midY) / 2
+        // The active stone's outline can extend beyond the other player's AX frame.
+        // Measure the whole reserve row, independent of whose turn it is.
+        let reserveBottom = max(app.otherElements["player_0"].frame.maxY,
+                                app.otherElements["player_1"].frame.maxY)
+        let controlsTop = app.buttons["undo"].frame.minY
+        XCTAssertGreaterThan(reserveBottom, 0)
+        XCTAssertEqual(boardCenter, (reserveBottom + controlsTop) / 2, accuracy: 1,
+                       "Center the board between the reserve row and the controls")
         record("Fixed-Game-Portrait", app: app)
     }
     @MainActor func testBoardAndSetupFitInLandscape() {
@@ -570,6 +591,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.navigationBars.buttons.firstMatch.tap()
         assertVisible(app.buttons["continue_game"], in: app)
         assertVisible(app.buttons["new_game"], in: app)
+        record("Fixed-Home-Landscape", app: app)
         app.buttons["new_game"].tap()
         XCTAssertEqual(app.scrollViews.count, 0)
         assertVisible(app.buttons["start_game"], in: app)

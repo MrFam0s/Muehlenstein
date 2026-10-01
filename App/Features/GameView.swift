@@ -22,21 +22,27 @@ struct GameView: View {
                     if horizontal {
                         HStack(spacing: 20) {
                             fittedBoard(position)
-                            VStack(spacing: 10) {
+                            VStack(spacing: 20) {
                                 status(position, compact: true)
-                                Spacer(minLength: 0)
                                 if !dynamicType.isAccessibilitySize { players(position, game: game) }
-                                controls(position)
-                                if !dynamicType.isAccessibilitySize { phaseNote(position) }
+                                VStack(spacing: 12) {
+                                    controls(position)
+                                    if !dynamicType.isAccessibilitySize { phaseNote(position) }
+                                }
                             }.frame(width: min(360, geometry.size.width * 0.44))
                         }
                     } else {
                         VStack(spacing: 12) {
                             status(position, compact: dynamicType.isAccessibilitySize)
-                            if !dynamicType.isAccessibilitySize { players(position, game: game) }
-                            fittedBoard(position)
-                            controls(position)
-                            if !dynamicType.isAccessibilitySize { phaseNote(position) }
+                            GameBoardColumn {
+                                if !dynamicType.isAccessibilitySize { players(position, game: game) }
+                                else { Color.clear.frame(height: 0) }
+                                board(position)
+                                VStack(spacing: 12) {
+                                    controls(position)
+                                    if !dynamicType.isAccessibilitySize { phaseNote(position) }
+                                }
+                            }
                         }
                     }
                 }
@@ -159,14 +165,16 @@ struct GameView: View {
     private func fittedBoard(_ position: Position) -> some View {
         GeometryReader { geometry in
             let side = max(0, min(geometry.size.width, geometry.size.height, 700))
-            BoardView(position: position, moves: store.game?.moves, animateStones: preferences.animateStones,
-                      selected: store.selectedNode, hint: store.hint,
-                      recentActions: preferences.showLastMove ? position.lastTurn : [], showLegalMoves: preferences.showLegalMoves,
-                      interactive: store.isHumanTurn && !store.isThinking, tap: store.tap)
-                .id(store.boardID)
-                .frame(width: side, height: side)
+            board(position).frame(width: side, height: side)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    private func board(_ position: Position) -> some View {
+        BoardView(position: position, moves: store.game?.moves, animateStones: preferences.animateStones,
+                  selected: store.selectedNode, hint: store.hint,
+                  recentActions: preferences.showLastMove ? position.lastTurn : [], showLegalMoves: preferences.showLegalMoves,
+                  interactive: store.isHumanTurn && !store.isThinking, tap: store.tap)
+            .id(store.boardID)
     }
     private func players(_ position: Position, game: SavedGame) -> some View {
         HStack(spacing: 12) {
@@ -216,5 +224,31 @@ struct GameView: View {
             Circle().fill(Color.quietInk).frame(width: 3, height: 3).accessibilityHidden(true)
             Text(L10n.moveCount(store.game?.moves.count ?? 0))
         }.font(.caption).foregroundStyle(Color.quietInk).lineLimit(1)
+    }
+}
+
+/// The reserve row and controls share the board's width. The square sits
+/// halfway between them, including when height rather than width limits it.
+private struct GameBoardColumn: Layout {
+    private let gap: CGFloat = 12
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        CGSize(width: proposal.width ?? 700, height: proposal.height ?? 700)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard subviews.count == 3 else { return }
+        let width = min(bounds.width, 700)
+        let textProposal = ProposedViewSize(width: width, height: nil)
+        let reserveHeight = subviews[0].sizeThatFits(textProposal).height
+        let footerHeight = subviews[2].sizeThatFits(textProposal).height
+        let side = max(0, min(width, bounds.height - reserveHeight - footerHeight - gap * 2))
+        let centerY = (bounds.minY + reserveHeight + bounds.maxY - footerHeight) / 2
+        subviews[0].place(at: CGPoint(x: bounds.midX, y: bounds.minY), anchor: .top,
+                          proposal: ProposedViewSize(width: side, height: reserveHeight))
+        subviews[1].place(at: CGPoint(x: bounds.midX, y: centerY), anchor: .center,
+                          proposal: ProposedViewSize(width: side, height: side))
+        subviews[2].place(at: CGPoint(x: bounds.midX, y: bounds.maxY), anchor: .bottom,
+                          proposal: ProposedViewSize(width: side, height: footerHeight))
     }
 }
