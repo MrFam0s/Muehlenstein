@@ -1,20 +1,21 @@
 # App-Store-Vorbereitung
 
 Stand: 01.10.2026. **Bei Apple registriert, noch nicht zur Prüfung eingereicht.**
-App-Version **1.0**, Build **3**, Quellstand
-[`v1.0`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0).
+Lokale App-Version **1.0.1**, Build **4**, Quellstand
+[`v1.0.1`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.1).
 Auf ausdrücklichen Nutzerwunsch sind die Bundle-ID und der App-Store-Connect-
 Datensatz jetzt angelegt. Kein Build-Upload, TestFlight-Release oder Review-Antrag
 wurde ausgeführt; Verträge und Preise wurden nicht verändert.
 Das Repository bleibt öffentlich. Die bestehende Sanmill-Engine bleibt erhalten;
 die Rechteketten-Restfrage steht unverändert in der [Lizenzprüfung](../Docs/LICENSE_REVIEW.md).
 
-Die späteren Änderungen auf `main` stehen im [Changelog](../CHANGELOG.md).
-Sie gehören noch nicht zum Archiv und Tag `v1.0`. Vor dem nächsten Release
-sind Archiv und Store-Aufnahmen für die neu ausgerichtete Start- und Spielansicht
-und die geänderten Darstellungsvoreinstellungen zu erneuern. Der Berlin-Hinweis
-im Impressum sowie die überarbeitete Startmarke und die scrollbaren Infoseiten
-gehören ebenfalls zu diesen späteren Änderungen.
+Die Änderungen seit `v1.0` sind in `v1.0.1` enthalten und stehen im
+[Changelog](../CHANGELOG.md): überarbeitete Anordnung, Darstellungseinstellungen,
+fünf Akzentfarben mit Waldgrün als Standard, scrollbare und formatierte
+Informations-/Lizenzseiten und die Bestätigung einer neuen Partie im Startknopf.
+Das bisherige Gerätearchiv gehört weiterhin zu **1.0 (3)**. Für **1.0.1 (4)**
+sind Gerätearchiv und Store-Aufnahmen vor der Einreichung neu zu erstellen.
+Der lokale Versionswechsel hat den Apple-Datensatz nicht verändert.
 
 ## Registrierung bei Apple
 
@@ -23,7 +24,7 @@ gehören ebenfalls zu diesen späteren Änderungen.
 - Bundle-ID: `org.amosystems.Muehlenstein`; Apple-Ressourcen-ID: `864J73UNMD`.
 - Developer-Team: `4WHV5UZ8E5` (Fabian Amos).
 - Plattform: iOS; Hauptsprache: Deutsch (`de-DE`); registrierter Name: **Mühlenstein**.
-- Version **1.0**, Status **In Vorbereitung zur Übermittlung**
+- Zuletzt bei der Registrierung geprüft: Version **1.0**, Status **In Vorbereitung zur Übermittlung**
   (`PREPARE_FOR_SUBMISSION`); Versions-ID: `3e275fea-964a-47db-8a26-ebfe5b0b78fc`.
 - Die Anlage wurde in App Store Connect und über Apples API bestätigt.
   Der internationale Name **Muehlenstein**, weitere Texte und Screenshots sind
@@ -49,7 +50,16 @@ gehören ebenfalls zu diesen späteren Änderungen.
 - App-Icon: bereits im Asset-Katalog; vollständige Lizenzhinweise und
   Anbieterangaben sind in der App enthalten.
 
-## Lokales Archiv und Nachweise
+## Aktueller Quellstand und Versionsprüfung — 1.0.1 (4)
+
+Der Release-Simulatorbuild und die vorhandenen Tests für Bundlewerte,
+Lizenzpaket sowie „Über Mühlenstein“ bestehen für **Version 1.0.1 · Build 4**
+(`.build/Version-1.0.1-Checks.xcresult`). Die Versions- und Bundle-ID-Werte
+wurden zusätzlich im erzeugten App-Paket geprüft. Quelltag: `v1.0.1`.
+Für diese Version liegt noch kein neues Gerätearchiv vor; der folgende
+Abschnitt dokumentiert ausschließlich den älteren Stand.
+
+## Historisches lokales Archiv und Nachweise — 1.0 (3)
 
 `../.build/Archives/Muehlenstein-1.0-3.xcarchive`
 
@@ -113,11 +123,11 @@ Build beantwortet werden; dies ist keine behördliche Exportgenehmigung.
 
 ## Für die spätere Einreichung noch nötig
 
-1. Den bereits angelegten App-Datensatz **6818139673** und die Version **1.0**
-   verwenden. Build **3** gehört zum vorhandenen Tag `v1.0`; für die späteren
-   Binary-Änderungen auf `main` einen neuen Build samt Archiv und Quelltag
-   vorbereiten. Versions-/Buildänderungen erfolgen dauerhaft in
-   `Configuration/App.xcconfig`; der Versionsanzeige-Test ist dann mitzuführen.
+1. Den bereits angelegten App-Datensatz **6818139673** verwenden und dessen
+   Version vor der Einreichung mit dem Quellstand **1.0.1 (4)** abgleichen.
+   Der neue Quelltag ist `v1.0.1`; das passende Gerätearchiv ist noch zu erstellen.
+   Versions-/Buildänderungen erfolgen dauerhaft in `Configuration/App.xcconfig`;
+   der Versionsanzeige-Test wird mitgeführt.
 2. Gebührenpflichtige Verträge, Steuer-/Bankdaten und EU-Händlerstatus im
    Inhaberkonto prüfen. Den deutschen Preis 0,99 € und die gewünschten
    Verkaufsgebiete festlegen; internationale Preise sind noch nicht gewählt.
@@ -128,9 +138,9 @@ Build beantwortet werden; dies ist keine behördliche Exportgenehmigung.
 4. Review-Kontakt einschließlich einer erreichbaren Telefonnummer ergänzen.
    Eine Telefonnummer liegt für dieses Projekt noch nicht vor. Keine
    Demo-Zugangsdaten nötig, da die App kein Konto voraussetzt.
-5. Archiv exportieren und bei Apple validieren. Der Quellstand für Version
-   1.0 (3) ist mit `v1.0` markiert. Diesen Tag beibehalten; bei weiteren
-   Binary-Änderungen einen neuen Build samt passendem Quelltag erstellen.
+5. Das neue Archiv für **1.0.1 (4)** exportieren und bei Apple validieren.
+   Sein Quellstand ist mit `v1.0.1` markiert. Die vorhandenen Tags beibehalten;
+   bei weiteren Binary-Änderungen einen neuen Build samt passendem Quelltag erstellen.
    Erst danach den tatsächlichen Upload und die Einreichung durchführen.
 6. Die dokumentierten offenen Geräte-/Barrierefreiheitsprüfungen berücksichtigen.
    Vollständige VoiceOver- und Akkutests bleiben auf Nutzerwunsch zurückgestellt;

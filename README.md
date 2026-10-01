@@ -2,9 +2,9 @@
 
 **Mühlenstein** is the German product name; **Muehlenstein** is the international name and the technical project name. An independent, native SwiftUI Morris app for iPhone and iPad, with Sanmill's original Rust rules and search engine.
 
-**Version 1.0 (build 3)** is the first tagged offline app version, available as source under [`v1.0`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0). It is prepared for distribution but has not been submitted to the App Store. The agreed business model is a paid download, targeting €0.99 in Germany, with the corresponding complete source available under AGPL-3.0-or-later. See the [version notes](CHANGELOG.md).
+**Version 1.0.1 (build 4)** is the current tagged offline app version, available as source under [`v1.0.1`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.1). It is prepared for distribution but has not been submitted to the App Store. The agreed business model is a paid download, targeting €0.99 in Germany, with the corresponding complete source available under AGPL-3.0-or-later. See the [version notes](CHANGELOG.md).
 
-[App Store preparation](Store/README.md) includes bilingual product copy, original iPhone/iPad screenshots, public [support](Docs/SUPPORT.md) and [privacy information](Docs/PRIVACY.md), and a validated local Release archive. Nothing has been submitted to Apple.
+[App Store preparation](Store/README.md) includes bilingual product copy, original iPhone/iPad screenshots, public [support](Docs/SUPPORT.md) and [privacy information](Docs/PRIVACY.md), and the historical local Release archive for 1.0 (3). Archive and Store screenshots must be refreshed for 1.0.1 before submission. Nothing has been submitted to Apple.
 
 ## Run
 
@@ -26,7 +26,7 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 - Human hint, undo, automatic save and replay-validated restoration. An adjacent info button explains observable move consequences and whether the suggestion came from search or the opening book. Busy feedback appears only after two seconds of actual computation.
 - Natural computer pacing, separate mill/capture steps, optional last-turn markers and a text description of the computer's move. Stable stone identities allow gentle movement, placement and capture transitions; the saved Disable stone animations switch and iOS Reduce Motion can disable them.
 - Five difficulty levels (default 3), with MTD(f) and Balanced play as defaults. New-game setup offers a stepped slider and a four-tile variant grid; search, thinking time and Balanced/Blocking style expand inline under Advanced. Adjacent info buttons explain strengths and limitations. Blocking is an alternative style, not a difficulty upgrade. The style persists with the game; development saves use schema 2 without migrating earlier schemas.
-- Appearance lives in the game’s More menu. All three switches start off: legal targets and last-turn markers are hidden, while Disable stone animations being off keeps gentle movement enabled. Existing saved choices are preserved. More → Difficulty offers the computer options during play; a book icon opens Rules from the home screen without a duplicate general-settings page.
+- Appearance lives in the game’s More menu. Forest green is the default accent; Slate blue, Aubergine, Terracotta and Teal can be selected and persist across launches. All three switches start off: legal targets and last-turn markers are hidden, while Disable stone animations being off keeps gentle movement enabled. Existing saved choices are preserved. More → Difficulty offers the computer options during play; a book icon opens Rules from the home screen without a duplicate general-settings page.
 - Small offline Sanmill opening oracle (109 positions, 16-way symmetry), automatically used in Nine Men's Morris at levels 4–5. Advanced → Opening can disable it; misses use normal search and computer pacing is preserved. [Opening-book and Perfect DB assessment](Docs/OPENING_AND_DATABASE.md).
 - Reproducible paired engine tournaments through the production bridge, with archived results: [2,048-game comparison at the original middle level](Docs/Benchmarks/ERGEBNISSE-2026-09-30.md). No reliable playing-strength advantage was established for either search method under those conditions.
 - [Original-app settings review](Docs/AI_OPTIONS.md) and [576 games across two separate style comparisons](Docs/Benchmarks/SPIELSTILE-2026-10-01.md). Balanced remains the default; database/LLM features are not silently folded into difficulty levels.
@@ -57,7 +57,7 @@ Sanmill source revision: `8901a06f088bf49a1602fee8686ed25ac5a33925`. See [proven
 
 - [Design direction (German)](Docs/DESIGN.md)
 - [Validation record (German)](Docs/VALIDATION.md)
-- [Home](Docs/Previews/Home-iPhone-DE.png), [iPhone — light](Docs/Previews/Game-iPhone-Light.png), [dark](Docs/Previews/Game-iPhone-Dark.png), [landscape](Docs/Previews/Game-iPhone-Landscape.png), [iPad](Docs/Previews/Game-iPad-Light.png)
+- [Home](Docs/Previews/Forest-Home-iPhone-Light.png), [accent colors](Docs/Previews/Accent-Colors-iPhone-Light.png), [iPhone — light](Docs/Previews/Game-iPhone-Light.png), [dark](Docs/Previews/Game-iPhone-Dark.png), [landscape](Docs/Previews/Game-iPhone-Landscape.png), [iPad](Docs/Previews/Game-iPad-Light.png)
 
 ## Licensing and source distribution
 

@@ -413,6 +413,33 @@ Anpassungen nicht zurück. Lokalisierungen bestehen `plutil -lint`, der Diff
 besteht `git diff --check`. Keine neue physische Geräteprüfung; Versionsnummer,
 Tag und Release-Archiv bleiben unverändert.
 
+## Version 1.0.1, Build 4 und Quelltag v1.0.1 — 01.10.2026
+
+Die App-Version steigt von 1.0 auf **1.0.1**, die Buildnummer von 3 auf **4**.
+Beide Werte bleiben zentral in `Configuration/App.xcconfig` hinterlegt; der
+bestehende UI-Test für die Versionsanzeige wurde entsprechend aktualisiert.
+Der neue annotierte Quelltag `v1.0.1` enthält die im Changelog zusammengefassten
+Gestaltungs- und Bedienungsänderungen seit `v1.0`. Der alte Tag bleibt unverändert.
+README, Release-Unterlagen, Projektplanung und lokale Store-Metadaten führen den
+neuen Quellstand. Der zuletzt dokumentierte Apple-Versionsdatensatz bleibt
+getrennt als 1.0 ausgewiesen; es wurde keine Apple-Schreiboperation ausgeführt.
+
+**Prüfungen:** Release-Simulatorbuild und beide vorhandenen fokussierten Tests
+bestehen (`.build/Version-1.0.1-Checks.xcresult`): Bundlewerte/Lizenzpaket und
+„Über Mühlenstein“ mit **Version 1.0.1 · Build 4**, Impressum und Lizenznavigation.
+Die erzeugte App-Info.plist enthält 1.0.1, Build 4 und unverändert
+`org.amosystems.Muehlenstein`. `ENABLE_TESTABILITY=YES` gilt nur für diesen
+Testlauf. Store-JSON und Versions-/Tagwerte sind konsistent; `git diff --check`
+besteht. Die lokale Xcode-Projektbereinigung bleibt uncommitted: erreichbare
+Projektobjekte und Build-Einstellungen stimmen nach Normalisierung der
+Plist-Zahlendarstellung mit der versionierten Projektdatei überein.
+
+Dies ist eine neue Quellmarkierung mit Simulatornachweis. Das Gerätearchiv
+zu 1.0 (3) und die ursprünglichen Store-Aufnahmen bleiben historische Artefakte;
+für 1.0.1 wurden hier weder ein neues Gerätearchiv noch ein Upload oder eine
+Einreichung erzeugt. Die vorher dokumentierten Geräte-, VoiceOver- und
+Energieprüfungen wurden nicht wiederholt.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.
