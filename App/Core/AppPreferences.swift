@@ -10,8 +10,8 @@ import Observation
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        showLegalMoves = defaults.object(forKey: "showLegalMoves") as? Bool ?? true
-        showLastMove = defaults.object(forKey: "showLastMove") as? Bool ?? true
+        showLegalMoves = defaults.object(forKey: "showLegalMoves") as? Bool ?? false
+        showLastMove = defaults.object(forKey: "showLastMove") as? Bool ?? false
         animateStones = defaults.object(forKey: "animateStones") as? Bool ?? true
     }
 }

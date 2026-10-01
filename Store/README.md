@@ -8,6 +8,11 @@ Datensatz, Upload, TestFlight-Release, Vertrag oder Preis wurde verändert.
 Das Repository bleibt öffentlich. Die bestehende Sanmill-Engine bleibt erhalten;
 die Rechteketten-Restfrage steht unverändert in der [Lizenzprüfung](../Docs/LICENSE_REVIEW.md).
 
+Die späteren Änderungen auf `main` stehen im [Changelog](../CHANGELOG.md).
+Sie gehören noch nicht zum Archiv und Tag `v1.0`. Vor dem nächsten Release
+sind Archiv und Store-Aufnahmen für die neue Startseite und die geänderten
+Darstellungsvoreinstellungen zu erneuern.
+
 ## Vorbereitete Unterlagen
 
 - [Produktdaten DE/EN](metadata.json): Name, Untertitel, Kurztext, Beschreibung,

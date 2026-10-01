@@ -47,13 +47,17 @@ struct GameView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
-                    Button(L10n.text("new_game"), systemImage: "plus") { showingNewGame = true }
-                    Button(L10n.text("rules"), systemImage: "book.closed") { showingRules = true }
-                    Button(L10n.text("legal_moves"), systemImage: "square.grid.3x3") { showingMoves = true }
-                        .disabled(!store.isHumanTurn || store.isThinking)
-                    Button(L10n.text("display_options"), systemImage: "gearshape") { showingDisplayOptions = true }
-                    if store.game?.settings.opponent == .computer {
-                        Button(L10n.text("computer_options"), systemImage: "slider.horizontal.3") { showingComputerOptions = true }
+                    Section {
+                        Button(L10n.text("new_game"), systemImage: "plus") { showingNewGame = true }
+                        if store.game?.settings.opponent == .computer {
+                            Button(L10n.text("computer_options"), systemImage: "slider.horizontal.3") { showingComputerOptions = true }
+                        }
+                    }
+                    Section {
+                        Button(L10n.text("display_options"), systemImage: "paintpalette") { showingDisplayOptions = true }
+                        Button(L10n.text("legal_moves"), systemImage: "square.grid.3x3") { showingMoves = true }
+                            .disabled(!store.isHumanTurn || store.isThinking)
+                        Button(L10n.text("rules"), systemImage: "book.closed") { showingRules = true }
                     }
                 } label: { Image(systemName: "ellipsis") }.accessibilityLabel(L10n.text("game_options")).accessibilityIdentifier("game_options")
             }

@@ -6,7 +6,7 @@ struct DisplayOptionsView: View {
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(AppPreferences.self) private var preferences
     @State private var showingHelp = false
-    private let keys = ["show_legal", "show_last", "animate_stones"]
+    private let keys = ["show_legal", "show_last", "disable_stone_animations"]
 
     var body: some View {
         NavigationStack {
@@ -34,7 +34,7 @@ struct DisplayOptionsView: View {
         switch key {
         case "show_legal": value = $preferences.showLegalMoves
         case "show_last": value = $preferences.showLastMove
-        default: value = $preferences.animateStones
+        default: value = Binding(get: { !preferences.animateStones }, set: { preferences.animateStones = !$0 })
         }
         return HStack(spacing: 8) {
             Toggle(L10n.text(key), isOn: value).accessibilityIdentifier(key)
@@ -59,7 +59,7 @@ struct ComputerOptionsView: View {
         NavigationStack {
             GameSetupEditor(settings: $settings, expanded: $expanded, includesGame: false)
                 .padding(16).background(Color.limestone)
-                .navigationTitle(L10n.text("computer")).navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(L10n.text("computer_options")).navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) { Button(L10n.text("cancel")) { dismiss() } }
                     ToolbarItem(placement: .confirmationAction) {

@@ -254,15 +254,15 @@ final class GameStoreTests: XCTestCase {
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
         defer { defaults.removePersistentDomain(forName: suite) }
         let preferences = AppPreferences(defaults: defaults)
-        XCTAssertTrue(preferences.showLegalMoves)
-        XCTAssertTrue(preferences.showLastMove)
+        XCTAssertFalse(preferences.showLegalMoves)
+        XCTAssertFalse(preferences.showLastMove)
         XCTAssertTrue(preferences.animateStones)
-        preferences.showLegalMoves = false
-        preferences.showLastMove = false
+        preferences.showLegalMoves = true
+        preferences.showLastMove = true
         preferences.animateStones = false
         let restored = AppPreferences(defaults: defaults)
-        XCTAssertFalse(restored.showLegalMoves)
-        XCTAssertFalse(restored.showLastMove)
+        XCTAssertTrue(restored.showLegalMoves)
+        XCTAssertTrue(restored.showLastMove)
         XCTAssertFalse(restored.animateStones)
     }
 

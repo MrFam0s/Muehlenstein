@@ -2,6 +2,13 @@
 
 ## Noch nicht markierte Änderungen
 
+- Klare Einstellungswege: Regelbuch statt Zahnrad auf der Startseite; Darstellung
+  und Spielstärke im Mehr-Menü der Partie. Die Partiekonfiguration bleibt bei
+  „Neue Partie“.
+- Zugziele und letzter Zug sind anfangs aus. Der umgekehrte Schalter
+  „Steinanimationen deaktivieren“ ist ebenfalls aus; sanfte Bewegungen bleiben
+  dadurch aktiv. Gespeicherte Einstellungen bleiben erhalten.
+
 - In der Übersicht „Über Mühlenstein“ stehen im Kopf nur noch App-Name und
   Version/Build. Die zusätzliche Anbieterzeile entfällt; das Impressum bleibt
   vollständig. Diese Änderung ist noch nicht im Tag `v1.0` oder dessen lokalem

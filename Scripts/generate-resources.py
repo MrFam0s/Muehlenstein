@@ -94,13 +94,13 @@ copy.update({
 'source_code': ('Quellcode öffnen', 'View source code'),
 'version_build': ('Version %@ · Build %@', 'Version %@ · Build %@'),
 'license': ('GNU AGPL v3', 'GNU AGPL v3'), 'third_party': ('Weitere Lizenzen', 'Third-party notices'),
-'display_options': ('Spielhilfen', 'Playing aids'),
+'display_options': ('Darstellung', 'Appearance'),
 'show_legal': ('Zugziele', 'Legal targets'),
 'show_last': ('Letzter Zug', 'Last move'),
-'animate_stones': ('Steinanimationen', 'Stone animations'),
+'disable_stone_animations': ('Steinanimationen deaktivieren', 'Disable stone animations'),
 'display_help': ('Hinweise', 'About these options'),
 'display_help_body': ('Zugziele\nMarkiert freie Setzpunkte, mögliche Ziele des ausgewählten Steins und erlaubte Schlagziele. Ausgeschaltet gelten dieselben Regeln; nur die Markierungen entfallen.\n\nLetzter Zug\nZeigt Ziel, Ausgangspunkt und entfernte Steine des letzten Zuges. Bei Computerzügen erscheint zusätzlich eine kurze Beschreibung. Der Verlauf bleibt unabhängig davon verfügbar.\n\nSpieldetails\nSpielstufe, Variante und weitere Angaben stehen im Verlauf unter Spieldetails. Die Stufe ist keine gemessene Elo-Wertung.\n\nDie Einstellungen werden auf diesem Gerät gespeichert. Ein ausdrücklich angeforderter Tipp und die Auswahl möglicher Züge bleiben auch bei ausgeschalteten Markierungen verfügbar.', 'Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nGame details\nFind difficulty, variant and further information under History → Game details. The level is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move picker remain available when markers are off.'),
-'computer_options': ('Computer einstellen', 'Computer settings'),
+'computer_options': ('Spielstärke', 'Difficulty'),
 'computer_style': ('Spielstil', 'Play style'),
 'opening_book': ('Eröffnung', 'Opening'),
 'book_automatic': ('Automatisch', 'Automatic'),
@@ -145,8 +145,8 @@ copy['computer_help_body'] = (
 copy['style_help_body'] = tuple(t.replace('Fertig übernimmt Änderungen für die nächsten Züge.', 'Bei einer neuen Partie gilt die Auswahl mit Spielbeginn. Während einer Partie übernimmt Fertig Änderungen für die nächsten Züge.').replace('Done applies changes to future moves.', 'Starting a new game applies the selection. During a game, Done applies changes to future moves.') for t in copy['style_help_body'])
 copy['search_help_body'] = tuple(t.replace('Fertig auf der Computer-Seite übernimmt die Auswahl, Abbrechen verwirft sie.', 'Beginne die neue Partie, um die Auswahl zu übernehmen. Während einer Partie übernimmt Fertig die Auswahl, Abbrechen verwirft sie.').replace('Done on the Computer page applies your selection; Cancel discards it.', 'Start a new game to apply your selection. During a game, Done applies your changes; Cancel discards them.') for t in copy['search_help_body'])
 copy['display_help_body'] = tuple(text + addition for text, addition in zip(copy['display_help_body'], (
-    '\n\nSteinanimationen\nSteine gleiten sanft zu ihrem Ziel und werden beim Setzen oder Entfernen kurz ein- bzw. ausgeblendet. Ausgeschaltet wechseln sie sofort. Die iOS-Einstellung „Bewegung reduzieren“ hat Vorrang. Die Denkpause des Computers bleibt unverändert.',
-    '\n\nStone animations\nStones glide to their destination and briefly fade in or out when placed or captured. Turn this off for immediate changes. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.')))
+    '\n\nSteinanimationen deaktivieren\nSchalte diese Option ein, damit Steine sofort wechseln. Ausgeschaltet gleiten sie sanft zu ihrem Ziel und werden beim Setzen oder Entfernen kurz ein- bzw. ausgeblendet. Die iOS-Einstellung „Bewegung reduzieren“ hat Vorrang. Die Denkpause des Computers bleibt unverändert.\n\nAlle drei Schalter sind anfangs ausgeschaltet: keine Zugziel- oder Letzter-Zug-Markierungen, aber sanfte Steinbewegungen.',
+    '\n\nDisable stone animations\nTurn this on for immediate changes. When off, stones glide to their destination and briefly fade in or out when placed or captured. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.\n\nAll three switches are off by default: no legal-target or last-move markers, with gentle stone movements.')))
 copy['credits_body'] = tuple(text.replace('Regeln und Suche:', 'Regeln, Suche und Eröffnungsdaten:').replace('Rules and search:', 'Rules, search and opening data:') for text in copy['credits_body'])
 copy['computer_help_body'] = tuple(text + addition for text, addition in zip(copy['computer_help_body'], (
     '\n\nBei klassischer Mühle verwenden Stufe 4 und 5 zusätzlich ein kleines Eröffnungsbuch. Unter Erweitert → Eröffnung lässt sich das abschalten. Bei unbekannten Stellungen übernimmt die Suche.',

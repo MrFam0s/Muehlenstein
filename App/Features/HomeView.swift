@@ -8,7 +8,6 @@ struct HomeView: View {
     @State private var showingNewGame = false
     @State private var showingAbout = false
     @State private var showingRules = false
-    @State private var showingOptions = false
     @State private var path: [String] = []
     @State private var preview: Position?
 
@@ -36,8 +35,8 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button { showingOptions = true } label: { Image(systemName: "gearshape") }
-                        .accessibilityLabel(L10n.text("display_options")).accessibilityIdentifier("display_options")
+                    Button { showingRules = true } label: { Image(systemName: "book.closed") }
+                        .accessibilityLabel(L10n.text("rules")).accessibilityIdentifier("learn_rules")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showingAbout = true } label: { Image(systemName: "info.circle") }
@@ -53,7 +52,6 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showingAbout) { AboutView() }
             .sheet(isPresented: $showingRules) { RulesView(variant: .classic) }
-            .sheet(isPresented: $showingOptions) { DisplayOptionsView() }
             .alert(L10n.text("notice"), isPresented: Binding(get: { store.errorMessage != nil }, set: { if !$0 { store.errorMessage = nil } })) {
                 Button(L10n.text("ok"), role: .cancel) { store.errorMessage = nil }
             } message: { Text(store.errorMessage ?? "") }
@@ -101,8 +99,6 @@ struct HomeView: View {
             .font(.headline).foregroundStyle(store.game == nil ? Color("AccentContent") : Color.petrol)
             .background(store.game == nil ? Color.petrol : Color.boardSurface, in: RoundedRectangle(cornerRadius: 18))
             .accessibilityIdentifier("new_game")
-            Button { showingRules = true } label: { Label(L10n.text("rules"), systemImage: "book.closed") }
-                .font(.body).frame(minHeight: 44).accessibilityIdentifier("learn_rules")
         }.frame(maxWidth: horizontal ? .infinity : 420).frame(maxWidth: .infinity)
     }
 

@@ -9,9 +9,9 @@ iOS-Version, Spielvariante und die Schritte, bei denen das Problem auftritt.
 Screenshots sind freiwillig; bitte entferne persönliche Inhalte vor dem Senden.
 
 - **Partie fortsetzen:** Die aktuelle Partie wird automatisch auf dem Gerät gespeichert.
-- **Spielstärke:** Unter „Neue Partie“ gibt es fünf Stufen. Die erweiterten Optionen erläutern Suche, Rechenzeit, Spielstil und Eröffnung.
+- **Spielstärke:** Unter „Neue Partie“ gibt es fünf Stufen; während einer Computerpartie sind sie über Mehr → Spielstärke erreichbar. Die erweiterten Optionen erläutern Suche, Rechenzeit, Spielstil und Eröffnung.
 - **Tipp:** Ein Tippen zeigt den Vorschlag auf dem Brett; erneutes Tippen blendet ihn aus.
-- **Spielhilfen:** Zugziele, letzter Zug und Steinanimationen lassen sich einstellen.
+- **Darstellung:** Im Mehr-Menü der Partie. Zugziele und letzter Zug sind anfangs aus. „Steinanimationen deaktivieren“ ist ebenfalls aus, sodass Steine sanft bewegt werden.
 - **Zu zweit:** Beide Personen spielen abwechselnd auf demselben Gerät. Online-Partien sind noch nicht enthalten.
 
 Datenschutz: [Informationen zur Datenverarbeitung](PRIVACY.md).
@@ -26,9 +26,9 @@ your device model, iOS version, game variant and steps to reproduce the issue.
 Screenshots are optional; remove any personal content before sending them.
 
 - **Resume play:** The current game is saved automatically on your device.
-- **Difficulty:** New game offers five levels. Advanced options explain search, thinking time, play style and openings.
+- **Difficulty:** New game offers five levels; during a computer game, use More → Difficulty. Advanced options explain search, thinking time, play style and openings.
 - **Hints:** Tap Hint to show a suggested move on the board; tap again to hide it.
-- **Playing aids:** Legal targets, the last move and stone animations are configurable.
+- **Appearance:** In the game’s More menu. Legal targets and last-move markers are off by default. “Disable stone animations” is also off, keeping gentle movements enabled.
 - **Two players:** Take turns on the same device. Online games are not included yet.
 
 Privacy: [How data is handled](PRIVACY.md).

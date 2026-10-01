@@ -14,7 +14,7 @@ Aktualisiert am 01.10.2026. Aktueller Quellstand: **Version 1.0, Build 3, Tag v1
 
 ## Jetzt beurteilen
 
-Die warme Steinrichtung wurde positiv beurteilt. Computerzüge erhalten auf Wunsch ein ruhigeres Tempo und dauerhafte Markierungen des letzten Zuges. Steine gleiten mit einer kurzen, sanften Animation; diese ist unter Spielhilfen abschaltbar und berücksichtigt „Bewegung reduzieren“. Auf Wunsch sind Start-, Spiel- und weitere Ansichten nun ohne Scrollbereiche aufgebaut; längere Inhalte werden in Seiten aufgeteilt. Die Layoutabnahme umfasst kompakte Geräte, Querformat, Großschrift und unbewegliche Brettkoordinaten bei Gesten/Zugwechseln. Die erste echte iPhone-Prüfung ist abgeschlossen. VoiceOver und Akkutests sind auf Wunsch vom 30.09.2026 zurückgestellt; sie bleiben vor einer Veröffentlichung einzuplanen. Änderungen am lokalen Prototyp benötigen keine erneute grundsätzliche Freigabe.
+Die warme Steinrichtung wurde positiv beurteilt. Computerzüge erhalten auf Wunsch ein ruhigeres Tempo und dauerhafte Markierungen des letzten Zuges. Steine gleiten mit einer kurzen, sanften Animation; diese ist unter Mehr → Darstellung abschaltbar und berücksichtigt „Bewegung reduzieren“. Auf Wunsch sind Start-, Spiel- und weitere Ansichten nun ohne Scrollbereiche aufgebaut; längere Inhalte werden in Seiten aufgeteilt. Die Layoutabnahme umfasst kompakte Geräte, Querformat, Großschrift und unbewegliche Brettkoordinaten bei Gesten/Zugwechseln. Die erste echte iPhone-Prüfung ist abgeschlossen. VoiceOver und Akkutests sind auf Wunsch vom 30.09.2026 zurückgestellt; sie bleiben vor einer Veröffentlichung einzuplanen. Änderungen am lokalen Prototyp benötigen keine erneute grundsätzliche Freigabe.
 
 ## Offline-Validierung und Restarbeiten
 
@@ -51,7 +51,7 @@ Bundle-Identifier `org.amosystems.Muehlenstein` und das vorhandene Developer-Tea
 
 ## Tatsächliche Funktionsabdeckung
 
-Die drei übernommenen Engine-Pakete enthalten alle elf Presets sowie ihre ursprünglichen Bewertungen und Suchalgorithmen. Die App zeigt zunächst vier Varianten, fünf vorläufige Spielstufen sowie MTD(f)/PVS und zwei Rechenzeitmodi ausschließlich unter „Erweitert“. Spielhilfen sind einzeln schaltbar. Sie entspricht damit noch nicht dem gesamten Sanmill-Produkt. Ein kompaktes klassisches Eröffnungsbuch ist eingebunden; Human Database und Perfect Database bleiben außerhalb des aktuellen Produkts. Eine Gleichwertigkeit der Spielstärke wurde nicht gemessen.
+Die drei übernommenen Engine-Pakete enthalten alle elf Presets sowie ihre ursprünglichen Bewertungen und Suchalgorithmen. Die App zeigt zunächst vier Varianten, fünf vorläufige Spielstufen sowie MTD(f)/PVS und zwei Rechenzeitmodi ausschließlich unter „Erweitert“. Zugziele und letzter Zug sind unter Darstellung einzeln zuschaltbar; beide sind anfangs aus. Der anfangs ausgeschaltete Schalter „Steinanimationen deaktivieren“ lässt sanfte Bewegungen aktiv. Sie entspricht damit noch nicht dem gesamten Sanmill-Produkt. Ein kompaktes klassisches Eröffnungsbuch ist eingebunden; Human Database und Perfect Database bleiben außerhalb des aktuellen Produkts. Eine Gleichwertigkeit der Spielstärke wurde nicht gemessen.
 
 ## Spielstärke und spätere Anpassung
 

@@ -123,13 +123,13 @@
 "version_build" = "Version %@ · Build %@";
 "license" = "GNU AGPL v3";
 "third_party" = "Weitere Lizenzen";
-"display_options" = "Spielhilfen";
+"display_options" = "Darstellung";
 "show_legal" = "Zugziele";
 "show_last" = "Letzter Zug";
-"animate_stones" = "Steinanimationen";
+"disable_stone_animations" = "Steinanimationen deaktivieren";
 "display_help" = "Hinweise";
-"display_help_body" = "Zugziele\nMarkiert freie Setzpunkte, mögliche Ziele des ausgewählten Steins und erlaubte Schlagziele. Ausgeschaltet gelten dieselben Regeln; nur die Markierungen entfallen.\n\nLetzter Zug\nZeigt Ziel, Ausgangspunkt und entfernte Steine des letzten Zuges. Bei Computerzügen erscheint zusätzlich eine kurze Beschreibung. Der Verlauf bleibt unabhängig davon verfügbar.\n\nSpieldetails\nSpielstufe, Variante und weitere Angaben stehen im Verlauf unter Spieldetails. Die Stufe ist keine gemessene Elo-Wertung.\n\nDie Einstellungen werden auf diesem Gerät gespeichert. Ein ausdrücklich angeforderter Tipp und die Auswahl möglicher Züge bleiben auch bei ausgeschalteten Markierungen verfügbar.\n\nSteinanimationen\nSteine gleiten sanft zu ihrem Ziel und werden beim Setzen oder Entfernen kurz ein- bzw. ausgeblendet. Ausgeschaltet wechseln sie sofort. Die iOS-Einstellung „Bewegung reduzieren“ hat Vorrang. Die Denkpause des Computers bleibt unverändert.";
-"computer_options" = "Computer einstellen";
+"display_help_body" = "Zugziele\nMarkiert freie Setzpunkte, mögliche Ziele des ausgewählten Steins und erlaubte Schlagziele. Ausgeschaltet gelten dieselben Regeln; nur die Markierungen entfallen.\n\nLetzter Zug\nZeigt Ziel, Ausgangspunkt und entfernte Steine des letzten Zuges. Bei Computerzügen erscheint zusätzlich eine kurze Beschreibung. Der Verlauf bleibt unabhängig davon verfügbar.\n\nSpieldetails\nSpielstufe, Variante und weitere Angaben stehen im Verlauf unter Spieldetails. Die Stufe ist keine gemessene Elo-Wertung.\n\nDie Einstellungen werden auf diesem Gerät gespeichert. Ein ausdrücklich angeforderter Tipp und die Auswahl möglicher Züge bleiben auch bei ausgeschalteten Markierungen verfügbar.\n\nSteinanimationen deaktivieren\nSchalte diese Option ein, damit Steine sofort wechseln. Ausgeschaltet gleiten sie sanft zu ihrem Ziel und werden beim Setzen oder Entfernen kurz ein- bzw. ausgeblendet. Die iOS-Einstellung „Bewegung reduzieren“ hat Vorrang. Die Denkpause des Computers bleibt unverändert.\n\nAlle drei Schalter sind anfangs ausgeschaltet: keine Zugziel- oder Letzter-Zug-Markierungen, aber sanfte Steinbewegungen.";
+"computer_options" = "Spielstärke";
 "computer_style" = "Spielstil";
 "opening_book" = "Eröffnung";
 "book_automatic" = "Automatisch";
