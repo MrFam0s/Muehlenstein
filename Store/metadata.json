@@ -1,6 +1,9 @@
 {
   "status": "Prepared locally; not submitted",
   "bundle_id": "org.amosystems.Muehlenstein",
+  "version": "1.0",
+  "build_number": "3",
+  "source_tag": "v1.0",
   "proposed_sku": "Muehlenstein-iOS",
   "primary_locale": "de-DE",
   "category": "Games",

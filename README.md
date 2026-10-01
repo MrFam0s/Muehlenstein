@@ -2,7 +2,7 @@
 
 **Mühlenstein** is the German product name; **Muehlenstein** is the international name and the technical project name. An independent, native SwiftUI Morris app for iPhone and iPad, with Sanmill's original Rust rules and search engine.
 
-This is an **offline development prototype**, not an App Store release. The agreed business model is a paid download, targeting €0.99 in Germany, with the corresponding complete source available under AGPL-3.0-or-later.
+**Version 1.0 (build 3)** is the first tagged offline app version, available as source under [`v1.0`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0). It is prepared for distribution but has not been submitted to the App Store. The agreed business model is a paid download, targeting €0.99 in Germany, with the corresponding complete source available under AGPL-3.0-or-later. See the [version notes](CHANGELOG.md).
 
 [App Store preparation](Store/README.md) includes bilingual product copy, original iPhone/iPad screenshots, public [support](Docs/SUPPORT.md) and [privacy information](Docs/PRIVACY.md), and a validated local Release archive. Nothing has been submitted to Apple.
 
@@ -38,7 +38,7 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 
 Full Sanmill feature parity: remaining seven rule presets in the UI, broader opening recognition/training / Human DB / Perfect DB, additional search methods and calibrated strengths, analysis/replay navigation, puzzles and imports/exports. The large Perfect DB is deferred by product decision, not exposed as a placeholder setting. Network play follows the offline version. See [the plan](Docs/PROJECT_PLAN.md), [AI options and rating roadmap](Docs/AI_OPTIONS.md) and [architecture](Docs/ARCHITECTURE.md).
 
-The original engine code is retained; the prototype's search orchestration is new. Equal playing strength to the Sanmill app has **not** been established. The public source repository is [MrFam0s/Muehlenstein](https://github.com/MrFam0s/Muehlenstein). No App Store binary has been published.
+The original engine code is retained; the app's search orchestration is new. Equal playing strength to the Sanmill app has **not** been established. The public source repository is [MrFam0s/Muehlenstein](https://github.com/MrFam0s/Muehlenstein). No App Store binary has been published.
 
 ## Development
 

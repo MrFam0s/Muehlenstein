@@ -1,6 +1,8 @@
 # App-Store-Vorbereitung
 
 Stand: 01.10.2026. **Vorbereitung abgeschlossen, noch nicht bei Apple eingereicht.**
+App-Version **1.0**, Build **3**, Quellstand
+[`v1.0`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0).
 Der Nutzer hat ausdrücklich auf Vorbereitung begrenzt. Kein App-Store-Connect-
 Datensatz, Upload, TestFlight-Release, Vertrag oder Preis wurde verändert.
 Das Repository bleibt öffentlich. Die bestehende Sanmill-Engine bleibt erhalten;
@@ -28,10 +30,10 @@ die Rechteketten-Restfrage steht unverändert in der [Lizenzprüfung](../Docs/LI
 
 ## Lokales Archiv und Nachweise
 
-`../.build/Archives/Muehlenstein-Store-Preparation.xcarchive`
+`../.build/Archives/Muehlenstein-1.0-3.xcarchive`
 
 - Release-Archiv erfolgreich gebaut, Signaturprüfung erfolgreich.
-- Bundle-ID `org.amosystems.Muehlenstein`, unverändert Version **0.1.0 (2)**,
+- Bundle-ID `org.amosystems.Muehlenstein`, Version **1.0 (3)**,
   Mindestversion iOS/iPadOS 18.0.
 - Mit dem vorhandenen **Entwicklungsprofil** signiert (`get-task-allow = true`).
   Das ist ein lokales Vorbereitungsarchiv. Für die spätere Einreichung sind
@@ -39,16 +41,23 @@ die Rechteketten-Restfrage steht unverändert in der [Lizenzprüfung](../Docs/LI
 - PrivacyInfo.xcprivacy liegt nachweislich im Wurzelverzeichnis des App-Pakets,
   die vollständigen Lizenzressourcen unter `Legal/`.
 - SHA-256 des archivierten Executables:
-  `5949c2efd5289278a762580787976e000f349a3be0614aac7a0b926d0a30803e`.
-  App-Verzeichnis lokal: 4.982.448 Byte; dies ist **keine** garantierte
+  `0f45980e5b36dc79846493fb67efdb69457f0bed0f5396f704bf7a2e01b60bd0`.
+  App-Verzeichnis lokal: 4.982.446 Byte; dies ist **keine** garantierte
   Download-/Installationsgröße nach Apples Verarbeitung.
+- Der vorhandene Test für Bundlewerte/Lizenzressourcen und der Bedienungstest
+  von „Über Mühlenstein“ bestehen für **Version 1.0 · Build 3** im Release-Modus
+  (`.build/Version-1.0-Checks.xcresult`, Testbarkeit nur für diesen Testlauf).
 - Screenshot-Abläufe auf iPhone 18 Pro Max und iPad Pro 13 Zoll (M5) bestanden
   im Release-Modus mit `ENABLE_TESTABILITY=YES` ausschließlich für den Testlauf.
   Ergebnis: `.build/Store-Screenshots-Final.xcresult`. Das Gerätearchiv wurde
   ohne diesen Test-Override gebaut.
+- Die 16 Store-Aufnahmen entstanden mit Version 0.1.0 (2) und bleiben für
+  1.0 (3) gültig: Die abgebildeten Spielansichten sind unverändert und zeigen
+  keine Versionsnummer. Die historische Aufnahmeprüfung wird nicht als
+  erneuter Screenshotlauf der Version 1.0 ausgegeben.
 - Vier vorhandene Python-Tests, Vendor-/Lizenzprüfung und Eröffnungsbuchprüfung
-  bestanden. Nur Metadaten/Manifest und Aufnahmeautomation geändert;
-  Spielregeln, Suchverfahren und Oberfläche sind unverändert.
+  bestehen auch nach der Versionsanhebung. Regeln, Suchverfahren und
+  Spieloberfläche sind unverändert; die Versionsanzeige zeigt den neuen Stand.
 - Der erste Screenshotlauf scheiterte an fehlender Swift-Testbarkeit im
   Release-Testhost. Der korrigierte Nachlauf besteht. Die ursprünglichen
   Protokolle bleiben unter `.build/Store-Screenshots.log` erhalten.
@@ -84,10 +93,9 @@ Build beantwortet werden; dies ist keine behördliche Exportgenehmigung.
 ## Für die spätere Einreichung noch nötig
 
 1. In App Store Connect anmelden und den App-Datensatz mit passender Bundle-ID
-   und Namensverfügbarkeit anlegen bzw. auswählen. Gewünschte Versionsnummer
-   festlegen; eine Änderung erfolgt dauerhaft in `Configuration/App.xcconfig`.
-   Der vorhandene UI-Test der Versionsanzeige enthält derzeit 0.1.0/2 und ist
-   bei einem Versionswechsel entsprechend anzupassen.
+   und Namensverfügbarkeit anlegen bzw. auswählen. Version **1.0** mit Build
+   **3** verwenden. Spätere Versions-/Buildänderungen erfolgen dauerhaft in
+   `Configuration/App.xcconfig`; der Versionsanzeige-Test ist dann mitzuführen.
 2. Gebührenpflichtige Verträge, Steuer-/Bankdaten und EU-Händlerstatus im
    Inhaberkonto prüfen. Den deutschen Preis 0,99 € und die gewünschten
    Verkaufsgebiete festlegen; internationale Preise sind noch nicht gewählt.
@@ -98,9 +106,10 @@ Build beantwortet werden; dies ist keine behördliche Exportgenehmigung.
 4. Review-Kontakt einschließlich einer erreichbaren Telefonnummer ergänzen.
    Eine Telefonnummer liegt für dieses Projekt noch nicht vor. Keine
    Demo-Zugangsdaten nötig, da die App kein Konto voraussetzt.
-5. Archiv exportieren und bei Apple validieren. Den exakten freigegebenen
-   Quellstand mit unveränderlichem Release-Tag, Version/Build und Lizenzbestand
-   zuordnen. Erst danach den tatsächlichen Upload und die Einreichung durchführen.
+5. Archiv exportieren und bei Apple validieren. Der Quellstand für Version
+   1.0 (3) ist mit `v1.0` markiert. Diesen Tag beibehalten; bei weiteren
+   Binary-Änderungen einen neuen Build samt passendem Quelltag erstellen.
+   Erst danach den tatsächlichen Upload und die Einreichung durchführen.
 6. Die dokumentierten offenen Geräte-/Barrierefreiheitsprüfungen berücksichtigen.
    Vollständige VoiceOver- und Akkutests bleiben auf Nutzerwunsch zurückgestellt;
    entsprechende Zertifizierungs-/Unterstützungsversprechen werden nicht abgegeben.

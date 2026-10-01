@@ -208,6 +208,16 @@ Auf Nutzerwunsch bleibt diese Etappe auf die Vorbereitung begrenzt. Store-Texte,
 
 **Weitere Prüfungen:** Vier vorhandene Python-Tests, die vollständige Vendor-/Lizenzprüfung, die Eröffnungsbuchprüfung und die Plist-Prüfung bestehen. Store-Texte halten die geprüften Feldlängen ein. Spielregeln, Suche und App-Oberfläche wurden nicht verändert; deren vollständige Tests wurden nicht erneut ausgeführt. Keine neue physische Geräte-, VoiceOver- oder Akkuprüfung war Teil dieser Etappe.
 
+## Version 1.0, Build 3 und Quelltag v1.0 — 01.10.2026
+
+Die App-Version ist in `Configuration/App.xcconfig` von 0.1.0 auf 1.0 angehoben, die Buildnummer von 2 auf 3. Der bestehende Versionsanzeige-Test erwartet den neuen Stand. Interne Cargo-Paketversionen, Abhängigkeiten, Regeln, Suchverfahren und Spielansichten bleiben unverändert. Versionshinweise, Projektplanung, Store-Metadaten und Einreichungsunterlagen beziehen sich jetzt auf `v1.0`. Die früheren Prüfprotokolle bleiben als historische Nachweise erhalten.
+
+**Archiv:** `.build/Archives/Muehlenstein-1.0-3.xcarchive` wurde im Release-Modus erfolgreich erstellt. Bundle-Version 1.0, Build 3, Bundle-ID, Exportdeklaration, vollständige Lizenzressourcen und bytegleiches Privacy-Manifest wurden im fertigen App-Paket geprüft. `codesign --verify --deep --strict` besteht mit Zugriff auf den macOS-Schlüsselbund; die Sandbox-Prüfung konnte zuvor die Zertifikatskette nicht bestätigen. Das vorhandene Entwicklungsprofil bleibt aktiv, Distributionssignierung und Apple-Validierung sind weiterhin offen. SHA-256 des Executables: `0f45980e5b36dc79846493fb67efdb69457f0bed0f5396f704bf7a2e01b60bd0`.
+
+**Tests:** Zwei fokussierte vorhandene Tests bestehen im Release-Modus auf dem Mühlenstein-iPhone-Simulator: Bundlewerte/Lizenzpaket und „Über Mühlenstein“ einschließlich angezeigter Version 1.0/Build 3, Impressum und Offline-Lizenzhinweisen (`.build/Version-1.0-Checks.xcresult`). `ENABLE_TESTABILITY=YES` gilt nur für diesen Testlauf, nicht für das Gerätearchiv. Vier vorhandene Python-Prüfungen, Vendor-/Lizenz- und Eröffnungsbuchprüfung bestehen; der Projektgenerator lässt das bestehende Xcode-Projekt unverändert.
+
+Die 16 Store-Screenshots bleiben unverändert verwendbar, da sie keine Versionsanzeige enthalten und sich die abgebildeten Ansichten nicht geändert haben. Keine erneute vollständige Spiel-, VoiceOver- oder Akkuprüfung und kein Upload zu Apple waren Teil der Versionsanhebung.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

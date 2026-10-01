@@ -1,6 +1,6 @@
 # Muehlenstein — Projektplanung
 
-Aktualisiert am 01.10.2026. Die ursprüngliche Rechts- und Produktplanung liegt unverändert in `Research/Projektplanung_native_iOS_Muehle.pdf`; daneben steht das Rechercheprotokoll zur Namensgebung. Name und Arbeitsordner sind nun festgelegt.
+Aktualisiert am 01.10.2026. Aktueller Quellstand: **Version 1.0, Build 3, Tag v1.0**. Die App-Store-Veröffentlichung ist vorbereitet, noch nicht eingereicht. Die ursprüngliche Rechts- und Produktplanung liegt unverändert in `Research/Projektplanung_native_iOS_Muehle.pdf`; daneben steht das Rechercheprotokoll zur Namensgebung.
 
 | Meilenstein | Ergebnis und Abnahme | Stand |
 | --- | --- | --- |
@@ -9,16 +9,16 @@ Aktualisiert am 01.10.2026. Die ursprüngliche Rechts- und Produktplanung liegt 
 | 2 — Offline-Stabilität | Vollständige Partien einschließlich Ziehen/Springen/Schlagen/Remis, Varianten, Wiederherstellung und Abbruch, Geräte-/VoiceOver-/Energietests | Lokale Prüfungen und erster physischer iPhone-Gesamtlauf erfolgreich; erste CPU-/Speicherwerte vorhanden. Weitere Geräte, ältere iOS-Versionen, vollständige Barrierefreiheit und Energie-Langzeittest offen |
 | 3 — Sanmill-Funktionsumfang | Weitere sieben Presets und erweiterte Regeln, zusätzliche Suchverfahren, KI gegen KI, Analyse/Stellungseditor, Eröffnungsbuch/Human DB/Perfect DB mit Herkunftsnachweisen | Teilweise: MTD(f)/PVS, Rechenzeitwahl, Spielstil und kleines klassisches Eröffnungsbuch umgesetzt. Perfect DB nach Aufwand-/Nutzenprüfung vorerst zurückgestellt; Analyse bleibt späteres Vorhaben |
 | 4 — Lernen und Sammlung | Einführung, Rätsel mit geklärten Inhaltsrechten, Import/Export, navigierbare Nachspiel- und Analyseansicht | Geplant |
-| 5 — Veröffentlichung | Quellarchiv passend zum Binary, Rechte-/Abhängigkeitsprüfung, Signierung, Datenschutz/Barrierefreiheit/Geräte, Support/Store-Inhalte, deutscher Zielpreis 0,99 € | Geplant |
+| 5 — Veröffentlichung | Quellarchiv passend zum Binary, Rechte-/Abhängigkeitsprüfung, Signierung, Datenschutz/Barrierefreiheit/Geräte, Support/Store-Inhalte, deutscher Zielpreis 0,99 € | Version 1.0 (Build 3) als Quellstand v1.0 markiert; lokales Archiv, DE/EN-Store-Unterlagen, Screenshots, Datenschutz und Support vorbereitet. Store-Datensatz, Distributionssignierung, Apple-Validierung und Einreichung offen |
 | 6 — Netzwerk | Zunächst Game-Center-Eignung prüfen; validierte Zugnachrichten, Einladungen/Wiederverbindung/Ergebnisse, Tests auf zwei Geräten; eigener Dienst bei Bedarf | Später |
 
 ## Jetzt beurteilen
 
 Die warme Steinrichtung wurde positiv beurteilt. Computerzüge erhalten auf Wunsch ein ruhigeres Tempo und dauerhafte Markierungen des letzten Zuges. Steine gleiten mit einer kurzen, sanften Animation; diese ist unter Spielhilfen abschaltbar und berücksichtigt „Bewegung reduzieren“. Auf Wunsch sind Start-, Spiel- und weitere Ansichten nun ohne Scrollbereiche aufgebaut; längere Inhalte werden in Seiten aufgeteilt. Die Layoutabnahme umfasst kompakte Geräte, Querformat, Großschrift und unbewegliche Brettkoordinaten bei Gesten/Zugwechseln. Die erste echte iPhone-Prüfung ist abgeschlossen. VoiceOver und Akkutests sind auf Wunsch vom 30.09.2026 zurückgestellt; sie bleiben vor einer Veröffentlichung einzuplanen. Änderungen am lokalen Prototyp benötigen keine erneute grundsätzliche Freigabe.
 
-## Nächste Etappe nach dem ersten Commit
+## Offline-Validierung und Restarbeiten
 
-Der aktuelle Stand ist als spielbarer Entwicklungsmeilenstein bereit für die erste lokale Versionierung: Die direkte Partie-Konfiguration wurde bestätigt, die Projektidentität bleibt erhalten und die dokumentierten Simulator- und Build-Prüfungen bestehen. Die Abnahme für eine Veröffentlichung steht weiterhin aus.
+Der Offline-Stand ist öffentlich versioniert und für Version 1.0 vorbereitet. Die direkte Partie-Konfiguration wurde bestätigt, die Projektidentität bleibt erhalten und die dokumentierten Simulator- und Build-Prüfungen bestehen. Als Nächstes folgen bei Freigabe die in `../Store/README.md` aufgeführten Einreichungsschritte; dieser Quellstand wurde noch nicht bei Apple hochgeladen. Die bereits durchgeführten Prüfungen und verbliebenen Lücken bleiben getrennt dokumentiert.
 
 Die verbleibenden Arbeiten an Meilenstein 2 sind:
 
