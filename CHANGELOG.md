@@ -1,5 +1,11 @@
 # Versionshinweise
 
+## Noch nicht als Release markiert
+
+- Das Standard-App-Icon übernimmt die bestätigte invertierte Farbvariante:
+  beiger Hintergrund (#EDE8DD), waldgrünes Brettmotiv (#4F624A) und Graphitstein.
+  Generator und Icon-Vorschau sind aktualisiert.
+
 ## 1.0.2 — 01.10.2026
 
 App-Version **1.0.2**, Build **5**, Quelltag **v1.0.2**. Kein App-Store-Upload

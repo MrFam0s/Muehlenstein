@@ -2,7 +2,7 @@
 
 This file carries forward the scoped legal research; it is not a legal opinion or a claim of completed clearance. Local development is authorized. No App Store upload has taken place. The source repository is https://github.com/MrFam0s/Muehlenstein; see LICENSE_REVIEW.md for the 2026-10-01 audit and its scope.
 
-Current source version: **1.0.2 (build 5)**, annotated Git tag
+Latest tagged source version: **1.0.2 (build 5)**, annotated Git tag
 [`v1.0.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.2), dated 2026-10-01.
 The app version/build are maintained in `Configuration/App.xcconfig`; internal
 Cargo package versions are independent. See [version notes](../CHANGELOG.md)
@@ -12,6 +12,10 @@ change needs a new build number and a corresponding source tag. The existing
 1.0 (3) device archive and original Store screenshots are historical artifacts;
 regenerate them for 1.0.2 before distribution. App Store Connect was last verified
 with version 1.0; this source bump does not change that external record.
+
+The working branch additionally contains the approved beige-background,
+forest-green standard icon. This change follows `v1.0.2`; it does not alter
+that tag. Include it in a new build and source tag before distribution.
 
 ## Version numbering — verified 2026-10-01
 

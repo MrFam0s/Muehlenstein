@@ -1,7 +1,7 @@
 # App-Store-Vorbereitung
 
 Stand: 01.10.2026. **Bei Apple registriert, noch nicht zur Prüfung eingereicht.**
-Lokale App-Version **1.0.2**, Build **5**, Quellstand
+Zuletzt markierte App-Version **1.0.2**, Build **5**, Quellstand
 [`v1.0.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.2).
 Auf ausdrücklichen Nutzerwunsch sind die Bundle-ID und der App-Store-Connect-
 Datensatz jetzt angelegt. Kein Build-Upload, TestFlight-Release oder Review-Antrag
@@ -17,6 +17,10 @@ und das neue Rauten-Signet mit waldgrünem App-Icon.
 Das bisherige Gerätearchiv gehört weiterhin zu **1.0 (3)**. Für **1.0.2 (5)**
 sind Gerätearchiv und Store-Aufnahmen vor der Einreichung neu zu erstellen.
 Der lokale Versionswechsel hat den Apple-Datensatz nicht verändert.
+
+Die Arbeitsfassung enthält zusätzlich das bestätigte Standard-Icon mit
+beigem Hintergrund und waldgrünem Motiv. Diese Änderung liegt nach `v1.0.2`
+und benötigt vor einer Distribution eine neue Buildnummer und Quellmarkierung.
 
 ## Registrierung bei Apple
 

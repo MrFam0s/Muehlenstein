@@ -27,8 +27,8 @@ struct Palette {
     let darkEdge: UInt32
 }
 let palettes = [
-    Palette(name: "AppIcon", background: 0x4F624A, line: 0xEDE8DD,
-            lightStone: 0xFFF9ED, darkStone: 0x263337, darkEdge: 0xEDE8DD),
+    Palette(name: "AppIcon", background: 0xEDE8DD, line: 0x4F624A,
+            lightStone: 0x4F624A, darkStone: 0x263337, darkEdge: 0x4F624A),
     Palette(name: "AppIcon-Dark", background: 0x171D20, line: 0xADBF9F,
             lightStone: 0xF1E9D9, darkStone: 0x263337, darkEdge: 0xADBF9F),
     Palette(name: "AppIcon-Tinted", background: 0x161616, line: 0xC4C4C4,
@@ -137,15 +137,18 @@ func write(_ ctx: CGContext, to url: URL) throws {
 }
 try FileManager.default.createDirectory(at: assets, withIntermediateDirectories: true)
 try FileManager.default.createDirectory(at: previews, withIntermediateDirectories: true)
-try writeTemplate(name: "BrandBoard") { ctx in
-    drawBoard(ctx, ink: color(0x000000))
-    ctx.setFillColor(color(0x000000))
-    ctx.fillEllipse(in: circle(at: lightCenter, radius: 76))
-    drawRing(ctx, center: darkCenter, outer: 76, inner: 58, ink: color(0x000000))
-}
-try writeTemplate(name: "BrandStone") { ctx in
-    ctx.setFillColor(color(0x000000))
-    ctx.fillEllipse(in: circle(at: darkCenter, radius: 58))
+// Color-only icon updates do not need to regenerate the unchanged PDF layers.
+if !CommandLine.arguments.contains("--icons-only") {
+    try writeTemplate(name: "BrandBoard") { ctx in
+        drawBoard(ctx, ink: color(0x000000))
+        ctx.setFillColor(color(0x000000))
+        ctx.fillEllipse(in: circle(at: lightCenter, radius: 76))
+        drawRing(ctx, center: darkCenter, outer: 76, inner: 58, ink: color(0x000000))
+    }
+    try writeTemplate(name: "BrandStone") { ctx in
+        ctx.setFillColor(color(0x000000))
+        ctx.fillEllipse(in: circle(at: darkCenter, radius: 58))
+    }
 }
 for palette in palettes {
     let ctx = context(width: 1024, height: 1024)
@@ -170,7 +173,7 @@ func label(_ text: String, x: CGFloat, y: CGFloat, size: CGFloat, ink: UInt32 = 
     preview.textPosition = CGPoint(x: x, y: y); CTLineDraw(line, preview)
 }
 label("Mühlenstein", x: 54, y: 596, size: 34)
-label("Waldgrün · Mühle als Signet", x: 54, y: 562, size: 19, ink: 0x596460)
+label("Beige und Waldgrün · Mühle als Signet", x: 54, y: 562, size: 19, ink: 0x596460)
 for (index, palette) in palettes.enumerated() {
     let x = CGFloat(54 + index * 342)
     for (side, dx, y): (CGFloat, CGFloat, CGFloat) in [(288, 0, 240), (60, 2, 112), (40, 88, 122), (29, 158, 127)] {
@@ -186,4 +189,4 @@ for (index, palette) in palettes.enumerated() {
     label("60 / 40 / 29 pt", x: x, y: 70, size: 15, ink: 0x596460)
 }
 try write(preview, to: previews.appendingPathComponent("App-Icon-Appearances.png"))
-print("Generated two vector logo layers, three opaque sRGB icons (1024 × 1024) and review sheet.")
+print("Generated three opaque sRGB icons (1024 × 1024) and review sheet.")

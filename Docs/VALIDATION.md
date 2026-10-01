@@ -2,6 +2,19 @@
 
 Lokaler Entwicklungsstand, Xcode 27.0, Swift 6.4, offizieller projektlokaler Rust-Compiler 1.98.1. Deployment-Ziel iOS 18.0. Die Simulatoren verwenden iOS 27.0.
 
+## Bestätigte Icon-Farbinversion — 01.10.2026
+
+Das Standard-Icon mit beigem Hintergrund und waldgrünem Motiv entspricht
+bytegenau der bestätigten Vorschau `App-Icon-Beige-Study.png`. Der Generator
+erzeugt die neue Standardpalette dauerhaft; `--icons-only` überspringt bei
+reinen Icon-Farbänderungen die unveränderten Logo-PDFs. Die aktualisierte
+Vorschau aller Erscheinungsbilder wurde bei 29/40/60 pt gesichtet.
+Das Icon ist weiterhin 1024 × 1024 Pixel groß, RGB und ohne Alphakanal.
+Der Release-Simulatorbuild inklusive Asset-Katalog besteht
+(`.build/Icon-Beige-build.log`). Keine Logikänderung und daher kein erneuter
+Spieltestlauf. Dieser Entwicklungsnachtrag liegt nach dem festen Tag `v1.0.2`;
+kein neues Gerätearchiv und keine neue Veröffentlichung bei Apple.
+
 ## Logo und Version 1.0.2 (5) — 01.10.2026
 
 - Gemeinsame Core-Graphics-Geometrie für das neue Rauten-Signet, zwei
