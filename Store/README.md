@@ -1,10 +1,11 @@
 # App-Store-Vorbereitung
 
-Stand: 01.10.2026. **Vorbereitung abgeschlossen, noch nicht bei Apple eingereicht.**
+Stand: 01.10.2026. **Bei Apple registriert, noch nicht zur Prüfung eingereicht.**
 App-Version **1.0**, Build **3**, Quellstand
 [`v1.0`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0).
-Der Nutzer hat ausdrücklich auf Vorbereitung begrenzt. Kein App-Store-Connect-
-Datensatz, Upload, TestFlight-Release, Vertrag oder Preis wurde verändert.
+Auf ausdrücklichen Nutzerwunsch sind die Bundle-ID und der App-Store-Connect-
+Datensatz jetzt angelegt. Kein Build-Upload, TestFlight-Release oder Review-Antrag
+wurde ausgeführt; Verträge und Preise wurden nicht verändert.
 Das Repository bleibt öffentlich. Die bestehende Sanmill-Engine bleibt erhalten;
 die Rechteketten-Restfrage steht unverändert in der [Lizenzprüfung](../Docs/LICENSE_REVIEW.md).
 
@@ -12,6 +13,19 @@ Die späteren Änderungen auf `main` stehen im [Changelog](../CHANGELOG.md).
 Sie gehören noch nicht zum Archiv und Tag `v1.0`. Vor dem nächsten Release
 sind Archiv und Store-Aufnahmen für die neue Startseite und die geänderten
 Darstellungsvoreinstellungen zu erneuern.
+
+## Registrierung bei Apple
+
+- [App Store Connect: Mühlenstein](https://appstoreconnect.apple.com/apps/6818139673/distribution/info)
+- Apple-ID: `6818139673`; SKU: `Muehlenstein-iOS`.
+- Bundle-ID: `org.amosystems.Muehlenstein`; Apple-Ressourcen-ID: `864J73UNMD`.
+- Developer-Team: `4WHV5UZ8E5` (Fabian Amos).
+- Plattform: iOS; Hauptsprache: Deutsch (`de-DE`); registrierter Name: **Mühlenstein**.
+- Version **1.0**, Status **In Vorbereitung zur Übermittlung**
+  (`PREPARE_FOR_SUBMISSION`); Versions-ID: `3e275fea-964a-47db-8a26-ebfe5b0b78fc`.
+- Die Anlage wurde in App Store Connect und über Apples API bestätigt.
+  Der internationale Name **Muehlenstein**, weitere Texte und Screenshots sind
+  weiterhin lokal vorbereitet; die englische Store-Lokalisierung ist noch anzulegen.
 
 ## Vorbereitete Unterlagen
 
@@ -97,9 +111,10 @@ Build beantwortet werden; dies ist keine behördliche Exportgenehmigung.
 
 ## Für die spätere Einreichung noch nötig
 
-1. In App Store Connect anmelden und den App-Datensatz mit passender Bundle-ID
-   und Namensverfügbarkeit anlegen bzw. auswählen. Version **1.0** mit Build
-   **3** verwenden. Spätere Versions-/Buildänderungen erfolgen dauerhaft in
+1. Den bereits angelegten App-Datensatz **6818139673** und die Version **1.0**
+   verwenden. Build **3** gehört zum vorhandenen Tag `v1.0`; für die späteren
+   Binary-Änderungen auf `main` einen neuen Build samt Archiv und Quelltag
+   vorbereiten. Versions-/Buildänderungen erfolgen dauerhaft in
    `Configuration/App.xcconfig`; der Versionsanzeige-Test ist dann mitzuführen.
 2. Gebührenpflichtige Verträge, Steuer-/Bankdaten und EU-Händlerstatus im
    Inhaberkonto prüfen. Den deutschen Preis 0,99 € und die gewünschten

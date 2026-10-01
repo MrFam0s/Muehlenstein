@@ -1,6 +1,6 @@
 # Muehlenstein — Projektplanung
 
-Aktualisiert am 01.10.2026. Aktueller Quellstand: **Version 1.0, Build 3, Tag v1.0**. Die App-Store-Veröffentlichung ist vorbereitet, noch nicht eingereicht. Die ursprüngliche Rechts- und Produktplanung liegt unverändert in `Research/Projektplanung_native_iOS_Muehle.pdf`; daneben steht das Rechercheprotokoll zur Namensgebung.
+Aktualisiert am 01.10.2026. Markierter Release-Quellstand: **Version 1.0, Build 3, Tag v1.0**; spätere Änderungen auf `main` sind noch nicht neu archiviert. Die App ist bei Apple registriert, noch nicht zur Prüfung eingereicht. Die ursprüngliche Rechts- und Produktplanung liegt unverändert in `Research/Projektplanung_native_iOS_Muehle.pdf`; daneben steht das Rechercheprotokoll zur Namensgebung.
 
 | Meilenstein | Ergebnis und Abnahme | Stand |
 | --- | --- | --- |
@@ -9,7 +9,7 @@ Aktualisiert am 01.10.2026. Aktueller Quellstand: **Version 1.0, Build 3, Tag v1
 | 2 — Offline-Stabilität | Vollständige Partien einschließlich Ziehen/Springen/Schlagen/Remis, Varianten, Wiederherstellung und Abbruch, Geräte-/VoiceOver-/Energietests | Lokale Prüfungen und erster physischer iPhone-Gesamtlauf erfolgreich; erste CPU-/Speicherwerte vorhanden. Weitere Geräte, ältere iOS-Versionen, vollständige Barrierefreiheit und Energie-Langzeittest offen |
 | 3 — Sanmill-Funktionsumfang | Weitere sieben Presets und erweiterte Regeln, zusätzliche Suchverfahren, KI gegen KI, Analyse/Stellungseditor, Eröffnungsbuch/Human DB/Perfect DB mit Herkunftsnachweisen | Teilweise: MTD(f)/PVS, Rechenzeitwahl, Spielstil und kleines klassisches Eröffnungsbuch umgesetzt. Perfect DB nach Aufwand-/Nutzenprüfung vorerst zurückgestellt; Analyse bleibt späteres Vorhaben |
 | 4 — Lernen und Sammlung | Einführung, Rätsel mit geklärten Inhaltsrechten, Import/Export, navigierbare Nachspiel- und Analyseansicht | Geplant |
-| 5 — Veröffentlichung | Quellarchiv passend zum Binary, Rechte-/Abhängigkeitsprüfung, Signierung, Datenschutz/Barrierefreiheit/Geräte, Support/Store-Inhalte, deutscher Zielpreis 0,99 € | Version 1.0 (Build 3) als Quellstand v1.0 markiert; lokales Archiv, DE/EN-Store-Unterlagen, Screenshots, Datenschutz und Support vorbereitet. Store-Datensatz, Distributionssignierung, Apple-Validierung und Einreichung offen |
+| 5 — Veröffentlichung | Quellarchiv passend zum Binary, Rechte-/Abhängigkeitsprüfung, Signierung, Datenschutz/Barrierefreiheit/Geräte, Support/Store-Inhalte, deutscher Zielpreis 0,99 € | Version 1.0 (Build 3) als Quellstand v1.0 markiert; lokales Archiv, DE/EN-Store-Unterlagen, Screenshots, Datenschutz und Support vorbereitet. Bundle-ID und Store-Datensatz 6818139673 registriert. Neues Archiv für spätere Änderungen auf main, Distributionssignierung, Store-Inhalte, Apple-Validierung und Einreichung offen |
 | 6 — Netzwerk | Zunächst Game-Center-Eignung prüfen; validierte Zugnachrichten, Einladungen/Wiederverbindung/Ergebnisse, Tests auf zwei Geräten; eigener Dienst bei Bedarf | Später |
 
 ## Jetzt beurteilen
@@ -47,7 +47,7 @@ Das geprüfte klassische Eröffnungsbuch ist seit 01.10.2026 umgesetzt: 109 Stel
 
 Die ursprünglichen 70–110 Personentage sind die erste Planungsspanne für das gesamte Offline-Produkt. Dieser Prototyp erfüllt noch nicht diesen Gesamtumfang. Nach Geräteintegration und genauer Funktionsabnahme neu schätzen. Die vorläufige Netzwerkplanung bleibt separat: 4–7 Wochen mit Game Center oder 8–14 Wochen mit eigenem Dienst, abhängig vom Umfang.
 
-Bundle-Identifier `org.amosystems.Muehlenstein` und das vorhandene Developer-Team sind im lokalen Projekt dauerhaft konfiguriert. Quellrepository, Impressum, Kontakt, Versionsanzeige und Lizenznachweise sind vorbereitet bzw. veröffentlicht; der genaue Prüfstand und die verbleibende Dritt-Rechtefrage stehen in `LICENSE_REVIEW.md`. Für eine Binärveröffentlichung fehlen unter anderem der bestätigte Store-Datensatz und die abschließenden Vertriebs-/Datenschutzprüfungen. Für weitere Simulatorarbeit werden keine Zugangsdaten benötigt. Store-Eintrag, neue App-Domain und Marke wurden nicht reserviert. Quellrepository: https://github.com/MrFam0s/Muehlenstein.
+Bundle-Identifier `org.amosystems.Muehlenstein` und das vorhandene Developer-Team sind im lokalen Projekt dauerhaft konfiguriert. Bundle-ID und Store-Eintrag **Mühlenstein**, Apple-ID **6818139673**, wurden am 01.10.2026 registriert und überprüft; Version 1.0 steht in Vorbereitung zur Übermittlung. Quellrepository, Impressum, Kontakt, Versionsanzeige und Lizenznachweise sind vorbereitet bzw. veröffentlicht; der genaue Prüfstand und die verbleibende Dritt-Rechtefrage stehen in `LICENSE_REVIEW.md`. Für eine Binärveröffentlichung fehlen unter anderem die vollständigen Store-Angaben und die abschließenden Vertriebs-/Datenschutzprüfungen. Für weitere Simulatorarbeit werden keine Zugangsdaten benötigt. Eine neue App-Domain und Marke wurden nicht reserviert. Quellrepository: https://github.com/MrFam0s/Muehlenstein.
 
 ## Tatsächliche Funktionsabdeckung
 
