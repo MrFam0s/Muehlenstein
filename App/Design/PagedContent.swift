@@ -114,12 +114,73 @@ struct PagedRows<Item, Row: View>: View {
 
 struct ReadingSheet: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicType
     let title: String
     let text: String
+    var compactHeight: CGFloat? = nil
     var body: some View {
+        if let compactHeight {
+            content.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(compactHeight)])
+                .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : compactHeight))
+        } else { content.presentationDetents([.large]) }
+    }
+    private var content: some View {
         NavigationStack {
             PagedReadingView(text: text).navigationTitle(title).navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .confirmationAction) { Button(L10n.text("done")) { dismiss() } } }
-        }.presentationDetents([.large])
+        }
+    }
+}
+
+/// Row-major pages: rotation and type size change capacity, never ordering.
+struct GridPageLayout: Equatable {
+    let columns: Int
+    let rows: Int
+    let perPage: Int
+    let pageCount: Int
+    init(size: CGSize, itemCount: Int, minimumWidth: CGFloat, rowHeight: CGFloat, maximumColumns: Int, footerHeight: CGFloat) {
+        columns = max(1, min(maximumColumns, Int((max(0, size.width - 32) + 8) / (minimumWidth + 8))))
+        let fullRows = max(1, Int((max(0, size.height - 32) + 8) / (rowHeight + 8)))
+        let needsPages = itemCount > fullRows * columns
+        rows = needsPages ? max(1, Int((max(0, size.height - 32 - footerHeight - 8) + 8) / (rowHeight + 8))) : fullRows
+        perPage = columns * rows
+        pageCount = max(1, (itemCount + perPage - 1) / perPage)
+    }
+    func indices(page: Int, count: Int) -> Range<Int> {
+        let start = min(count, max(0, min(page, pageCount - 1)) * perPage)
+        return start..<min(count, start + perPage)
+    }
+}
+
+struct PagedGrid<Item, Cell: View>: View {
+    let items: [Item]
+    var minimumCellWidth: CGFloat = 150
+    var maximumColumns = 3
+    @ViewBuilder let cell: (Int, Item) -> Cell
+    @ScaledMetric(relativeTo: .body) private var scale: CGFloat = 1
+    @State private var page = 0
+    var body: some View {
+        GeometryReader { geometry in
+            let rowHeight = max(44, 22 * scale + 16)
+            let footerHeight = max(44, 22 * scale)
+            let layout = GridPageLayout(size: geometry.size, itemCount: items.count,
+                minimumWidth: minimumCellWidth * scale, rowHeight: rowHeight,
+                maximumColumns: maximumColumns, footerHeight: footerHeight)
+            let safePage = min(page, layout.pageCount - 1)
+            let indices = layout.indices(page: safePage, count: items.count)
+            VStack(spacing: 8) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: layout.columns), spacing: 8) {
+                    ForEach(indices, id: \.self) { index in
+                        cell(index, items[index]).frame(height: rowHeight)
+                    }
+                }
+                Spacer(minLength: 0)
+                if layout.pageCount > 1 {
+                    PageControls(page: Binding(get: { safePage }, set: { page = $0 }), count: layout.pageCount)
+                        .frame(height: footerHeight)
+                }
+            }.padding(16).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .onChange(of: layout.perPage) { _, _ in page = 0 }
+        }.background(Color.limestone)
     }
 }

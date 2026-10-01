@@ -21,15 +21,15 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 - Local two-player play and offline computer play using Sanmill MTD(f) or PVS, original evaluation and transposition tables.
 - Nine Men's Morris, Twelve Men's Morris, Morabaraba, Lasker Morris.
 - Placement, movement, flying, mill capture and results adjudicated by Sanmill.
-- Human hint, undo, automatic save and replay-validated restoration.
+- Human hint, undo, automatic save and replay-validated restoration. An adjacent info button explains observable move consequences and whether the suggestion came from search or the opening book. Busy feedback appears only after two seconds of actual computation.
 - Natural computer pacing, separate mill/capture steps, persistent last-turn markers and a text description of the computer's move. Stable stone identities allow gentle movement, placement and capture transitions; a saved Stone animations switch and iOS Reduce Motion can disable them.
 - Five difficulty levels (default 3), with MTD(f) and Balanced play as defaults. New-game setup offers a stepped slider and a four-tile variant grid; search, thinking time and Balanced/Blocking style expand inline under Advanced. Adjacent info buttons explain strengths and limitations. Blocking is an alternative style, not a difficulty upgrade. The style persists with the game; development saves use schema 2 without migrating earlier schemas.
-- Saved display preferences for legal targets, last-turn feedback and the computer level badge; advanced search/time options with an in-app comparison of both algorithms' strengths and limitations.
+- Saved display preferences for legal targets, last-turn feedback and stone animations; advanced search/time options with an in-app comparison of both algorithms' strengths and limitations.
 - Small offline Sanmill opening oracle (109 positions, 16-way symmetry), automatically used in Nine Men's Morris at levels 4–5. Advanced → Opening can disable it; misses use normal search and computer pacing is preserved. [Opening-book and Perfect DB assessment](Docs/OPENING_AND_DATABASE.md).
 - Reproducible paired engine tournaments through the production bridge, with archived results: [2,048-game comparison at the original middle level](Docs/Benchmarks/ERGEBNISSE-2026-09-30.md). No reliable playing-strength advantage was established for either search method under those conditions.
 - [Original-app settings review](Docs/AI_OPTIONS.md) and [576 games across two separate style comparisons](Docs/Benchmarks/SPIELSTILE-2026-10-01.md). Balanced remains the default; database/LLM features are not silently folded into difficulty levels.
 - Cooperative native search cancellation on suspension or game replacement, with stale-result protection.
-- Fixed, scroll-free home, setup and game surfaces in portrait and landscape; paged rules, move history and complete license.
+- Fixed, scroll-free home, setup and game surfaces in portrait and landscape; centered game status, paged rules and complete license. History uses a responsive two/three-column grid with a separate Game details tab for difficulty and configuration. Legal moves open as a compact paged selection grid.
 - German / English names and text, light / dark semantic colors, adaptive iPad layout, labelled board positions for VoiceOver and a separate paged legal-move chooser at accessibility text sizes.
 
 ## Deliberately still pending

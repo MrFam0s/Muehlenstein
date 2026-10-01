@@ -6,7 +6,7 @@ struct DisplayOptionsView: View {
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(AppPreferences.self) private var preferences
     @State private var showingHelp = false
-    private let keys = ["show_legal", "show_last", "show_level", "animate_stones"]
+    private let keys = ["show_legal", "show_last", "animate_stones"]
 
     var body: some View {
         NavigationStack {
@@ -25,8 +25,8 @@ struct DisplayOptionsView: View {
                 .sheet(isPresented: $showingHelp) {
                     ReadingSheet(title: L10n.text("display_help"), text: L10n.text("display_help_body"))
                 }
-        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(340)])
-            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : 340))
+        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(290)])
+            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : 290))
     }
     private func row(_ key: String) -> some View {
         @Bindable var preferences = preferences
@@ -34,7 +34,6 @@ struct DisplayOptionsView: View {
         switch key {
         case "show_legal": value = $preferences.showLegalMoves
         case "show_last": value = $preferences.showLastMove
-        case "show_level": value = $preferences.showLevel
         default: value = $preferences.animateStones
         }
         return HStack(spacing: 8) {

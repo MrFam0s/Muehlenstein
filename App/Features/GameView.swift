@@ -10,7 +10,7 @@ struct GameView: View {
     @State private var showingRules = false
     @State private var showingNewGame = false
     @State private var showingMoves = false
-    @State private var showingDetails = false
+    @State private var showingHintExplanation = false
     @State private var showingDisplayOptions = false
     @State private var showingComputerOptions = false
 
@@ -51,7 +51,6 @@ struct GameView: View {
                     Button(L10n.text("rules"), systemImage: "book.closed") { showingRules = true }
                     Button(L10n.text("legal_moves"), systemImage: "square.grid.3x3") { showingMoves = true }
                         .disabled(!store.isHumanTurn || store.isThinking)
-                    Button(L10n.text("turn_details"), systemImage: "info.circle") { showingDetails = true }
                     Button(L10n.text("display_options"), systemImage: "gearshape") { showingDisplayOptions = true }
                     if store.game?.settings.opponent == .computer {
                         Button(L10n.text("computer_options"), systemImage: "slider.horizontal.3") { showingComputerOptions = true }
@@ -59,7 +58,7 @@ struct GameView: View {
                 } label: { Image(systemName: "ellipsis") }.accessibilityLabel(L10n.text("game_options")).accessibilityIdentifier("game_options")
             }
         }
-        .sheet(isPresented: $showingHistory) { HistoryView(game: store.game) }
+        .sheet(isPresented: $showingHistory) { HistoryView(game: store.game, position: store.position) }
         .sheet(isPresented: $showingRules) { RulesView(variant: store.game?.settings.variant ?? .classic) }
         .sheet(isPresented: $showingNewGame) { NewGameView(hasOngoingGame: store.hasOngoingGame) { store.start($0) } }
         .sheet(isPresented: $showingMoves) { LegalMovesView(store: store) }
@@ -67,16 +66,9 @@ struct GameView: View {
         .sheet(isPresented: $showingComputerOptions) {
             if let game = store.game { ComputerOptionsView(settings: game.settings, apply: store.updateComputerSettings) }
         }
-        .sheet(isPresented: $showingDetails) {
-            if let position = store.position, let game = store.game {
-                ReadingSheet(title: L10n.text("turn_details"), text:
-                    [L10n.text(game.settings.variant.key), statusText(position), instruction(position),
-                     L10n.format("action_count", game.moves.count),
-                     L10n.format("side_counts", L10n.text("white"), position.onBoard[0], position.hand[0]),
-                     L10n.format("side_counts", L10n.text("black"), position.onBoard[1], position.hand[1]),
-                     game.settings.opponent == .computer ? L10n.format("computer_configuration", game.settings.level,
-                        L10n.text("level_\(game.settings.level)")) : "",
-                     game.settings.opponent == .computer ? L10n.text("computer_style") + ": " + L10n.text("style_" + game.settings.style.rawValue) : ""].filter { !$0.isEmpty }.joined(separator: "\n\n"))
+        .sheet(isPresented: $showingHintExplanation) {
+            if let explanation = store.hintExplanation {
+                ReadingSheet(title: L10n.text("hint_explanation"), text: explanation.text, compactHeight: 380)
             }
         }
         .onAppear { store.resumeComputer() }
@@ -88,27 +80,50 @@ struct GameView: View {
     }
     private func status(_ position: Position, compact: Bool) -> some View {
         VStack(spacing: 4) {
-            HStack(spacing: 8) {
-                // Reserve both slots so the spinner and changing copy cannot shift the board.
-                ZStack { if store.isThinking { ProgressView().controlSize(.small) } }
-                    .frame(width: 20, height: 20).accessibilityHidden(true)
+            ZStack {
                 Text(statusText(position)).font(.system(.title2, design: .serif).weight(.medium))
                     .lineLimit(dynamicType.isAccessibilitySize ? 2 : 1, reservesSpace: true).multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity).accessibilityIdentifier("game_status")
-                Button { showingDetails = true } label: { Image(systemName: "info.circle").font(.system(size: 20)) }
-                    .frame(width: 44, height: 44).accessibilityLabel(L10n.text("turn_details"))
-            }.foregroundStyle(Color.ink)
-            if !compact {
-                Text(instruction(position)).font(.subheadline).foregroundStyle(Color.quietInk)
-                    .lineLimit(2, reservesSpace: true).multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, minHeight: 44).padding(.horizontal, 24)
+                    .accessibilityIdentifier("game_status")
+                    .opacity(compact && store.hint != nil && !store.searchProgress.isVisible ? 0 : 1)
+                    .accessibilityHidden(compact && store.hint != nil && !store.searchProgress.isVisible)
+                    .overlay(alignment: .trailing) {
+                        if store.searchProgress.isVisible {
+                            ProgressView().controlSize(.small).frame(width: 24)
+                                .accessibilityLabel(L10n.text(store.activity == .hint ? "hint_thinking" : "computer_turn"))
+                                .accessibilityIdentifier("search_progress")
+                        }
+                    }
+                if compact, store.hint != nil, !store.searchProgress.isVisible { hintLine }
             }
-        }.fixedSize(horizontal: false, vertical: true)
+            if !compact {
+                ZStack {
+                    Text(instruction(position)).font(.subheadline).foregroundStyle(Color.quietInk)
+                        .lineLimit(2, reservesSpace: true).multilineTextAlignment(.center)
+                        .opacity(store.hint != nil && !store.searchProgress.isVisible ? 0 : 1)
+                        .accessibilityHidden(store.hint != nil && !store.searchProgress.isVisible)
+                    if store.hint != nil, !store.searchProgress.isVisible { hintLine }
+                }.frame(maxWidth: .infinity, minHeight: 44)
+            }
+        }.foregroundStyle(Color.ink).fixedSize(horizontal: false, vertical: true)
+    }
+    private var hintLine: some View {
+        HStack(spacing: 4) {
+            Text(L10n.format("hint_move", store.hint?.notation ?? ""))
+                .font(.subheadline).multilineTextAlignment(.center).lineLimit(2)
+                .accessibilityIdentifier("hint_suggestion")
+            Button { showingHintExplanation = true } label: {
+                Image(systemName: "info.circle").font(.system(size: 20)).frame(width: 44, height: 44)
+            }.buttonStyle(.plain).accessibilityLabel(L10n.text("hint_explanation"))
+                .accessibilityIdentifier("hint_explanation")
+                .disabled(store.hintExplanation == nil)
+        }.frame(maxWidth: .infinity, minHeight: 44).foregroundStyle(Color.petrol)
     }
     private func statusText(_ position: Position) -> String {
         if position.isOver {
             return position.outcome == "draw" ? L10n.text("draw") : L10n.format("wins", L10n.text(position.winner == 0 ? "white" : "black"))
         }
-        if store.activity == .hint { return L10n.text("hint_thinking") }
+        if store.activity == .hint && store.searchProgress.isVisible { return L10n.text("hint_thinking") }
         if store.activity == .computer { return L10n.text("computer_turn") }
         if position.action == 2 { return L10n.text("mill_formed") }
         if store.game?.settings.opponent == .computer && position.side == 0 { return L10n.text("your_turn") }
@@ -119,7 +134,7 @@ struct GameView: View {
         if store.activity == .computer {
             return L10n.text(position.action == 2 ? "computer_capture" : "computer_considers")
         }
-        if store.activity == .hint { return L10n.text("hint_considers") }
+        if store.activity == .hint && store.searchProgress.isVisible { return L10n.text("hint_considers") }
         if let hint = store.hint { return L10n.format("hint_move", hint.notation) }
         if position.action == 2 { return L10n.text(preferences.showLegalMoves ? "capture_instruction" : "capture_unmarked") }
         if store.selectedNode != nil { return L10n.text(preferences.showLegalMoves ? "destination_instruction" : "destination_unmarked") }
@@ -159,14 +174,11 @@ struct GameView: View {
     private func player(_ side: Int, position: Position, game: SavedGame) -> some View {
         HStack(spacing: 6) {
             Stone(side: side, selected: position.side == side && !position.isOver, size: 24)
-            Text(L10n.format("reserve_count", position.hand[side]) +
-                 (side == 1 && game.settings.opponent == .computer && preferences.showLevel ? "\n" + L10n.format("level_badge", game.settings.level) : "")).font(.caption)
-                .lineLimit(2, reservesSpace: true)
+            Text(L10n.format("reserve_count", position.hand[side])).font(.caption).lineLimit(1)
         }
         .foregroundStyle(Color.quietInk)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(L10n.format("side_counts", L10n.text(side == 1 && game.settings.opponent == .computer ? "computer" : side == 0 ? "white" : "black"), position.onBoard[side], position.hand[side]) +
-                            (side == 1 && game.settings.opponent == .computer && preferences.showLevel ? ", " + L10n.format("level_badge", game.settings.level) : ""))
+        .accessibilityLabel(L10n.format("side_counts", L10n.text(side == 1 && game.settings.opponent == .computer ? "computer" : side == 0 ? "white" : "black"), position.onBoard[side], position.hand[side]))
         .accessibilityIdentifier("player_\(side)")
     }
     private func controls(_ position: Position) -> some View {
@@ -178,7 +190,7 @@ struct GameView: View {
             } else {
                 control("undo", icon: "arrow.uturn.backward", disabled: !store.canUndo) { store.undo() }
             }
-            control("hint", icon: "lightbulb", disabled: !store.isHumanTurn || store.isThinking) { store.requestHint() }
+            control("hint", icon: "lightbulb", disabled: !store.isHumanTurn) { store.requestHint() }
             if dynamicType.isAccessibilitySize {
                 control("legal_moves", icon: "square.grid.3x3", disabled: !store.isHumanTurn || store.isThinking) { showingMoves = true }
             }
@@ -198,7 +210,7 @@ struct GameView: View {
             Circle().fill(Color.petrol).frame(width: 5, height: 5)
             Text(L10n.text(position.isOver ? "finished" : position.action == 2 ? "capture_phase" : position.phase == 2 ? "moving_phase" : "placing_phase"))
             Circle().fill(Color.quietInk).frame(width: 3, height: 3).accessibilityHidden(true)
-            Text(L10n.format("action_count", store.game?.moves.count ?? 0))
+            Text(L10n.moveCount(store.game?.moves.count ?? 0))
         }.font(.caption).foregroundStyle(Color.quietInk).lineLimit(1)
     }
 }

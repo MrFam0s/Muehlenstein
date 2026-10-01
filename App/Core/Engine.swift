@@ -35,7 +35,20 @@ struct Position: Decodable, Sendable {
     let searchDepth: Int
     let searchNodes: Int
     let moveSource: String?
+    let moveInsights: [String]?
     var isOver: Bool { outcome != "ongoing" }
+}
+
+struct HintExplanation: Sendable {
+    let action: EngineAction
+    let source: String?
+    let facts: [String]
+    var text: String {
+        let supported = ["wins", "mill", "multiple_mills", "capture", "blocks_line", "builds_line"]
+        let observations = facts.filter { supported.contains($0) }.map { L10n.text("hint_fact_" + $0) }
+        return ([L10n.format("hint_move", action.notation)] + observations +
+            [L10n.text(source == "book" ? "hint_from_book" : "hint_from_search")]).joined(separator: "\n\n")
+    }
 }
 
 enum Variant: Int, Codable, CaseIterable, Identifiable, Sendable {
@@ -151,6 +164,7 @@ enum Engine {
 
 enum L10n {
     static func text(_ key: String) -> String { Bundle.main.localizedString(forKey: key, value: key, table: nil) }
+    static func moveCount(_ count: Int) -> String { format(count == 1 ? "move_count_one" : "move_count", count) }
     static func format(_ key: String, _ arguments: CVarArg...) -> String {
         String(format: text(key), locale: Locale.current, arguments: arguments)
     }

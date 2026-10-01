@@ -1,7 +1,103 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 import XCTest
+import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    @MainActor func testLargeTextHintsAndPagedGridsInLandscape() {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-demo", "-AppleLanguages", "(de)", "-AppleLocale", "de_DE",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        let before = app.buttons["node_a7"].frame
+        app.buttons["hint"].tap()
+        XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+        assertVisible(app.buttons["hint_explanation"], in: app)
+        XCTAssertEqual(app.buttons["node_a7"].frame, before)
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("Hint-Largest-Landscape", app: app)
+        app.buttons["history"].tap()
+        assertVisible(app.otherElements["history_move_0"], in: app)
+        assertVisible(app.buttons["next_page"], in: app)
+        app.buttons["next_page"].tap()
+        XCTAssertTrue(app.staticTexts["page_count"].label.hasPrefix("2"))
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("History-Largest-Landscape", app: app)
+        app.buttons["Fertig"].tap()
+        app.buttons["legal_moves"].tap()
+        app.buttons["next_page"].tap()
+        XCTAssertTrue(app.staticTexts["page_count"].label.hasPrefix("2"))
+        let moves = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "legal_action_"))
+        for move in moves.allElementsBoundByIndex { assertVisible(move, in: app) }
+        assertVisible(app.buttons["next_page"], in: app)
+        assertVisible(app.staticTexts["page_count"], in: app)
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("Legal-Moves-Largest-Landscape", app: app)
+    }
+
+    @MainActor func testCalmHintsHistoryGridAndCompactMovePicker() {
+        let app = launch(demo: true)
+        XCTAssertFalse(app.buttons["Zugdetails"].exists)
+        let board = app.buttons["node_a7"].frame
+        app.buttons["hint"].tap()
+        XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+        XCTAssertFalse(app.progressIndicators["search_progress"].exists)
+        XCTAssertFalse(app.staticTexts["Ein Tipp wird vorbereitet."].exists)
+        XCTAssertEqual(app.buttons["node_a7"].frame, board, "A hint must not move the board")
+        app.buttons["hint_explanation"].tap()
+        XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("Zugvorschlag:") == true)
+        record("Hint-Explanation", app: app)
+        app.buttons["Fertig"].tap()
+        app.buttons["history"].tap()
+        let first = app.otherElements["history_move_0"]
+        let second = app.otherElements["history_move_1"]
+        XCTAssertTrue(first.waitForExistence(timeout: 3))
+        XCTAssertEqual(first.frame.minY, second.frame.minY, accuracy: 1)
+        XCTAssertGreaterThan(second.frame.minX, first.frame.minX)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            XCTAssertEqual(first.frame.minY, app.otherElements["history_move_2"].frame.minY, accuracy: 1)
+        }
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("History-Grid", app: app)
+        app.buttons["Spieldetails"].tap()
+        XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("Klassische Mühle") == true)
+        record("History-Details", app: app)
+        app.buttons["Fertig"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Mögliche Züge"].tap()
+        let action = app.buttons["legal_action_e5"]
+        XCTAssertTrue(action.waitForExistence(timeout: 3))
+        assertVisible(action, in: app)
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("Compact-Legal-Moves", app: app)
+        action.tap()
+        XCTAssertFalse(app.navigationBars["Mögliche Züge"].exists)
+        XCTAssertTrue(app.buttons["node_e5"].label.contains("Weiß"))
+        XCTAssertFalse(app.buttons["hint_explanation"].exists)
+    }
+
+    @MainActor func testLevelAndGameDetailsLiveOnlyInHistory() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        app.buttons["start_game"].tap()
+        XCTAssertFalse(app.otherElements["player_1"].label.contains("Stufe"))
+        XCTAssertFalse(app.buttons["Zugdetails"].exists)
+        record("Symmetric-Game-Header", app: app)
+        app.buttons["history"].tap()
+        app.buttons["Spieldetails"].tap()
+        var details = ""
+        for _ in 0..<10 {
+            details += (app.textViews.firstMatch.value as? String) ?? ""
+            let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
+            if !next.exists { break }
+            next.tap()
+        }
+        XCTAssertTrue(details.contains("Stufe 3"))
+        XCTAssertTrue(details.contains("Ausgewogen"))
+        XCTAssertTrue(details.contains("Klassische Mühle"))
+    }
+
     // These review runs capture every inspector finding, including native controls.
     // They are evidence collection, not a claim that an empty/heuristic audit certifies WCAG.
     @MainActor func testContrastReviewLight() throws { try captureContrastReview("light") }
@@ -152,7 +248,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["2"].waitForExistence(timeout: 3))
         app.buttons["Fertig"].tap()
         app.buttons["undo"].tap()
-        XCTAssertTrue(app.staticTexts["0 Aktionen"].exists)
+        XCTAssertTrue(app.staticTexts["0 Züge"].exists)
     }
     @MainActor func testSavedGameSurvivesRelaunch() {
         let app = XCUIApplication()
@@ -168,7 +264,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Schwarz ist am Zug."].exists)
         XCTAssertTrue(app.buttons["node_a7"].label.contains("Weiß"))
         app.buttons["undo"].tap()
-        XCTAssertTrue(app.staticTexts["0 Aktionen"].exists)
+        XCTAssertTrue(app.staticTexts["0 Züge"].exists)
     }
     @MainActor func testOngoingGameReplacementRequiresConfirmationFromHomeAndBoard() {
         let app = launch()
@@ -189,13 +285,13 @@ final class MuehlensteinUITests: XCTestCase {
         app.navigationBars.buttons["Abbrechen"].tap()
         app.buttons["continue_game"].tap()
         XCTAssertTrue(app.buttons["node_a7"].label.contains("Weiß"))
-        XCTAssertTrue(app.staticTexts["1 Aktionen"].exists)
+        XCTAssertTrue(app.staticTexts["1 Zug"].exists)
         app.buttons["game_options"].tap()
         app.buttons["Neue Partie"].tap()
         app.buttons["start_game"].tap()
         XCTAssertTrue(app.staticTexts["Die laufende Partie durch eine neue ersetzen?"].waitForExistence(timeout: 3))
         app.buttons["Ersetzen und beginnen"].tap()
-        XCTAssertTrue(app.staticTexts["0 Aktionen"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["0 Züge"].waitForExistence(timeout: 3))
     }
     @MainActor func testFinishedGameStartsAgainWithoutReplacementConfirmation() {
         let app = launch()
@@ -222,7 +318,7 @@ final class MuehlensteinUITests: XCTestCase {
             }
             app.buttons["opponent_local"].tap()
             app.buttons["start_game"].tap()
-            XCTAssertTrue(app.staticTexts["0 Aktionen"].waitForExistence(timeout: 3))
+            XCTAssertTrue(app.staticTexts["0 Züge"].waitForExistence(timeout: 3))
             XCTAssertFalse(app.buttons["Ersetzen und beginnen"].exists)
             XCTAssertTrue(app.buttons["node_a7"].label.contains("frei"))
         }
@@ -237,7 +333,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["node_g7"].tap()
         app.buttons["node_a7"].tap() // Already selected, as it may also be after a hint.
         app.buttons["game_options"].tap()
-        app.buttons["Mögliche Züge als Liste"].tap()
+        app.buttons["Mögliche Züge"].tap()
         let move = app.buttons["a7-d7"]
         for _ in 0..<12 {
             if move.exists { break }
@@ -246,7 +342,7 @@ final class MuehlensteinUITests: XCTestCase {
         }
         XCTAssertTrue(move.exists)
         move.tap()
-        XCTAssertTrue(app.staticTexts["3 Aktionen"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["3 Züge"].waitForExistence(timeout: 3))
         XCTAssertFalse(app.buttons["node_a7"].label.contains("Weiß"), "The chosen move must vacate its origin")
         XCTAssertTrue(app.buttons["node_d7"].label.contains("Weiß"))
         app.buttons["history"].tap()
@@ -298,7 +394,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Eine Mühle."].waitForExistence(timeout: 3))
         app.buttons["node_a7"].tap()
         XCTAssertTrue(app.staticTexts["Schwarz ist am Zug."].exists)
-        XCTAssertTrue(app.staticTexts["6 Aktionen"].exists)
+        XCTAssertTrue(app.staticTexts["6 Züge"].exists)
         app.buttons["undo"].tap()
         XCTAssertTrue(app.staticTexts["Eine Mühle."].exists)
         XCTAssertTrue(app.buttons["node_a7"].label.contains("Schwarz"))
@@ -313,14 +409,14 @@ final class MuehlensteinUITests: XCTestCase {
         XCUIDevice.shared.press(.home)
         app.activate()
         XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.staticTexts["2 Aktionen"].exists)
+        XCTAssertTrue(app.staticTexts["2 Züge"].exists)
         app.terminate()
         app.launch()
         app.buttons["continue_game"].tap()
         XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["2 Aktionen"].exists)
+        XCTAssertTrue(app.staticTexts["2 Züge"].exists)
         app.buttons["undo"].tap()
-        XCTAssertTrue(app.staticTexts["0 Aktionen"].exists)
+        XCTAssertTrue(app.staticTexts["0 Züge"].exists)
     }
     @MainActor func testPreviewScreenshot() {
         let app = launch(demo: true)
@@ -493,12 +589,12 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["node_a7"].tap()
         XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
         XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges")).count, 1)
-        XCTAssertTrue(app.otherElements["player_1"].label.contains("Stufe 3/5"))
+        XCTAssertFalse(app.otherElements["player_1"].label.contains("Stufe"))
         let boardFrame = app.buttons["node_a7"].frame
         app.buttons["game_options"].tap()
         app.buttons["Spielhilfen"].tap()
         record("Options-Playing-Aids", app: app)
-        for key in ["show_legal", "show_last", "show_level", "animate_stones"] { toggleSwitch(key, in: app) }
+        for key in ["show_legal", "show_last", "animate_stones"] { toggleSwitch(key, in: app) }
         app.buttons["display_done"].tap()
         XCTAssertEqual(app.buttons["node_a7"].frame, boardFrame)
         for fragment in ["mögliches Ziel", "Ziel des letzten Zuges"] {
@@ -514,7 +610,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges")).count, 0)
         app.buttons["game_options"].tap()
         app.buttons["Spielhilfen"].tap()
-        for key in ["show_legal", "show_last", "show_level", "animate_stones"] {
+        for key in ["show_legal", "show_last", "animate_stones"] {
             XCTAssertEqual(app.switches[key].firstMatch.value as? String, "0")
             toggleSwitch(key, in: app)
         }
@@ -646,7 +742,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["opponent_computer"].tap()
         XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("5"))
         app.buttons["start_game"].tap()
-        XCTAssertTrue(app.otherElements["player_1"].label.contains("Stufe 5/5"))
+        XCTAssertFalse(app.otherElements["player_1"].label.contains("Stufe"))
         app.buttons["game_options"].tap()
         app.buttons["Computer einstellen"].tap()
         showSetupPanel("advanced", in: app)
@@ -679,7 +775,7 @@ final class MuehlensteinUITests: XCTestCase {
                                "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
         app.buttons["display_options"].tap()
-        for key in ["show_legal", "show_last", "show_level", "animate_stones"] {
+        for key in ["show_legal", "show_last", "animate_stones"] {
             let toggle = app.switches[key].firstMatch
             if !toggle.exists { app.buttons["next_page"].tap() }
             assertVisible(toggle, in: app)

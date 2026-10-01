@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 //! Muehlenstein's C boundary. Sanmill owns all rules, topology and search.
 mod cancellation;
+mod move_insights;
 mod opening_book;
 
 use serde::Deserialize;
@@ -167,7 +168,7 @@ fn process(input: &str) -> Result<Value, String> {
         "legal": legal.iter().copied().map(action_json).collect::<Vec<_>>(),
         "nodes": nodes, "edges": edges, "lines": topology.line_groups(),
         "fen": rules.export_fen(&state), "best": null,
-        "searchDepth": 0, "searchNodes": 0, "moveSource": null
+        "searchDepth": 0, "searchNodes": 0, "moveSource": null, "moveInsights": []
     });
     if request.search && outcome_kind == "ongoing" && !legal.is_empty() {
         if let Some(action) = opening_book::lookup(
@@ -180,6 +181,7 @@ fn process(input: &str) -> Result<Value, String> {
             check_cancelled()?;
             result["best"] = action_json(action);
             result["moveSource"] = json!("book");
+            result["moveInsights"] = json!(move_insights::describe(&mut kernel, action));
             return Ok(result);
         }
         let history =
@@ -231,8 +233,10 @@ fn process(input: &str) -> Result<Value, String> {
             }
         }
         check_cancelled()?;
-        result["best"] = action_json(best.ok_or("searchIncomplete")?);
+        let best = best.ok_or("searchIncomplete")?;
+        result["best"] = action_json(best);
         result["moveSource"] = json!("search");
+        result["moveInsights"] = json!(move_insights::describe(&mut kernel, best));
     }
     Ok(result)
 }

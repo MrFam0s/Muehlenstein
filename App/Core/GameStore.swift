@@ -10,7 +10,9 @@ import Observation
     private(set) var activity: Activity?
     var isThinking: Bool { activity != nil }
     var selectedNode: Int?
-    var hint: EngineAction?
+    var hint: EngineAction? { didSet { if hint != oldValue { hintExplanation = nil } } }
+    private(set) var hintExplanation: HintExplanation?
+    let searchProgress = DelayedSearchProgress()
     var errorMessage: String?
     private var generation = UUID()
     private var worker: Task<Void, Never>?
@@ -132,6 +134,7 @@ import Observation
         do { cancellation = try SearchCancellation() }
         catch { errorMessage = error.localizedDescription; return }
         activeSearch = cancellation
+        searchProgress.start()
         activity = isHint ? .hint : .computer
         let clock = ContinuousClock()
         let visibleAfter = clock.now.advanced(by: isHint ? .zero : pacing.minimumTime(action: position?.action ?? 0, phase: position?.phase ?? 1))
@@ -144,23 +147,28 @@ import Observation
                         try Engine.query(game, search: true, cancellation: cancellation)
                     }.value
                 } onCancel: { cancellation.cancel() }
+                guard let self, self.generation == token else { return }
+                self.searchProgress.finish()
                 // A monotonic, cancellable deadline: slow searches add no extra pause.
                 try await clock.sleep(until: visibleAfter)
                 try Task.checkCancellation()
-                guard let self, self.generation == token else { return }
+                guard self.generation == token else { return }
                 self.activity = nil
                 self.activeSearch = nil
                 guard let best = result.best else { throw EngineError.rejected("noBestMove") }
                 if isHint {
                     self.hint = best
+                    self.hintExplanation = HintExplanation(action: best, source: result.moveSource, facts: result.moveInsights ?? [])
                     self.selectedNode = best.kind == 1 ? best.from : nil
                 } else { self.apply(best) }
             } catch is CancellationError {
                 guard let self, self.generation == token else { return }
+                self.searchProgress.finish()
                 self.activity = nil
                 self.activeSearch = nil
             } catch {
                 guard let self, self.generation == token else { return }
+                self.searchProgress.finish()
                 self.activity = nil
                 self.activeSearch = nil
                 self.errorMessage = error.localizedDescription
@@ -169,6 +177,7 @@ import Observation
     }
     func suspend() { cancelWork() }
     private func cancelWork() {
+        searchProgress.finish()
         generation = UUID()
         activeSearch?.cancel()
         activeSearch = nil

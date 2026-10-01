@@ -1,5 +1,26 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 import Foundation
+import Observation
+
+/// Quick computations never show a transient busy indicator. Waiting for the
+/// presentation pace is separate from actual computation and does not show it.
+@MainActor @Observable final class DelayedSearchProgress {
+    private(set) var isVisible = false
+    private var task: Task<Void, Never>?
+    func start(after delay: Duration = .seconds(2)) {
+        finish()
+        task = Task { [weak self] in
+            do { try await Task.sleep(for: delay) } catch { return }
+            guard !Task.isCancelled else { return }
+            self?.isVisible = true
+        }
+    }
+    func finish() {
+        task?.cancel()
+        task = nil
+        isVisible = false
+    }
+}
 
 /// Presentation time overlaps computation; it never reduces the search budget.
 struct ComputerPacing: Sendable {

@@ -4,6 +4,57 @@ import UIKit
 @testable import Muehlenstein
 
 final class GameStoreTests: XCTestCase {
+    @MainActor func testProgressDelayDoesNotFlashAndCancelsPendingTimer() async throws {
+        let progress = DelayedSearchProgress()
+        progress.start(after: .milliseconds(80))
+        XCTAssertFalse(progress.isVisible)
+        progress.finish()
+        try await Task.sleep(for: .milliseconds(120))
+        XCTAssertFalse(progress.isVisible, "A completed quick search must not show progress later")
+        progress.start(after: .milliseconds(20))
+        try await Task.sleep(for: .milliseconds(70))
+        XCTAssertTrue(progress.isVisible)
+        progress.start(after: .milliseconds(100))
+        XCTAssertFalse(progress.isVisible, "A new search starts with a fresh delay")
+        progress.finish()
+        try await Task.sleep(for: .milliseconds(140))
+        XCTAssertFalse(progress.isVisible)
+    }
+
+    @MainActor func testHintCarriesExplanationWithoutChangingTheGame() async throws {
+        let store = GameStore(inMemory: true)
+        store.start(GameSettings(opponent: .local, level: 4))
+        let before = store.position?.fen
+        store.requestHint()
+        XCTAssertFalse(store.searchProgress.isVisible)
+        try await waitForHuman(store)
+        XCTAssertEqual(store.hint?.notation, "d2")
+        XCTAssertEqual(store.hintExplanation?.source, "book")
+        XCTAssertEqual(store.hintExplanation?.action, store.hint)
+        XCTAssertEqual(store.position?.fen, before)
+        XCTAssertTrue(store.game?.moves.isEmpty == true)
+        XCTAssertFalse(store.searchProgress.isVisible)
+        store.tap(23)
+        XCTAssertNil(store.hint)
+        XCTAssertNil(store.hintExplanation)
+        XCTAssertEqual(store.game?.moves.count, 1)
+    }
+
+    func testGridPagesKeepEveryMoveInOrderAtEverySize() {
+        for size in [CGSize(width: 375, height: 370), CGSize(width: 540, height: 370), CGSize(width: 667, height: 205)] {
+            for scale: CGFloat in [1, 3.12] {
+                for count in [0, 8, 24, 120] {
+                    let layout = GridPageLayout(size: size, itemCount: count, minimumWidth: 150 * scale,
+                        rowHeight: max(44, 22 * scale + 16), maximumColumns: 3, footerHeight: max(44, 22 * scale))
+                    XCTAssertEqual((0..<layout.pageCount).flatMap { Array(layout.indices(page: $0, count: count)) }, Array(0..<count))
+                    XCTAssertEqual(layout.indices(page: 10000, count: count), layout.indices(page: layout.pageCount - 1, count: count))
+                    if scale == 1 && size.width == 375 { XCTAssertEqual(layout.columns, 2) }
+                    if scale == 1 && size.width == 540 { XCTAssertEqual(layout.columns, 3) }
+                }
+            }
+        }
+    }
+
     private struct OfflineFixtures: Decodable {
         struct Game: Decodable {
             let name: String
@@ -143,16 +194,13 @@ final class GameStoreTests: XCTestCase {
         let preferences = AppPreferences(defaults: defaults)
         XCTAssertTrue(preferences.showLegalMoves)
         XCTAssertTrue(preferences.showLastMove)
-        XCTAssertTrue(preferences.showLevel)
         XCTAssertTrue(preferences.animateStones)
         preferences.showLegalMoves = false
         preferences.showLastMove = false
-        preferences.showLevel = false
         preferences.animateStones = false
         let restored = AppPreferences(defaults: defaults)
         XCTAssertFalse(restored.showLegalMoves)
         XCTAssertFalse(restored.showLastMove)
-        XCTAssertFalse(restored.showLevel)
         XCTAssertFalse(restored.animateStones)
     }
 
