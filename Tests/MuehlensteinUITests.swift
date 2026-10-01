@@ -66,10 +66,36 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.buttons["license-1"].waitForExistence(timeout: 5))
         app.buttons["license-1"].tap()
         let document = app.textViews["license_document"]
-        XCTAssertTrue((document.value as? String)?.contains("Sanmill") == true)
+        let notice = document.value as? String ?? ""
+        XCTAssertTrue(notice.contains("Sanmill"))
+        XCTAssertFalse(notice.contains("###"))
+        XCTAssertFalse(notice.contains("**"))
+        XCTAssertTrue(notice.contains("https://github.com/official-stockfish/Stockfish/blob/master/AUTHORS"))
         XCTAssertFalse(app.buttons["next_page"].exists)
         document.swipeUp()
         record("About-License-Notice", app: app)
+    }
+
+    @MainActor func testLicenseDocumentsReflowAcrossBundledNotices() {
+        let app = launch()
+        app.buttons["about"].tap()
+        app.buttons["license"].tap()
+        let document = app.textViews["license_document"]
+        XCTAssertTrue((document.value as? String)?.contains("verbatim copies of this license document") == true)
+        XCTAssertTrue((document.value as? String)?.contains("software and other kinds of works, specifically designed") == true)
+        record("License-AGPL-Reflow", app: app)
+        app.navigationBars["GNU AGPL v3"].buttons.element(boundBy: 0).tap()
+        app.buttons["third_party"].tap()
+        app.buttons["license-2"].tap()
+        XCTAssertTrue((document.value as? String)?.contains("preferred form for making modifications, including but not limited") == true)
+        record("License-Apache-Reflow", app: app)
+        app.navigationBars["arrayvec 0.7.8"].buttons.element(boundBy: 0).tap()
+        scrollTo(app.buttons["license-19"], in: app.scrollViews["license_notices"])
+        app.buttons["license-19"].tap()
+        scrollTo(app.buttons["license-19-12"], in: app.scrollViews["license_notices"])
+        app.buttons["license-19-12"].tap()
+        XCTAssertTrue((document.value as? String)?.contains("preferred form for making modifications, including but not limited") == true)
+        record("License-Rust-Reflow", app: app)
     }
 
     @MainActor func testLargeTextHintsAndPagedGridsInLandscape() {

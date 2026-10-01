@@ -318,6 +318,40 @@ Keine erneute Prüfung auf physischer Hardware oder vollständige VoiceOver-Abna
 Tag `v1.0`, Archiv und Store-Aufnahmen bleiben historische Stände und müssen vor
 dem nächsten Upload erneuert werden.
 
+## Unterzeile entfernt und Lizenztextfluss — 01.10.2026
+
+Die Unterzeile der Startansicht entfällt in beiden Sprachen. Ein skalierter
+Abstand hält die bestätigte Position von Logo, Name und Brett stabil. Die
+Akzentfarbe bleibt bis zur Auswahl aus den separat gezeigten Farbstudien unverändert.
+
+Die Darstellung sämtlicher Lizenztexte löst feste Quelldatei-Zeilen auf und
+entfernt übermäßige Leerzeilen. Absätze, Aufzählungen, Abschnittsüberschriften
+und wörtliche Beispiele bleiben getrennt. Sanmills Markdown-Überschriften,
+Hervorhebungen und Verweise erscheinen formatiert; Linkziele bleiben sichtbar.
+Die Originaldateien und das generierte Lizenzinventar wurden nicht verändert.
+
+**Prüfungen:** Release-Simulatorbuild erfolgreich. Zwei Modelltests prüfen die
+Struktur beim Zusammenführen und den Erhalt aller Nicht-Leerraum-Zeichen in
+allen 177 Dokumenten einschließlich AGPL und verschachtelter Rust-Hinweise.
+Vier iPhone-Bedienungstests bestehen: Informationsnavigation mit Sanmill-
+Formatierung, feste Brettziele/Startansicht, größte Schrift im Querformat sowie
+AGPL-, Apache- und Rust-Lizenznavigation (`.build/License-Reflow.xcresult`).
+Die Originalaufnahmen von Startseite und Lizenztexten wurden visuell geprüft.
+Die neue Lizenznavigation verwendet anschließend präzise Navigationstitel,
+um im Hintergrund liegende Werkzeugleisten nicht als Zurück-Taste anzusprechen.
+Der entsprechende iPad-Nachlauf besteht ebenfalls
+(`.build/License-Reflow-iPad.xcresult`).
+
+Die vier Farbstudien verwenden unveränderte Sand-, Brett- und Steinfarben mit
+Waldgrün, Schieferblau, Aubergine oder Terrakotta als Akzent. Rechnerischer
+Kontrast für weiße Knopfschrift in den hellen Entwürfen: mindestens 5,47:1;
+Akzent auf Sand: mindestens 4,93:1. Das ist noch keine Abnahme einer ausgewählten
+App-Farbpalette. Die Vorschau schaltet lokal zwischen den vier Varianten um.
+
+Beide Lokalisierungen und `git diff --check` sind geprüft. Keine neue physische
+Geräte-, VoiceOver- oder Akkuprüfung. Der Tag `v1.0` und das bisherige Archiv
+bleiben unverändert; diese Änderungen liegen im späteren Quellstand auf `main`.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

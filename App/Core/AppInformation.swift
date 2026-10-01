@@ -51,3 +51,73 @@ struct LicenseNotice: Decodable, Identifiable {
         return try JSONDecoder().decode([LicenseNotice].self, from: Data(contentsOf: url))
     }
 }
+
+/// Presentation-only reflow. Original bundled notices remain untouched.
+/// Paragraphs, list entries, headings and literal examples retain their boundaries.
+enum LicenseText {
+    enum Kind: Equatable { case heading, paragraph, listItem, literal }
+    struct Block {
+        let text: String
+        let kind: Kind
+    }
+
+    static func blocks(_ source: String) -> [Block] {
+        let lines = source.replacingOccurrences(of: "\r\n", with: "\n")
+            .replacingOccurrences(of: "\r", with: "\n").components(separatedBy: "\n")
+        var result: [Block] = []
+        var paragraph: [String] = []
+        var fenced = false
+
+        func matches(_ text: String, _ pattern: String) -> Bool {
+            text.range(of: pattern, options: .regularExpression) != nil
+        }
+        func isList(_ line: String) -> Bool {
+            matches(line, #"^(?:[-*•]|\(?[a-zA-Z0-9]+\)|[0-9]+\.)\s+"#)
+        }
+        func isHeading(_ text: String) -> Bool {
+            if matches(text, #"^#{1,6}\s+"#) { return true }
+            if matches(text, #"^(?:LICENSE|COPYING|NOTICE)(?:[-_.][A-Za-z0-9.-]+)?$"#) { return true }
+            if ["Preamble", "Terms of Use", "Apache License", "MIT License",
+                "How to Apply These Terms to Your New Programs"].contains(text) { return true }
+            // Short numbered titles, not a paragraph beginning with a clause number.
+            if text.count < 110, matches(text, #"^[0-9]+\. [^.]+\.$"#) { return true }
+            return text.count < 100 && text == text.uppercased() &&
+                text.rangeOfCharacter(from: .letters) != nil && !matches(text, #"[,;\"]"#)
+        }
+        func flush() {
+            guard !paragraph.isEmpty else { return }
+            var text = paragraph[0]
+            for line in paragraph.dropFirst() {
+                text += (text.hasSuffix("-") ? "" : " ") + line
+            }
+            let kind: Kind = isHeading(text) ? .heading : (isList(text) ? .listItem : .paragraph)
+            result.append(Block(text: text, kind: kind))
+            paragraph.removeAll(keepingCapacity: true)
+        }
+
+        for raw in lines {
+            let line = raw.trimmingCharacters(in: .whitespaces)
+            if line.hasPrefix("```") || line.hasPrefix("~~~") {
+                flush()
+                fenced.toggle()
+                result.append(Block(text: raw, kind: .literal))
+            } else if fenced || line.hasPrefix("|") || matches(line, #"^[-=+_]{3,}$"#) {
+                flush()
+                result.append(Block(text: raw, kind: .literal))
+            } else if line.isEmpty {
+                flush()
+            } else if matches(line, #"^#{1,6}\s+"#) {
+                flush()
+                result.append(Block(text: line, kind: .heading))
+            } else if matches(line, #"^(?:https?://|URL:|Authors:|License:|Copyright|©|Version [0-9])"#) {
+                flush()
+                result.append(Block(text: line, kind: .paragraph))
+            } else {
+                if isList(line) { flush() }
+                paragraph.append(line)
+            }
+        }
+        flush()
+        return result
+    }
+}

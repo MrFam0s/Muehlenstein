@@ -2,9 +2,11 @@
 
 ## Noch nicht markierte Änderungen
 
-- Logo und Name auf der Startseite sitzen mittig zwischen Werkzeugleiste und
-  Vorschaubrett, ergänzt um die kleine Unterzeile „Mühle. Zug für Zug.“ bzw.
-  „Morris. Move by move.“.
+- Logo und Name auf der Startseite behalten ihre freigegebene Position zwischen
+  Werkzeugleiste und Vorschaubrett. Die Unterzeile entfällt.
+- Alle Lizenzansichten führen feste Textdatei-Zeilen zu lesbaren Absätzen zusammen.
+  Überschriften und Listen bleiben gegliedert; Sanmills Markdown-Hervorhebungen
+  und Verweise werden formatiert. Die Originaldateien bleiben unverändert.
 - „Über Mühlenstein“, Impressum, Datenschutz, Herkunft und Lizenzinformationen
   sind durchgehend scrollbar. Klar gegliederte Abschnitte, lesbare Textbreiten
   und Blocksatz mit Silbentrennung bei ausreichend breiten Zeilen verbessern

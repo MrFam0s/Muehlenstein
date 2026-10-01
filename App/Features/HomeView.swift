@@ -5,6 +5,7 @@ struct HomeView: View {
     @Bindable var store: GameStore
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(\.verticalSizeClass) private var verticalSize
+    @ScaledMetric(relativeTo: .subheadline) private var brandBreathingRoom = 28.0
     @State private var showingNewGame = false
     @State private var showingAbout = false
     @State private var showingRules = false
@@ -70,18 +71,15 @@ struct HomeView: View {
         }
     }
     private var heading: some View {
-        VStack(spacing: 10) {
-            HStack(spacing: 14) {
-                BrandMark()
-                Text(L10n.text("app_name")).font(.system(.largeTitle, design: .serif).weight(.medium))
-                    .foregroundStyle(Color.ink).lineLimit(2)
-                    .accessibilityIdentifier("home_title")
-            }
-            if !dynamicType.isAccessibilitySize {
-                Text(L10n.text("home_subtitle")).font(.subheadline).tracking(0.6)
-                    .foregroundStyle(Color.quietInk).multilineTextAlignment(.center)
-            }
-        }.frame(maxWidth: .infinity)
+        HStack(spacing: 14) {
+            BrandMark()
+            Text(L10n.text("app_name")).font(.system(.largeTitle, design: .serif).weight(.medium))
+                .foregroundStyle(Color.ink).lineLimit(2)
+                .accessibilityIdentifier("home_title")
+        }
+        // Keep the approved brand and board positions after removing the caption.
+        .padding(.bottom, dynamicType.isAccessibilitySize ? 0 : brandBreathingRoom)
+        .frame(maxWidth: .infinity)
     }
     private var illustration: some View {
         GeometryReader { geometry in

@@ -24,6 +24,50 @@ final class GameStoreTests: XCTestCase {
         }
     }
 
+    func testLicenseReflowPreservesEveryBundledNonWhitespaceCharacter() throws {
+        let url = try XCTUnwrap(Bundle.main.url(forResource: "AGPL-3.0", withExtension: "txt"))
+        var documents = [try String(contentsOf: url, encoding: .utf8)]
+        func collect(_ entries: [LicenseNotice]) {
+            for entry in entries {
+                if let text = entry.text { documents.append(text) }
+                if let children = entry.children { collect(children) }
+            }
+        }
+        collect(try LicenseNotice.load())
+        XCTAssertGreaterThan(documents.count, 170)
+        for original in documents {
+            let reflowed = LicenseText.blocks(original).map(\.text).joined(separator: "\n")
+            XCTAssertEqual(reflowed.filter { !$0.isWhitespace }, original.filter { !$0.isWhitespace },
+                           "Reflow must never remove or change notice wording")
+        }
+    }
+
+    func testLicenseReflowKeepsClausesListsAndLiteralExamples() {
+        let source = """
+          1. Definitions.
+
+          A paragraph with a fixed
+        line length and a non-
+        exclusive permission.
+
+          a) First condition that continues
+             on the next source line.
+          b) Second condition.
+
+        ```
+        first line
+          indented example
+        ```
+        """
+        let blocks = LicenseText.blocks(source)
+        XCTAssertEqual(blocks[0].kind, .heading)
+        XCTAssertEqual(blocks[1].text, "A paragraph with a fixed line length and a non-exclusive permission.")
+        XCTAssertEqual(blocks[2].kind, .listItem)
+        XCTAssertEqual(blocks[2].text, "a) First condition that continues on the next source line.")
+        XCTAssertEqual(blocks[3].text, "b) Second condition.")
+        XCTAssertTrue(blocks.contains { $0.kind == .literal && $0.text == "  indented example" })
+    }
+
     @MainActor func testProgressDelayDoesNotFlashAndCancelsPendingTimer() async throws {
         let progress = DelayedSearchProgress()
         progress.start(after: .milliseconds(80))

@@ -171,16 +171,15 @@ private struct AboutParagraphs: View {
 /// alignment so large text does not acquire distracting gaps between words.
 private struct ReadingText: UIViewRepresentable {
     let text: String
-    var scrolls = false
     @ScaledMetric(relativeTo: .body) private var fontSize = 17
 
     func makeUIView(context: Context) -> UITextView {
         let view = UITextView(usingTextLayoutManager: false)
         view.isEditable = false
-        view.isScrollEnabled = scrolls
+        view.isScrollEnabled = false
         view.backgroundColor = .clear
         view.textContainer.lineFragmentPadding = 0
-        view.textContainerInset = scrolls ? UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24) : .zero
+        view.textContainerInset = .zero
         view.contentInsetAdjustmentBehavior = .automatic
         view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return view
@@ -193,16 +192,14 @@ private struct ReadingText: UIViewRepresentable {
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: UITextView, context: Context) -> CGSize? {
         guard let width = proposal.width else { return nil }
         applyText(to: uiView, width: width)
-        if scrolls { return CGSize(width: width, height: proposal.height ?? 500) }
         return uiView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
     }
 
     private func applyText(to view: UITextView, width: CGFloat) {
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 4
-        // License documents retain their original line breaks and alignment.
-        paragraph.alignment = !scrolls && width / fontSize >= 26 ? .justified : .natural
-        paragraph.hyphenationFactor = scrolls ? 0 : 0.7
+        paragraph.alignment = width / fontSize >= 26 ? .justified : .natural
+        paragraph.hyphenationFactor = 0.7
         let attributed = NSAttributedString(string: text, attributes: [
             .font: UIFont.systemFont(ofSize: fontSize), .foregroundColor: UIColor(Color.ink),
             .paragraphStyle: paragraph
@@ -212,10 +209,95 @@ private struct ReadingText: UIViewRepresentable {
 }
 
 private struct LicenseDocument: View {
-    let text: String
+    private let blocks: [LicenseText.Block]
+    private let markdown: Bool
+
+    init(text: String, markdown: Bool = false) {
+        blocks = LicenseText.blocks(text)
+        self.markdown = markdown
+    }
+
     var body: some View {
-        ReadingText(text: text, scrolls: true).accessibilityIdentifier("license_document")
+        LicenseReadingText(blocks: blocks, markdown: markdown)
+            .accessibilityIdentifier("license_document")
             .frame(maxWidth: 688).frame(maxWidth: .infinity).background(Color.limestone)
+    }
+}
+
+private struct LicenseReadingText: UIViewRepresentable {
+    let blocks: [LicenseText.Block]
+    let markdown: Bool
+    @ScaledMetric(relativeTo: .body) private var fontSize = 17
+
+    func makeUIView(context: Context) -> UITextView {
+        let view = UITextView(usingTextLayoutManager: false)
+        view.isEditable = false
+        view.backgroundColor = .clear
+        view.textContainer.lineFragmentPadding = 0
+        view.textContainerInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
+        view.linkTextAttributes = [.foregroundColor: UIColor(Color.petrol), .underlineStyle: NSUnderlineStyle.single.rawValue]
+        return view
+    }
+
+    func updateUIView(_ view: UITextView, context: Context) {
+        let result = NSMutableAttributedString(string: "")
+        for (index, block) in blocks.enumerated() {
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 4
+            style.paragraphSpacing = block.kind == .listItem ? 6 : 16
+            style.alignment = .natural
+            let font: UIFont
+            switch block.kind {
+            case .heading:
+                let base = UIFont.systemFont(ofSize: fontSize + 2, weight: .semibold)
+                font = base.fontDescriptor.withDesign(.serif).map { UIFont(descriptor: $0, size: fontSize + 2) } ?? base
+                style.paragraphSpacingBefore = index == 0 ? 0 : 14
+                style.paragraphSpacing = 12
+            case .literal:
+                font = .monospacedSystemFont(ofSize: fontSize * 0.9, weight: .regular)
+                style.lineSpacing = 0
+                style.paragraphSpacing = 0
+            case .listItem:
+                font = .systemFont(ofSize: fontSize)
+                style.headIndent = fontSize * 1.2
+            case .paragraph:
+                font = .systemFont(ofSize: fontSize)
+            }
+            var text = block.text
+            if markdown && block.kind == .heading {
+                text = text.replacingOccurrences(of: #"^#{1,6}\s+"#, with: "", options: .regularExpression)
+            }
+            let part = NSMutableAttributedString(string: text + (index == blocks.count - 1 ? "" : "\n"), attributes: [
+                .font: font, .foregroundColor: UIColor(Color.ink), .paragraphStyle: style
+            ])
+            if markdown && block.kind != .literal { styleMarkdown(part, font: font) }
+            result.append(part)
+        }
+        if !view.attributedText.isEqual(to: result) { view.attributedText = result }
+    }
+
+    /// The Sanmill notice includes README Markdown. Render its emphasis and links,
+    /// keeping the full destination visible as well as tappable.
+    private func styleMarkdown(_ text: NSMutableAttributedString, font: UIFont) {
+        for (pattern, emphasis) in [(#"\*\*(.+?)\*\*"#, UIFont.systemFont(ofSize: font.pointSize, weight: .semibold)),
+                                    (#"`([^`]+)`"#, UIFont.monospacedSystemFont(ofSize: font.pointSize * 0.94, weight: .regular))] {
+            guard let regex = try? NSRegularExpression(pattern: pattern) else { continue }
+            for match in regex.matches(in: text.string, range: NSRange(location: 0, length: text.length)).reversed() {
+                let value = (text.string as NSString).substring(with: match.range(at: 1))
+                var attributes = text.attributes(at: match.range.location, effectiveRange: nil)
+                attributes[.font] = emphasis
+                text.replaceCharacters(in: match.range, with: NSAttributedString(string: value, attributes: attributes))
+            }
+        }
+        guard let links = try? NSRegularExpression(pattern: #"\[([^\]]+)\]\((https?://[^\s)]+)\)"#) else { return }
+        for match in links.matches(in: text.string, range: NSRange(location: 0, length: text.length)).reversed() {
+            let source = text.string as NSString
+            let label = source.substring(with: match.range(at: 1))
+            let destination = source.substring(with: match.range(at: 2))
+            var attributes = text.attributes(at: match.range.location, effectiveRange: nil)
+            attributes[.link] = URL(string: destination)
+            text.replaceCharacters(in: match.range, with: NSAttributedString(string: "\(label) (\(destination))", attributes: attributes))
+        }
     }
 }
 
@@ -234,7 +316,7 @@ struct LicenseNoticesView: View {
                                 if let children = notice.children {
                                     LicenseNoticesView(notices: children, title: notice.title)
                                 } else {
-                                    LicenseDocument(text: notice.text ?? "").navigationTitle(notice.title)
+                                    LicenseDocument(text: notice.text ?? "", markdown: notice.id == "license-1").navigationTitle(notice.title)
                                         .navigationBarTitleDisplayMode(.inline)
                                 }
                             } label: {
