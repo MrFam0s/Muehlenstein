@@ -7,8 +7,9 @@ The user authorized continuation of the App Store submission. Version **1.0.2
 uploaded and processed successfully by Apple (`VALID`). The corresponding
 source tag is **v1.0.2-build.6**; earlier tags remain fixed. All 16 German/English
 iPhone/iPad screenshots are processed and verified. App Privacy is published
-as no data collected; the German price is EUR 0.99. Review submission is
-awaiting the user's contact telephone number. See the
+as no data collected; the German price is EUR 0.99. The complete review contact
+and notes are saved. Submitted on **2026-10-01 at 16:31:32 UTC**; Apple confirms
+**WAITING_FOR_REVIEW**, submission `46d51255-9511-4a14-9814-839a35b050e0`. See the
 [build 6 release record](../Store/RELEASE-1.0.2-6.md).
 
 ## Historical preparation and research record

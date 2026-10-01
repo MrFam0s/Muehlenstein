@@ -8,8 +8,9 @@ Screenshots sind in Deutsch und Englisch für iPhone und iPad verarbeitet;
 Abmessungen und Prüfsummen wurden mit den Originaldateien abgeglichen.
 App Privacy ist als **Keine Daten erfasst** veröffentlicht, der deutsche
 Kundenpreis beträgt **0,99 €**. Die öffentlichen Support- und Datenschutz-URLs
-sind ohne Anmeldung erreichbar. Die Review-Einreichung ist beauftragt;
-es fehlt noch die Telefonnummer für den vollständigen Review-Kontakt.
+sind ohne Anmeldung erreichbar. **Am 01.10.2026 um 18:31 Uhr (Europe/Berlin)
+zur Apple-Prüfung eingereicht; Status: `WAITING_FOR_REVIEW`.** Der vollständige
+Review-Kontakt und die Review Notes sind bei Apple gespeichert.
 
 Der zugehörige Quelltag ist **v1.0.2-build.6**. Der Tag **v1.0.2** bleibt
 unverändert und gehört zum älteren Build 5. Details und lokale Nachweise:

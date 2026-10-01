@@ -10,9 +10,12 @@ waldgrünem Motiv. Build 5 wird nicht für die Einreichung verwendet.
 - Version: `1.0.2`; Versions-ID: `3e275fea-964a-47db-8a26-ebfe5b0b78fc`.
 - Build: `6`; Build-ID: `557f1a60-ab60-4005-a3c3-aea9e1efa528`; Verarbeitung: `VALID`.
 - Quelltag: `v1.0.2-build.6`; bestehende Tags bleiben unverändert.
-- Review: noch nicht eingereicht. Für den vollständigen Review-Kontakt fehlt
-  die Telefonnummer des Nutzers; Name und E-Mail sind bekannt. Apple verlangt
-  bei der ersten Anlage alle vier Kontaktfelder gemeinsam.
+- Review: **zur Prüfung eingereicht**, Status **`WAITING_FOR_REVIEW`**.
+- Einreichungs-ID: `46d51255-9511-4a14-9814-839a35b050e0`.
+- Eingereicht am **01.10.2026 um 18:31:32 Uhr (Europe/Berlin)**,
+  entsprechend `2026-10-01T16:31:32.061Z`.
+- Review-Kontakt mit allen Pflichtfeldern und Review Notes bei Apple gespeichert;
+  die Telefonnummer wird ausschließlich im Review-Kontakt verwendet.
 
 ## Verifiziert
 
@@ -42,13 +45,17 @@ Der erste Blitz-Screenshot-Upload ordnete wegen gleicher Dateinamen iPad-Bilder
 auch den iPhone-Plätzen zu. Ausschließlich diese fehlerhaften Uploads wurden
 über die CLI durch die korrekten Originaldateien ersetzt und danach geprüft.
 
-Nach Ergänzung des Review-Kontakts erneut `asc validate` ausführen, bestehende
-Review-Einreichungen prüfen und die vorbereitete Version zur Prüfung absenden.
+Nach Ergänzung des Review-Kontakts wurden `asc validate` und `asc review doctor`
+erneut ausgeführt: **0 Fehler, 0 blockierende Befunde**. App Privacy wurde
+erneut als veröffentlicht bestätigt. Es gab keine bestehende Review-Einreichung.
+Die Einreichung erfolgte über `asc review submissions-create`, `items-add` und
+`submissions-submit --confirm`. Anschließend bestätigten sowohl die
+Review-Statusabfrage als auch die Versionsabfrage `WAITING_FOR_REVIEW` mit Build 6.
 Die CLI-Warnungen zu fehlendem „What's New“ betreffen die erste Veröffentlichung;
 dieses Feld bleibt bei einer Erstveröffentlichung leer.
 
 Statusabfrage:
 
 ```sh
-asc review status --app 6818139673 --version 1.0.2 --platform IOS --output table
+asc submit status --id 46d51255-9511-4a14-9814-839a35b050e0 --output table
 ```
