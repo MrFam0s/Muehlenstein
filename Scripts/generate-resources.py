@@ -76,17 +76,24 @@ copy = {
 'capture_body': ('Steine in einer geschlossenen Mühle sind geschützt, solange andere gegnerische Steine verfügbar sind. Die möglichen Ziele werden auf dem Brett markiert.', 'Stones in a completed mill are protected while other opposing stones remain available. Legal targets are marked on the board.'),
 'ending': ('Das Ende der Partie', 'End of the game'),
 'ending_body': ('Wer keine legalen Züge mehr hat oder nach dem Setzen weniger als drei Steine besitzt, verliert. Stellungswiederholungen und längere Zugfolgen ohne Schlagen können zum Remis führen; der Spielkern entscheidet dies nach der gewählten Variante.', 'A player loses when no legal moves remain or when fewer than three stones remain after placement. Repeated positions and long sequences without capture can lead to a draw, according to the selected variant.'),
-'about_body': ('Mühle in einer eigenständigen nativen iOS-Oberfläche. Mit dem offenen Spielkern von Sanmill.', 'Morris in an independently designed native iOS interface, powered by Sanmill’s open-source game engine.'),
+'about_body': ('Mühlenstein bringt klassische Mühle, Zwölfstein-Mühle, Morabaraba und Lasker-Mühle auf iPhone und iPad. Spiele gegen den Computer oder zu zweit auf einem Gerät. Alle Züge werden offline berechnet.', 'Muehlenstein brings Nine Men’s Morris, Twelve Men’s Morris, Morabaraba and Lasker Morris to iPhone and iPad. Play against the computer or with another player on one device. All moves are calculated offline.'),
 'prototype': ('Entwicklungsstand', 'Development build'), 'privacy': ('Privatsphäre', 'Privacy'),
-'privacy_body': ('Diese Version spielt vollständig auf dem Gerät. Sie verwendet keine Analyse-Dienste und kein Benutzerkonto. Die aktuelle Partie wird lokal gespeichert.', 'This version plays entirely on your device. It uses no analytics services or accounts. Your current game is saved locally.'),
-'credits': ('Herkunft & Lizenz', 'Credits & license'),
-'credits_body': ('Eigenständiger Sanmill-Fork. Regeln und Suche: calcitem und die Sanmill-Mitwirkenden. Quellstand: 8901a06f088b. Oberfläche und Swift-Anbindung: Muehlenstein. GNU AGPL v3 oder neuer. Das vollständige Quellarchiv dieser App wird vor einer öffentlichen Veröffentlichung bereitgestellt.', 'An independent Sanmill fork. Rules and search: calcitem and Sanmill contributors. Source revision: 8901a06f088b. Interface and Swift bridge: Muehlenstein. GNU AGPL v3 or later. The complete source archive of this app must be provided before public distribution.'),
+'privacy_body': ('Mühlenstein benötigt kein Benutzerkonto und verwendet keine Werbung, Analyse- oder Trackingdienste. Spielregeln, Computerzüge und Tipps werden auf deinem Gerät berechnet.\n\nDie aktuelle Partie und deine Einstellungen werden lokal gespeichert. Gerätesicherungen richten sich nach deinen iOS-Einstellungen.\n\nNur wenn du einen externen Link öffnest oder uns eine E-Mail schreibst, verwendest du einen externen Dienst. Dort gelten die Datenschutzbedingungen des jeweiligen Anbieters. Eine Kontaktaufnahme ist freiwillig. Anbieter und E-Mail-Adresse findest du im Impressum.', 'Muehlenstein requires no account and uses no advertising, analytics or tracking services. Game rules, computer moves and hints are calculated on your device.\n\nYour current game and preferences are stored locally. Device backups follow your iOS settings.\n\nExternal services are used only when you open an external link or write us an email. The respective provider’s privacy terms then apply. Contacting us is optional. Find the provider and email address under Legal notice.'),
+'credits': ('Herkunft & Quellcode', 'Credits & source'),
+'credits_body': ('Mühlenstein ist eine eigenständige App von AmoSystems und keine offizielle Sanmill-Veröffentlichung. Gestaltung, SwiftUI-Oberfläche und native Anbindung wurden für Mühlenstein entwickelt.\n\nRegeln, Suchalgorithmen und klassische Eröffnungsdaten stammen aus Sanmill von calcitem und den Sanmill-Mitwirkenden. Ihre ursprünglichen Hinweise und Autorenangaben bleiben erhalten.\n\nDie App steht unter GNU AGPL v3 oder neuer. Der vollständige Quellcode und die Bauanleitung sind über den Quellcode-Link zugänglich. Die Lizenztexte einschließlich der verwendeten Bibliotheken sind auch offline in dieser App enthalten.', 'Muehlenstein is an independent AmoSystems app, not an official Sanmill release. Its design, SwiftUI interface and native integration were developed for Muehlenstein.\n\nGame rules, search algorithms and classical opening data come from Sanmill by calcitem and the Sanmill contributors. Their original notices and author credits are preserved.\n\nThe app is licensed under GNU AGPL v3 or later. Its complete source and build instructions are available through the source link. License texts, including those for the libraries used, are also included offline in this app.'),
 'engine_error': ('Die Spielberechnung konnte nicht abgeschlossen werden. Bitte versuche es erneut.', 'The game calculation could not be completed. Please try again.'),
 'restore_error': ('Die gespeicherte Partie konnte nicht geladen werden. Die Datei wurde nicht verändert.', 'The saved game could not be loaded. Its file has not been changed.'),
 'save_error': ('Die Partie konnte nicht gespeichert werden. Sie bleibt für diese Sitzung geöffnet.', 'The game could not be saved. It remains open for this session.'),
 'license_error': ('Lizenzdatei nicht verfügbar.', 'License file unavailable.')
 }
 copy.update({
+'imprint': ('Impressum & Kontakt', 'Legal notice & contact'),
+'germany': ('Deutschland', 'Germany'), 'contact': ('Kontakt', 'Contact'),
+'contact_email': ('E-Mail schreiben', 'Write an email'), 'website': ('Website öffnen', 'Open website'),
+'vat_id': ('Umsatzsteuer-Identifikationsnummer', 'VAT identification number'),
+'source_code': ('Quellcode öffnen', 'View source code'),
+'version_build': ('Version %@ · Build %@', 'Version %@ · Build %@'),
+'license': ('GNU AGPL v3', 'GNU AGPL v3'), 'third_party': ('Weitere Lizenzen', 'Third-party notices'),
 'display_options': ('Spielhilfen', 'Playing aids'),
 'show_legal': ('Zugziele', 'Legal targets'),
 'show_last': ('Letzter Zug', 'Last move'),
@@ -169,7 +176,7 @@ for name,values in colors.items():
     (folder/'Contents.json').write_text(json.dumps({'colors':entries,'info':{'version':1,'author':'xcode'}},indent=2))
 plist={'CFBundleDisplayName':'Muehlenstein','CFBundleDevelopmentRegion':'en','CFBundleExecutable':'$(EXECUTABLE_NAME)',
 'CFBundleIdentifier':'$(PRODUCT_BUNDLE_IDENTIFIER)','CFBundleInfoDictionaryVersion':'6.0','CFBundleName':'$(PRODUCT_NAME)',
-'CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.1.0','CFBundleVersion':'1',
+'CFBundlePackageType':'APPL','CFBundleShortVersionString':'$(MARKETING_VERSION)','CFBundleVersion':'$(CURRENT_PROJECT_VERSION)',
 'LSRequiresIPhoneOS':True,'UILaunchScreen':{},'UIApplicationSceneManifest':{'UIApplicationSupportsMultipleScenes':False},
 'UISupportedInterfaceOrientations':['UIInterfaceOrientationPortrait','UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],
 'UISupportedInterfaceOrientations~ipad':['UIInterfaceOrientationPortrait','UIInterfaceOrientationPortraitUpsideDown','UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight']}

@@ -3,6 +3,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 python3 "$ROOT/Scripts/generate-opening-book.py" --check
 export PATH="/opt/homebrew/bin:$PATH"
+python3 "$ROOT/Scripts/generate-license-notices.py" --check
 PLATFORM="${1:-${PLATFORM_NAME:-iphonesimulator}}"
 case "$PLATFORM" in
   iphoneos) TARGET=aarch64-apple-ios ;;

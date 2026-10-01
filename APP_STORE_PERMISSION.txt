@@ -1,0 +1,21 @@
+Muehlenstein — additional App Store permission
+
+Copyright (C) 2026 Fabian Amos / AmoSystems
+
+The original Muehlenstein Swift interface, Rust adapter, build scripts and
+original artwork are licensed under GNU AGPL version 3 or any later version.
+
+As an additional permission under section 7 of GNU AGPL version 3, Fabian
+Amos permits distribution of that original material through application
+stores whose standard distribution terms would otherwise conflict with the
+AGPL, provided that the complete corresponding source remains available to
+recipients under the AGPL through a channel without those restrictions.
+Charging for a copy does not remove the recipients' AGPL rights.
+
+This permission covers only material whose rights Fabian Amos can grant.
+It does not relicense third-party code, data, notices, names or trademarks.
+Sanmill's separate additional permission is preserved verbatim in
+Engine/vendor/Sanmill/README.upstream.md, under Terms of Use. All other
+third-party licenses and copyright notices remain applicable.
+
+Muehlenstein is an independent project, not an official Sanmill release.

@@ -17,7 +17,7 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 
 ## Implemented
 
-- Native home, new-game configuration, game board, legal-target feedback, move history, rules, credits and license display.
+- Native home, new-game configuration, game board, legal-target feedback, move history and rules. About includes provider/contact details, actual version/build information, privacy, source links and complete offline license notices.
 - Local two-player play and offline computer play using Sanmill MTD(f) or PVS, original evaluation and transposition tables.
 - Nine Men's Morris, Twelve Men's Morris, Morabaraba, Lasker Morris.
 - Placement, movement, flying, mill capture and results adjudicated by Sanmill.
@@ -36,7 +36,7 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 
 Full Sanmill feature parity: remaining seven rule presets in the UI, broader opening recognition/training / Human DB / Perfect DB, additional search methods and calibrated strengths, analysis/replay navigation, puzzles and imports/exports. The large Perfect DB is deferred by product decision, not exposed as a placeholder setting. Network play follows the offline version. See [the plan](Docs/PROJECT_PLAN.md), [AI options and rating roadmap](Docs/AI_OPTIONS.md) and [architecture](Docs/ARCHITECTURE.md).
 
-The original engine code is retained; the prototype's search orchestration is new. Equal playing strength to the Sanmill app has **not** been established. No distribution or public source repository has been created.
+The original engine code is retained; the prototype's search orchestration is new. Equal playing strength to the Sanmill app has **not** been established. The public source repository is [MrFam0s/Muehlenstein](https://github.com/MrFam0s/Muehlenstein). No App Store binary has been published.
 
 ## Development
 
@@ -47,7 +47,7 @@ bash Scripts/test-engine.sh
 xcodebuild test -project Muehlenstein.xcodeproj -scheme Muehlenstein -destination 'platform=iOS Simulator,id=YOUR_SIMULATOR_ID' -derivedDataPath .build/DerivedData CODE_SIGNING_ALLOWED=NO
 ```
 
-`Muehlenstein.xcodeproj` is the maintained Xcode project. `Scripts/generate-project.py` now only adds missing Swift source references; it preserves existing signing settings, capabilities, build configurations and schemes. Edit the project normally in Xcode. Shared identity defaults live in `Configuration/App.xcconfig`: team `4WHV5UZ8E5`, bundle identifier `org.amosystems.Muehlenstein`. Target-level Xcode edits override those defaults and survive source synchronization. Navigator groups follow the actual directories. `Scripts/generate-resources.py` owns localized copy and semantic colors. `Scripts/generate-icon.swift` owns the original geometric app icon and its default, dark and tinted variants. Run `swift -module-cache-path .build/swift-module-cache Scripts/generate-icon.swift` to regenerate them; the review sheet is saved in `Docs/Previews`. `python3 Scripts/check-contrast.py` checks the semantic text and board color roles in both appearances. For generated localized strings, colors and icons, update their respective generator as well.
+`Muehlenstein.xcodeproj` is the maintained Xcode project. `Scripts/generate-project.py` now only adds missing Swift source references; it preserves existing signing settings, capabilities, build configurations and schemes. Edit the project normally in Xcode. Shared identity and version/build defaults live in `Configuration/App.xcconfig`: team `4WHV5UZ8E5`, bundle identifier `org.amosystems.Muehlenstein`. Target-level Xcode edits override those defaults and survive source synchronization. Navigator groups follow the actual directories. `Scripts/generate-resources.py` owns localized copy and semantic colors. `Scripts/generate-icon.swift` owns the original geometric app icon and its default, dark and tinted variants. Run `swift -module-cache-path .build/swift-module-cache Scripts/generate-icon.swift` to regenerate them; the review sheet is saved in `Docs/Previews`. `python3 Scripts/check-contrast.py` checks the semantic text and board color roles in both appearances. For generated localized strings, colors and icons, update their respective generator as well.
 
 Sanmill source revision: `8901a06f088bf49a1602fee8686ed25ac5a33925`. See [provenance](Engine/UPSTREAM.md), [license](LICENSE) and [release requirements](Docs/RELEASE.md).
 
@@ -56,3 +56,7 @@ Sanmill source revision: `8901a06f088bf49a1602fee8686ed25ac5a33925`. See [proven
 - [Design direction (German)](Docs/DESIGN.md)
 - [Validation record (German)](Docs/VALIDATION.md)
 - [Home](Docs/Previews/Home-iPhone-DE.png), [iPhone — light](Docs/Previews/Game-iPhone-Light.png), [dark](Docs/Previews/Game-iPhone-Dark.png), [landscape](Docs/Previews/Game-iPhone-Landscape.png), [iPad](Docs/Previews/Game-iPad-Light.png)
+
+## Licensing and source distribution
+
+Copyright © 2026 Fabian Amos / AmoSystems for original Muehlenstein work. This independent Sanmill fork is licensed under AGPL-3.0-or-later. See [the license review](Docs/LICENSE_REVIEW.md), [own App Store permission](APP_STORE_PERMISSION.txt) and preserved upstream terms. Third-party licenses remain applicable. `Scripts/generate-license-notices.py --check` verifies the locked dependency inventory and bundled notices on every engine build. New dependencies require review. A public source repository is not an App Store legal or technical release approval.

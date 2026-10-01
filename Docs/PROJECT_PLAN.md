@@ -31,7 +31,7 @@ Die nächste Arbeit erweitert damit vor allem die Verlässlichkeit des bestätig
 
 Fortschritt: Die Punkte 1 und 2 sind mit festen Referenzpartien, ergänzenden Regelprüfungen und App-Unterbrechungstests lokal geprüft. Ein Fehler in der Zugliste bei bereits ausgewähltem Stein wurde reproduziert und korrigiert. Der erste vollständige Gerätelauf auf iPhone 18 Pro / iOS 27.0.1 besteht, ebenso die Nachprüfungen verbesserter Bedienflächen und echter Textvergrößerung. Erste CPU-/Speichermessungen sind archiviert. Punkt 3 bleibt für weitere Geräte, ältere iOS-Versionen, manuelles VoiceOver, offene Inspector-Befunde und Energie über längere Partien offen. Die Einzelbefunde stehen in `VALIDATION.md`.
 
-## Aktuelle Priorität: Kontrast und App-Icon
+## Abgeschlossene Gestaltungsetappe: Kontrast und App-Icon
 
 Auf Wunsch vom 30.09.2026 folgen jetzt die Kontrastprüfung und das App-Icon. Vollständige VoiceOver-Abnahme und Akkutests werden vorläufig zurückgestellt. Das ist eine Umpriorisierung, keine Abnahme dieser offenen Punkte.
 
@@ -47,7 +47,7 @@ Das geprüfte klassische Eröffnungsbuch ist seit 01.10.2026 umgesetzt: 109 Stel
 
 Die ursprünglichen 70–110 Personentage sind die erste Planungsspanne für das gesamte Offline-Produkt. Dieser Prototyp erfüllt noch nicht diesen Gesamtumfang. Nach Geräteintegration und genauer Funktionsabnahme neu schätzen. Die vorläufige Netzwerkplanung bleibt separat: 4–7 Wochen mit Game Center oder 8–14 Wochen mit eigenem Dienst, abhängig vom Umfang.
 
-Bundle-Identifier `org.amosystems.Muehlenstein` und das vorhandene Developer-Team sind im lokalen Projekt dauerhaft konfiguriert. Für eine Veröffentlichung fehlen unter anderem der bestätigte Store-Datensatz, ein öffentliches Quellrepository, Support-Kontakt und die abschließende Rechteprüfung. Für weitere Simulatorarbeit werden keine Zugangsdaten benötigt. Store-Eintrag, Domain und Marke wurden nicht reserviert; kein Repository wurde veröffentlicht.
+Bundle-Identifier `org.amosystems.Muehlenstein` und das vorhandene Developer-Team sind im lokalen Projekt dauerhaft konfiguriert. Quellrepository, Impressum, Kontakt, Versionsanzeige und Lizenznachweise sind vorbereitet bzw. veröffentlicht; der genaue Prüfstand und die verbleibende Dritt-Rechtefrage stehen in `LICENSE_REVIEW.md`. Für eine Binärveröffentlichung fehlen unter anderem der bestätigte Store-Datensatz und die abschließenden Vertriebs-/Datenschutzprüfungen. Für weitere Simulatorarbeit werden keine Zugangsdaten benötigt. Store-Eintrag, neue App-Domain und Marke wurden nicht reserviert. Quellrepository: https://github.com/MrFam0s/Muehlenstein.
 
 ## Tatsächliche Funktionsabdeckung
 

@@ -4,6 +4,26 @@ import UIKit
 @testable import Muehlenstein
 
 final class GameStoreTests: XCTestCase {
+    func testBuildInformationUsesBundleValuesAndLicensesAreBundled() throws {
+        let build = AppInformation.Build(info: ["CFBundleShortVersionString": "1.2.3", "CFBundleVersion": "42", "CFBundleIdentifier": "test.app"])
+        XCTAssertEqual(build.version, "1.2.3")
+        XCTAssertEqual(build.number, "42")
+        XCTAssertEqual(build.identifier, "test.app")
+        XCTAssertEqual(AppInformation.Build(info: [:]).number, "–")
+        XCTAssertFalse(AppInformation.build.version.contains("$("))
+        XCTAssertFalse(AppInformation.build.number.contains("$("))
+        let notices = try LicenseNotice.load()
+        XCTAssertEqual(notices.count, 20)
+        XCTAssertTrue(notices.contains { $0.title == "Sanmill" && $0.text?.contains("additional permission") == true })
+        XCTAssertTrue(notices.contains { $0.title.hasPrefix("unicode-ident") && $0.text?.contains("UNICODE") == true })
+        let rust = try XCTUnwrap(notices.first { $0.title.hasPrefix("Rust ") })
+        XCTAssertGreaterThan(try XCTUnwrap(rust.children).count, 100)
+        for item in rust.children ?? [] {
+            XCTAssertFalse(item.text?.isEmpty ?? true)
+            XCTAssertLessThanOrEqual(item.text?.count ?? 0, 24000)
+        }
+    }
+
     @MainActor func testProgressDelayDoesNotFlashAndCancelsPendingTimer() async throws {
         let progress = DelayedSearchProgress()
         progress.start(after: .milliseconds(80))

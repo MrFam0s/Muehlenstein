@@ -3,6 +3,39 @@ import XCTest
 import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    @MainActor func testAboutShowsVersionImprintSourceAndBundledNotices() {
+        let app = launch()
+        app.buttons["about"].tap()
+        XCTAssertTrue(app.staticTexts["about_version"].label.contains("Version 0.1.0 · Build 2"))
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("About-Overview", app: app)
+        app.buttons["imprint"].tap()
+        var imprint = ""
+        for _ in 0..<8 {
+            imprint += app.textViews.firstMatch.value as? String ?? ""
+            let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
+            if !next.exists { break }
+            next.tap()
+        }
+        for text in ["Fabian Amos", "Christburger Str. 15/2", "10405 Berlin", "info@fabianamos.com", "DE272109895"] {
+            XCTAssertTrue(imprint.contains(text))
+        }
+        XCTAssertTrue(app.buttons["contact_email"].exists)
+        XCTAssertTrue(app.buttons["website"].exists)
+        record("About-Imprint", app: app)
+        app.navigationBars["Impressum & Kontakt"].buttons.element(boundBy: 0).tap()
+        app.buttons["credits"].tap()
+        XCTAssertTrue(app.buttons["source_code"].exists)
+        XCTAssertTrue(app.buttons["Sanmill"].exists)
+        app.navigationBars["Herkunft & Quellcode"].buttons.element(boundBy: 0).tap()
+        app.buttons["third_party"].tap()
+        XCTAssertTrue(app.buttons["license-1"].waitForExistence(timeout: 5))
+        app.buttons["license-1"].tap()
+        XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("Sanmill") == true)
+        XCTAssertEqual(app.scrollViews.count, 0)
+        record("About-License-Notice", app: app)
+    }
+
     @MainActor func testLargeTextHintsAndPagedGridsInLandscape() {
         XCUIDevice.shared.orientation = .landscapeLeft
         defer { XCUIDevice.shared.orientation = .portrait }
@@ -560,7 +593,7 @@ final class MuehlensteinUITests: XCTestCase {
                                "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
         app.buttons["about"].tap()
-        for _ in 0..<3 {
+        for _ in 0..<6 {
             if app.buttons["license"].exists && app.buttons["license"].isHittable { break }
             app.buttons["next_page"].tap()
         }

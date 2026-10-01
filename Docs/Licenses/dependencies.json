@@ -1,0 +1,281 @@
+{
+  "target": "aarch64-apple-ios",
+  "cargo_lock_sha256": "3ae111f0c41342fa32348ab14ceb13cd9ef6529c488eaf5ed42d8c13e1917018",
+  "sanmill_revision": "8901a06f088bf49a1602fee8686ed25ac5a33925",
+  "verified_vendor_files": 86,
+  "rust_version": "1.98.1",
+  "rust_library_notices_sha256": "68129500b616d5838629e68f55ff3aed5e096dacf60ce9eb41bbe599a563afa6",
+  "packages": [
+    {
+      "name": "arrayvec",
+      "version": "0.7.8",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/bluss/arrayvec",
+      "notices": {
+        "LICENSE-APACHE": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+        "LICENSE-MIT": "4da95ec4ecb65b738d470b7d762894ad9c97da93e6cbfb18b570fc2c96f4b871"
+      },
+      "source": "https://crates.io/crates/arrayvec/0.7.8"
+    },
+    {
+      "name": "crossbeam-channel",
+      "version": "0.5.17",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/crossbeam-rs/crossbeam",
+      "notices": {
+        "LICENSE-APACHE": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+        "LICENSE-MIT": "5734ed989dfca1f625b40281ee9f4530f91b2411ec01cb748223e7eb87e201ab",
+        "LICENSE-THIRD-PARTY": "b16db96b93b1d7cf7bea533f572091ec6bca3234fbe0a83038be772ff391a44c"
+      },
+      "source": "https://crates.io/crates/crossbeam-channel/0.5.17"
+    },
+    {
+      "name": "crossbeam-utils",
+      "version": "0.8.23",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/crossbeam-rs/crossbeam",
+      "notices": {
+        "LICENSE-APACHE": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+        "LICENSE-MIT": "5734ed989dfca1f625b40281ee9f4530f91b2411ec01cb748223e7eb87e201ab"
+      },
+      "source": "https://crates.io/crates/crossbeam-utils/0.8.23"
+    },
+    {
+      "name": "itoa",
+      "version": "1.0.18",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/dtolnay/itoa",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/itoa/1.0.18"
+    },
+    {
+      "name": "memchr",
+      "version": "2.8.3",
+      "license": "Unlicense OR MIT",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/BurntSushi/memchr",
+      "notices": {
+        "LICENSE-MIT": "0f96a83840e146e43c0ec96a22ec1f392e0680e6c1226e6f3ba87e0740af850f",
+        "UNLICENSE": "7e12e5df4bae12cb21581ba157ced20e1986a0508dd10d0e8a4ab9a4cf94e85c"
+      },
+      "source": "https://crates.io/crates/memchr/2.8.3"
+    },
+    {
+      "name": "muehlenstein-engine",
+      "version": "0.1.0",
+      "license": "AGPL-3.0-or-later",
+      "roles": [
+        "runtime"
+      ]
+    },
+    {
+      "name": "proc-macro2",
+      "version": "1.0.107",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "build"
+      ],
+      "repository": "https://github.com/dtolnay/proc-macro2",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/proc-macro2/1.0.107"
+    },
+    {
+      "name": "quote",
+      "version": "1.0.47",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "build"
+      ],
+      "repository": "https://github.com/dtolnay/quote",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/quote/1.0.47"
+    },
+    {
+      "name": "serde",
+      "version": "1.0.229",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/serde-rs/serde",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/serde/1.0.229"
+    },
+    {
+      "name": "serde_core",
+      "version": "1.0.229",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/serde-rs/serde",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/serde_core/1.0.229"
+    },
+    {
+      "name": "serde_derive",
+      "version": "1.0.229",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "build"
+      ],
+      "repository": "https://github.com/serde-rs/serde",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/serde_derive/1.0.229"
+    },
+    {
+      "name": "serde_json",
+      "version": "1.0.151",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/serde-rs/json",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/serde_json/1.0.151"
+    },
+    {
+      "name": "syn",
+      "version": "2.0.119",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "build"
+      ],
+      "repository": "https://github.com/dtolnay/syn",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/syn/2.0.119"
+    },
+    {
+      "name": "syn",
+      "version": "3.0.6",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "build"
+      ],
+      "repository": "https://github.com/dtolnay/syn",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/syn/3.0.6"
+    },
+    {
+      "name": "tgf-core",
+      "version": "0.1.0",
+      "license": "AGPL-3.0-or-later",
+      "roles": [
+        "runtime"
+      ]
+    },
+    {
+      "name": "tgf-mill",
+      "version": "0.1.0",
+      "license": "AGPL-3.0-or-later",
+      "roles": [
+        "runtime"
+      ]
+    },
+    {
+      "name": "tgf-search",
+      "version": "0.1.0",
+      "license": "AGPL-3.0-or-later",
+      "roles": [
+        "runtime"
+      ]
+    },
+    {
+      "name": "thiserror",
+      "version": "1.0.69",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/dtolnay/thiserror",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/thiserror/1.0.69"
+    },
+    {
+      "name": "thiserror-impl",
+      "version": "1.0.69",
+      "license": "MIT OR Apache-2.0",
+      "roles": [
+        "build"
+      ],
+      "repository": "https://github.com/dtolnay/thiserror",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/thiserror-impl/1.0.69"
+    },
+    {
+      "name": "unicode-ident",
+      "version": "1.0.26",
+      "license": "(MIT OR Apache-2.0) AND Unicode-3.0",
+      "roles": [
+        "build"
+      ],
+      "repository": "https://github.com/dtolnay/unicode-ident",
+      "notices": {
+        "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+        "LICENSE-UNICODE": "f7db81051789b729fea528a63ec4c938fdcb93d9d61d97dc8cc2e9df6d47f2a1"
+      },
+      "source": "https://crates.io/crates/unicode-ident/1.0.26"
+    },
+    {
+      "name": "zmij",
+      "version": "1.0.23",
+      "license": "MIT",
+      "roles": [
+        "runtime"
+      ],
+      "repository": "https://github.com/dtolnay/zmij",
+      "notices": {
+        "LICENSE-MIT": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+      },
+      "source": "https://crates.io/crates/zmij/1.0.23"
+    }
+  ]
+}
