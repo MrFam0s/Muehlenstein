@@ -4,6 +4,8 @@
 
 This is an **offline development prototype**, not an App Store release. The agreed business model is a paid download, targeting €0.99 in Germany, with the corresponding complete source available under AGPL-3.0-or-later.
 
+[App Store preparation](Store/README.md) includes bilingual product copy, original iPhone/iPad screenshots, public [support](Docs/SUPPORT.md) and [privacy information](Docs/PRIVACY.md), and a validated local Release archive. Nothing has been submitted to Apple.
+
 ## Run
 
 Requirements: Apple Silicon Mac, Xcode 27 (iOS 18 deployment target), Python 3, Cargo. The official Rust 1.98.1 compiler and iOS libraries are isolated inside `.build`; no global Rust installation is changed.

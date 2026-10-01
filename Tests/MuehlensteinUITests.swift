@@ -3,6 +3,33 @@ import XCTest
 import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    @MainActor func testStoreScreenshots() {
+        XCUIDevice.shared.orientation = .portrait
+        for language in ["de", "en"] {
+            let app = XCUIApplication()
+            app.launchArguments = ["-ui-testing", "-ui-appearance", "light", "-AppleLanguages", "(\(language))",
+                                   "-AppleLocale", language == "de" ? "de_DE" : "en_US"]
+            app.launch()
+            XCTAssertTrue(app.buttons["new_game"].waitForExistence(timeout: 5))
+            record("Store-\(language)-01-Home", app: app)
+            app.buttons["new_game"].tap()
+            XCTAssertTrue(app.buttons["start_game"].waitForExistence(timeout: 5))
+            assertVariantsVisible(app)
+            record("Store-\(language)-02-Setup", app: app)
+            app.terminate()
+            app.launchArguments += ["-ui-demo"]
+            app.launch()
+            XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 5))
+            XCTAssertEqual(app.scrollViews.count, 0)
+            record("Store-\(language)-03-Game", app: app)
+            app.buttons["hint"].tap()
+            XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+            XCTAssertFalse(app.progressIndicators["search_progress"].exists)
+            record("Store-\(language)-04-Hint", app: app)
+            app.terminate()
+        }
+    }
+
     @MainActor func testAboutShowsVersionImprintSourceAndBundledNotices() {
         let app = launch()
         app.buttons["about"].tap()

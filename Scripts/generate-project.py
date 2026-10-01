@@ -7,6 +7,7 @@ Existing build settings, configurations, capabilities, targets and schemes are r
 """
 import hashlib
 import json
+import plistlib
 from pathlib import Path
 import subprocess
 
@@ -64,18 +65,39 @@ def synchronize(project, root):
             key = identity('build:' + path)
             objects[key] = {'isa': 'PBXBuildFile', 'fileRef': ref}
             phase['files'].append(key)
+
+    # The privacy manifest must be at the root of the app bundle, not nested
+    # inside the Legal folder reference. Preserve all existing target settings.
+    path = 'App/Resources/PrivacyInfo.xcprivacy'
+    if (root / path).exists():
+        if path not in references:
+            parent = folder('App/Resources')
+            ref = identity('file:' + path)
+            objects[ref] = {'isa': 'PBXFileReference', 'lastKnownFileType': 'text.xml',
+                            'path': 'PrivacyInfo.xcprivacy', 'sourceTree': '<group>'}
+            objects[parent]['children'].append(ref)
+            references[path] = ref
+        ref = references[path]
+        phase = next(objects[k] for k in targets['Muehlenstein']['buildPhases']
+                     if objects[k]['isa'] == 'PBXResourcesBuildPhase')
+        if not any(objects[k]['fileRef'] == ref for k in phase['files']):
+            key = identity('build:' + path)
+            objects[key] = {'isa': 'PBXBuildFile', 'fileRef': ref}
+            phase['files'].append(key)
     return project
 
 
 if __name__ == '__main__':
     if not PROJECT.exists():
         raise SystemExit('Restore the checked-in Muehlenstein.xcodeproj; this script does not recreate project settings.')
-    old = json.loads(subprocess.check_output(['plutil', '-convert', 'json', '-o', '-', str(PROJECT)]))
+    try:
+        old = plistlib.loads(PROJECT.read_bytes())
+    except plistlib.InvalidFileException:
+        old = json.loads(subprocess.check_output(['plutil', '-convert', 'json', '-o', '-', str(PROJECT)]))
     before = json.dumps(old, sort_keys=True)
     updated = synchronize(old, ROOT)
     if json.dumps(updated, sort_keys=True) != before:
         # Xcode accepts XML plists; retain standard OpenStep formatting when no write is needed.
-        import plistlib
         PROJECT.write_bytes(plistlib.dumps(updated, sort_keys=False))
         print('Added missing source references; existing project settings preserved.')
     else:

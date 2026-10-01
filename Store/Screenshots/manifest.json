@@ -1,0 +1,114 @@
+[
+  {
+    "path": "de-DE/iPad-13/01-Game.png",
+    "device": "iPad Pro 13-inch (M5)",
+    "width": 2064,
+    "height": 2752,
+    "sha256": "24c862aa5cdb32a5d45c2d557aa4ddf541e8cbef659e15d0130e0dd47c8db144"
+  },
+  {
+    "path": "de-DE/iPad-13/02-Hint.png",
+    "device": "iPad Pro 13-inch (M5)",
+    "width": 2064,
+    "height": 2752,
+    "sha256": "ff40e7e81d5dbf1dcb71cbfc42ac9208a6c625f6b4c05865c9d2dfd25e4a74e3"
+  },
+  {
+    "path": "de-DE/iPad-13/03-Setup.png",
+    "device": "iPad Pro 13-inch (M5)",
+    "width": 2064,
+    "height": 2752,
+    "sha256": "a46c45b7d48f5a4a6c8273c5a5d74b9af4f6ec07dcc17ab105d98f800c94ef30"
+  },
+  {
+    "path": "de-DE/iPad-13/04-Home.png",
+    "device": "iPad Pro 13-inch (M5)",
+    "width": 2064,
+    "height": 2752,
+    "sha256": "7c655a103c0ad90eaebb5d94f4893dbda2c705656e9bc8f15e9b66e497912bbf"
+  },
+  {
+    "path": "de-DE/iPhone-6.9/01-Game.png",
+    "device": "iPhone 18 Pro Max",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "186f3e5785f528fe3ed261bbcea77aa2142f270bc73b33f4ff22a584868ea140"
+  },
+  {
+    "path": "de-DE/iPhone-6.9/02-Hint.png",
+    "device": "iPhone 18 Pro Max",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "1a27931f62edcfca68e5b63254c62bdb3e65189028f95ae4a1b9f10b5bcc4514"
+  },
+  {
+    "path": "de-DE/iPhone-6.9/03-Setup.png",
+    "device": "iPhone 18 Pro Max",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "fe866fb5e85f90a22ecb41ddfa29b984a480317c31f085769e90384882a9d78a"
+  },
+  {
+    "path": "de-DE/iPhone-6.9/04-Home.png",
+    "device": "iPhone 18 Pro Max",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "f12c55d525dfda41d5074ae82f334a0fae26882f65beed4055ba98428c77ba38"
+  },
+  {
+    "path": "en-US/iPad-13/01-Game.png",
+    "device": "iPad Pro 13-inch (M5)",
+    "width": 2064,
+    "height": 2752,
+    "sha256": "c4f6ffea88d498d910b142a468c4d0897282c34d77139e26f02ee0aed56e50c8"
+  },
+  {
+    "path": "en-US/iPad-13/02-Hint.png",
+    "device": "iPad Pro 13-inch (M5)",
+    "width": 2064,
+    "height": 2752,
+    "sha256": "95f07342f9fb4b30413eec42b9d8c20f2db1885cbe054ee5543367a73ad0c24e"
+  },
+  {
+    "path": "en-US/iPad-13/03-Setup.png",
+    "device": "iPad Pro 13-inch (M5)",
+    "width": 2064,
+    "height": 2752,
+    "sha256": "6073de79f51688899e5ec2afacf9c45a8504401db6e4f5a4e1f699c069a245d7"
+  },
+  {
+    "path": "en-US/iPad-13/04-Home.png",
+    "device": "iPad Pro 13-inch (M5)",
+    "width": 2064,
+    "height": 2752,
+    "sha256": "6c3f7cd0187d13fc9664abf4526320dcd40fc48a76e14a1e3a37bf3f9620ca58"
+  },
+  {
+    "path": "en-US/iPhone-6.9/01-Game.png",
+    "device": "iPhone 18 Pro Max",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "dbfd43f3db95099f634b61e1eaa540e464d4e35d408a768ef9cfd7d741517b90"
+  },
+  {
+    "path": "en-US/iPhone-6.9/02-Hint.png",
+    "device": "iPhone 18 Pro Max",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "b7919df98ad67e1acc3b029b785fcf7dc84d119f944e4c4ed1f91b76d774c2d3"
+  },
+  {
+    "path": "en-US/iPhone-6.9/03-Setup.png",
+    "device": "iPhone 18 Pro Max",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "e6c395ca35ea96e9c6b403976103a0f3d2a4cbc0f90a1a850ab3e7c1c647b97a"
+  },
+  {
+    "path": "en-US/iPhone-6.9/04-Home.png",
+    "device": "iPhone 18 Pro Max",
+    "width": 1320,
+    "height": 2868,
+    "sha256": "35045f7364e1cf3a4853796fa294000ae75f037904ee273e9e569f520904ad36"
+  }
+]

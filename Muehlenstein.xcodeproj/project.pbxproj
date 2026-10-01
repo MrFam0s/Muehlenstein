@@ -376,6 +376,7 @@
 				<string>D63CB1F9ACC0CAA539159FC9</string>
 				<string>3AA005BAB8DC9F2DD1BD1BCC</string>
 				<string>3C7890D92D23FEACFE43F018</string>
+				<string>B0E5D18AB35E9BE77584F6F2</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -1212,6 +1213,7 @@
 				<string>9A31A73967D3CB1B13E06828</string>
 				<string>81992F0C9DB6F92D5F371CE2</string>
 				<string>9F6AA29DB5F154641000169D</string>
+				<string>7BB87A1DD03CE2DFAFA930F4</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
@@ -1504,6 +1506,24 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>3C7890D92D23FEACFE43F018</string>
+		</dict>
+		<key>B0E5D18AB35E9BE77584F6F2</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xml</string>
+			<key>path</key>
+			<string>PrivacyInfo.xcprivacy</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7BB87A1DD03CE2DFAFA930F4</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>B0E5D18AB35E9BE77584F6F2</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

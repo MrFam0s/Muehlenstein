@@ -7,6 +7,17 @@ Dies ist eine technische Quellen-/Lizenzprüfung, keine anwaltliche Zusicherung
 
 ## Ergebnis und Grenzen
 
+**Projektentscheidung vom 01.10.2026:** Der Projektinhaber bevorzugt die
+Veröffentlichung der bestehenden App, solange kein konkreter entgegenstehender
+Lizenzbefund vorliegt. Die ausdrückliche Sanmill-Zusatzgenehmigung ist die
+Vertriebsgrundlage, nicht lediglich das Fehlen eines Verbots. Die Nachprüfung
+hat keinen solchen konkreten Gegenbefund nachgewiesen; sie hat zugleich die
+historische Rechtekette nicht vollständig bestätigt. Deshalb wird keine
+vorsorgliche Komplettentwicklung begonnen. Die folgenden Restunsicherheiten
+bleiben unverändert dokumentiert. Zunächst wird nur die Veröffentlichung
+vorbereitet; es erfolgt noch kein Upload oder Store-Release. Das Repository
+bleibt als frei zugänglicher Quellkanal öffentlich.
+
 Der vorliegende Quellstand kann nach den gefundenen Lizenzangaben als
 unabhängiger AGPL-3.0-or-later-Fork veröffentlicht werden. Ein Verkaufspreis
 von 0,99 € ist mit diesem Open-Source-Modell vereinbar; die Empfänger behalten
