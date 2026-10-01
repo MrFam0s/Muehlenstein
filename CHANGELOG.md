@@ -2,9 +2,16 @@
 
 ## Noch nicht markierte Änderungen
 
+- Logo und Name auf der Startseite sitzen mittig zwischen Werkzeugleiste und
+  Vorschaubrett, ergänzt um die kleine Unterzeile „Mühle. Zug für Zug.“ bzw.
+  „Morris. Move by move.“.
+- „Über Mühlenstein“, Impressum, Datenschutz, Herkunft und Lizenzinformationen
+  sind durchgehend scrollbar. Klar gegliederte Abschnitte, lesbare Textbreiten
+  und Blocksatz mit Silbentrennung bei ausreichend breiten Zeilen verbessern
+  den Textfluss. Bei schmalen Zeilen und großer Schrift bleibt Text linksbündig.
+
 - Impressum mit „Entwickelt mit ♥ in Berlin“ bzw. „Developed with ♥ in Berlin“.
-- Startseite als mittig angeordnete Gruppe aus Logo/Titel, Vorschaubrett und
-  Startknöpfen. In der Partie sind Vorratsanzeige und Bedienleiste im Hochformat
+- In der Partie sind Vorratsanzeige und Bedienleiste im Hochformat
   auf die Brettbreite abgestimmt; das Brett sitzt mit gleichen Abständen
   dazwischen. Im Querformat stehen Status und Bedienelemente mittig neben dem Brett.
 - Klare Einstellungswege: Regelbuch statt Zahnrad auf der Startseite; Darstellung

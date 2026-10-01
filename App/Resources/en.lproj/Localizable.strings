@@ -164,3 +164,15 @@
 "lasker_choice" = "Lasker";
 "variant_help" = "About variants";
 "variant_help_body" = "Nine Men’s Morris · 9 stones\nEach side begins with nine stones. The corners of the squares have no diagonal connections.\n\nTwelve Men’s Morris · 12 stones\nTwelve stones per side. Diagonal lines also connect the corners of the squares and can form mills.\n\nMorabaraba · 12 stones\nTwelve stones and diagonal lines. A move that forms multiple new mills allows multiple captures.\n\nLasker Morris · 10 stones\nTen stones per side. During placement you may instead move one of your stones to an adjacent empty point.";
+
+// Home and informational reading pages
+"home_subtitle" = "Morris. Move by move.";
+"about_provider" = "Provider";
+"about_technical" = "Technical details";
+"privacy_play" = "Play privately";
+"privacy_device" = "On your device";
+"privacy_external" = "External links & contact";
+"credits_design" = "Independently designed";
+"credits_engine" = "Game engine & AI";
+"credits_license" = "Free software";
+"about_vat" = "VAT identification";

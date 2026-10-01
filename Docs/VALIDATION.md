@@ -269,6 +269,55 @@ mit Simulatorzugriff ersetzte ihn. Keine neue physische Geräte-, VoiceOver- ode
 Akkuprüfung. Tag `v1.0`, sein Gerätearchiv und die Store-Screenshots bleiben historische
 Stände; vor dem nächsten Upload sind Archiv und Store-Aufnahmen zu erneuern.
 
+## Startmarke und scrollbare Informationsseiten — 01.10.2026
+
+Logo und Name stehen auf der Startseite höher im freien Bereich zwischen
+Werkzeugleiste und Brett. Die dezente Unterzeile lautet „Mühle. Zug für Zug.“
+bzw. „Morris. Move by move.“; bei sehr großer Schrift entfällt sie zugunsten
+der Bedienelemente. Die Spielansicht bleibt unverändert und ohne Scrollbereich.
+
+Die Übersicht „Über Mühlenstein“ und ihre Informationsrubriken verwenden nun
+Scrollbereiche statt Seitensteuerungen. Anbieter, Kontakt, Umsatzsteuer-ID und
+Berlin-Hinweis bilden getrennte Abschnitte. Datenschutz und Herkunft erhalten
+Zwischenüberschriften; technische Angaben sind aufklappbar. Fließtext nutzt
+Silbentrennung und auf breiten Zeilen Blocksatz. Die erste Sichtprüfung zeigte
+auf dem iPhone zu große Wortabstände; dort und bei großer Schrift bleibt Text
+nun linksbündig. Die Lizenzdateien und Autorenangaben bleiben inhaltlich
+unverändert und sind vollständig scrollbar zugänglich. Regeln, Spielhilfen
+und Zugverlauf behalten ihre bisherige Bedienung.
+
+**Prüfungen:** Release-Simulatorbuild erfolgreich. Im ersten iPhone-Lauf bestehen
+Start/Neue Partie, deutsche Startseite mit gespeicherter Partie, englische
+Startseite und englisches Impressum sowie feste Brettziele. Der Modelltest für
+Versionsdaten und vollständige eingebundene Lizenzhinweise besteht ebenfalls
+(`.build/Info-Reading-iPhone.xcresult`). Die angepassten Infoseiten-Tests suchten
+zunächst nach Buttons statt nativen Links und erwarteten für TextKit-Absätze
+nur einen statt zwei Accessibility-Knoten; diese Testannahmen wurden korrigiert.
+Die vollständige Navigation durch Übersicht, Impressum, Datenschutz, Herkunft
+und Lizenzhinweise besteht anschließend (`.build/Info-Reading-iPhone-Final.xcresult`).
+Die zugehörigen Originalaufnahmen wurden visuell geprüft.
+
+Der erste iPad-Lauf bestätigt weiterhin feste Brettziele und die Start-/Spiel-
+und Konfigurationsansichten in beiden Ausrichtungen; er enthielt dieselben
+korrigierten Testannahmen. Nach Testende hing die Diagnoseerfassung und wurde
+beendet; das Testprotokoll bleibt unter `.build/Info-Reading-iPad.log` erhalten.
+Die vollständige Informationsnavigation besteht im korrigierten iPad-Nachlauf
+(`.build/Info-Reading-iPad-Final.xcresult`); Übersicht und breite Lesespalte wurden
+anhand der exportierten Aufnahmen kontrolliert. Der kompakte Simulator startete
+in zwei Anläufen keine Tests zuverlässig; diese Läufe wurden beendet. Sie zählen
+nicht als erfolgreiche Geräteprüfung.
+
+Die größte Schrift besteht auf dem iPhone im abschließenden Projektlauf
+(`.build/Info-Reading-Large-Text-Project.xcresult`): feste Spielziele, erreichbare
+Start- und Konfigurationsaktionen sowie vollständiger, scrollbar zugänglicher
+AGPL-Text im Querformat. Der vorausgehende Start über die gespeicherte
+Testkonfiguration blieb ohne Testbeginn und wurde beendet.
+
+Beide Lokalisierungen bestehen `plutil -lint`; `git diff --check` besteht.
+Keine erneute Prüfung auf physischer Hardware oder vollständige VoiceOver-Abnahme.
+Tag `v1.0`, Archiv und Store-Aufnahmen bleiben historische Stände und müssen vor
+dem nächsten Upload erneuert werden.
+
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.

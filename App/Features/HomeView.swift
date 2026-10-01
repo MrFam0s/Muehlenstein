@@ -70,11 +70,17 @@ struct HomeView: View {
         }
     }
     private var heading: some View {
-        HStack(spacing: 14) {
-            BrandMark()
-            Text(L10n.text("app_name")).font(.system(.largeTitle, design: .serif).weight(.medium))
-                .foregroundStyle(Color.ink).lineLimit(2)
-                .accessibilityIdentifier("home_title")
+        VStack(spacing: 10) {
+            HStack(spacing: 14) {
+                BrandMark()
+                Text(L10n.text("app_name")).font(.system(.largeTitle, design: .serif).weight(.medium))
+                    .foregroundStyle(Color.ink).lineLimit(2)
+                    .accessibilityIdentifier("home_title")
+            }
+            if !dynamicType.isAccessibilitySize {
+                Text(L10n.text("home_subtitle")).font(.subheadline).tracking(0.6)
+                    .foregroundStyle(Color.quietInk).multilineTextAlignment(.center)
+            }
         }.frame(maxWidth: .infinity)
     }
     private var illustration: some View {
@@ -113,7 +119,7 @@ struct HomeView: View {
 
 }
 
-/// Keep the brand, illustration and actions together. Measure text first so
+/// Center the brand in the space above the board. Measure text first so
 /// the board yields space on short screens and at larger text sizes.
 private struct HomeComposition: Layout {
     let spacing: CGFloat
@@ -133,9 +139,11 @@ private struct HomeComposition: Layout {
         let gaps = spacing * (side > 0 ? 2 : 1)
         let height = headingHeight + side + actionsHeight + gaps
         let top = bounds.midY - height / 2
-        subviews[0].place(at: CGPoint(x: bounds.midX, y: top), anchor: .top,
+        let boardTop = top + headingHeight + spacing
+        let brandCenter = side > 0 ? (bounds.minY + boardTop) / 2 : top + headingHeight / 2
+        subviews[0].place(at: CGPoint(x: bounds.midX, y: brandCenter), anchor: .center,
                           proposal: ProposedViewSize(width: width, height: headingHeight))
-        subviews[1].place(at: CGPoint(x: bounds.midX, y: top + headingHeight + spacing), anchor: .top,
+        subviews[1].place(at: CGPoint(x: bounds.midX, y: boardTop), anchor: .top,
                           proposal: ProposedViewSize(width: side, height: side))
         subviews[2].place(at: CGPoint(x: bounds.midX, y: top + headingHeight + gaps + side), anchor: .top,
                           proposal: ProposedViewSize(width: width, height: actionsHeight))

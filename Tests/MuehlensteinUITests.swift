@@ -34,32 +34,41 @@ final class MuehlensteinUITests: XCTestCase {
         let app = launch()
         app.buttons["about"].tap()
         XCTAssertTrue(app.staticTexts["about_version"].label.contains("Version 1.0 · Build 3"))
-        XCTAssertEqual(app.scrollViews.count, 0)
+        XCTAssertTrue(app.scrollViews["about_sections"].exists)
+        XCTAssertFalse(app.buttons["next_page"].exists)
         record("About-Overview", app: app)
         app.buttons["imprint"].tap()
-        var imprint = ""
-        for _ in 0..<8 {
-            imprint += app.textViews.firstMatch.value as? String ?? ""
-            let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
-            if !next.exists { break }
-            next.tap()
+        for text in ["Fabian Amos", "Christburger Str. 15/2", "10405 Berlin", "DE272109895", "Entwickelt mit ♥ in Berlin"] {
+            XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", text)).firstMatch.exists)
         }
-        for text in ["Fabian Amos", "Christburger Str. 15/2", "10405 Berlin", "info@fabianamos.com", "DE272109895", "Entwickelt mit ♥ in Berlin"] {
-            XCTAssertTrue(imprint.contains(text))
-        }
-        XCTAssertTrue(app.buttons["contact_email"].exists)
-        XCTAssertTrue(app.buttons["website"].exists)
+        XCTAssertTrue(app.descendants(matching: .any)["contact_email"].firstMatch.exists)
+        XCTAssertTrue(app.descendants(matching: .any)["website"].firstMatch.exists)
         record("About-Imprint", app: app)
         app.navigationBars["Impressum & Kontakt"].buttons.element(boundBy: 0).tap()
+        app.buttons["privacy"].tap()
+        XCTAssertGreaterThanOrEqual(app.textViews.count, 3)
+        XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("kein Benutzerkonto") == true)
+        XCTAssertFalse(app.buttons["next_page"].exists)
+        record("About-Privacy", app: app)
+        let privacy = app.scrollViews["privacy_content"]
+        scrollTo(app.staticTexts["Externe Links & Kontakt"], in: privacy)
+        privacy.swipeUp()
+        record("About-Privacy-End", app: app)
+        app.navigationBars["Privatsphäre"].buttons.element(boundBy: 0).tap()
         app.buttons["credits"].tap()
-        XCTAssertTrue(app.buttons["source_code"].exists)
-        XCTAssertTrue(app.buttons["Sanmill"].exists)
+        record("About-Credits", app: app)
+        scrollTo(app.descendants(matching: .any)["source_code"].firstMatch, in: app.scrollViews["credits_content"])
+        XCTAssertTrue(app.descendants(matching: .any)["source_code"].firstMatch.isHittable)
+        XCTAssertTrue(app.descendants(matching: .any)["Sanmill"].firstMatch.exists)
+        record("About-Credits-End", app: app)
         app.navigationBars["Herkunft & Quellcode"].buttons.element(boundBy: 0).tap()
         app.buttons["third_party"].tap()
         XCTAssertTrue(app.buttons["license-1"].waitForExistence(timeout: 5))
         app.buttons["license-1"].tap()
-        XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("Sanmill") == true)
-        XCTAssertEqual(app.scrollViews.count, 0)
+        let document = app.textViews["license_document"]
+        XCTAssertTrue((document.value as? String)?.contains("Sanmill") == true)
+        XCTAssertFalse(app.buttons["next_page"].exists)
+        document.swipeUp()
         record("About-License-Notice", app: app)
     }
 
@@ -510,15 +519,15 @@ final class MuehlensteinUITests: XCTestCase {
         add(attachment)
         app.buttons["about"].tap()
         app.buttons["imprint"].tap()
-        var imprint = ""
-        for _ in 0..<8 {
-            imprint += app.textViews.firstMatch.value as? String ?? ""
-            let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
-            if !next.exists { break }
-            next.tap()
-        }
-        XCTAssertTrue(imprint.contains("Developed with ♥ in Berlin"))
+        XCTAssertTrue(app.staticTexts["Developed with ♥ in Berlin"].exists)
         record("About-Imprint-English", app: app)
+    }
+    @MainActor private func scrollTo(_ element: XCUIElement, in scrollView: XCUIElement) {
+        for _ in 0..<12 {
+            if element.exists && element.isHittable { return }
+            scrollView.swipeUp()
+        }
+        XCTAssertTrue(element.isHittable, "Could not scroll to \(element.identifier)")
     }
     @MainActor private func assertVisible(_ element: XCUIElement, in app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
         XCTAssertTrue(element.exists, file: file, line: line)
@@ -581,6 +590,9 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(boardCenter, (reserveBottom + controlsTop) / 2, accuracy: 1,
                        "Center the board between the reserve row and the controls")
         record("Fixed-Game-Portrait", app: app)
+        app.navigationBars.buttons.firstMatch.tap()
+        assertVisible(app.staticTexts["home_title"], in: app)
+        record("Home-With-Saved-Game", app: app)
     }
     @MainActor func testBoardAndSetupFitInLandscape() {
         XCUIDevice.shared.orientation = .landscapeLeft
@@ -649,19 +661,16 @@ final class MuehlensteinUITests: XCTestCase {
                                "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
         app.buttons["about"].tap()
-        for _ in 0..<6 {
-            if app.buttons["license"].exists && app.buttons["license"].isHittable { break }
-            app.buttons["next_page"].tap()
-        }
-        assertVisible(app.buttons["license"], in: app)
+        scrollTo(app.buttons["license"], in: app.scrollViews["about_sections"])
         app.buttons["license"].tap()
-        XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("GNU AFFERO") == true)
-        // NavigationStack may retain the disabled pager of the preceding screen in its AX tree.
-        let next = app.buttons.matching(NSPredicate(format: "identifier == %@ AND enabled == true", "next_page")).firstMatch
-        assertVisible(next, in: app)
-        let firstPage = app.textViews.firstMatch.value as? String
-        next.tap()
-        XCTAssertNotEqual(app.textViews.firstMatch.value as? String, firstPage)
+        let document = app.textViews["license_document"]
+        let fullText = document.value as? String ?? ""
+        XCTAssertTrue(fullText.contains("GNU AFFERO"))
+        XCTAssertTrue(fullText.contains("How to Apply These Terms"))
+        XCTAssertGreaterThan(fullText.count, 30_000)
+        XCTAssertFalse(app.buttons["next_page"].exists)
+        assertVisible(document, in: app)
+        document.swipeUp()
         record("Fixed-License-Largest-Landscape", app: app)
     }
     @MainActor func testRulesUsePagesWithoutScrolling() {

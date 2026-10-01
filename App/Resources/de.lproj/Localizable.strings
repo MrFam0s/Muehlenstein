@@ -164,3 +164,15 @@
 "lasker_choice" = "Lasker";
 "variant_help" = "Spielvarianten erklärt";
 "variant_help_body" = "Klassische Mühle · 9 Steine\nJede Seite beginnt mit neun Steinen. Die Ecken der Quadrate sind nicht diagonal verbunden.\n\nZwölfstein-Mühle · 12 Steine\nZwölf Steine pro Seite. Diagonale Linien verbinden zusätzlich die Ecken der Quadrate; auch dort können Mühlen entstehen.\n\nMorabaraba · 12 Steine\nZwölf Steine und Diagonalen. Wenn ein Zug mehrere neue Mühlen schließt, darfst du entsprechend mehrere gegnerische Steine entfernen.\n\nLasker-Mühle · 10 Steine\nZehn Steine pro Seite. Schon während des Setzens kannst du stattdessen einen deiner Steine auf einen benachbarten freien Punkt ziehen.";
+
+// Home and informational reading pages
+"home_subtitle" = "Mühle. Zug für Zug.";
+"about_provider" = "Anbieter";
+"about_technical" = "Technische Angaben";
+"privacy_play" = "Privat spielen";
+"privacy_device" = "Auf deinem Gerät";
+"privacy_external" = "Externe Links & Kontakt";
+"credits_design" = "Eigenständig gestaltet";
+"credits_engine" = "Spielkern & KI";
+"credits_license" = "Freie Software";
+"about_vat" = "Umsatzsteuer-ID";

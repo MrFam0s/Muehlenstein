@@ -31,7 +31,7 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 - Reproducible paired engine tournaments through the production bridge, with archived results: [2,048-game comparison at the original middle level](Docs/Benchmarks/ERGEBNISSE-2026-09-30.md). No reliable playing-strength advantage was established for either search method under those conditions.
 - [Original-app settings review](Docs/AI_OPTIONS.md) and [576 games across two separate style comparisons](Docs/Benchmarks/SPIELSTILE-2026-10-01.md). Balanced remains the default; database/LLM features are not silently folded into difficulty levels.
 - Cooperative native search cancellation on suspension or game replacement, with stale-result protection.
-- Fixed, scroll-free home, setup and game surfaces in portrait and landscape; centered game status, paged rules and complete license. History uses a responsive two/three-column grid with a separate Game details tab for difficulty and configuration. Legal moves open as a compact paged selection grid.
+- Fixed, scroll-free home, setup and game surfaces in portrait and landscape; centered game status and paged rules. About, privacy, credits and complete license texts use structured, scrollable reading pages. History uses a responsive two/three-column grid with a separate Game details tab for difficulty and configuration. Legal moves open as a compact paged selection grid.
 - German / English names and text, light / dark semantic colors, adaptive iPad layout, labelled board positions for VoiceOver and a separate paged legal-move chooser at accessibility text sizes.
 
 ## Deliberately still pending
