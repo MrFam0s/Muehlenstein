@@ -1,1532 +1,676 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>60</string>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>objects</key>
-	<dict>
-		<key>79E733E174F92F637918EF92</key>
-		<dict>
-			<key>path</key>
-			<string>MuehlensteinUITests.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A4792004C2E59FB590BA10D1</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BE521D749BE05411A1F97F87</string>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>EXCLUDED_ARCHS[sdk=iphonesimulator*]</key>
-				<string>x86_64</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>Muehlenstein</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>NO</string>
-				<key>GENERATE_INFOPLIST_FILE</key>
-				<string>YES</string>
-				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
-				<string>NO</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-O</string>
-				<key>SUPPORTED_PLATFORMS</key>
-				<string>iphoneos iphonesimulator</string>
-				<key>SWIFT_STRICT_CONCURRENCY</key>
-				<string>complete</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>PRODUCT_NAME</key>
-				<string>MuehlensteinUITests</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>$(inherited)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>18.0</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>$(MUEHLENSTEIN_BUNDLE_ID).UITests</string>
-				<key>SWIFT_VERSION</key>
-				<string>6.0</string>
-			</dict>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>8E6C51B6D61EF1666D2DF459</key>
-		<dict>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>en</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>61571F3444EB024BEA54E0A2</key>
-		<dict>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Debug</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-			<key>buildConfigurations</key>
-			<array>
-				<string>EC640946B366E84188B81D3C</string>
-				<string>9BF690CC61510DB0C11EF4E5</string>
-			</array>
-		</dict>
-		<key>1894D5E428C56E252F014952</key>
-		<dict>
-			<key>path</key>
-			<string>Configuration</string>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>children</key>
-			<array>
-				<string>BE521D749BE05411A1F97F87</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9813BE3C10227B9B8F5EB3BF</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BE521D749BE05411A1F97F87</string>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>EXCLUDED_ARCHS[sdk=iphonesimulator*]</key>
-				<string>x86_64</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>Muehlenstein</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GENERATE_INFOPLIST_FILE</key>
-				<string>YES</string>
-				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
-				<string>NO</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>SUPPORTED_PLATFORMS</key>
-				<string>iphoneos iphonesimulator</string>
-				<key>SWIFT_STRICT_CONCURRENCY</key>
-				<string>complete</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>PRODUCT_NAME</key>
-				<string>MuehlensteinUITests</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>DEBUG=1</string>
-				</array>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>18.0</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>$(MUEHLENSTEIN_BUNDLE_ID).UITests</string>
-				<key>SWIFT_VERSION</key>
-				<string>6.0</string>
-			</dict>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>E72685212AF966A85FF3F9E9</key>
-		<dict>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F5C1C08DF666AEF785500F57</key>
-		<dict>
-			<key>name</key>
-			<string>Build Sanmill engine</string>
-			<key>inputPaths</key>
-			<array/>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>shellPath</key>
-			<string>/bin/bash</string>
-			<key>outputPaths</key>
-			<array>
-				<string>$(SRCROOT)/Engine/Artifacts/$(PLATFORM_NAME)/libmuehlenstein_engine.a</string>
-			</array>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellScript</key>
-			<string>bash "$SRCROOT/Scripts/build-engine.sh" "$PLATFORM_NAME"
-</string>
-			<key>files</key>
-			<array/>
-			<key>alwaysOutOfDate</key>
-			<string>1</string>
-		</dict>
-		<key>F8D779B365B7E9AC077DE169</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FD43C407C2297B6861C8265</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9BF690CC61510DB0C11EF4E5</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BE521D749BE05411A1F97F87</string>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>EXCLUDED_ARCHS[sdk=iphonesimulator*]</key>
-				<string>x86_64</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>$(inherited)</string>
-				<key>SUPPORTED_PLATFORMS</key>
-				<string>iphoneos iphonesimulator</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>$(MUEHLENSTEIN_BUNDLE_ID)</string>
-				<key>ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME</key>
-				<string>AccentColor</string>
-				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
-				<string>NO</string>
-				<key>SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD</key>
-				<string>NO</string>
-				<key>SUPPORTS_MACCATALYST</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>SUPPORTED_DEVICE_FAMILIES</key>
-				<string>1,2</string>
-				<key>OTHER_LDFLAGS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>-lmuehlenstein_engine</string>
-					<string>-lc++</string>
-					<string>-framework</string>
-					<string>Security</string>
-					<string>-framework</string>
-					<string>SystemConfiguration</string>
-				</array>
-				<key>LIBRARY_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>$(SRCROOT)/Engine/Artifacts/$(PLATFORM_NAME)</string>
-				</array>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-O</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>NO</string>
-				<key>SWIFT_VERSION</key>
-				<string>6.0</string>
-				<key>PRODUCT_NAME</key>
-				<string>Muehlenstein</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>18.0</string>
-				<key>SWIFT_STRICT_CONCURRENCY</key>
-				<string>complete</string>
-				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
-				<string>App/Core/MuehlensteinEngine.h</string>
-				<key>INFOPLIST_FILE</key>
-				<string>App/Info.plist</string>
-			</dict>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>5FABA259E27DDFF01196A301</key>
-		<dict>
-			<key>fileRef</key>
-			<string>414B8F7954FFC04D0C598364</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>31FF890E3D9FAEC31832EDD5</key>
-		<dict>
-			<key>path</key>
-			<string>GameStore.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>60E3AB5054ED2E9EFFF6F953</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6E7EEC5AAC8618565493DEFD</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>EE214CB0541CADECB3B5CA9A</key>
-		<dict>
-			<key>path</key>
-			<string>Design</string>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>children</key>
-			<array>
-				<string>05D2CB08715C9B8C7DA9079D</string>
-				<string>9DFB4F70043871F9D97ECA9F</string>
-				<string>0FCFA4E149973B1E78FFDA4B</string>
-				<string>04A0B316563586286592CE00</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A8792157CB4F27FB949C035F</key>
-		<dict>
-			<key>path</key>
-			<string>Muehlenstein.app</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>E62D050013D6CE979B89AAD5</key>
-		<dict>
-			<key>path</key>
-			<string>HomeView.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>878A52FC5FF6A57D50B7B870</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>files</key>
-			<array>
-				<string>71E8F57C39193C4332947907</string>
-				<string>864276E473EE55BF583C1FCF</string>
-				<string>5FABA259E27DDFF01196A301</string>
-				<string>80FC8060DBD297E2532AA67D</string>
-				<string>BC51615E02671CF0D155F116</string>
-				<string>28A34AC5009A5D7916220F40</string>
-				<string>E60929B29FF4FB9B64F553F4</string>
-				<string>F8D779B365B7E9AC077DE169</string>
-				<string>A1E248BC222326B094F3CFA2</string>
-				<string>A3CD2D4AB79CE680653DA8B6</string>
-				<string>1DD7118B61F96B18E8532A0D</string>
-				<string>F3CEE002121A7E3E09E609EF</string>
-				<string>60E3AB5054ED2E9EFFF6F953</string>
-				<string>DED8C464573E14E97B058E98</string>
-				<string>165C88AD79BF6CF2EDC37B4E</string>
-				<string>1E7AE3A41EDC4DAE4C39DF83</string>
-				<string>C837EFFC1BEC073F5D55F775</string>
-			</array>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>5E190BE03B89A37188960DFC</key>
-		<dict>
-			<key>path</key>
-			<string>Resources</string>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>children</key>
-			<array>
-				<string>F2D1BF752036A896D9DA888C</string>
-				<string>2F8F3EEEB85163725BDBCE9F</string>
-				<string>D63CB1F9ACC0CAA539159FC9</string>
-				<string>3AA005BAB8DC9F2DD1BD1BCC</string>
-				<string>3C7890D92D23FEACFE43F018</string>
-				<string>B0E5D18AB35E9BE77584F6F2</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F26350DAFE3F19AABFD69AC4</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>E7A3CDEFEB9193C848ACCD43</string>
-			<key>targetProxy</key>
-			<string>1241936D4DD3AAD68FE7BFBD</string>
-		</dict>
-		<key>05D2CB08715C9B8C7DA9079D</key>
-		<dict>
-			<key>path</key>
-			<string>PagedContent.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9CBB72E64F4DB18BA5282CE7</key>
-		<dict>
-			<key>path</key>
-			<string>AppPreferences.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BE521D749BE05411A1F97F87</key>
-		<dict>
-			<key>path</key>
-			<string>App.xcconfig</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>414B8F7954FFC04D0C598364</key>
-		<dict>
-			<key>path</key>
-			<string>Engine.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E7F08BCC397888750F5CB9BD</key>
-		<dict>
-			<key>path</key>
-			<string>MuehlensteinUITests.xctest</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>4BC911A803E9D202CE96BED8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2F8F3EEEB85163725BDBCE9F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>81992F0C9DB6F92D5F371CE2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D63CB1F9ACC0CAA539159FC9</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>80FC8060DBD297E2532AA67D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>31FF890E3D9FAEC31832EDD5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>C6361394F6F296BA7E3C9BDD</key>
-		<dict>
-			<key>path</key>
-			<string>Core</string>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>children</key>
-			<array>
-				<string>31FF890E3D9FAEC31832EDD5</string>
-				<string>9CBB72E64F4DB18BA5282CE7</string>
-				<string>414B8F7954FFC04D0C598364</string>
-				<string>993AA41FA9423BF4EB9FD7EA</string>
-				<string>277D8C1B4F3132584020EE2E</string>
-				<string>85B6E83082AB1E1FAF7CC255</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9879E227F5AD614B3D33074F</key>
-		<dict>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Debug</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-			<key>buildConfigurations</key>
-			<array>
-				<string>CBE79372575C6BD5A9131E8F</string>
-				<string>2D49EBE4C1EF4247FC7BA12F</string>
-			</array>
-		</dict>
-		<key>0A3E27B8CA818264D75C8D81</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>children</key>
-			<array>
-				<string>A8792157CB4F27FB949C035F</string>
-				<string>E7F08BCC397888750F5CB9BD</string>
-				<string>55E394556364E30C7925AFD2</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>847B0E0603A6E54F74823129</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3AA005BAB8DC9F2DD1BD1BCC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A3CD2D4AB79CE680653DA8B6</key>
-		<dict>
-			<key>fileRef</key>
-			<string>322D37624E7C0AF66C48BB05</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>53FC7B840238AA1D351A9099</key>
-		<dict>
-			<key>path</key>
-			<string>en.lproj/Localizable.strings</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>en</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EC640946B366E84188B81D3C</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BE521D749BE05411A1F97F87</string>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>EXCLUDED_ARCHS[sdk=iphonesimulator*]</key>
-				<string>x86_64</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>DEBUG=1</string>
-				</array>
-				<key>SUPPORTED_PLATFORMS</key>
-				<string>iphoneos iphonesimulator</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>$(MUEHLENSTEIN_BUNDLE_ID)</string>
-				<key>ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME</key>
-				<string>AccentColor</string>
-				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
-				<string>NO</string>
-				<key>SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD</key>
-				<string>NO</string>
-				<key>SUPPORTS_MACCATALYST</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>SUPPORTED_DEVICE_FAMILIES</key>
-				<string>1,2</string>
-				<key>OTHER_LDFLAGS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>-lmuehlenstein_engine</string>
-					<string>-lc++</string>
-					<string>-framework</string>
-					<string>Security</string>
-					<string>-framework</string>
-					<string>SystemConfiguration</string>
-				</array>
-				<key>LIBRARY_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>$(SRCROOT)/Engine/Artifacts/$(PLATFORM_NAME)</string>
-				</array>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>SWIFT_VERSION</key>
-				<string>6.0</string>
-				<key>PRODUCT_NAME</key>
-				<string>Muehlenstein</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>18.0</string>
-				<key>SWIFT_STRICT_CONCURRENCY</key>
-				<string>complete</string>
-				<key>SWIFT_OBJC_BRIDGING_HEADER</key>
-				<string>App/Core/MuehlensteinEngine.h</string>
-				<key>INFOPLIST_FILE</key>
-				<string>App/Info.plist</string>
-			</dict>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>F2D1BF752036A896D9DA888C</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>Localizable.strings</string>
-			<key>children</key>
-			<array>
-				<string>53FC7B840238AA1D351A9099</string>
-				<string>A71BFC9F244811702A106581</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9DFB4F70043871F9D97ECA9F</key>
-		<dict>
-			<key>path</key>
-			<string>Theme.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1241936D4DD3AAD68FE7BFBD</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>containerPortal</key>
-			<string>244210E48437B6556980A702</string>
-			<key>remoteGlobalIDString</key>
-			<string>E7A3CDEFEB9193C848ACCD43</string>
-			<key>remoteInfo</key>
-			<string>Muehlenstein</string>
-			<key>proxyType</key>
-			<string>1</string>
-		</dict>
-		<key>244210E48437B6556980A702</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>9879E227F5AD614B3D33074F</string>
-			<key>targets</key>
-			<array>
-				<string>E7A3CDEFEB9193C848ACCD43</string>
-				<string>E5B4A42C1A9B11F842B19C64</string>
-				<string>4A0A29027758F85116720767</string>
-			</array>
-			<key>developmentRegion</key>
-			<string>en</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-				<string>de</string>
-				<string>Base</string>
-			</array>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 15.0</string>
-			<key>productRefGroup</key>
-			<string>0A3E27B8CA818264D75C8D81</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>attributes</key>
-			<dict>
-				<key>LastSwiftUpdateCheck</key>
-				<string>2700</string>
-				<key>BuildIndependentTargetsInParallel</key>
-				<string>YES</string>
-				<key>LastUpgradeCheck</key>
-				<string>2700</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>E7A3CDEFEB9193C848ACCD43</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>27.0</string>
-					</dict>
-					<key>E5B4A42C1A9B11F842B19C64</key>
-					<dict>
-						<key>TestTargetID</key>
-						<string>E7A3CDEFEB9193C848ACCD43</string>
-						<key>CreatedOnToolsVersion</key>
-						<string>27.0</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>projectRoot</key>
-			<string></string>
-			<key>mainGroup</key>
-			<string>0D6E4079E36703EBD37C0072</string>
-		</dict>
-		<key>61A3D92B83C290530E60356D</key>
-		<dict>
-			<key>path</key>
-			<string>App</string>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>children</key>
-			<array>
-				<string>E72685212AF966A85FF3F9E9</string>
-				<string>C6361394F6F296BA7E3C9BDD</string>
-				<string>23DDA73F57DB4F91809EE8CA</string>
-				<string>EE214CB0541CADECB3B5CA9A</string>
-				<string>5E190BE03B89A37188960DFC</string>
-				<string>6E7EEC5AAC8618565493DEFD</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>55E394556364E30C7925AFD2</key>
-		<dict>
-			<key>path</key>
-			<string>MuehlensteinTests.xctest</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>E5B4A42C1A9B11F842B19C64</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>5629210D75042E670BBE3816</string>
-			<key>productReference</key>
-			<string>E7F08BCC397888750F5CB9BD</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.ui-testing</string>
-			<key>productName</key>
-			<string>MuehlensteinUITests</string>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>buildPhases</key>
-			<array>
-				<string>798B65A4B63A4D08FDD4C755</string>
-			</array>
-			<key>dependencies</key>
-			<array>
-				<string>F26350DAFE3F19AABFD69AC4</string>
-			</array>
-			<key>name</key>
-			<string>MuehlensteinUITests</string>
-			<key>buildRules</key>
-			<array/>
-		</dict>
-		<key>23DDA73F57DB4F91809EE8CA</key>
-		<dict>
-			<key>path</key>
-			<string>Features</string>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>children</key>
-			<array>
-				<string>E62D050013D6CE979B89AAD5</string>
-				<string>ECF3762989E2D84F07B1B372</string>
-				<string>8FD43C407C2297B6861C8265</string>
-				<string>322D37624E7C0AF66C48BB05</string>
-				<string>D4E8BC05258C9B0F5F001C0E</string>
-				<string>4A100CA3F46051EF38AA1C43</string>
-				<string>4A36CE2AC73764749500A084</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F12CA32A8D0E8E73CC0C646F</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BE521D749BE05411A1F97F87</string>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>EXCLUDED_ARCHS[sdk=iphonesimulator*]</key>
-				<string>x86_64</string>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/Muehlenstein.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Muehlenstein</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>NO</string>
-				<key>GENERATE_INFOPLIST_FILE</key>
-				<string>YES</string>
-				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
-				<string>NO</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-O</string>
-				<key>SUPPORTED_PLATFORMS</key>
-				<string>iphoneos iphonesimulator</string>
-				<key>SWIFT_STRICT_CONCURRENCY</key>
-				<string>complete</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>PRODUCT_NAME</key>
-				<string>MuehlensteinTests</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>$(inherited)</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>18.0</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>$(MUEHLENSTEIN_BUNDLE_ID).Tests</string>
-				<key>SWIFT_VERSION</key>
-				<string>6.0</string>
-			</dict>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>2F8F3EEEB85163725BDBCE9F</key>
-		<dict>
-			<key>path</key>
-			<string>AGPL-3.0.txt</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2D49EBE4C1EF4247FC7BA12F</key>
-		<dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_TESTABILITY</key>
-				<string>NO</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>$(inherited)</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-O</string>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-			</dict>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>0D6E4079E36703EBD37C0072</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-			<key>children</key>
-			<array>
-				<string>61A3D92B83C290530E60356D</string>
-				<string>77DBD7D37F477A6353CC4B3C</string>
-				<string>1894D5E428C56E252F014952</string>
-				<string>0A3E27B8CA818264D75C8D81</string>
-			</array>
-		</dict>
-		<key>4DF33661AE4BB93C1D61C529</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Resources</string>
-			<key>children</key>
-			<array>
-				<string>3AA005BAB8DC9F2DD1BD1BCC</string>
-				<string>2F8F3EEEB85163725BDBCE9F</string>
-				<string>F2D1BF752036A896D9DA888C</string>
-				<string>D63CB1F9ACC0CAA539159FC9</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>864276E473EE55BF583C1FCF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>993AA41FA9423BF4EB9FD7EA</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E2AA269EB967A8853A258BFA</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>files</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F3CEE002121A7E3E09E609EF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>ECF3762989E2D84F07B1B372</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>BAA0E5AC0236640F2CB80E2B</key>
-		<dict>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Debug</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-			<key>buildConfigurations</key>
-			<array>
-				<string>62C055CD2F7ADF5C28362C8E</string>
-				<string>F12CA32A8D0E8E73CC0C646F</string>
-			</array>
-		</dict>
-		<key>4A0A29027758F85116720767</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>BAA0E5AC0236640F2CB80E2B</string>
-			<key>productReference</key>
-			<string>55E394556364E30C7925AFD2</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-			<key>productName</key>
-			<string>MuehlensteinTests</string>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>buildPhases</key>
-			<array>
-				<string>CB2D0DF3C5358F2721D87DF1</string>
-				<string>AE4CF4536DAFA1DFC023448C</string>
-			</array>
-			<key>dependencies</key>
-			<array>
-				<string>F26350DAFE3F19AABFD69AC4</string>
-			</array>
-			<key>name</key>
-			<string>MuehlensteinTests</string>
-			<key>buildRules</key>
-			<array/>
-		</dict>
-		<key>ECF3762989E2D84F07B1B372</key>
-		<dict>
-			<key>path</key>
-			<string>SupportViews.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>71E8F57C39193C4332947907</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9CBB72E64F4DB18BA5282CE7</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>28A34AC5009A5D7916220F40</key>
-		<dict>
-			<key>fileRef</key>
-			<string>05D2CB08715C9B8C7DA9079D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8FD43C407C2297B6861C8265</key>
-		<dict>
-			<key>path</key>
-			<string>GameView.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D63CB1F9ACC0CAA539159FC9</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>children</key>
-			<array>
-				<string>8E6C51B6D61EF1666D2DF459</string>
-				<string>417A21C36B0E3E2CF95044EE</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E17E80AD8E2103CF3FC3FD96</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>App</string>
-			<key>children</key>
-			<array>
-				<string>9CBB72E64F4DB18BA5282CE7</string>
-				<string>993AA41FA9423BF4EB9FD7EA</string>
-				<string>414B8F7954FFC04D0C598364</string>
-				<string>31FF890E3D9FAEC31832EDD5</string>
-				<string>0FCFA4E149973B1E78FFDA4B</string>
-				<string>05D2CB08715C9B8C7DA9079D</string>
-				<string>9DFB4F70043871F9D97ECA9F</string>
-				<string>8FD43C407C2297B6861C8265</string>
-				<string>E62D050013D6CE979B89AAD5</string>
-				<string>322D37624E7C0AF66C48BB05</string>
-				<string>D4E8BC05258C9B0F5F001C0E</string>
-				<string>ECF3762989E2D84F07B1B372</string>
-				<string>6E7EEC5AAC8618565493DEFD</string>
-				<string>E72685212AF966A85FF3F9E9</string>
-				<string>277D8C1B4F3132584020EE2E</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>322D37624E7C0AF66C48BB05</key>
-		<dict>
-			<key>path</key>
-			<string>NewGameView.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3AA005BAB8DC9F2DD1BD1BCC</key>
-		<dict>
-			<key>path</key>
-			<string>Assets.xcassets</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4200B24AFD00F3DD7B2DBD9A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C631202EA3CD5FB03B27DBEC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>62C055CD2F7ADF5C28362C8E</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BE521D749BE05411A1F97F87</string>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>EXCLUDED_ARCHS[sdk=iphonesimulator*]</key>
-				<string>x86_64</string>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/Muehlenstein.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Muehlenstein</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GENERATE_INFOPLIST_FILE</key>
-				<string>YES</string>
-				<key>ENABLE_USER_SCRIPT_SANDBOXING</key>
-				<string>NO</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>SUPPORTED_PLATFORMS</key>
-				<string>iphoneos iphonesimulator</string>
-				<key>SWIFT_STRICT_CONCURRENCY</key>
-				<string>complete</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>PRODUCT_NAME</key>
-				<string>MuehlensteinTests</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>DEBUG=1</string>
-				</array>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>18.0</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>$(MUEHLENSTEIN_BUNDLE_ID).Tests</string>
-				<key>SWIFT_VERSION</key>
-				<string>6.0</string>
-			</dict>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>0FCFA4E149973B1E78FFDA4B</key>
-		<dict>
-			<key>path</key>
-			<string>BoardView.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A71BFC9F244811702A106581</key>
-		<dict>
-			<key>path</key>
-			<string>de.lproj/Localizable.strings</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>de</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E60929B29FF4FB9B64F553F4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9DFB4F70043871F9D97ECA9F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5629210D75042E670BBE3816</key>
-		<dict>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Debug</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-			<key>buildConfigurations</key>
-			<array>
-				<string>9813BE3C10227B9B8F5EB3BF</string>
-				<string>A4792004C2E59FB590BA10D1</string>
-			</array>
-		</dict>
-		<key>E7A3CDEFEB9193C848ACCD43</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>61571F3444EB024BEA54E0A2</string>
-			<key>productReference</key>
-			<string>A8792157CB4F27FB949C035F</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-			<key>productName</key>
-			<string>Muehlenstein</string>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>buildPhases</key>
-			<array>
-				<string>F5C1C08DF666AEF785500F57</string>
-				<string>878A52FC5FF6A57D50B7B870</string>
-				<string>E2AA269EB967A8853A258BFA</string>
-				<string>41D311A605520FC7B8B9A980</string>
-			</array>
-			<key>dependencies</key>
-			<array/>
-			<key>name</key>
-			<string>Muehlenstein</string>
-			<key>buildRules</key>
-			<array/>
-		</dict>
-		<key>1CFC5B933DFD430877F401EA</key>
-		<dict>
-			<key>fileRef</key>
-			<string>79E733E174F92F637918EF92</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9A31A73967D3CB1B13E06828</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F2D1BF752036A896D9DA888C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>41D311A605520FC7B8B9A980</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>files</key>
-			<array>
-				<string>847B0E0603A6E54F74823129</string>
-				<string>4BC911A803E9D202CE96BED8</string>
-				<string>9A31A73967D3CB1B13E06828</string>
-				<string>81992F0C9DB6F92D5F371CE2</string>
-				<string>9F6AA29DB5F154641000169D</string>
-				<string>7BB87A1DD03CE2DFAFA930F4</string>
-			</array>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>A1E248BC222326B094F3CFA2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E62D050013D6CE979B89AAD5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB2D0DF3C5358F2721D87DF1</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>files</key>
-			<array>
-				<string>4200B24AFD00F3DD7B2DBD9A</string>
-			</array>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>798B65A4B63A4D08FDD4C755</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>files</key>
-			<array>
-				<string>1CFC5B933DFD430877F401EA</string>
-			</array>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>77DBD7D37F477A6353CC4B3C</key>
-		<dict>
-			<key>path</key>
-			<string>Tests</string>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>children</key>
-			<array>
-				<string>79E733E174F92F637918EF92</string>
-				<string>C631202EA3CD5FB03B27DBEC</string>
-				<string>2FDD64FD32FE1A65AFBDDB17</string>
-			</array>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>993AA41FA9423BF4EB9FD7EA</key>
-		<dict>
-			<key>path</key>
-			<string>ComputerPacing.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>417A21C36B0E3E2CF95044EE</key>
-		<dict>
-			<key>path</key>
-			<string>de.lproj/InfoPlist.strings</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>de</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BC51615E02671CF0D155F116</key>
-		<dict>
-			<key>fileRef</key>
-			<string>0FCFA4E149973B1E78FFDA4B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>277D8C1B4F3132584020EE2E</key>
-		<dict>
-			<key>path</key>
-			<string>MuehlensteinEngine.h</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1DD7118B61F96B18E8532A0D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D4E8BC05258C9B0F5F001C0E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D4E8BC05258C9B0F5F001C0E</key>
-		<dict>
-			<key>path</key>
-			<string>OptionsViews.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C631202EA3CD5FB03B27DBEC</key>
-		<dict>
-			<key>path</key>
-			<string>GameStoreTests.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6E7EEC5AAC8618565493DEFD</key>
-		<dict>
-			<key>path</key>
-			<string>MuehlensteinApp.swift</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CBE79372575C6BD5A9131E8F</key>
-		<dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>DEBUG=1</string>
-				</array>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-			</dict>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>4A100CA3F46051EF38AA1C43</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>GameSetupEditor.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DED8C464573E14E97B058E98</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>fileRef</key>
-			<string>4A100CA3F46051EF38AA1C43</string>
-		</dict>
-		<key>2FDD64FD32FE1A65AFBDDB17</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>Fixtures</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-			<key>children</key>
-			<array>
-				<string>46475440055C3F4326AF00E8</string>
-			</array>
-		</dict>
-		<key>46475440055C3F4326AF00E8</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.json</string>
-			<key>path</key>
-			<string>offline-games.json</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>FED60EECF5D70FDBFA850141</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>fileRef</key>
-			<string>46475440055C3F4326AF00E8</string>
-		</dict>
-		<key>AE4CF4536DAFA1DFC023448C</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>buildActionMask</key>
-			<integer>2147483647</integer>
-			<key>files</key>
-			<array>
-				<string>FED60EECF5D70FDBFA850141</string>
-			</array>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<integer>0</integer>
-		</dict>
-		<key>04A0B316563586286592CE00</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>BoardPiece.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>165C88AD79BF6CF2EDC37B4E</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>fileRef</key>
-			<string>04A0B316563586286592CE00</string>
-		</dict>
-		<key>85B6E83082AB1E1FAF7CC255</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>AppInformation.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1E7AE3A41EDC4DAE4C39DF83</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>fileRef</key>
-			<string>85B6E83082AB1E1FAF7CC255</string>
-		</dict>
-		<key>4A36CE2AC73764749500A084</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>AboutViews.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C837EFFC1BEC073F5D55F775</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>fileRef</key>
-			<string>4A36CE2AC73764749500A084</string>
-		</dict>
-		<key>3C7890D92D23FEACFE43F018</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder</string>
-			<key>path</key>
-			<string>Legal</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9F6AA29DB5F154641000169D</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>fileRef</key>
-			<string>3C7890D92D23FEACFE43F018</string>
-		</dict>
-		<key>B0E5D18AB35E9BE77584F6F2</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xml</string>
-			<key>path</key>
-			<string>PrivacyInfo.xcprivacy</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7BB87A1DD03CE2DFAFA930F4</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>fileRef</key>
-			<string>B0E5D18AB35E9BE77584F6F2</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>244210E48437B6556980A702</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		165C88AD79BF6CF2EDC37B4E /* BoardPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0B316563586286592CE00 /* BoardPiece.swift */; };
+		1CFC5B933DFD430877F401EA /* MuehlensteinUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E733E174F92F637918EF92 /* MuehlensteinUITests.swift */; };
+		1DD7118B61F96B18E8532A0D /* OptionsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E8BC05258C9B0F5F001C0E /* OptionsViews.swift */; };
+		1E7AE3A41EDC4DAE4C39DF83 /* AppInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B6E83082AB1E1FAF7CC255 /* AppInformation.swift */; };
+		28A34AC5009A5D7916220F40 /* PagedContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D2CB08715C9B8C7DA9079D /* PagedContent.swift */; };
+		4200B24AFD00F3DD7B2DBD9A /* GameStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631202EA3CD5FB03B27DBEC /* GameStoreTests.swift */; };
+		4BC911A803E9D202CE96BED8 /* AGPL-3.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2F8F3EEEB85163725BDBCE9F /* AGPL-3.0.txt */; };
+		5FABA259E27DDFF01196A301 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414B8F7954FFC04D0C598364 /* Engine.swift */; };
+		60E3AB5054ED2E9EFFF6F953 /* MuehlensteinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7EEC5AAC8618565493DEFD /* MuehlensteinApp.swift */; };
+		71E8F57C39193C4332947907 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB72E64F4DB18BA5282CE7 /* AppPreferences.swift */; };
+		7BB87A1DD03CE2DFAFA930F4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B0E5D18AB35E9BE77584F6F2 /* PrivacyInfo.xcprivacy */; };
+		80FC8060DBD297E2532AA67D /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FF890E3D9FAEC31832EDD5 /* GameStore.swift */; };
+		81992F0C9DB6F92D5F371CE2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D63CB1F9ACC0CAA539159FC9 /* InfoPlist.strings */; };
+		847B0E0603A6E54F74823129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA005BAB8DC9F2DD1BD1BCC /* Assets.xcassets */; };
+		864276E473EE55BF583C1FCF /* ComputerPacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993AA41FA9423BF4EB9FD7EA /* ComputerPacing.swift */; };
+		9A31A73967D3CB1B13E06828 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2D1BF752036A896D9DA888C /* Localizable.strings */; };
+		9F6AA29DB5F154641000169D /* Legal in Resources */ = {isa = PBXBuildFile; fileRef = 3C7890D92D23FEACFE43F018 /* Legal */; };
+		A1E248BC222326B094F3CFA2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62D050013D6CE979B89AAD5 /* HomeView.swift */; };
+		A3CD2D4AB79CE680653DA8B6 /* NewGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322D37624E7C0AF66C48BB05 /* NewGameView.swift */; };
+		BC51615E02671CF0D155F116 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCFA4E149973B1E78FFDA4B /* BoardView.swift */; };
+		C837EFFC1BEC073F5D55F775 /* AboutViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A36CE2AC73764749500A084 /* AboutViews.swift */; };
+		DED8C464573E14E97B058E98 /* GameSetupEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A100CA3F46051EF38AA1C43 /* GameSetupEditor.swift */; };
+		E60929B29FF4FB9B64F553F4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB4F70043871F9D97ECA9F /* Theme.swift */; };
+		F3CEE002121A7E3E09E609EF /* SupportViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF3762989E2D84F07B1B372 /* SupportViews.swift */; };
+		F8D779B365B7E9AC077DE169 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD43C407C2297B6861C8265 /* GameView.swift */; };
+		FED60EECF5D70FDBFA850141 /* offline-games.json in Resources */ = {isa = PBXBuildFile; fileRef = 46475440055C3F4326AF00E8 /* offline-games.json */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1241936D4DD3AAD68FE7BFBD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 244210E48437B6556980A702 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E7A3CDEFEB9193C848ACCD43;
+			remoteInfo = Muehlenstein;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04A0B316563586286592CE00 /* BoardPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPiece.swift; sourceTree = "<group>"; };
+		05D2CB08715C9B8C7DA9079D /* PagedContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedContent.swift; sourceTree = "<group>"; };
+		0FCFA4E149973B1E78FFDA4B /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		277D8C1B4F3132584020EE2E /* MuehlensteinEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MuehlensteinEngine.h; sourceTree = "<group>"; };
+		2F8F3EEEB85163725BDBCE9F /* AGPL-3.0.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "AGPL-3.0.txt"; sourceTree = "<group>"; };
+		31FF890E3D9FAEC31832EDD5 /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		322D37624E7C0AF66C48BB05 /* NewGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameView.swift; sourceTree = "<group>"; };
+		3AA005BAB8DC9F2DD1BD1BCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3C7890D92D23FEACFE43F018 /* Legal */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Legal; sourceTree = "<group>"; };
+		414B8F7954FFC04D0C598364 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
+		417A21C36B0E3E2CF95044EE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		46475440055C3F4326AF00E8 /* offline-games.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "offline-games.json"; sourceTree = "<group>"; };
+		4A100CA3F46051EF38AA1C43 /* GameSetupEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSetupEditor.swift; sourceTree = "<group>"; };
+		4A36CE2AC73764749500A084 /* AboutViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViews.swift; sourceTree = "<group>"; };
+		53FC7B840238AA1D351A9099 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55E394556364E30C7925AFD2 /* MuehlensteinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MuehlensteinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E7EEC5AAC8618565493DEFD /* MuehlensteinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuehlensteinApp.swift; sourceTree = "<group>"; };
+		79E733E174F92F637918EF92 /* MuehlensteinUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuehlensteinUITests.swift; sourceTree = "<group>"; };
+		85B6E83082AB1E1FAF7CC255 /* AppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformation.swift; sourceTree = "<group>"; };
+		8E6C51B6D61EF1666D2DF459 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8FD43C407C2297B6861C8265 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		993AA41FA9423BF4EB9FD7EA /* ComputerPacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPacing.swift; sourceTree = "<group>"; };
+		9CBB72E64F4DB18BA5282CE7 /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		9DFB4F70043871F9D97ECA9F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		A71BFC9F244811702A106581 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A8792157CB4F27FB949C035F /* Muehlenstein.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Muehlenstein.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0E5D18AB35E9BE77584F6F2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		BE521D749BE05411A1F97F87 /* App.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App.xcconfig; sourceTree = "<group>"; };
+		C631202EA3CD5FB03B27DBEC /* GameStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStoreTests.swift; sourceTree = "<group>"; };
+		D4E8BC05258C9B0F5F001C0E /* OptionsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViews.swift; sourceTree = "<group>"; };
+		E62D050013D6CE979B89AAD5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E72685212AF966A85FF3F9E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7F08BCC397888750F5CB9BD /* MuehlensteinUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MuehlensteinUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECF3762989E2D84F07B1B372 /* SupportViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViews.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E2AA269EB967A8853A258BFA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A3E27B8CA818264D75C8D81 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A8792157CB4F27FB949C035F /* Muehlenstein.app */,
+				E7F08BCC397888750F5CB9BD /* MuehlensteinUITests.xctest */,
+				55E394556364E30C7925AFD2 /* MuehlensteinTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0D6E4079E36703EBD37C0072 = {
+			isa = PBXGroup;
+			children = (
+				61A3D92B83C290530E60356D /* App */,
+				77DBD7D37F477A6353CC4B3C /* Tests */,
+				1894D5E428C56E252F014952 /* Configuration */,
+				0A3E27B8CA818264D75C8D81 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1894D5E428C56E252F014952 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				BE521D749BE05411A1F97F87 /* App.xcconfig */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		23DDA73F57DB4F91809EE8CA /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				E62D050013D6CE979B89AAD5 /* HomeView.swift */,
+				ECF3762989E2D84F07B1B372 /* SupportViews.swift */,
+				8FD43C407C2297B6861C8265 /* GameView.swift */,
+				322D37624E7C0AF66C48BB05 /* NewGameView.swift */,
+				D4E8BC05258C9B0F5F001C0E /* OptionsViews.swift */,
+				4A100CA3F46051EF38AA1C43 /* GameSetupEditor.swift */,
+				4A36CE2AC73764749500A084 /* AboutViews.swift */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		2FDD64FD32FE1A65AFBDDB17 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				46475440055C3F4326AF00E8 /* offline-games.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		5E190BE03B89A37188960DFC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F2D1BF752036A896D9DA888C /* Localizable.strings */,
+				2F8F3EEEB85163725BDBCE9F /* AGPL-3.0.txt */,
+				D63CB1F9ACC0CAA539159FC9 /* InfoPlist.strings */,
+				3AA005BAB8DC9F2DD1BD1BCC /* Assets.xcassets */,
+				3C7890D92D23FEACFE43F018 /* Legal */,
+				B0E5D18AB35E9BE77584F6F2 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		61A3D92B83C290530E60356D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E72685212AF966A85FF3F9E9 /* Info.plist */,
+				C6361394F6F296BA7E3C9BDD /* Core */,
+				23DDA73F57DB4F91809EE8CA /* Features */,
+				EE214CB0541CADECB3B5CA9A /* Design */,
+				5E190BE03B89A37188960DFC /* Resources */,
+				6E7EEC5AAC8618565493DEFD /* MuehlensteinApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		77DBD7D37F477A6353CC4B3C /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				79E733E174F92F637918EF92 /* MuehlensteinUITests.swift */,
+				C631202EA3CD5FB03B27DBEC /* GameStoreTests.swift */,
+				2FDD64FD32FE1A65AFBDDB17 /* Fixtures */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C6361394F6F296BA7E3C9BDD /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				31FF890E3D9FAEC31832EDD5 /* GameStore.swift */,
+				9CBB72E64F4DB18BA5282CE7 /* AppPreferences.swift */,
+				414B8F7954FFC04D0C598364 /* Engine.swift */,
+				993AA41FA9423BF4EB9FD7EA /* ComputerPacing.swift */,
+				277D8C1B4F3132584020EE2E /* MuehlensteinEngine.h */,
+				85B6E83082AB1E1FAF7CC255 /* AppInformation.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EE214CB0541CADECB3B5CA9A /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				05D2CB08715C9B8C7DA9079D /* PagedContent.swift */,
+				9DFB4F70043871F9D97ECA9F /* Theme.swift */,
+				0FCFA4E149973B1E78FFDA4B /* BoardView.swift */,
+				04A0B316563586286592CE00 /* BoardPiece.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4A0A29027758F85116720767 /* MuehlensteinTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BAA0E5AC0236640F2CB80E2B /* Build configuration list for PBXNativeTarget "MuehlensteinTests" */;
+			buildPhases = (
+				CB2D0DF3C5358F2721D87DF1 /* Sources */,
+				AE4CF4536DAFA1DFC023448C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F26350DAFE3F19AABFD69AC4 /* PBXTargetDependency */,
+			);
+			name = MuehlensteinTests;
+			productName = MuehlensteinTests;
+			productReference = 55E394556364E30C7925AFD2 /* MuehlensteinTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E5B4A42C1A9B11F842B19C64 /* MuehlensteinUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5629210D75042E670BBE3816 /* Build configuration list for PBXNativeTarget "MuehlensteinUITests" */;
+			buildPhases = (
+				798B65A4B63A4D08FDD4C755 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F26350DAFE3F19AABFD69AC4 /* PBXTargetDependency */,
+			);
+			name = MuehlensteinUITests;
+			productName = MuehlensteinUITests;
+			productReference = E7F08BCC397888750F5CB9BD /* MuehlensteinUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		E7A3CDEFEB9193C848ACCD43 /* Muehlenstein */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61571F3444EB024BEA54E0A2 /* Build configuration list for PBXNativeTarget "Muehlenstein" */;
+			buildPhases = (
+				F5C1C08DF666AEF785500F57 /* Build Sanmill engine */,
+				878A52FC5FF6A57D50B7B870 /* Sources */,
+				E2AA269EB967A8853A258BFA /* Frameworks */,
+				41D311A605520FC7B8B9A980 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Muehlenstein;
+			productName = Muehlenstein;
+			productReference = A8792157CB4F27FB949C035F /* Muehlenstein.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		244210E48437B6556980A702 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					E5B4A42C1A9B11F842B19C64 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = E7A3CDEFEB9193C848ACCD43;
+					};
+					E7A3CDEFEB9193C848ACCD43 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = 9879E227F5AD614B3D33074F /* Build configuration list for PBXProject "Muehlenstein" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				de,
+				Base,
+			);
+			mainGroup = 0D6E4079E36703EBD37C0072;
+			productRefGroup = 0A3E27B8CA818264D75C8D81 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E7A3CDEFEB9193C848ACCD43 /* Muehlenstein */,
+				E5B4A42C1A9B11F842B19C64 /* MuehlensteinUITests */,
+				4A0A29027758F85116720767 /* MuehlensteinTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41D311A605520FC7B8B9A980 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				847B0E0603A6E54F74823129 /* Assets.xcassets in Resources */,
+				4BC911A803E9D202CE96BED8 /* AGPL-3.0.txt in Resources */,
+				9A31A73967D3CB1B13E06828 /* Localizable.strings in Resources */,
+				81992F0C9DB6F92D5F371CE2 /* InfoPlist.strings in Resources */,
+				9F6AA29DB5F154641000169D /* Legal in Resources */,
+				7BB87A1DD03CE2DFAFA930F4 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE4CF4536DAFA1DFC023448C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FED60EECF5D70FDBFA850141 /* offline-games.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F5C1C08DF666AEF785500F57 /* Build Sanmill engine */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Sanmill engine";
+			outputPaths = (
+				"$(SRCROOT)/Engine/Artifacts/$(PLATFORM_NAME)/libmuehlenstein_engine.a",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "bash \"$SRCROOT/Scripts/build-engine.sh\" \"$PLATFORM_NAME\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		798B65A4B63A4D08FDD4C755 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CFC5B933DFD430877F401EA /* MuehlensteinUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		878A52FC5FF6A57D50B7B870 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71E8F57C39193C4332947907 /* AppPreferences.swift in Sources */,
+				864276E473EE55BF583C1FCF /* ComputerPacing.swift in Sources */,
+				5FABA259E27DDFF01196A301 /* Engine.swift in Sources */,
+				80FC8060DBD297E2532AA67D /* GameStore.swift in Sources */,
+				BC51615E02671CF0D155F116 /* BoardView.swift in Sources */,
+				28A34AC5009A5D7916220F40 /* PagedContent.swift in Sources */,
+				E60929B29FF4FB9B64F553F4 /* Theme.swift in Sources */,
+				F8D779B365B7E9AC077DE169 /* GameView.swift in Sources */,
+				A1E248BC222326B094F3CFA2 /* HomeView.swift in Sources */,
+				A3CD2D4AB79CE680653DA8B6 /* NewGameView.swift in Sources */,
+				1DD7118B61F96B18E8532A0D /* OptionsViews.swift in Sources */,
+				F3CEE002121A7E3E09E609EF /* SupportViews.swift in Sources */,
+				60E3AB5054ED2E9EFFF6F953 /* MuehlensteinApp.swift in Sources */,
+				DED8C464573E14E97B058E98 /* GameSetupEditor.swift in Sources */,
+				165C88AD79BF6CF2EDC37B4E /* BoardPiece.swift in Sources */,
+				1E7AE3A41EDC4DAE4C39DF83 /* AppInformation.swift in Sources */,
+				C837EFFC1BEC073F5D55F775 /* AboutViews.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB2D0DF3C5358F2721D87DF1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4200B24AFD00F3DD7B2DBD9A /* GameStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F26350DAFE3F19AABFD69AC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E7A3CDEFEB9193C848ACCD43 /* Muehlenstein */;
+			targetProxy = 1241936D4DD3AAD68FE7BFBD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D63CB1F9ACC0CAA539159FC9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8E6C51B6D61EF1666D2DF459 /* en */,
+				417A21C36B0E3E2CF95044EE /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F2D1BF752036A896D9DA888C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53FC7B840238AA1D351A9099 /* en */,
+				A71BFC9F244811702A106581 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2D49EBE4C1EF4247FC7BA12F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_TESTABILITY = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		62C055CD2F7ADF5C28362C8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE521D749BE05411A1F97F87 /* App.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(MUEHLENSTEIN_BUNDLE_ID).Tests";
+				PRODUCT_NAME = MuehlensteinTests;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Muehlenstein.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Muehlenstein";
+			};
+			name = Debug;
+		};
+		9813BE3C10227B9B8F5EB3BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE521D749BE05411A1F97F87 /* App.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(MUEHLENSTEIN_BUNDLE_ID).UITests";
+				PRODUCT_NAME = MuehlensteinUITests;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Muehlenstein;
+			};
+			name = Debug;
+		};
+		9BF690CC61510DB0C11EF4E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE521D749BE05411A1F97F87 /* App.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Engine/Artifacts/$(PLATFORM_NAME)",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lmuehlenstein_engine",
+					"-lc++",
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(MUEHLENSTEIN_BUNDLE_ID)";
+				PRODUCT_NAME = Muehlenstein;
+				SDKROOT = iphoneos;
+				SUPPORTED_DEVICE_FAMILIES = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = App/Core/MuehlensteinEngine.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A4792004C2E59FB590BA10D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE521D749BE05411A1F97F87 /* App.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(MUEHLENSTEIN_BUNDLE_ID).UITests";
+				PRODUCT_NAME = MuehlensteinUITests;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Muehlenstein;
+			};
+			name = Release;
+		};
+		CBE79372575C6BD5A9131E8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EC640946B366E84188B81D3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE521D749BE05411A1F97F87 /* App.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				INFOPLIST_FILE = App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Engine/Artifacts/$(PLATFORM_NAME)",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lmuehlenstein_engine",
+					"-lc++",
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(MUEHLENSTEIN_BUNDLE_ID)";
+				PRODUCT_NAME = Muehlenstein;
+				SDKROOT = iphoneos;
+				SUPPORTED_DEVICE_FAMILIES = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = App/Core/MuehlensteinEngine.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F12CA32A8D0E8E73CC0C646F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE521D749BE05411A1F97F87 /* App.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(MUEHLENSTEIN_BUNDLE_ID).Tests";
+				PRODUCT_NAME = MuehlensteinTests;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Muehlenstein.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Muehlenstein";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5629210D75042E670BBE3816 /* Build configuration list for PBXNativeTarget "MuehlensteinUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9813BE3C10227B9B8F5EB3BF /* Debug */,
+				A4792004C2E59FB590BA10D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		61571F3444EB024BEA54E0A2 /* Build configuration list for PBXNativeTarget "Muehlenstein" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC640946B366E84188B81D3C /* Debug */,
+				9BF690CC61510DB0C11EF4E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9879E227F5AD614B3D33074F /* Build configuration list for PBXProject "Muehlenstein" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBE79372575C6BD5A9131E8F /* Debug */,
+				2D49EBE4C1EF4247FC7BA12F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BAA0E5AC0236640F2CB80E2B /* Build configuration list for PBXNativeTarget "MuehlensteinTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62C055CD2F7ADF5C28362C8E /* Debug */,
+				F12CA32A8D0E8E73CC0C646F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 244210E48437B6556980A702 /* Project object */;
+}

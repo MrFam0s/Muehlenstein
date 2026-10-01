@@ -1,5 +1,22 @@
 # Distribution requirements and open decisions
 
+## Current release status — 2026-10-01
+
+The user authorized continuation of the App Store submission. Version **1.0.2
+(build 6)** contains the latest approved beige/forest-green icon and has been
+uploaded and processed successfully by Apple (`VALID`). The corresponding
+source tag is **v1.0.2-build.6**; earlier tags remain fixed. All 16 German/English
+iPhone/iPad screenshots are processed and verified. App Privacy is published
+as no data collected; the German price is EUR 0.99. Review submission is
+awaiting the user's contact telephone number. See the
+[build 6 release record](../Store/RELEASE-1.0.2-6.md).
+
+## Historical preparation and research record
+
+The following sections preserve the earlier preparation-only status and
+research scope. The current operational status above supersedes their
+upload, submission-authorization, screenshot and privacy status statements.
+
 This file carries forward the scoped legal research; it is not a legal opinion or a claim of completed clearance. Local development is authorized. No App Store upload has taken place. The source repository is https://github.com/MrFam0s/Muehlenstein; see LICENSE_REVIEW.md for the 2026-10-01 audit and its scope.
 
 Latest tagged source version: **1.0.2 (build 5)**, annotated Git tag

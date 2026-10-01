@@ -1,10 +1,17 @@
 # Versionshinweise
 
-## Noch nicht als Release markiert
+## 1.0.2 · Build 6 — 01.10.2026
+
+Neuer Distributionsbuild für die erste App-Store-Einreichung. Quelltag:
+**v1.0.2-build.6**; der ursprüngliche Tag **v1.0.2** bleibt unverändert.
 
 - Das Standard-App-Icon übernimmt die bestätigte invertierte Farbvariante:
   beiger Hintergrund (#EDE8DD), waldgrünes Brettmotiv (#4F624A) und Graphitstein.
   Generator und Icon-Vorschau sind aktualisiert.
+- Buildnummer und Versionsanzeige-Test auf **6** angehoben. Release-Archiv
+  und App-Store-Export erfolgreich; das aktuelle Icon ist im Archiv geprüft.
+- Die vorhandenen Release-Tests für Versionsanzeige, Anbieterangaben und
+  gebündelte Lizenztexte bestehen. Die Store-Aufnahmen sind aktualisiert.
 
 ## 1.0.2 — 01.10.2026
 

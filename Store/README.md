@@ -1,5 +1,26 @@
 # App-Store-Vorbereitung
 
+## Aktueller Stand — 01.10.2026, Build 6
+
+**Version 1.0.2 (6) mit dem zuletzt bestätigten beigen App-Icon ist bei Apple
+hochgeladen und erfolgreich verarbeitet (`VALID`).** Die 16 aktuellen
+Screenshots sind in Deutsch und Englisch für iPhone und iPad verarbeitet;
+Abmessungen und Prüfsummen wurden mit den Originaldateien abgeglichen.
+App Privacy ist als **Keine Daten erfasst** veröffentlicht, der deutsche
+Kundenpreis beträgt **0,99 €**. Die öffentlichen Support- und Datenschutz-URLs
+sind ohne Anmeldung erreichbar. Die Review-Einreichung ist beauftragt;
+es fehlt noch die Telefonnummer für den vollständigen Review-Kontakt.
+
+Der zugehörige Quelltag ist **v1.0.2-build.6**. Der Tag **v1.0.2** bleibt
+unverändert und gehört zum älteren Build 5. Details und lokale Nachweise:
+[Releaseprotokoll Build 6](RELEASE-1.0.2-6.md).
+
+## Historische Vorbereitungsnotizen bis Build 5
+
+Die folgenden Angaben dokumentieren den früheren Vorbereitungsstand.
+Für den aktuellen Upload-, Screenshot- und Datenschutzstatus gilt der
+vorstehende Abschnitt.
+
 Stand: 01.10.2026. **Bei Apple registriert, noch nicht zur Prüfung eingereicht.**
 Zuletzt markierte App-Version **1.0.2**, Build **5**, Quellstand
 [`v1.0.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.0.2).

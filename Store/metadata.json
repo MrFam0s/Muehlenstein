@@ -1,5 +1,5 @@
 {
-  "status": "App registered in App Store Connect; listing content prepared locally; no build uploaded or submitted",
+  "status": "Build 6 uploaded and processed; metadata, screenshots and App Privacy configured; awaiting review contact phone before submission",
   "bundle_id": "org.amosystems.Muehlenstein",
   "bundle_resource_id": "864J73UNMD",
   "developer_team_id": "4WHV5UZ8E5",
@@ -7,15 +7,18 @@
   "app_store_version_id": "3e275fea-964a-47db-8a26-ebfe5b0b78fc",
   "registration_date": "2026-10-01",
   "app_store_state": "PREPARE_FOR_SUBMISSION",
-  "app_store_version": "1.0",
-  "app_store_version_note": "Last verified at registration; the local source version has not been synchronized to App Store Connect",
+  "app_store_version": "1.0.2",
+  "app_store_version_note": "Verified 2026-10-01; build 6 contains the latest approved beige and forest-green icon",
   "version": "1.0.2",
-  "build_number": "5",
-  "source_tag": "v1.0.2",
+  "build_number": "6",
+  "source_tag": "v1.0.2-build.6",
   "sku": "Muehlenstein-iOS",
   "primary_locale": "de-DE",
   "category": "Games",
-  "subcategories": ["Board", "Strategy"],
+  "subcategories": [
+    "Board",
+    "Strategy"
+  ],
   "german_customer_price_eur": "0.99",
   "support_url": "https://github.com/MrFam0s/Muehlenstein/blob/main/Docs/SUPPORT.md",
   "privacy_policy_url": "https://github.com/MrFam0s/Muehlenstein/blob/main/Docs/PRIVACY.md",
@@ -36,5 +39,7 @@
       "description": "Play Morris on iPhone and iPad with a clear board, gentle stone movements and room to consider your next move.\n\nChallenge the computer or take turns with another person on the same device. Choose Nine Men’s Morris, Twelve Men’s Morris, Morabaraba or Lasker Morris. Five difficulty levels offer different challenges.\n\nHints show a suggested move directly on the board. Turn legal targets and last-move markers on or off to suit your preferences. Review the move history or undo a move to reconsider a decision.\n\nYour current game is saved locally. All computer moves are calculated on your device. No account or internet connection is needed to play.\n\n• Four variants and five computer levels\n• Two players on the same device\n• Visual hints and adjustable playing aids\n• Move history and undo\n• Portrait and landscape on iPhone and iPad\n• English and German interface\n• No ads, subscriptions or in-app purchases\n\nMuehlenstein is an independently designed native app using the free Sanmill game engine. Complete source code and license notices are publicly available. Online games are not included."
     }
   },
-  "review_notes": "Muehlenstein is an offline native SwiftUI Morris game. No login, demo credentials, server connection, in-app purchases or special equipment are required. New game starts a game against the computer or another player on the same device. There are four rule variants and five difficulty levels. Hint toggles a graphical suggestion; its info button describes immediate tactical effects.\n\nThe interface and geometric artwork are original Muehlenstein work. The Rust game engine comes from Sanmill, revision 8901a06f088bf49a1602fee8686ed25ac5a33925, under AGPL-3.0-or-later with its published section 7 App Store additional permission. The full corresponding source, build scripts, preserved notices and own additional permission are at https://github.com/MrFam0s/Muehlenstein. Upstream permission: https://github.com/calcitem/Sanmill#terms-of-use. This is an independently named fork, not an official Sanmill release. Offline legal notices, provider details and source links are in About Muehlenstein."
+  "review_notes": "Muehlenstein is an offline native SwiftUI Morris game. No login, demo credentials, server connection, in-app purchases or special equipment are required. New game starts a game against the computer or another player on the same device. There are four rule variants and five difficulty levels. Hint toggles a graphical suggestion; its info button describes immediate tactical effects.\n\nThe interface and geometric artwork are original Muehlenstein work. The Rust game engine comes from Sanmill, revision 8901a06f088bf49a1602fee8686ed25ac5a33925, under AGPL-3.0-or-later with its published section 7 App Store additional permission. The full corresponding source, build scripts, preserved notices and own additional permission are at https://github.com/MrFam0s/Muehlenstein. Upstream permission: https://github.com/calcitem/Sanmill#terms-of-use. This is an independently named fork, not an official Sanmill release. Offline legal notices, provider details and source links are in About Muehlenstein.",
+  "build_id": "557f1a60-ab60-4005-a3c3-aea9e1efa528",
+  "app_privacy_published": true
 }
