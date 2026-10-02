@@ -10,7 +10,7 @@ extension Color {
 }
 
 private struct AccentPaletteKey: EnvironmentKey {
-    static let defaultValue = AccentPalette.forest
+    static let defaultValue = AccentPalette.slate
 }
 extension EnvironmentValues {
     var accentPalette: AccentPalette {

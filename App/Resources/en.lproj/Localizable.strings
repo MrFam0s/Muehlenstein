@@ -113,7 +113,6 @@
 "save_error" = "The game could not be saved. It remains open for this session.";
 "license_error" = "License file unavailable.";
 "imprint" = "Legal notice & contact";
-"made_in_berlin" = "Developed with ♥ in Berlin";
 "germany" = "Germany";
 "contact" = "Contact";
 "contact_email" = "Write an email";
@@ -128,7 +127,7 @@
 "show_last" = "Last move";
 "disable_stone_animations" = "Disable stone animations";
 "display_help" = "About these options";
-"display_help_body" = "Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nGame details\nFind difficulty, variant and further information under History → Game details. The level is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move picker remain available when markers are off.\n\nDisable stone animations\nTurn this on for immediate changes. When off, stones glide to their destination and briefly fade in or out when placed or captured. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.\n\nAll three switches are off by default: no legal-target or last-move markers, with gentle stone movements.\n\nAccent color\nForest green is the default. Your color choice applies throughout the app and is saved on this device. Sand, graphite and the playing pieces keep their colors.";
+"display_help_body" = "Legal targets\nMarks empty placement points, legal destinations for the selected stone and available captures. Turning this off hides the markers; the rules stay the same.\n\nLast move\nShows the destination, origin and captured stones of the last turn. Computer moves also get a short description. The move history remains available independently.\n\nGame details\nFind difficulty, variant and further information under History → Game details. The level is not a measured Elo rating.\n\nThese preferences are saved on this device. Requested hints and the legal-move picker remain available when markers are off.\n\nDisable stone animations\nTurn this on for immediate changes. When off, stones glide to their destination and briefly fade in or out when placed or captured. The iOS Reduce Motion setting takes precedence. The computer’s thinking pause is unchanged.\n\nAll three switches are off by default: no legal-target or last-move markers, with gentle stone movements.\n\nAccent color\nSlate blue is the default. Your color choice applies throughout the app and is saved on this device. Sand, graphite and the playing pieces keep their colors.";
 "computer_options" = "Difficulty";
 "computer_style" = "Play style";
 "opening_book" = "Opening";
@@ -163,8 +162,7 @@
 "lasker_choice" = "Lasker";
 "variant_help" = "About variants";
 "variant_help_body" = "Nine Men’s Morris · 9 stones\nEach side begins with nine stones. The corners of the squares have no diagonal connections.\n\nTwelve Men’s Morris · 12 stones\nTwelve stones per side. Diagonal lines also connect the corners of the squares and can form mills.\n\nMorabaraba · 12 stones\nTwelve stones and diagonal lines. A move that forms multiple new mills allows multiple captures.\n\nLasker Morris · 10 stones\nTen stones per side. During placement you may instead move one of your stones to an adjacent empty point.";
-
-// Home and informational reading pages
+"made_in_berlin" = "Developed with ♥ in Berlin";
 "about_provider" = "Provider";
 "about_technical" = "Technical details";
 "privacy_play" = "Play privately";
@@ -174,10 +172,10 @@
 "credits_engine" = "Game engine & AI";
 "credits_license" = "Free software";
 "about_vat" = "VAT identification";
-
 "accent_color" = "Accent color";
 "accent_forest" = "Forest green";
 "accent_slate" = "Slate blue";
 "accent_aubergine" = "Aubergine";
 "accent_terracotta" = "Terracotta";
 "accent_petrol" = "Teal";
+"accent_rose" = "Rose";

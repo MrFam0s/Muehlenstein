@@ -1,6 +1,20 @@
 # App-Store-Vorbereitung
 
-## Aktueller Stand — 01.10.2026, Build 6
+## Aktueller Quellrelease — 02.10.2026, Version 1.1 (Build 7)
+
+Quelltag: [`v1.1`](https://github.com/MrFam0s/Muehlenstein/tree/v1.1).
+Schieferblau ist jetzt Standard für Spiel und Icon sowie die erste Farboption.
+Rosé ergänzt die Auswahl auf sechs Paletten; gespeicherte Farbentscheidungen
+bleiben erhalten. Änderungen und Prüfnachweise stehen im
+[Changelog](../CHANGELOG.md) und [Validierungsprotokoll](../Docs/VALIDATION.md).
+
+Für **1.1 (7)** wurde noch kein Gerätearchiv, Upload oder Review-Antrag erstellt.
+Vor der Distribution sind ein passendes Archiv und aktuelle Store-Screenshots
+mit Schieferblau zu erstellen. Die vorhandenen Store-Aufnahmen und die folgende
+Einreichungsbestätigung gehören weiterhin zu **1.0.2 (6)**. Der Apple-Status
+wurde im Rahmen dieses Quellreleases nicht erneut abgefragt oder verändert.
+
+## Zuletzt bestätigte Einreichung — 01.10.2026, Build 6
 
 **Version 1.0.2 (6) mit dem zuletzt bestätigten beigen App-Icon ist bei Apple
 hochgeladen und erfolgreich verarbeitet (`VALID`).** Die 16 aktuellen
@@ -9,7 +23,7 @@ Abmessungen und Prüfsummen wurden mit den Originaldateien abgeglichen.
 App Privacy ist als **Keine Daten erfasst** veröffentlicht, der deutsche
 Kundenpreis beträgt **0,99 €**. Die öffentlichen Support- und Datenschutz-URLs
 sind ohne Anmeldung erreichbar. **Am 01.10.2026 um 18:31 Uhr (Europe/Berlin)
-zur Apple-Prüfung eingereicht; Status: `WAITING_FOR_REVIEW`.** Der vollständige
+zur Apple-Prüfung eingereicht; damals bestätigter Status: `WAITING_FOR_REVIEW`.** Der vollständige
 Review-Kontakt und die Review Notes sind bei Apple gespeichert.
 
 Der zugehörige Quelltag ist **v1.0.2-build.6**. Der Tag **v1.0.2** bleibt
@@ -19,8 +33,8 @@ unverändert und gehört zum älteren Build 5. Details und lokale Nachweise:
 ## Historische Vorbereitungsnotizen bis Build 5
 
 Die folgenden Angaben dokumentieren den früheren Vorbereitungsstand.
-Für den aktuellen Upload-, Screenshot- und Datenschutzstatus gilt der
-vorstehende Abschnitt.
+Für den zuletzt bestätigten Upload-, Screenshot- und Datenschutzstatus gilt
+der vorstehende Einreichungsabschnitt; der aktuelle Quellstand ist 1.1 (7).
 
 Stand: 01.10.2026. **Bei Apple registriert, noch nicht zur Prüfung eingereicht.**
 Zuletzt markierte App-Version **1.0.2**, Build **5**, Quellstand

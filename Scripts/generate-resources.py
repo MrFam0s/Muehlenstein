@@ -167,8 +167,9 @@ copy.update({
 'accent_aubergine': ('Aubergine', 'Aubergine'),
 'accent_terracotta': ('Terrakotta', 'Terracotta'),
 'accent_petrol': ('Petrol', 'Teal'),
+'accent_rose': ('Rosé', 'Rose'),
 })
-copy['display_help_body'] = tuple(text + addition for text, addition in zip(copy['display_help_body'], ('\n\nAkzentfarbe\nWaldgrün ist voreingestellt. Die Farbauswahl gilt für die gesamte App und wird auf diesem Gerät gespeichert. Sand, Graphit und die Spielsteine behalten ihre Farben.', '\n\nAccent color\nForest green is the default. Your color choice applies throughout the app and is saved on this device. Sand, graphite and the playing pieces keep their colors.')))
+copy['display_help_body'] = tuple(text + addition for text, addition in zip(copy['display_help_body'], ('\n\nAkzentfarbe\nSchieferblau ist voreingestellt. Die Farbauswahl gilt für die gesamte App und wird auf diesem Gerät gespeichert. Sand, Graphit und die Spielsteine behalten ihre Farben.', '\n\nAccent color\nSlate blue is the default. Your color choice applies throughout the app and is saved on this device. Sand, graphite and the playing pieces keep their colors.')))
 copy.pop(' twelve')
 for i, lang in enumerate(['de','en']):
     folder=resources / f'{lang}.lproj'; folder.mkdir(parents=True, exist_ok=True)
@@ -177,8 +178,10 @@ for i, lang in enumerate(['de','en']):
 colors={
 'Limestone': ('F6F3EB','171D20'), 'BoardSurface': ('EDE8DD','222C30'),
 'Ink': ('263337','EFECE4'), 'QuietInk': ('596460','ADB7B4'),
-'AccentColor': ('4F624A','ADBF9F'), 'AccentContent': ('FFFFFF','171D20'),
-'Accent-slate': ('4A6074','A8BED1'), 'Accent-aubergine': ('72556C','CFB0C7'),
+'AccentColor': ('4A6074','A8BED1'), 'AccentContent': ('FFFFFF','171D20'),
+'Accent-forest': ('4F624A','ADBF9F'), 'Accent-aubergine': ('72556C','CFB0C7'),
+# Besser Lesen's Wildrose (#C87292 / #E095AF), deepened in light mode for text on limestone.
+'Accent-rose': ('964665','E095AF'),
 'Accent-terracotta': ('8F533C','DEB098'), 'Accent-petrol': ('17695F','8AD0BD'), 'BoardLine': ('727E77','81938C'),
 'StoneEdge': ('6D7772','9BAAA4'),
 'WhiteStoneTop': ('FFF9ED','FFF9ED'), 'WhiteStoneBottom': ('E3D9C7','E3D9C7'),

@@ -483,3 +483,54 @@ Energieprüfungen wurden nicht wiederholt.
 ## Noch offen
 
 Weitere physische Geräte, insbesondere iPad und ältere unterstützte iOS-Versionen; vollständige VoiceOver-Abnahme und weitere assistive Eingaben einschließlich der dokumentierten Dynamic-Type-/Beschnitt-Heuristiken; Kontrast auf weiteren Systemversionen und Systemmaterialien; vorerst zurückgestellte Energie-/Speicherprüfung bei längeren Partien und längerer Rechenzeit; genaue Abbruchlatenz auf Hardware; Vergleich weiterer Stufen/Rechenzeitmodi und Kalibrierung mit Menschen; Datenbank- und Feature-Parität; Netzwerkprüfung. Die automatischen Prüfungen ersetzen keine vollständige Barrierefreiheitsabnahme. Es wird noch keine Elo-/Glicko-Wertung angezeigt.
+
+
+## Schieferblau und Rosé — 02.10.2026
+
+Schieferblau ist bei fehlender oder unbekannter gespeicherter Farbauswahl der
+Standard und steht in der Auswahl an erster Stelle. Bestehende gespeicherte
+Paletten bleiben erhalten; Waldgrün hat dafür ein eigenes Farbasset. Rosé
+übernimmt den Farbcharakter der Wildrose-Palette aus „Besser Lesen“ und verwendet
+#964665 im Hellmodus sowie #E095AF im Dunkelmodus. Standard- und Dunkel-Icon
+verwenden die Schieferblauwerte #4A6074 und #A8BED1; alle drei Icons sind
+1024 × 1024 Pixel, deckendes RGB. Die bestehende Vektorgeometrie ist unverändert.
+
+Release-Build und drei vorhandene Prüfungen bestehen:
+Speichern/Wiederherstellen der Darstellung, Farbauswahl einschließlich erstem
+Eintrag und Rosé nach Neustart, Erreichbarkeit aller Farben bei größter Schrift
+im Querformat. Ergebnis: `.build/Slate-Rose-Verified.xcresult`.
+Der erste eingeschränkte Testprozess konnte CoreSimulator nicht erreichen;
+der nachfolgende Lauf mit Simulatorzugriff besteht vollständig.
+
+Alle 204 semantischen Kontrastprüfungen für sechs Paletten bestehen;
+geringster Textkontrast 4,57:1, geringster Grafikkontrast 3,46:1.
+Nachweis: `.build/Slate-Rose-Contrast.json`. Startansicht in Schieferblau sowie
+Rosé-Auswahl in Hell und Dunkel visuell geprüft. Screenshots:
+`Previews/Slate-Home-iPhone-Light.png`,
+`Previews/Slate-Rose-Options-iPhone-Light.png` und
+`Previews/Slate-Rose-Options-iPhone-Dark.png`.
+
+Diese Änderungen sind im Quellrelease **1.1 (Build 7)** enthalten.
+Es wurde kein neuer Build hochgeladen und kein laufender Review verändert.
+
+## Version 1.1, Build 7 und Quelltag v1.1 — 02.10.2026
+
+Version und Buildnummer sind zentral in `Configuration/App.xcconfig` auf
+**1.1** und **7** angehoben. Der bestehende UI-Test erwartet entsprechend
+**Version 1.1 · Build 7**. README, Changelog, Design, Projektplanung,
+Release-Dokumentation und lokale Store-Metadaten führen den neuen Quellstand;
+die bestätigte Einreichung von 1.0.2 (6) bleibt als eigener, datierter Nachweis
+erhalten. Der annotierte Tag **v1.1** gehört zu diesem Quellrelease.
+
+**Prüfungen:** Release-Simulatorbuild und beide vorhandenen fokussierten Tests
+bestehen ohne Fehler (`.build/Version-1.1-Checks.xcresult`):
+Bundlewerte/gebündelte Lizenzen sowie Versionsanzeige, Impressum, Datenschutz,
+Quelllinks und Lizenznavigation unter „Über Mühlenstein“. Die erzeugte
+App-Info.plist bestätigt `org.amosystems.Muehlenstein`, Version **1.1**, Build
+**7**. `ENABLE_TESTABILITY=YES` gilt nur für den Testlauf. Store-Metadaten und
+Farbasset-JSON sind gültig; Versions-, Build- und Tagwerte sind konsistent.
+`git diff --check` besteht. Die oben dokumentierten drei Farb-/Darstellungstests
+und 204 Kontrastprüfungen wurden vor diesem reinen Versionswechsel ausgeführt.
+
+Für 1.1 wurden kein Gerätearchiv, Upload oder Review-Antrag erstellt. Physische
+Geräte-, VoiceOver- und Energieprüfungen wurden in dieser Runde nicht wiederholt.

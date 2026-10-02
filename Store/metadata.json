@@ -1,5 +1,5 @@
 {
-  "status": "Submitted to App Store review; Apple confirmed WAITING_FOR_REVIEW for version 1.0.2 build 6",
+  "status": "Source release 1.1 build 7, not uploaded; last verified App Store submission is version 1.0.2 build 6 on 2026-10-01",
   "bundle_id": "org.amosystems.Muehlenstein",
   "bundle_resource_id": "864J73UNMD",
   "developer_team_id": "4WHV5UZ8E5",
@@ -8,10 +8,13 @@
   "registration_date": "2026-10-01",
   "app_store_state": "WAITING_FOR_REVIEW",
   "app_store_version": "1.0.2",
-  "app_store_version_note": "Verified 2026-10-01; build 6 contains the latest approved beige and forest-green icon",
-  "version": "1.0.2",
-  "build_number": "6",
-  "source_tag": "v1.0.2-build.6",
+  "app_store_version_note": "Last verified 2026-10-01; build 6 contains the beige and forest-green icon. This Apple record is separate from source release 1.1 build 7.",
+  "app_store_build_number": "6",
+  "app_store_source_tag": "v1.0.2-build.6",
+  "app_store_last_verified_date": "2026-10-01",
+  "version": "1.1",
+  "build_number": "7",
+  "source_tag": "v1.1",
   "sku": "Muehlenstein-iOS",
   "primary_locale": "de-DE",
   "category": "Games",
@@ -40,7 +43,7 @@
     }
   },
   "review_notes": "Muehlenstein is an offline native SwiftUI Morris game. No login, demo credentials, server connection, in-app purchases or special equipment are required. New game starts a game against the computer or another player on the same device. There are four rule variants and five difficulty levels. Hint toggles a graphical suggestion; its info button describes immediate tactical effects.\n\nThe interface and geometric artwork are original Muehlenstein work. The Rust game engine comes from Sanmill, revision 8901a06f088bf49a1602fee8686ed25ac5a33925, under AGPL-3.0-or-later with its published section 7 App Store additional permission. The full corresponding source, build scripts, preserved notices and own additional permission are at https://github.com/MrFam0s/Muehlenstein. Upstream permission: https://github.com/calcitem/Sanmill#terms-of-use. This is an independently named fork, not an official Sanmill release. Offline legal notices, provider details and source links are in About Muehlenstein.",
-  "build_id": "557f1a60-ab60-4005-a3c3-aea9e1efa528",
+  "app_store_build_id": "557f1a60-ab60-4005-a3c3-aea9e1efa528",
   "app_privacy_published": true,
   "review_submission_id": "46d51255-9511-4a14-9814-839a35b050e0",
   "review_submitted_at": "2026-10-01T16:31:32.061Z"

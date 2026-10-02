@@ -1,5 +1,16 @@
 # Versionshinweise
 
+## 1.1 — 02.10.2026
+
+App-Version **1.1**, Build **7**, Quelltag **v1.1**.
+
+- Schieferblau als Standard für Spiel und App-Icon sowie als erste Farboption.
+- Rosé ergänzt die Auswahl, angelehnt an die Wildrose-Palette aus „Besser Lesen“
+  und im Hellmodus für gut lesbare Beschriftungen angepasst.
+- Bestehende gespeicherte Farbentscheidungen bleiben erhalten.
+- Diese Quellversion folgt dem eingereichten Build 6. Für 1.1 wurden noch
+  kein Gerätearchiv, App-Store-Upload oder Review-Antrag erstellt.
+
 ## 1.0.2 · Build 6 — 01.10.2026
 
 Neuer Distributionsbuild für die erste App-Store-Einreichung. Quelltag:

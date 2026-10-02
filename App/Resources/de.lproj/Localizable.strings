@@ -113,7 +113,6 @@
 "save_error" = "Die Partie konnte nicht gespeichert werden. Sie bleibt für diese Sitzung geöffnet.";
 "license_error" = "Lizenzdatei nicht verfügbar.";
 "imprint" = "Impressum & Kontakt";
-"made_in_berlin" = "Entwickelt mit ♥ in Berlin";
 "germany" = "Deutschland";
 "contact" = "Kontakt";
 "contact_email" = "E-Mail schreiben";
@@ -128,7 +127,7 @@
 "show_last" = "Letzter Zug";
 "disable_stone_animations" = "Steinanimationen deaktivieren";
 "display_help" = "Hinweise";
-"display_help_body" = "Zugziele\nMarkiert freie Setzpunkte, mögliche Ziele des ausgewählten Steins und erlaubte Schlagziele. Ausgeschaltet gelten dieselben Regeln; nur die Markierungen entfallen.\n\nLetzter Zug\nZeigt Ziel, Ausgangspunkt und entfernte Steine des letzten Zuges. Bei Computerzügen erscheint zusätzlich eine kurze Beschreibung. Der Verlauf bleibt unabhängig davon verfügbar.\n\nSpieldetails\nSpielstufe, Variante und weitere Angaben stehen im Verlauf unter Spieldetails. Die Stufe ist keine gemessene Elo-Wertung.\n\nDie Einstellungen werden auf diesem Gerät gespeichert. Ein ausdrücklich angeforderter Tipp und die Auswahl möglicher Züge bleiben auch bei ausgeschalteten Markierungen verfügbar.\n\nSteinanimationen deaktivieren\nSchalte diese Option ein, damit Steine sofort wechseln. Ausgeschaltet gleiten sie sanft zu ihrem Ziel und werden beim Setzen oder Entfernen kurz ein- bzw. ausgeblendet. Die iOS-Einstellung „Bewegung reduzieren“ hat Vorrang. Die Denkpause des Computers bleibt unverändert.\n\nAlle drei Schalter sind anfangs ausgeschaltet: keine Zugziel- oder Letzter-Zug-Markierungen, aber sanfte Steinbewegungen.\n\nAkzentfarbe\nWaldgrün ist voreingestellt. Die Farbauswahl gilt für die gesamte App und wird auf diesem Gerät gespeichert. Sand, Graphit und die Spielsteine behalten ihre Farben.";
+"display_help_body" = "Zugziele\nMarkiert freie Setzpunkte, mögliche Ziele des ausgewählten Steins und erlaubte Schlagziele. Ausgeschaltet gelten dieselben Regeln; nur die Markierungen entfallen.\n\nLetzter Zug\nZeigt Ziel, Ausgangspunkt und entfernte Steine des letzten Zuges. Bei Computerzügen erscheint zusätzlich eine kurze Beschreibung. Der Verlauf bleibt unabhängig davon verfügbar.\n\nSpieldetails\nSpielstufe, Variante und weitere Angaben stehen im Verlauf unter Spieldetails. Die Stufe ist keine gemessene Elo-Wertung.\n\nDie Einstellungen werden auf diesem Gerät gespeichert. Ein ausdrücklich angeforderter Tipp und die Auswahl möglicher Züge bleiben auch bei ausgeschalteten Markierungen verfügbar.\n\nSteinanimationen deaktivieren\nSchalte diese Option ein, damit Steine sofort wechseln. Ausgeschaltet gleiten sie sanft zu ihrem Ziel und werden beim Setzen oder Entfernen kurz ein- bzw. ausgeblendet. Die iOS-Einstellung „Bewegung reduzieren“ hat Vorrang. Die Denkpause des Computers bleibt unverändert.\n\nAlle drei Schalter sind anfangs ausgeschaltet: keine Zugziel- oder Letzter-Zug-Markierungen, aber sanfte Steinbewegungen.\n\nAkzentfarbe\nSchieferblau ist voreingestellt. Die Farbauswahl gilt für die gesamte App und wird auf diesem Gerät gespeichert. Sand, Graphit und die Spielsteine behalten ihre Farben.";
 "computer_options" = "Spielstärke";
 "computer_style" = "Spielstil";
 "opening_book" = "Eröffnung";
@@ -163,8 +162,7 @@
 "lasker_choice" = "Lasker";
 "variant_help" = "Spielvarianten erklärt";
 "variant_help_body" = "Klassische Mühle · 9 Steine\nJede Seite beginnt mit neun Steinen. Die Ecken der Quadrate sind nicht diagonal verbunden.\n\nZwölfstein-Mühle · 12 Steine\nZwölf Steine pro Seite. Diagonale Linien verbinden zusätzlich die Ecken der Quadrate; auch dort können Mühlen entstehen.\n\nMorabaraba · 12 Steine\nZwölf Steine und Diagonalen. Wenn ein Zug mehrere neue Mühlen schließt, darfst du entsprechend mehrere gegnerische Steine entfernen.\n\nLasker-Mühle · 10 Steine\nZehn Steine pro Seite. Schon während des Setzens kannst du stattdessen einen deiner Steine auf einen benachbarten freien Punkt ziehen.";
-
-// Home and informational reading pages
+"made_in_berlin" = "Entwickelt mit ♥ in Berlin";
 "about_provider" = "Anbieter";
 "about_technical" = "Technische Angaben";
 "privacy_play" = "Privat spielen";
@@ -174,10 +172,10 @@
 "credits_engine" = "Spielkern & KI";
 "credits_license" = "Freie Software";
 "about_vat" = "Umsatzsteuer-ID";
-
 "accent_color" = "Akzentfarbe";
 "accent_forest" = "Waldgrün";
 "accent_slate" = "Schieferblau";
 "accent_aubergine" = "Aubergine";
 "accent_terracotta" = "Terrakotta";
 "accent_petrol" = "Petrol";
+"accent_rose" = "Rosé";

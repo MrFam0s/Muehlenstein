@@ -3,10 +3,10 @@ import Foundation
 import Observation
 
 enum AccentPalette: String, CaseIterable, Identifiable {
-    case forest, slate, aubergine, terracotta, petrol
+    case slate, forest, aubergine, terracotta, petrol, rose
     var id: String { rawValue }
     var name: String { L10n.text("accent_" + rawValue) }
-    var assetName: String { self == .forest ? "AccentColor" : "Accent-" + rawValue }
+    var assetName: String { self == .slate ? "AccentColor" : "Accent-" + rawValue }
 }
 
 @MainActor @Observable final class AppPreferences {
@@ -21,6 +21,6 @@ enum AccentPalette: String, CaseIterable, Identifiable {
         showLegalMoves = defaults.object(forKey: "showLegalMoves") as? Bool ?? false
         showLastMove = defaults.object(forKey: "showLastMove") as? Bool ?? false
         animateStones = defaults.object(forKey: "animateStones") as? Bool ?? true
-        accentPalette = defaults.string(forKey: "accentPalette").flatMap(AccentPalette.init(rawValue:)) ?? .forest
+        accentPalette = defaults.string(forKey: "accentPalette").flatMap(AccentPalette.init(rawValue:)) ?? .slate
     }
 }

@@ -27,10 +27,10 @@ struct Palette {
     let darkEdge: UInt32
 }
 let palettes = [
-    Palette(name: "AppIcon", background: 0xEDE8DD, line: 0x4F624A,
-            lightStone: 0x4F624A, darkStone: 0x263337, darkEdge: 0x4F624A),
-    Palette(name: "AppIcon-Dark", background: 0x171D20, line: 0xADBF9F,
-            lightStone: 0xF1E9D9, darkStone: 0x263337, darkEdge: 0xADBF9F),
+    Palette(name: "AppIcon", background: 0xEDE8DD, line: 0x4A6074,
+            lightStone: 0x4A6074, darkStone: 0x263337, darkEdge: 0x4A6074),
+    Palette(name: "AppIcon-Dark", background: 0x171D20, line: 0xA8BED1,
+            lightStone: 0xF1E9D9, darkStone: 0x263337, darkEdge: 0xA8BED1),
     Palette(name: "AppIcon-Tinted", background: 0x161616, line: 0xC4C4C4,
             lightStone: 0xF5F5F5, darkStone: 0x343434, darkEdge: 0xC4C4C4)
 ]
@@ -173,7 +173,7 @@ func label(_ text: String, x: CGFloat, y: CGFloat, size: CGFloat, ink: UInt32 = 
     preview.textPosition = CGPoint(x: x, y: y); CTLineDraw(line, preview)
 }
 label("Mühlenstein", x: 54, y: 596, size: 34)
-label("Beige und Waldgrün · Mühle als Signet", x: 54, y: 562, size: 19, ink: 0x596460)
+label("Beige und Schieferblau · Mühle als Signet", x: 54, y: 562, size: 19, ink: 0x596460)
 for (index, palette) in palettes.enumerated() {
     let x = CGFloat(54 + index * 342)
     for (side, dx, y): (CGFloat, CGFloat, CGFloat) in [(288, 0, 240), (60, 2, 112), (40, 88, 122), (29, 158, 127)] {

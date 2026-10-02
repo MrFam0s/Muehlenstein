@@ -40,7 +40,7 @@ def composite(foreground, background, alpha):
 
 def audit():
     rows = []
-    for accent in ('AccentColor', 'Accent-slate', 'Accent-aubergine', 'Accent-terracotta', 'Accent-petrol'):
+    for accent in ('AccentColor', 'Accent-forest', 'Accent-aubergine', 'Accent-terracotta', 'Accent-petrol', 'Accent-rose'):
         for mode in ('light', 'dark'):
             def add(role, foreground, background, minimum):
                 ratio = contrast(foreground, background)

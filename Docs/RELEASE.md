@@ -1,6 +1,20 @@
 # Distribution requirements and open decisions
 
-## Current release status — 2026-10-01
+## Current source release — 2026-10-02
+
+Version **1.1 (build 7)**, annotated source tag
+[`v1.1`](https://github.com/MrFam0s/Muehlenstein/tree/v1.1), makes slate blue the
+default for the game and app icon and the first appearance option. Rose joins
+the palette, with existing saved selections preserved. Version and build are
+maintained in `Configuration/App.xcconfig`; internal Cargo versions are unchanged.
+See the [changelog](../CHANGELOG.md) and [validation record](VALIDATION.md).
+
+This is a source release. Version 1.1 has no device archive, upload or review
+submission yet. Before distribution, create a matching device archive and
+refresh the Store screenshots to show the new default colors. The latest
+recorded Apple submission below remains associated with version 1.0.2 (build 6).
+
+## Last verified App Store submission — 2026-10-01
 
 The user authorized continuation of the App Store submission. Version **1.0.2
 (build 6)** contains the latest approved beige/forest-green icon and has been
@@ -8,14 +22,14 @@ uploaded and processed successfully by Apple (`VALID`). The corresponding
 source tag is **v1.0.2-build.6**; earlier tags remain fixed. All 16 German/English
 iPhone/iPad screenshots are processed and verified. App Privacy is published
 as no data collected; the German price is EUR 0.99. The complete review contact
-and notes are saved. Submitted on **2026-10-01 at 16:31:32 UTC**; Apple confirms
+and notes are saved. Submitted on **2026-10-01 at 16:31:32 UTC**; Apple then confirmed
 **WAITING_FOR_REVIEW**, submission `46d51255-9511-4a14-9814-839a35b050e0`. See the
 [build 6 release record](../Store/RELEASE-1.0.2-6.md).
 
 ## Historical preparation and research record
 
 The following sections preserve the earlier preparation-only status and
-research scope. The current operational status above supersedes their
+research scope. The source release and dated submission record above supersede their
 upload, submission-authorization, screenshot and privacy status statements.
 
 This file carries forward the scoped legal research; it is not a legal opinion or a claim of completed clearance. Local development is authorized. No App Store upload has taken place. The source repository is https://github.com/MrFam0s/Muehlenstein; see LICENSE_REVIEW.md for the 2026-10-01 audit and its scope.

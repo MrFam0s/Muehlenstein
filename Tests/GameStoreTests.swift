@@ -301,7 +301,7 @@ final class GameStoreTests: XCTestCase {
         XCTAssertFalse(preferences.showLegalMoves)
         XCTAssertFalse(preferences.showLastMove)
         XCTAssertTrue(preferences.animateStones)
-        XCTAssertEqual(preferences.accentPalette, .forest)
+        XCTAssertEqual(preferences.accentPalette, .slate)
         preferences.showLegalMoves = true
         preferences.showLastMove = true
         preferences.animateStones = false
@@ -315,7 +315,7 @@ final class GameStoreTests: XCTestCase {
             XCTAssertFalse(AppPreferences(defaults: defaults).animateStones)
         }
         defaults.set("unknown-palette", forKey: "accentPalette")
-        XCTAssertEqual(AppPreferences(defaults: defaults).accentPalette, .forest)
+        XCTAssertEqual(AppPreferences(defaults: defaults).accentPalette, .slate)
     }
 
     func testFiveLevelSettingsRoundtripThroughSaveAndEngine() throws {
