@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-"""Authoritative bilingual copy and semantic design colors for the prototype."""
-import json, plistlib
+"""Generate native localized copy and semantic design colors.
+
+German/English copy lives here; additional languages live in Localization/*.json.
+Use --check-localizations to verify generated strings without modifying files.
+"""
+import argparse, json, plistlib, re
 from pathlib import Path
 root = Path(__file__).resolve().parent.parent
 resources = root / 'App/Resources'
@@ -171,10 +175,53 @@ copy.update({
 })
 copy['display_help_body'] = tuple(text + addition for text, addition in zip(copy['display_help_body'], ('\n\nAkzentfarbe\nSchieferblau ist voreingestellt. Die Farbauswahl gilt für die gesamte App und wird auf diesem Gerät gespeichert. Sand, Graphit und die Spielsteine behalten ihre Farben.', '\n\nAccent color\nSlate blue is the default. Your color choice applies throughout the app and is saved on this device. Sand, graphite and the playing pieces keep their colors.')))
 copy.pop(' twelve')
-for i, lang in enumerate(['de','en']):
-    folder=resources / f'{lang}.lproj'; folder.mkdir(parents=True, exist_ok=True)
-    (folder/'Localizable.strings').write_text('\n'.join(f'{json.dumps(k)} = {json.dumps(v[i], ensure_ascii=False)};' for k,v in copy.items())+'\n')
-    (folder/'InfoPlist.strings').write_text(f'"CFBundleDisplayName" = "{copy["app_name"][i]}";\n')
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--check-localizations', action='store_true')
+args = parser.parse_args()
+
+def unique_keys(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result: raise ValueError(f'Duplicate translation key: {key}')
+        result[key] = value
+    return result
+
+translations = {lang: {key: values[i] for key, values in copy.items()}
+                for i, lang in enumerate(['de', 'en'])}
+for lang in ['es', 'fr', 'ja', 'ko', 'zh-Hans', 'zh-Hant']:
+    translations[lang] = json.loads((root / 'Localization' / f'{lang}.json').read_text(),
+                                    object_pairs_hook=unique_keys)
+# Validate every language before writing anything. Never silently ship missing
+# keys or mismatched printf arguments and fall back to mixed-language screens.
+for lang, strings in translations.items():
+    missing, extra = copy.keys() - strings.keys(), strings.keys() - copy.keys()
+    if missing or extra:
+        raise ValueError(f'{lang}: missing {sorted(missing)}, extra {sorted(extra)}')
+    for key, value in strings.items():
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError(f'{lang}/{key}: empty or non-string translation')
+        if re.findall(r'%(?:%|@|d)', value) != re.findall(r'%(?:%|@|d)', copy[key][1]):
+            raise ValueError(f'{lang}/{key}: format arguments differ from English')
+        if '%' in re.sub(r'%(?:%|@|d)', '', value):
+            raise ValueError(f'{lang}/{key}: unsupported format token')
+    outputs = {
+        'Localizable.strings': '\n'.join(f'{json.dumps(k)} = {json.dumps(strings[k], ensure_ascii=False)};' for k in copy) + '\n',
+        'InfoPlist.strings': f'"CFBundleDisplayName" = {json.dumps(strings["app_name"], ensure_ascii=False)};\n',
+    }
+    # Writing is deferred until all dictionaries have passed validation below.
+    translations[lang] = outputs
+for lang, outputs in translations.items():
+    folder = resources / f'{lang}.lproj'
+    for filename, content in outputs.items():
+        path = folder / filename
+        if args.check_localizations:
+            if not path.exists() or path.read_text() != content:
+                raise ValueError(f'Stale generated localization: {path.relative_to(root)}')
+        else:
+            folder.mkdir(parents=True, exist_ok=True)
+            path.write_text(content)
+print(f'Validated {len(copy)} keys in {len(translations)} native localizations.')
+if args.check_localizations: raise SystemExit(0)
 colors={
 'Limestone': ('F6F3EB','171D20'), 'BoardSurface': ('EDE8DD','222C30'),
 'Ink': ('263337','EFECE4'), 'QuietInk': ('596460','ADB7B4'),

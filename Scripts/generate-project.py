@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Add new Swift sources to the checked-in Xcode project without replacing user settings.
+"""Add sources and localizations without replacing user settings.
 
 The historical script recreated the project, overwriting signing and Xcode edits.
-This synchronizer only adds missing file references, folder groups and source entries.
+This synchronizer adds missing source and localization references and folder groups.
 Existing build settings, configurations, capabilities, targets and schemes are retained.
 """
 import hashlib
@@ -84,6 +84,26 @@ def synchronize(project, root):
             key = identity('build:' + path)
             objects[key] = {'isa': 'PBXBuildFile', 'fileRef': ref}
             phase['files'].append(key)
+    # Localized files belong to the existing variant groups, which are already
+    # in the app's resource phase. Keep signing and all other project settings.
+    regions = objects[project['rootObject']]['knownRegions']
+    resource_group = folder('App/Resources')
+    for name in ['Localizable.strings', 'InfoPlist.strings']:
+        variants = [objects[key] for key in objects[resource_group]['children']
+                    if objects[key]['isa'] == 'PBXVariantGroup' and objects[key].get('name') == name]
+        files = sorted((root / 'App/Resources').glob(f'*.lproj/{name}'))
+        if files and len(variants) != 1:
+            raise ValueError(f'Expected one existing resource variant group for {name}')
+        for file in files:
+            group = variants[0]
+            lang = file.parent.stem
+            path = f'{file.parent.name}/{name}'
+            if not any(objects[key].get('path') == path for key in group['children']):
+                key = identity('localization:' + path)
+                objects[key] = {'isa': 'PBXFileReference', 'lastKnownFileType': 'text.plist.strings',
+                                'name': lang, 'path': path, 'sourceTree': '<group>'}
+                group['children'].append(key)
+            if lang not in regions: regions.append(lang)
     return project
 
 
@@ -99,6 +119,6 @@ if __name__ == '__main__':
     if json.dumps(updated, sort_keys=True) != before:
         # Xcode accepts XML plists; retain standard OpenStep formatting when no write is needed.
         PROJECT.write_bytes(plistlib.dumps(updated, sort_keys=False))
-        print('Added missing source references; existing project settings preserved.')
+        print('Added missing source/localization references; existing project settings preserved.')
     else:
-        print('All sources are already present; project left unchanged.')
+        print('All sources and localizations are present; project left unchanged.')

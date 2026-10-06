@@ -2,6 +2,14 @@
 
 ## Noch nicht als Release markiert — 06.10.2026
 
+- Fünf zusätzliche native Sprachen: Japanisch, Koreanisch, Chinesisch,
+  Französisch und Spanisch. Chinesisch ist in vereinfachter und traditioneller
+  Schrift enthalten; damit acht vollständige Offline-Sprachfassungen mit je
+  181 Texten. Auswahl durch iOS; Regeln, KI-Erklärungen, Hinweise, Datenschutz
+  und Impressum eingeschlossen. Original-Lizenztexte bleiben erhalten.
+- Übersetzungsprüfung und Xcode-Sprachressourcen-Synchronisierung ergänzen
+  die Pflegewerkzeuge. [Auswahl und Pflege](Docs/LOCALIZATION.md).
+
 - Neue Partien beginnen zunächst mit Stufe 1 · Sehr leicht. Danach wird die
   zuletzt bestätigte Spielstärke für weitere Partien und App-Neustarts gemerkt.
   Dies gilt beim Partiestart und bei Änderungen unter Spielstärke. Abbrechen

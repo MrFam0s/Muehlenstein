@@ -558,3 +558,42 @@ Der Release-Simulatorbuild und fünf gezielte Tests bestehen in
 
 Beide Sprachdateien bestehen `plutil -lint`. Versionsnummer, veröffentlichte
 Tags und Apple-Builds wurden in diesem Entwicklungsschritt nicht geändert.
+
+## Fünf zusätzliche native Sprachen — 06.10.2026
+
+Japanisch, Koreanisch, Chinesisch, Französisch und Spanisch ergänzen DE/EN.
+Chinesisch besitzt vereinfachte und traditionelle Schriftfassungen. Alle acht
+Lokalisierungen enthalten 181 Texte einschließlich Regeln, KI-Hilfen,
+Zugerklärungen, Datenschutzhinweisen, Impressum und Bedienhilfen.
+[Auswahl, Quellen und Pflege](LOCALIZATION.md).
+
+**Bestanden:** Release-Simulatorbuild sowie Bundle- und UI-Prüfungen auf
+beiden Geräten mit iOS 27, Hochformat, heller Darstellung und Standardtextgröße:
+
+- iPhone, 390 × 844 Punkte: `.build/Native-Localizations-Verified.xcresult`.
+- iPad, 744 × 1133 Punkte: `.build/Native-Localizations-iPad-Verified.xcresult`.
+- Jeweils der vollständige Ablauf für `fr`, `es`, `ja`, `ko`, `zh-Hans` und
+  `zh-Hant`: Startseite, Regeln, Datenschutz, neue Partie mit Stufe 1,
+  erweiterte Optionen, Spielfeld, Hinweis und Darstellung. Startseite,
+  Einrichtung und Spiel bleiben ohne Scrollansicht bedienbar.
+- Der Bundle-Test bestätigt acht eingebundene Sprachen, vollständige
+  Schlüssel, passende Formatargumente und die drei Absätze für Datenschutz
+  und Herkunft. Die Texte der neuen Fassungen werden tatsächlich geladen.
+- Je Gerät 48 Bildschirmaufnahmen; Sichtprüfung ausgewählter Anordnungen,
+  darunter alle sechs iPhone-Einrichtungen, lange französische Beschriftungen,
+  asiatische Schriften und iPad-Dialoge. Beispielaufnahmen stehen unter
+  `Docs/Previews/Localization-*`.
+- Ressourcenprüfung mit `--check-localizations`, `plutil -lint` für alle
+  16 Sprachdateien und beide Python-Projektsynchronisierungstests bestehen.
+  Die Synchronisierung ist wiederholbar; vorhandene Signierung, Ziel- und
+  Build-Einstellungen bleiben erhalten.
+
+Im ersten iPad-Test wählte der Test die Navigationsleiste der Hauptansicht
+hinter dem Dialog. Die Auswahl wurde auf den Titel des Datenschutzdialogs
+begrenzt; der erneute vollständige Durchlauf besteht. Eine koreanische
+Kurzbeschriftung wurde vor dem finalen iPad-Build sprachlich geglättet.
+
+Keine Änderungen am Spielkern, an den Lizenzoriginalen, am Versions-/Buildwert
+oder an bestehenden Tags. Kein Upload; Store-Metadaten bleiben separat.
+Physische Geräte und große Bedienhilfentextgrößen wurden in dieser
+Lokalisierungsrunde nicht zusätzlich geprüft.

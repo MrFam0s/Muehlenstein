@@ -3,6 +3,70 @@ import XCTest
 import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    @MainActor func testNewNativeLanguagesAcrossHomeSetupGameAndReading() {
+        XCUIDevice.shared.orientation = .portrait
+        let cases = [
+            ("fr", "fr_FR", "Nouvelle partie", "Commencer la partie", "Terminé", "Affichage", "Muehlenstein ne nécessite"),
+            ("es", "es_ES", "Nueva partida", "Empezar partida", "Listo", "Apariencia", "Muehlenstein no requiere"),
+            ("ja", "ja_JP", "新しい対局", "対局を始める", "完了", "表示", "Muehlensteinにはアカウント"),
+            ("ko", "ko_KR", "새 대국", "대국 시작", "완료", "화면 표시", "Muehlenstein은 계정"),
+            ("zh-Hans", "zh_CN", "新对局", "开始对局", "完成", "显示", "Muehlenstein 无需账户"),
+            ("zh-Hant", "zh_TW", "新對局", "開始對局", "完成", "顯示", "Muehlenstein 無需帳號")
+        ]
+        for (language, locale, newGame, start, done, appearance, privacy) in cases {
+            let app = XCUIApplication()
+            app.launchArguments = ["-ui-testing", "-ui-appearance", "light", "-AppleLanguages", "(\(language))", "-AppleLocale", locale]
+            app.launch()
+            XCTAssertTrue(app.buttons["new_game"].waitForExistence(timeout: 5))
+            XCTAssertEqual(app.buttons["new_game"].label, newGame, language)
+            XCTAssertEqual(app.scrollViews.count, 0)
+            record("Native-\(language)-Home", app: app)
+            app.buttons["learn_rules"].tap()
+            XCTAssertTrue(app.textViews.firstMatch.waitForExistence(timeout: 3))
+            XCTAssertFalse((app.textViews.firstMatch.value as? String ?? "").contains("Three in a row"))
+            record("Native-\(language)-Rules", app: app)
+            app.buttons[done].tap()
+            app.buttons["about"].tap()
+            let privacyTitle = app.buttons["privacy"].label
+            app.buttons["privacy"].tap()
+            XCTAssertTrue((app.textViews.firstMatch.value as? String ?? "").contains(privacy), language)
+            record("Native-\(language)-Privacy", app: app)
+            // iPad keeps the underlying home navigation bar in the hierarchy.
+            app.navigationBars[privacyTitle].buttons.element(boundBy: 0).tap()
+            app.buttons[done].tap()
+            app.buttons["new_game"].tap()
+            XCTAssertEqual(app.buttons["start_game"].label, start, language)
+            showSetupPanel("difficulty", in: app)
+            XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("1 ·"))
+            assertVariantsVisible(app)
+            assertVisible(app.buttons["start_game"], in: app)
+            XCTAssertEqual(app.scrollViews.count, 0)
+            record("Native-\(language)-Setup", app: app)
+            showSetupPanel("advanced", in: app)
+            assertVisible(app.buttons["algorithm_mtdf"], in: app)
+            assertVisible(app.buttons["effort_extended"], in: app)
+            assertVisible(app.buttons["start_game"], in: app)
+            record("Native-\(language)-Advanced", app: app)
+            app.buttons["start_game"].tap()
+            XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 5))
+            XCTAssertEqual(app.scrollViews.count, 0)
+            app.buttons["hint"].tap()
+            XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+            record("Native-\(language)-Game", app: app)
+            app.buttons["hint_explanation"].tap()
+            XCTAssertTrue(app.textViews.firstMatch.waitForExistence(timeout: 3))
+            record("Native-\(language)-Hint", app: app)
+            app.buttons[done].tap()
+            app.buttons["game_options"].tap()
+            app.buttons[appearance].tap()
+            assertVisible(app.switches["disable_stone_animations"].firstMatch, in: app)
+            assertVisible(app.buttons["accent_slate"], in: app)
+            XCTAssertEqual(app.scrollViews.count, 0)
+            record("Native-\(language)-Appearance", app: app)
+            app.terminate()
+        }
+    }
+
     @MainActor func testStoreScreenshots() {
         XCUIDevice.shared.orientation = .portrait
         for language in ["de", "en"] {

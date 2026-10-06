@@ -4,6 +4,41 @@ import UIKit
 @testable import Muehlenstein
 
 final class GameStoreTests: XCTestCase {
+    func testNativeLocalizationsAreBundledCompleteAndUseValidFormats() throws {
+        let languages = ["de", "en", "es", "fr", "ja", "ko", "zh-Hans", "zh-Hant"]
+        func strings(_ language: String) throws -> [String: String] {
+            let directory = try XCTUnwrap(Bundle.main.path(forResource: language, ofType: "lproj"))
+            let bundle = try XCTUnwrap(Bundle(path: directory))
+            let url = try XCTUnwrap(bundle.url(forResource: "Localizable", withExtension: "strings"))
+            return try XCTUnwrap(PropertyListSerialization.propertyList(from: Data(contentsOf: url), format: nil) as? [String: String])
+        }
+        let english = try strings("en")
+        XCTAssertEqual(english.count, 181)
+        let format = try NSRegularExpression(pattern: "%[@d]")
+        func arguments(_ value: String) -> [String] {
+            format.matches(in: value, range: NSRange(value.startIndex..., in: value))
+                .map { String(value[Range($0.range, in: value)!]) }
+        }
+        for language in languages {
+            XCTAssertTrue(Bundle.main.localizations.contains(language), language)
+            let translated = try strings(language)
+            XCTAssertEqual(Set(translated.keys), Set(english.keys), language)
+            for (key, value) in translated {
+                XCTAssertFalse(value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, "\(language)/\(key)")
+                XCTAssertEqual(arguments(value), arguments(english[key] ?? ""), "\(language)/\(key)")
+            }
+            // Each paragraph is paired with its own localized heading in About.
+            for key in ["privacy_body", "credits_body"] {
+                XCTAssertEqual(translated[key]?.components(separatedBy: "\n\n").count, 3, "\(language)/\(key)")
+            }
+            if language != "en" {
+                for key in ["new_game", "start_game", "rules", "computer_help_body", "privacy_body"] {
+                    XCTAssertNotEqual(translated[key], english[key], "\(language)/\(key)")
+                }
+            }
+        }
+    }
+
     func testBuildInformationUsesBundleValuesAndLicensesAreBundled() throws {
         let build = AppInformation.Build(info: ["CFBundleShortVersionString": "1.2.3", "CFBundleVersion": "42", "CFBundleIdentifier": "test.app"])
         XCTAssertEqual(build.version, "1.2.3")
