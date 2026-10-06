@@ -535,6 +535,23 @@ und 204 Kontrastprüfungen wurden vor diesem reinen Versionswechsel ausgeführt.
 Für 1.1 wurden kein Gerätearchiv, Upload oder Review-Antrag erstellt. Physische
 Geräte-, VoiceOver- und Energieprüfungen wurden in dieser Runde nicht wiederholt.
 
+## TestFlight 1.1 (7) — 02.10.2026
+
+Auf Nutzerauftrag wurde der unveränderte Quelltag `v1.1` für TestFlight
+archiviert, mit App-Store-Distributionssignatur exportiert und hochgeladen.
+Archiv und IPA bestehen die Codesign-Prüfung; Bundlewerte, Exportangabe,
+Datenschutzmanifest und Lizenzressourcen sind geprüft. Die vorhandenen zwei
+Release-Tests aus `.build/Version-1.1-Checks.xcresult` wurden als bestanden
+bestätigt; kein erneuter Testlauf.
+
+Apple bestätigt **`VALID`** für Build
+`18bcd44b-2552-4988-8cb2-5244793f0843`. Die Zuordnung zur bestehenden Gruppe
+**Externe Tests**, deutsche/englische Testhinweise und aktivierte automatische
+Benachrichtigung sind erneut abgefragt. Die Beta-Prüfung wurde um **13:53:58 Uhr
+(Europe/Berlin)** eingereicht; bestätigter Zustand:
+**`WAITING_FOR_BETA_REVIEW`**. Externe Installation ist erst nach Apples
+Freigabe möglich. [Vollständiges Protokoll](../Store/TESTFLIGHT-1.1-7.md).
+
 ## Gemerkte Spielstärke und Start auf Stufe 1 — 06.10.2026
 
 Neue Konfigurationen beginnen mit Stufe 1 · Sehr leicht. Eine bestätigte
@@ -597,3 +614,34 @@ Keine Änderungen am Spielkern, an den Lizenzoriginalen, am Versions-/Buildwert
 oder an bestehenden Tags. Kein Upload; Store-Metadaten bleiben separat.
 Physische Geräte und große Bedienhilfentextgrößen wurden in dieser
 Lokalisierungsrunde nicht zusätzlich geprüft.
+
+## Quellrelease 1.2 (Build 8) — 06.10.2026
+
+Versions- und Buildwert in `Configuration/App.xcconfig` auf **1.2 / 8**
+angehoben. Der annotierte Quelltag **v1.2** umfasst die fünf zusätzlichen
+Sprachen einschließlich beider chinesischer Schriften sowie den Einstieg
+auf Stufe 1 mit gemerkter bestätigter Spielstärke. Vorhandene Tags bleiben
+unverändert. README, Changelog, Release-/Store-Dokumentation, Sprachübersicht
+und lokale Produktdaten einschließlich DE/EN-Versionshinweisen sind aktualisiert.
+Das bereits vorhandene TestFlight-Protokoll zu 1.1 (7) wird als datierter
+Nachweis mitgeführt; gespeicherte Build- und Verteilungsnachweise bestätigen
+den dort festgehaltenen Zustand vom 02.10.2026. Keine neue Apple-Statusabfrage.
+
+**Bestanden:** Release-Simulatorbuild und drei fokussierte Tests in
+`.build/Version-1.2-Checks.xcresult` (Protokoll `.build/Version-1.2-Checks.log`):
+
+- Bundlewerte und gebündelte Lizenztexte.
+- Alle acht eingebauten Lokalisierungen, vollständige Schlüssel,
+  Formatargumente und Absatzstruktur.
+- Tatsächliche Anzeige „Version 1.2 · Build 8“ unter „Über Mühlenstein“,
+  Impressum, Datenschutz, Quelllinks und Lizenznavigation.
+
+Die erzeugte App-Info.plist bestätigt **1.2**, **8** und
+`org.amosystems.Muehlenstein`. Der Build enthält `de`, `en`, `es`, `fr`,
+`ja`, `ko`, `zh-Hans` und `zh-Hant`. `ENABLE_TESTABILITY=YES` wurde nur für
+den Testlauf verwendet. Der Ressourcen-Prüfmodus, die unverändert bleibende
+Projektsynchronisierung, die Produktdaten-/Textlängenprüfung und
+`git diff --check` bestehen. Die vorstehend dokumentierten vollständigen
+Sprachabläufe auf iPhone und iPad wurden vor diesem Versionswechsel geprüft.
+
+Für 1.2 wurden kein Gerätearchiv, Upload oder Review-Antrag erstellt.

@@ -1,18 +1,35 @@
 # Distribution requirements and open decisions
 
-## Current source release — 2026-10-02
+## Current source release — 2026-10-06
 
-Version **1.1 (build 7)**, annotated source tag
-[`v1.1`](https://github.com/MrFam0s/Muehlenstein/tree/v1.1), makes slate blue the
-default for the game and app icon and the first appearance option. Rose joins
-the palette, with existing saved selections preserved. Version and build are
-maintained in `Configuration/App.xcconfig`; internal Cargo versions are unchanged.
-See the [changelog](../CHANGELOG.md) and [validation record](VALIDATION.md).
+Version **1.2 (build 8)**, annotated source tag
+[`v1.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.2), adds Japanese,
+Korean, Chinese, French and Spanish to German and English. Chinese includes
+Simplified and Traditional scripts, resulting in eight complete offline
+localizations. New players start at level 1; the last confirmed computer
+level is remembered for later games and app restarts.
 
-This is a source release. Version 1.1 has no device archive, upload or review
-submission yet. Before distribution, create a matching device archive and
-refresh the Store screenshots to show the new default colors. The latest
-recorded Apple submission below remains associated with version 1.0.2 (build 6).
+Version and build are maintained in `Configuration/App.xcconfig`; internal
+Cargo versions are unchanged. See the [changelog](../CHANGELOG.md),
+[localization documentation](LOCALIZATION.md) and [validation record](VALIDATION.md).
+Existing source tags remain fixed.
+
+This is a source release. No device archive, upload or review submission was
+created for 1.2. Before distribution, archive this exact source and refresh
+Store screenshots to show the current colors and setup. The German/English
+listing drafts describe the new language support; listings in the additional
+languages are a separate future step. Apple records were not changed or
+re-queried for this source release.
+
+## Last recorded TestFlight distribution — 2026-10-02
+
+Version **1.1 (build 7)** was archived, exported and uploaded for TestFlight.
+The saved verification reports successful processing (`VALID`), assignment
+to **Externe Tests** and beta review submission at 11:53:58 UTC. The state
+recorded on that date was `WAITING_FOR_BETA_REVIEW`, with automatic tester
+notification enabled and German/English test notes saved. See the dated
+[TestFlight record](../Store/TESTFLIGHT-1.1-7.md). This is historical evidence,
+not a fresh claim about the current Apple review state.
 
 ## Last verified App Store submission — 2026-10-01
 

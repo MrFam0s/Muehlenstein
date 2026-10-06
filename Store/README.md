@@ -1,18 +1,32 @@
 # App-Store-Vorbereitung
 
-## Aktueller Quellrelease — 02.10.2026, Version 1.1 (Build 7)
+## Aktueller Quellrelease — 06.10.2026, Version 1.2 (Build 8)
 
-Quelltag: [`v1.1`](https://github.com/MrFam0s/Muehlenstein/tree/v1.1).
-Schieferblau ist jetzt Standard für Spiel und Icon sowie die erste Farboption.
-Rosé ergänzt die Auswahl auf sechs Paletten; gespeicherte Farbentscheidungen
-bleiben erhalten. Änderungen und Prüfnachweise stehen im
-[Changelog](../CHANGELOG.md) und [Validierungsprotokoll](../Docs/VALIDATION.md).
+Quelltag: [`v1.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.2).
+Fünf weitere native Sprachen ergänzen Deutsch und Englisch. Chinesisch erhält
+zwei Schriftfassungen; damit acht vollständige Offline-Lokalisierungen.
+Neue Nutzer beginnen mit Stufe 1. Danach bleibt die zuletzt bestätigte
+Spielstärke für weitere Partien und App-Neustarts erhalten.
+[Änderungen](../CHANGELOG.md), [Sprachen](../Docs/LOCALIZATION.md) und
+[Prüfnachweise](../Docs/VALIDATION.md).
 
-Für **1.1 (7)** wurde noch kein Gerätearchiv, Upload oder Review-Antrag erstellt.
-Vor der Distribution sind ein passendes Archiv und aktuelle Store-Screenshots
-mit Schieferblau zu erstellen. Die vorhandenen Store-Aufnahmen und die folgende
-Einreichungsbestätigung gehören weiterhin zu **1.0.2 (6)**. Der Apple-Status
-wurde im Rahmen dieses Quellreleases nicht erneut abgefragt oder verändert.
+Für **1.2 (8)** wurde kein Gerätearchiv, Upload oder Review-Antrag erstellt.
+Vor der Distribution sind ein passendes Archiv vom Quelltag und aktuelle
+Store-Screenshots erforderlich. Die lokalen Produktdaten DE/EN enthalten
+aktualisierte Beschreibungen und Versionshinweise. Zusätzliche Sprachen der
+Store-Beschreibung sind von den nativen App-Sprachen getrennt und noch nicht
+angelegt. Vorhandene Store-Aufnahmen gehören zu **1.0.2 (6)**.
+
+## Zuletzt dokumentierter TestFlight-Stand — 02.10.2026
+
+**1.1 (7)** wurde als Gerätearchiv erstellt, für App Store Connect exportiert
+und erfolgreich verarbeitet (`VALID`). Am 02.10.2026 war die Zuordnung zur
+Gruppe **Externe Tests** bestätigt; die Beta-Prüfung wurde um **13:53:58 Uhr
+(Europe/Berlin)** eingereicht. Damals bestätigter Zustand:
+**`WAITING_FOR_BETA_REVIEW`**, mit automatischer Testerbenachrichtigung sowie
+deutschen und englischen Testhinweisen.
+[Historisches Protokoll](TESTFLIGHT-1.1-7.md). Für den Quellrelease 1.2 wurde
+der aktuelle Apple-Status nicht erneut abgefragt oder verändert.
 
 ## Zuletzt bestätigte Einreichung — 01.10.2026, Build 6
 
@@ -34,7 +48,7 @@ unverändert und gehört zum älteren Build 5. Details und lokale Nachweise:
 
 Die folgenden Angaben dokumentieren den früheren Vorbereitungsstand.
 Für den zuletzt bestätigten Upload-, Screenshot- und Datenschutzstatus gilt
-der vorstehende Einreichungsabschnitt; der aktuelle Quellstand ist 1.1 (7).
+der vorstehende Einreichungsabschnitt; der aktuelle Quellstand ist 1.2 (8).
 
 Stand: 01.10.2026. **Bei Apple registriert, noch nicht zur Prüfung eingereicht.**
 Zuletzt markierte App-Version **1.0.2**, Build **5**, Quellstand

@@ -1,6 +1,10 @@
 # Versionshinweise
 
-## Noch nicht als Release markiert — 06.10.2026
+## 1.2 — 06.10.2026
+
+App-Version **1.2**, Build **8**, Quelltag **v1.2**. Dieser Quellrelease bündelt
+die neuen Sprachfassungen und die gemerkte Spielstärke. Kein App-Store-Upload
+oder Review-Antrag für 1.2; bestehende Tags bleiben unverändert.
 
 - Fünf zusätzliche native Sprachen: Japanisch, Koreanisch, Chinesisch,
   Französisch und Spanisch. Chinesisch ist in vereinfachter und traditioneller
@@ -9,7 +13,6 @@
   und Impressum eingeschlossen. Original-Lizenztexte bleiben erhalten.
 - Übersetzungsprüfung und Xcode-Sprachressourcen-Synchronisierung ergänzen
   die Pflegewerkzeuge. [Auswahl und Pflege](Docs/LOCALIZATION.md).
-
 - Neue Partien beginnen zunächst mit Stufe 1 · Sehr leicht. Danach wird die
   zuletzt bestätigte Spielstärke für weitere Partien und App-Neustarts gemerkt.
   Dies gilt beim Partiestart und bei Änderungen unter Spielstärke. Abbrechen
@@ -23,8 +26,9 @@ App-Version **1.1**, Build **7**, Quelltag **v1.1**.
 - Rosé ergänzt die Auswahl, angelehnt an die Wildrose-Palette aus „Besser Lesen“
   und im Hellmodus für gut lesbare Beschriftungen angepasst.
 - Bestehende gespeicherte Farbentscheidungen bleiben erhalten.
-- Diese Quellversion folgt dem eingereichten Build 6. Für 1.1 wurden noch
-  kein Gerätearchiv, App-Store-Upload oder Review-Antrag erstellt.
+- Diese Version folgt dem eingereichten Build 6. Am 02.10.2026 für TestFlight
+  hochgeladen und der bestehenden externen Testergruppe zugeordnet; der damals
+  bestätigte Status war ausstehende Beta-Prüfung. [TestFlight-Protokoll](Store/TESTFLIGHT-1.1-7.md).
 
 ## 1.0.2 · Build 6 — 01.10.2026
 

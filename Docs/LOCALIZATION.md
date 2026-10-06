@@ -1,6 +1,6 @@
 # Native Sprachfassungen
 
-Stand: 06.10.2026. Der Entwicklungsstand ergänzt fünf Sprachen neben Deutsch
+Stand: 06.10.2026. Version 1.2 (Build 8) ergänzt fünf Sprachen neben Deutsch
 und Englisch. Chinesisch wird in zwei Schriftfassungen angeboten; dadurch
 enthält das App-Bundle insgesamt acht Lokalisierungen.
 
