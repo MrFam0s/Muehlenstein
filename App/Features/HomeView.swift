@@ -3,6 +3,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.accentPalette) private var palette
+    @Environment(AppPreferences.self) private var preferences
     @Bindable var store: GameStore
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(\.verticalSizeClass) private var verticalSize
@@ -51,7 +52,7 @@ struct HomeView: View {
             }
             .navigationDestination(for: String.self) { _ in GameView(store: store) }
             .sheet(isPresented: $showingNewGame) {
-                NewGameView(hasOngoingGame: store.hasOngoingGame) { settings in
+                NewGameView(hasOngoingGame: store.hasOngoingGame, initialLevel: preferences.lastComputerLevel) { settings in
                     store.start(settings)
                     if store.position != nil { path = ["game"] }
                 }

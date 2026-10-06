@@ -71,7 +71,9 @@ struct GameView: View {
         }
         .sheet(isPresented: $showingHistory) { HistoryView(game: store.game, position: store.position) }
         .sheet(isPresented: $showingRules) { RulesView(variant: store.game?.settings.variant ?? .classic) }
-        .sheet(isPresented: $showingNewGame) { NewGameView(hasOngoingGame: store.hasOngoingGame) { store.start($0) } }
+        .sheet(isPresented: $showingNewGame) {
+            NewGameView(hasOngoingGame: store.hasOngoingGame, initialLevel: preferences.lastComputerLevel) { store.start($0) }
+        }
         .sheet(isPresented: $showingMoves) { LegalMovesView(store: store) }
         .sheet(isPresented: $showingDisplayOptions) { DisplayOptionsView() }
         .sheet(isPresented: $showingComputerOptions) {

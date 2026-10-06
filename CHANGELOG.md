@@ -1,5 +1,12 @@
 # Versionshinweise
 
+## Noch nicht als Release markiert — 06.10.2026
+
+- Neue Partien beginnen zunächst mit Stufe 1 · Sehr leicht. Danach wird die
+  zuletzt bestätigte Spielstärke für weitere Partien und App-Neustarts gemerkt.
+  Dies gilt beim Partiestart und bei Änderungen unter Spielstärke. Abbrechen
+  und eine zwischendurch gespielte lokale Partie ändern die gemerkte Stufe nicht.
+
 ## 1.1 — 02.10.2026
 
 App-Version **1.1**, Build **7**, Quelltag **v1.1**.

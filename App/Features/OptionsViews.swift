@@ -83,6 +83,7 @@ struct DisplayOptionsView: View {
 struct ComputerOptionsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicType
+    @Environment(AppPreferences.self) private var preferences
     @State private var settings: GameSettings
     @State private var expanded = false
     let apply: (GameSettings) -> Void
@@ -99,7 +100,11 @@ struct ComputerOptionsView: View {
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) { Button(L10n.text("cancel")) { dismiss() } }
                     ToolbarItem(placement: .confirmationAction) {
-                        Button(L10n.text("done")) { apply(settings); dismiss() }.accessibilityIdentifier("computer_done")
+                        Button(L10n.text("done")) {
+                            preferences.lastComputerLevel = settings.level
+                            apply(settings)
+                            dismiss()
+                        }.accessibilityIdentifier("computer_done")
                     }
                 }
         }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(expanded ? 530 : 300)])

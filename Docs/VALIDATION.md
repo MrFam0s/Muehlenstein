@@ -534,3 +534,27 @@ und 204 Kontrastprüfungen wurden vor diesem reinen Versionswechsel ausgeführt.
 
 Für 1.1 wurden kein Gerätearchiv, Upload oder Review-Antrag erstellt. Physische
 Geräte-, VoiceOver- und Energieprüfungen wurden in dieser Runde nicht wiederholt.
+
+## Gemerkte Spielstärke und Start auf Stufe 1 — 06.10.2026
+
+Neue Konfigurationen beginnen mit Stufe 1 · Sehr leicht. Eine bestätigte
+Computerstufe wird unabhängig vom Spielstand in den lokalen Einstellungen
+abgelegt und beim Öffnen von „Neue Partie“ auf Startseite und Spielfeld geladen.
+„Partie beginnen“ und „Fertig“ übernehmen die Auswahl; Abbrechen und lokale
+Partien überschreiben die gespeicherte Computerstufe nicht. Ungültige gespeicherte
+Stufen fallen auf 1 zurück. DE/EN-Hilfetexte und ihre Generatorquelle sind angepasst.
+
+Der Release-Simulatorbuild und fünf gezielte Tests bestehen in
+`.build/Remember-Difficulty.xcresult` (Protokoll `.build/Remember-Difficulty.log`):
+
+- Anfangswert 1 sowie Speichern/Wiederherstellen aller fünf Stufen und Rückfall
+  bei ungültigen gespeicherten Werten.
+- Alle fünf Stufen im Spielstand und in der Engine.
+- Änderungen während einer Computersuche erhalten die laufende Partie.
+- Bedienung von der ersten Konfiguration bis zur nächsten Partie, Abbrechen
+  einer vorgeschlagenen Ersetzung, Ändern/Bestätigen/Abbrechen unter Spielstärke,
+  App-Neustart sowie eine lokale Partie zwischen Computerpartien.
+- Bestehende Prüfung aller Reglerstufen und verworfener erweiterter Änderungen.
+
+Beide Sprachdateien bestehen `plutil -lint`. Versionsnummer, veröffentlichte
+Tags und Apple-Builds wurden in diesem Entwicklungsschritt nicht geändert.

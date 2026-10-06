@@ -5,11 +5,18 @@ struct NewGameView: View {
     @Environment(\.accentPalette) private var palette
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicType
+    @Environment(AppPreferences.self) private var preferences
     let hasOngoingGame: Bool
     let start: (GameSettings) -> Void
-    @State private var settings = GameSettings()
+    @State private var settings: GameSettings
     @State private var confirmsReplacement = false
     @State private var expanded = false
+
+    init(hasOngoingGame: Bool, initialLevel: Int, start: @escaping (GameSettings) -> Void) {
+        self.hasOngoingGame = hasOngoingGame
+        self.start = start
+        _settings = State(initialValue: GameSettings(level: initialLevel))
+    }
     private var sheetHeight: CGFloat {
         if dynamicType.isAccessibilitySize { return 760 }
         if settings.opponent == .local { return 400 }
@@ -45,5 +52,9 @@ struct NewGameView: View {
         .presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(sheetHeight)])
         .presentationSizing(SettingsSheetSizing(height: sheetHeight))
     }
-    private func begin() { start(settings); dismiss() }
+    private func begin() {
+        if settings.opponent == .computer { preferences.lastComputerLevel = settings.level }
+        start(settings)
+        dismiss()
+    }
 }

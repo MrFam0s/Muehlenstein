@@ -1,12 +1,12 @@
 # Spielhilfen, Suchverfahren und Spielstärke
 
-Stand: 01.10.2026. Produktentscheidung für den lokalen Prototyp, einschließlich Abgleich mit der Original-App.
+Stand: 01.10.2026, Voreinstellung und Speicherung ergänzt am 06.10.2026. Produktentscheidung für den lokalen Prototyp, einschließlich Abgleich mit der Original-App.
 
 **Ergänzung nach der unten dokumentierten ersten Optionsprüfung:** Das kleine klassische Eröffnungsorakel ist inzwischen integriert: automatisch auf Stufe 4/5, unter Erweitert → Eröffnung abschaltbar, mit legalitätsgeprüften Symmetrien und Such-Fallback. Die vollständige Perfect DB und ihre Teilpakete bleiben nach konkreter Aufwand-/Nutzenprüfung zurückgestellt. Die bisherige Bezeichnung „separater C++-Wrapper“ ist zu präzisieren: Upstream besitzt bereits einen Rust-nativen Leser mit optionalem C++-Vergleich. Entscheidung, Größen, Grenzen und Prüfungen stehen in `OPENING_AND_DATABASE.md`; die Tabelle unten berücksichtigt diese Ergänzung. Die Suchbudgets bleiben gleich, Buchtreffer ändern auf Stufe 4/5 jedoch die Zugwahl.
 
 ## Aktuell umgesetzt
 
-Die einfache Einrichtung bietet fünf Stufen: 1 Sehr leicht, 2 Leicht, 3 Mittel, 4 Schwer, 5 Sehr schwer. Voreinstellung ist Stufe 3 mit MTD(f) und normaler Rechenzeit. Die Stufe bezeichnet ein Suchprofil innerhalb dieser App, keine menschlich kalibrierte Wertung. Neben dem Computervorrat steht optional „Stufe n/5“; die Partiedetails nennen Stufe und Bezeichnung. Technische Suchangaben stehen ausschließlich im erweiterten Bereich.
+Die einfache Einrichtung bietet fünf Stufen: 1 Sehr leicht, 2 Leicht, 3 Mittel, 4 Schwer, 5 Sehr schwer. Anfangs ist Stufe 1 · Sehr leicht mit MTD(f) und normaler Rechenzeit eingestellt. Die zuletzt mit „Partie beginnen“ oder „Fertig“ bestätigte Spielstärke bleibt danach für neue Partien gespeichert, auch nach einem App-Neustart. Abbrechen verwirft die Auswahl; eine lokale Partie überschreibt die Computerstufe nicht. Die Stufe bezeichnet ein Suchprofil innerhalb dieser App, keine menschlich kalibrierte Wertung. Neben dem Computervorrat steht optional „Stufe n/5“; die Partiedetails nennen Stufe und Bezeichnung. Technische Suchangaben stehen ausschließlich im erweiterten Bereich.
 
 Die geräteweit gespeicherten Spielhilfen schalten Zugziele, letzten Zug und Steinanimationen unabhängig. Spielstufe und Computer-Konfiguration stehen im Verlauf unter „Spieldetails“. Ohne Zielmarkierungen bleiben Regeln und Touchbedienung unverändert. Die Auswahl eines eigenen Steins bleibt als Bedienrückmeldung sichtbar. Ein angeforderter Tipp sowie die separate Zugauswahl und der Verlauf bleiben verfügbar. Dies ist kein gewerteter Wettbewerbsmodus.
 
@@ -36,7 +36,7 @@ Der am 01.10.2026 mit `git ls-remote` überprüfte öffentliche HEAD ist weiterh
 
 | Original-Option | Tatsächliche Wirkung / Einschränkung | Entscheidung für Mühlenstein |
 | --- | --- | --- |
-| 30 Schwierigkeitsstufen | Technischer Suchparameter, abhängig von Zeitlimit, Phase und Suchverfahren; keine gemessene Elo-Skala. | Fünf bereits verglichene Stufen; Stufe 3 bleibt Standard. |
+| 30 Schwierigkeitsstufen | Technischer Suchparameter, abhängig von Zeitlimit, Phase und Suchverfahren; keine gemessene Elo-Skala. | Fünf bereits verglichene Stufen; zunächst Stufe 1, danach die zuletzt bestätigte Stufe. |
 | Bedenkzeit | Obergrenze der Suche; beendet sich ggf. vorzeitig. Original bietet auch unbegrenzte Zeit. | Mit der Stufe automatisch wählen; Normal/Länger weiter manuell möglich. Kein unbegrenzter Lauf. Die sichtbare Denkpause ist davon getrennt. |
 | Beweglichkeit | Bewertet verfügbare Wege beider Seiten zusätzlich zur Steinzahl. | Bereits auf allen Stufen aktiv, jetzt ausdrücklich im Adapter festgelegt. Kein zusätzlicher Schalter nötig. |
 | „Menschliche Erfahrung“ | Der historische deutsche Text meint adaptive Setzphasen-Suchtiefe. Die aktuelle englische Beschriftung heißt „Use adaptive placement depth“. Kein trainiertes Modell und keine menschliche Partiedatenbank. Die Tabellen können Tiefe begrenzen. | Nicht als stärkesteigernden Zuschlag einschalten. Unsere festen Profile und Zeitgrenzen beibehalten; eine spätere Phasenoptimierung separat auf Qualität und Zeitersparnis prüfen. |

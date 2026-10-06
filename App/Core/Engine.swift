@@ -75,9 +75,10 @@ enum ComputerStyle: String, Codable, CaseIterable, Sendable {
 }
 struct GameSettings: Codable, Equatable, Sendable {
     static let levels = 1...5
+    static let defaultLevel = 1
     var variant: Variant = .classic
     var opponent: Opponent = .computer
-    var level = 3
+    var level = GameSettings.defaultLevel
     var algorithm: SearchAlgorithm = .mtdf
     var effort: SearchEffort = .standard
     var style: ComputerStyle = .balanced

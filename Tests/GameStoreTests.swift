@@ -318,6 +318,23 @@ final class GameStoreTests: XCTestCase {
         XCTAssertEqual(AppPreferences(defaults: defaults).accentPalette, .slate)
     }
 
+    @MainActor func testComputerLevelDefaultsToOneAndPersists() throws {
+        let suite = "MuehlensteinTests.\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        XCTAssertEqual(GameSettings().level, 1)
+        let preferences = AppPreferences(defaults: defaults)
+        XCTAssertEqual(preferences.lastComputerLevel, 1)
+        for level in GameSettings.levels {
+            preferences.lastComputerLevel = level
+            XCTAssertEqual(AppPreferences(defaults: defaults).lastComputerLevel, level)
+        }
+        for invalidLevel in [0, 6, -1] {
+            defaults.set(invalidLevel, forKey: "lastComputerLevel")
+            XCTAssertEqual(AppPreferences(defaults: defaults).lastComputerLevel, 1)
+        }
+    }
+
     func testFiveLevelSettingsRoundtripThroughSaveAndEngine() throws {
         for level in GameSettings.levels {
             let settings = GameSettings(variant: .morabaraba, level: level, algorithm: .pvs, effort: .extended)

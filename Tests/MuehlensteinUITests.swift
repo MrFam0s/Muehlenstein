@@ -834,6 +834,48 @@ final class MuehlensteinUITests: XCTestCase {
             XCTAssertLessThanOrEqual(app.buttons["variant_" + key].frame.maxY, app.buttons["start_game"].frame.minY - 2, "Variant must not overlap the start button")
         }
     }
+    @MainActor func testDifficultyStartsAtOneAndRemembersConfirmedLevelAcrossGamesAndRelaunch() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString,
+                               "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        app.buttons["new_game"].tap()
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "1 · Sehr leicht")
+        app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: 0.75)
+        app.buttons["start_game"].tap()
+        XCTAssertTrue(app.buttons["game_options"].waitForExistence(timeout: 5))
+
+        app.buttons["game_options"].tap()
+        app.buttons["Neue Partie"].tap()
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "4 · Schwer")
+        app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: 0)
+        app.buttons["start_game"].tap() // Replacement is only proposed, not confirmed.
+        app.navigationBars["Neue Partie"].buttons["Abbrechen"].tap()
+
+        app.buttons["game_options"].tap()
+        app.buttons["Spielstärke"].tap()
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "4 · Schwer")
+        app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: 1)
+        app.buttons["computer_done"].tap()
+        app.buttons["game_options"].tap()
+        app.buttons["Spielstärke"].tap()
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "5 · Sehr schwer")
+        app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: 0)
+        app.navigationBars.buttons["Abbrechen"].tap()
+
+        app.terminate()
+        app.launch()
+        app.buttons["new_game"].tap()
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "5 · Sehr schwer")
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["start_game"].tap()
+        XCTAssertTrue(app.buttons["game_options"].waitForExistence(timeout: 5))
+        app.buttons["game_options"].tap()
+        app.buttons["Neue Partie"].tap()
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "5 · Sehr schwer")
+    }
+
     @MainActor func testAdvancedSearchSelectionAndExplanations() {
         let app = XCUIApplication()
         app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
@@ -841,7 +883,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["new_game"].tap()
         XCTAssertFalse(app.buttons["Spielstärke"].exists)
         XCTAssertFalse(app.buttons["algorithm_pvs"].exists)
-        XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("3"))
+        XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("1"))
         assertVariantsVisible(app)
         record("Inline-Setup", app: app)
         showSetupPanel("advanced", in: app)

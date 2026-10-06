@@ -15,6 +15,7 @@ enum AccentPalette: String, CaseIterable, Identifiable {
     var showLastMove: Bool { didSet { defaults.set(showLastMove, forKey: "showLastMove") } }
     var animateStones: Bool { didSet { defaults.set(animateStones, forKey: "animateStones") } }
     var accentPalette: AccentPalette { didSet { defaults.set(accentPalette.rawValue, forKey: "accentPalette") } }
+    var lastComputerLevel: Int { didSet { defaults.set(lastComputerLevel, forKey: "lastComputerLevel") } }
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -22,5 +23,7 @@ enum AccentPalette: String, CaseIterable, Identifiable {
         showLastMove = defaults.object(forKey: "showLastMove") as? Bool ?? false
         animateStones = defaults.object(forKey: "animateStones") as? Bool ?? true
         accentPalette = defaults.string(forKey: "accentPalette").flatMap(AccentPalette.init(rawValue:)) ?? .slate
+        let storedLevel = defaults.object(forKey: "lastComputerLevel") as? Int
+        lastComputerLevel = storedLevel.flatMap { GameSettings.levels.contains($0) ? $0 : nil } ?? GameSettings.defaultLevel
     }
 }
