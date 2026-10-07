@@ -1,8 +1,11 @@
 # App-Store-Vorbereitung
 
-## Aktuelle Vorbereitung — 08.10.2026, Version 1.3 (Build 9)
+## Aktuelle Einreichung — 08.10.2026, Version 1.3 (Build 9)
 
-Der neue WLAN-Spielmodus wird für die Veröffentlichung vorbereitet.
+Der neue WLAN-Spielmodus ist mit **1.3 (9)** um **00:16:57 Uhr** zur
+App-Store-Prüfung eingereicht: **`WAITING_FOR_REVIEW`**, automatische
+Veröffentlichung nach Freigabe. 42 Release-Prüfungen bestanden; acht
+Sprachfassungen und 80 Original-Screenshots sind bei Apple vollständig geprüft.
 Version 1.2 (8) ist inzwischen im App Store verfügbar, über Apple am
 07.10.2026 als `READY_FOR_DISTRIBUTION` bestätigt.
 [Aktueller Release- und Prüfstand für 1.3](RELEASE-1.3-9.md).

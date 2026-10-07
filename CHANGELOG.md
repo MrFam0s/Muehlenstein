@@ -2,8 +2,9 @@
 
 ## 1.3 — Lokale Netzwerkpartien (08.10.2026)
 
-App-Version **1.3**, Build **9**. Veröffentlichung in Vorbereitung;
-aktueller Stand im [Releaseprotokoll](Store/RELEASE-1.3-9.md).
+App-Version **1.3**, Build **9**, Quelltag **v1.3**. Am 08.10.2026 zur
+App-Store-Prüfung eingereicht (`WAITING_FOR_REVIEW`); automatische
+Veröffentlichung nach Freigabe. [Releaseprotokoll](Store/RELEASE-1.3-9.md).
 
 - Auf zwei Geräten im selben WLAN spielen; die eröffnende Person nimmt die Einladung an, ohne Kopplungscode.
 - Alle vier Spielvarianten mit synchronisierten, beidseitig geprüften Zügen und gespeicherter Wiederverbindung.

@@ -733,7 +733,19 @@ Versions-/Impressums-/Lizenznavigation und vollständiger Screenshotablauf).
 über alle acht Sprachen. 80 neue Original-Screenshots einschließlich WLAN-
 Einrichtung; alle 16 Kontaktbögen geprüft, Abmessungen und Prüfsummen erfasst.
 
-Die zusätzliche Zwei-iPhone-Prüfung wartet auf entsperrte Geräte; der bestehende
-erfolgreiche reale iPhone-/Simulator-Test vom 07.10.2026 bleibt gültig für die
-unveränderte Netzwerklogik. Aktueller Apple-Stand und Artefakte:
+Die zusätzliche Zwei-iPhone-Prüfung konnte wegen gesperrter Geräte nicht
+starten; die wartenden Testprozesse wurden beendet. Der Nutzer hat die
+Veröffentlichung ohne diese zusätzliche Prüfung ausdrücklich bestätigt.
+Der bestehende erfolgreiche
+reale iPhone-/Simulator-Test vom 07.10.2026 bleibt gültig für die unveränderte
+Netzwerklogik und ist zusammen mit den erneut bestandenen Release- und
+Protokolltests die Prüfbasis dieser Einreichung. Aktueller Apple-Stand und Artefakte:
 [Releaseprotokoll](../Store/RELEASE-1.3-9.md).
+
+App-Store-Einreichung am 08.10.2026 um 00:16:57 Uhr bestätigt:
+`WAITING_FOR_REVIEW`, automatische Veröffentlichung nach Freigabe.
+Alle 80 Screenshots sind `COMPLETE`; Reihenfolge, Abmessungen und Prüfsummen
+stimmen mit den Originalen überein. Abschließende strikte ASC-Validierung:
+0 Fehler, 0 Warnungen, 0 Blocker. Die Datenschutzveröffentlichung wurde über
+die öffentliche Store-Seite bestätigt. Keine Änderung der Binärquellen nach
+Quelltag `v1.3`.

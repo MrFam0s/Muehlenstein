@@ -1,16 +1,16 @@
 {
-  "status": "Release 1.3 build 9 uploaded; App Store metadata prepared. Submission checks are in progress. Version 1.2 build 8 is published.",
+  "status": "Release 1.3 build 9 submitted for App Store review on 2026-10-08 (Europe/Berlin); automatic release after approval. Version 1.2 build 8 remains the published version.",
   "bundle_id": "org.amosystems.Muehlenstein",
   "bundle_resource_id": "864J73UNMD",
   "developer_team_id": "4WHV5UZ8E5",
   "app_store_connect_id": "6818139673",
-  "app_store_version_id": "78ec4878-594b-4774-9fb7-a79eb9a2b640",
+  "app_store_version_id": "00c0176b-7d42-4a48-914d-9ae5f26f93cf",
   "registration_date": "2026-10-01",
-  "app_store_state": "READY_FOR_DISTRIBUTION",
-  "app_store_version": "1.2",
-  "app_store_version_note": "Version 1.2 build 8 is published; 1.3 build 9 is being prepared as a new version.",
-  "app_store_build_number": "8",
-  "app_store_source_tag": "v1.2",
+  "app_store_state": "WAITING_FOR_REVIEW",
+  "app_store_version": "1.3",
+  "app_store_version_note": "Version 1.3 build 9 submitted; 8 Store localizations and 80 processed screenshots verified against Apple. Automatic release after approval.",
+  "app_store_build_number": "9",
+  "app_store_source_tag": "v1.3",
   "app_store_last_verified_date": "2026-10-08",
   "version": "1.3",
   "build_number": "9",
@@ -93,7 +93,7 @@
     }
   },
   "review_notes": "Muehlenstein is a native SwiftUI Morris game for iPhone and iPad. No account, demo credentials, in-app purchases or game server are required. Computer games and two-player games on one device work offline. There are four rule variants and five computer difficulty levels.\n\nNew in 1.3: two-player local Wi-Fi games. To review this optional mode, install the app on two iOS devices on the same Wi-Fi network (guest networks with client isolation can prevent discovery). On both devices select New game > Wi-Fi > Play over Wi-Fi. On device A choose Host a game. On device B choose Find a game, select the discovered game and send an invitation. Accept the invitation on device A. Allow Local Network access on both devices when iOS asks. No pairing code or personal device names are used. All four variants are supported. Moves are synchronized and validated on both devices. Hints and undo are intentionally unavailable in network games.\n\nTo test reconnection, send the guest app to the background and close it. On the host, open the connection controls and choose Reconnect. Reopen the guest app and choose Continue game. The saved game reconnects without another invitation. A disconnected board is paused. Network traffic uses Apple's Multipeer Connectivity with required system encryption; no game or usage data is sent to AmoSystems. Internet matchmaking is not offered.\n\nThe interface and geometric artwork are original Muehlenstein work. The Rust game engine comes from Sanmill, revision 8901a06f088bf49a1602fee8686ed25ac5a33925, under AGPL-3.0-or-later with its published section 7 App Store additional permission. Full corresponding source, build scripts, preserved notices and our additional permission: https://github.com/MrFam0s/Muehlenstein. Upstream permission: https://github.com/calcitem/Sanmill#terms-of-use. This is an independently named fork, not an official Sanmill release. Offline legal notices, provider details and source links are in About Muehlenstein.",
-  "app_store_build_id": "38cb613d-db9e-4687-ace0-fcf0b97aeaa2",
+  "app_store_build_id": "607206c3-1ad1-4462-8e28-3db95811afe8",
   "app_privacy_published": true,
   "app_localizations": [
     "de",
@@ -105,9 +105,8 @@
     "zh-Hans",
     "zh-Hant"
   ],
-  "review_submission_id": "5dfe3873-caa3-4ec0-975a-dea68ee21561",
-  "review_submitted_at": "2026-10-06T17:16:42.447Z",
-  "pending_app_store_version": "1.3",
-  "pending_app_store_version_id": "00c0176b-7d42-4a48-914d-9ae5f26f93cf",
-  "pending_app_store_build_number": "9"
+  "review_submission_id": "8044e4a0-0a93-4ca4-bc1c-eac57e6b57ad",
+  "review_submitted_at": "2026-10-07T22:16:57.321Z",
+  "live_app_store_version": "1.2",
+  "live_app_store_build_number": "8"
 }

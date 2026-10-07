@@ -3,8 +3,10 @@
 **Version 1.3 (Build 9)** ergänzt Spiele auf zwei Geräten im selben WLAN:
 Einladung ohne Code, vier Varianten und gespeicherte Wiederverbindung.
 Bedienung und Grenzen: [Lokaler Netzwerkmodus](Docs/LOCAL_NETWORK.md).
-Der Release wird für den App Store vorbereitet; der genaue Stand steht im
-[Releaseprotokoll](Store/RELEASE-1.3-9.md).
+Am **08.10.2026** zur App-Store-Prüfung eingereicht: **`WAITING_FOR_REVIEW`**,
+automatische Veröffentlichung nach Freigabe. Quelltag [v1.3](https://github.com/MrFam0s/Muehlenstein/tree/v1.3).
+Build, 42 bestandene Prüfungen, 80 Store-Aufnahmen und verbleibende
+Geräteabdeckung sind im [Releaseprotokoll](Store/RELEASE-1.3-9.md) dokumentiert.
 
 **Mühlenstein** is the German product name; **Muehlenstein** is the international
 name and technical project name. An independent native SwiftUI Morris app for

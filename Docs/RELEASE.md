@@ -1,15 +1,18 @@
 # Distribution requirements and open decisions
 
-## Current release preparation — 2026-10-08
+## Current App Store submission — 2026-10-08
 
-Version **1.3 (build 9)** contains the local network mode. The signed archive
+Version **1.3 (build 9)** contains the local network mode. It was submitted
+at 22:16:57 UTC on 2026-10-07 (00:16:57 Europe/Berlin on 2026-10-08).
+Apple confirms `WAITING_FOR_REVIEW`; release is automatic after approval.
+Source tag: `v1.3`, commit `6b9a60dfbed4a538a28c9f8ba317db398705d93c`. The signed archive
 and App Store IPA were created and their bundle identity, signature, eight
 localizations, Bonjour declaration, privacy manifest and system-only encryption
 setting verified. Store copy and review instructions now describe two-device
 Wi-Fi games and the limitations of hints and undo in this mode.
 
 The prior **1.2 (8)** release is published (`READY_FOR_DISTRIBUTION`, verified
-2026-10-07). Current 1.3 submission progress and test limits are recorded in
+2026-10-07). The completed 1.3 submission and test limits are recorded in
 [the release record](../Store/RELEASE-1.3-9.md).
 
 ## Previous source release — 2026-10-06
