@@ -52,7 +52,10 @@ struct HomeView: View {
             }
             .navigationDestination(for: String.self) { _ in GameView(store: store) }
             .sheet(isPresented: $showingNewGame) {
-                NewGameView(hasOngoingGame: store.hasOngoingGame, initialLevel: preferences.lastComputerLevel) { settings in
+                NewGameView(hasOngoingGame: store.hasOngoingGame, initialLevel: preferences.lastComputerLevel, startNetwork: { session in
+                    store.adoptNetwork(session)
+                    path = ["game"]
+                }) { settings in
                     store.start(settings)
                     if store.position != nil { path = ["game"] }
                 }

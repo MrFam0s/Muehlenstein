@@ -3,6 +3,120 @@ import XCTest
 import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    // Run these two tests concurrently on separate devices/simulators with NETWORK_E2E=1.
+    // They use real Bonjour discovery and encrypted MCSession traffic, never a mock transport.
+    @MainActor func testLocalNetworkHostOnSecondSimulator() throws {
+        guard ProcessInfo.processInfo.environment["NETWORK_E2E"] == "1" else { throw XCTSkip("Requires the paired network test run") }
+        continueAfterFailure = false
+        let app = networkTestApp()
+        app.launch()
+        openNetworkSetup(app)
+        app.buttons["network_host"].tap()
+        allowLocalNetworkIfRequested()
+        record("Network-Host-Waiting", app: app)
+        XCTAssertTrue(app.buttons["network_accept"].waitForExistence(timeout: 50))
+        record("Network-Invitation", app: app)
+        app.buttons["network_accept"].tap()
+        XCTAssertTrue(app.staticTexts["game_status"].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.buttons["hint"].exists)
+        playNetworkNode(app, "c5")
+        waitForNetworkStone(app, "a7", "Schwarz")
+        playNetworkNode(app, "d5")
+        waitForNetworkStone(app, "d7", "Schwarz")
+        playNetworkNode(app, "e5")
+        playNetworkNode(app, "a7")
+        waitForNetworkStone(app, "a1", "Schwarz")
+        record("Network-Host-Capture", app: app)
+        let paused = app.staticTexts["Verbindung unterbrochen"]
+        XCTAssertTrue(paused.waitForExistence(timeout: 25))
+        app.buttons["network_connection"].tap()
+        app.buttons["network_reconnect"].tap()
+        XCTAssertTrue(app.staticTexts["network_connected"].waitForExistence(timeout: 30))
+        app.buttons["Fertig"].tap()
+        playNetworkNode(app, "f6")
+        waitForNetworkStone(app, "f4", "Schwarz")
+        record("Network-Host-Reconnected", app: app)
+    }
+    @MainActor func testLocalNetworkGuestOnSecondSimulator() throws {
+        guard ProcessInfo.processInfo.environment["NETWORK_E2E"] == "1" else { throw XCTSkip("Requires the paired network test run") }
+        continueAfterFailure = false
+        let app = networkTestApp()
+        app.launch()
+        openNetworkSetup(app)
+        app.buttons["network_browse"].tap()
+        allowLocalNetworkIfRequested()
+        let room = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "network_room_")).firstMatch
+        XCTAssertTrue(room.waitForExistence(timeout: 35))
+        record("Network-Guest-Discovery", app: app)
+        room.tap()
+        XCTAssertTrue(app.staticTexts["game_status"].waitForExistence(timeout: 25))
+        waitForNetworkStone(app, "c5", "Weiß")
+        playNetworkNode(app, "a7")
+        waitForNetworkStone(app, "d5", "Weiß")
+        playNetworkNode(app, "d7")
+        waitForNetworkStone(app, "e5", "Weiß")
+        waitForNetworkStone(app, "a7", "frei")
+        playNetworkNode(app, "a1")
+        waitForNetworkStone(app, "a1", "Schwarz")
+        record("Network-Guest-Capture", app: app)
+        XCUIDevice.shared.press(.home)
+        app.terminate()
+        app.launch()
+        app.buttons["continue_game"].tap()
+        waitForNetworkStone(app, "f6", "Weiß", timeout: 40)
+        playNetworkNode(app, "f4")
+        waitForNetworkStone(app, "f4", "Schwarz")
+        record("Network-Guest-Restored", app: app)
+    }
+    @MainActor func testNetworkSetupFitsAndCancelPreservesSavedGame() {
+        let app = launch(demo: true)
+        app.buttons["game_options"].tap()
+        app.buttons["Neue Partie"].tap()
+        app.buttons["opponent_network"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["start_game"].tap()
+        XCTAssertTrue(app.buttons["network_host"].waitForExistence(timeout: 4))
+        assertVisible(app.buttons["network_host"], in: app)
+        assertVisible(app.buttons["network_browse"], in: app)
+        record("Network-Setup", app: app)
+        app.buttons["Abbrechen"].tap()
+        XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 4))
+        XCTAssertTrue(app.buttons["node_a7"].label.contains("Weiß"))
+        XCTAssertTrue(app.buttons["undo"].exists)
+    }
+    @MainActor private func networkTestApp() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        return app
+    }
+    @MainActor private func openNetworkSetup(_ app: XCUIApplication) {
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_network"].tap()
+        app.buttons["start_game"].tap()
+        XCTAssertTrue(app.buttons["network_host"].waitForExistence(timeout: 5))
+    }
+    @MainActor private func playNetworkNode(_ app: XCUIApplication, _ node: String) {
+        let target = app.buttons["node_" + node]
+        // A received stone can appear before the peer acknowledges the new turn.
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "enabled == true"), object: target)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 10), .completed)
+        target.tap()
+    }
+    @MainActor private func allowLocalNetworkIfRequested() {
+        let alert = XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.firstMatch
+        if alert.waitForExistence(timeout: 3) {
+            let allow = alert.buttons.matching(NSPredicate(format: "label IN %@", ["Allow", "Erlauben", "OK"])).firstMatch
+            if allow.exists { allow.tap() }
+        }
+    }
+    @MainActor private func waitForNetworkStone(_ app: XCUIApplication, _ node: String, _ side: String, timeout: TimeInterval = 15) {
+        let target = app.buttons["node_" + node]
+        let predicate = NSPredicate(format: "label CONTAINS %@", side)
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: target)
+        XCTAssertEqual(XCTWaiter.wait(for: [expectation], timeout: timeout), .completed, "\(node) should show \(side)")
+    }
+
+
     @MainActor func testNewNativeLanguagesAcrossHomeSetupGameAndReading() {
         XCUIDevice.shared.orientation = .portrait
         let cases = [

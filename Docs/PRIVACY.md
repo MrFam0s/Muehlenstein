@@ -1,6 +1,6 @@
 # Mühlenstein – Datenschutz / Privacy
 
-Stand / Last updated: 01.10.2026
+Stand / Last updated: 07.10.2026
 
 ## Deutsch
 
@@ -20,6 +20,16 @@ bisherige. Mit dem Löschen der App werden ihre lokalen Daten entfernt;
 Auslagern der App ist nicht dasselbe wie Löschen. Gerätesicherungen und eine
 mögliche Wiederherstellung richten sich nach deinen Apple-Einstellungen.
 Mühlenstein betreibt keinen eigenen Cloud-Synchronisierungsdienst.
+
+**Optionaler lokaler Netzwerkmodus (kommendes Update):** Auf deinen Wunsch
+sucht die App nach angebotenen Partien im lokalen Netz. Dabei werden eine
+zufällige Partiekennung, die Spielvariante und technische Protokollangaben
+sichtbar. Persönliche Gerätenamen werden nicht verwendet. Nach Annahme der
+Einladung tauschen die beiden Geräte die Zugfolge und einen Schlüssel zur
+Wiederverbindung direkt über eine verschlüsselte Verbindung aus. Der Schlüssel
+wird mit der Partie lokal gespeichert. Es gibt keinen Spielserver und keine
+Übermittlung dieser Daten an uns. Du kannst den lokalen Netzwerkzugriff in den
+iOS-Einstellungen widerrufen; Offline-Partien bleiben möglich.
 
 Wenn du freiwillig einen Website- oder Quellcodelink öffnest, wird dieser in
 einem externen Browser geöffnet. Für den Besuch gelten die Datenschutzregeln
@@ -67,6 +77,15 @@ saved in the app's local storage so that you can resume play. Starting a new
 game replaces the previous game. Deleting the app removes its local data;
 offloading is different from deleting. Device backups and restoration depend
 on your Apple settings. Muehlenstein runs no cloud-sync service.
+
+**Optional local network play (upcoming update):** When you choose this mode,
+the app looks for games on the local network. Discovery exposes a random game
+identifier, game variant and technical protocol information. Personal device
+names are not used. After the host accepts the invitation, both devices exchange
+the move history and a reconnection key directly over an encrypted connection.
+The key is saved locally with the game. There is no game server, and this data
+is not sent to us. You can revoke local network access in iOS Settings;
+offline games remain available.
 
 Website and source-code links open in an external browser only when you
 choose to open them. The destination provider's privacy rules then apply.

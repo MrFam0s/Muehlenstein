@@ -60,7 +60,7 @@ enum Variant: Int, Codable, CaseIterable, Identifiable, Sendable {
     var stones: Int { switch self { case .classic: 9; case .lasker: 10; default: 12 } }
 }
 enum Opponent: String, Codable, CaseIterable, Identifiable, Sendable {
-    case computer, local
+    case computer, local, network
     var id: String { rawValue }
 }
 enum SearchAlgorithm: String, Codable, CaseIterable, Sendable {
@@ -108,6 +108,7 @@ struct SavedGame: Codable, Sendable {
     var settings: GameSettings
     var moves: [MoveRecord] = []
     var updatedAt = Date()
+    var network: LocalMatchIdentity?
 }
 
 enum EngineError: LocalizedError {

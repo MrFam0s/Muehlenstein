@@ -4,6 +4,195 @@ import UIKit
 @testable import Muehlenstein
 
 final class GameStoreTests: XCTestCase {
+    @MainActor func testNetworkDuplicateProposalAndLateAcknowledgementCannotAdvanceTwice() throws {
+        let link = MatchTestLink()
+        let host = LocalMatchSession(transport: link.white), guest = LocalMatchSession(transport: link.black)
+        host.host(variant: .classic); guest.browse()
+        guest.join(NearbyGame(id: "test", matchID: try XCTUnwrap(host.identity).id, variant: .classic))
+        link.connect(); link.pump(); host.acceptInvitation(); link.pump()
+        host.play(try XCTUnwrap(host.position?.legal.first))
+        link.pump()
+        let before = try XCTUnwrap(guest.game), identity = try XCTUnwrap(guest.identity), position = try XCTUnwrap(guest.position)
+        let snapshot = LocalMatchSnapshot(id: identity.id, resumeKey: identity.resumeKey, variant: .classic, moves: before.moves, fen: position.fen)
+        let action = try XCTUnwrap(position.legal.first)
+        let proposal = LocalMatchPacket(event: .move(revision: before.moves.count, digest: snapshot.digest, action: action))
+        guest.play(action)
+        XCTAssertEqual(guest.game?.moves, before.moves, "A proposal is not a committed move")
+        link.pump()
+        let after = host.game?.moves
+        link.white.onData?(try proposal.encoded())
+        XCTAssertFalse(host.canPlay, "Resending a snapshot requires its acknowledgement")
+        link.white.onData?(try LocalMatchPacket(event: .acknowledged(revision: before.moves.count, digest: snapshot.digest)).encoded())
+        XCTAssertFalse(host.canPlay, "Old acknowledgements cannot unlock the current snapshot")
+        link.pump()
+        XCTAssertTrue(host.canPlay)
+        XCTAssertEqual(host.game?.moves, after)
+        XCTAssertEqual(guest.game?.moves, after)
+        XCTAssertEqual(host.game?.moves.count, 2)
+        let rollback = LocalMatchSnapshot(id: identity.id, resumeKey: identity.resumeKey, variant: .classic,
+                                         moves: before.moves, fen: snapshot.fen)
+        XCTAssertThrowsError(try rollback.validatedGame(previous: guest.game))
+        host.stop(); guest.stop()
+    }
+
+    func testNetworkPrivacyPermissionIsBundledInEveryLanguage() throws {
+        XCTAssertEqual(Bundle.main.object(forInfoDictionaryKey: "NSBonjourServices") as? [String], ["_muehlenstein._tcp"])
+        for language in ["de", "en", "es", "fr", "ja", "ko", "zh-Hans", "zh-Hant"] {
+            let directory = try XCTUnwrap(Bundle.main.path(forResource: language, ofType: "lproj"))
+            let file = URL(fileURLWithPath: directory).appending(path: "InfoPlist.strings")
+            let strings = try XCTUnwrap(PropertyListSerialization.propertyList(from: Data(contentsOf: file), format: nil) as? [String: String])
+            XCTAssertFalse(try XCTUnwrap(strings["NSLocalNetworkUsageDescription"]).isEmpty, language)
+        }
+    }
+
+
+    @MainActor func testNetworkInvitationMustBeAcceptedBeforeSharingGame() throws {
+        let link = MatchTestLink()
+        let host = LocalMatchSession(transport: link.white)
+        let guest = LocalMatchSession(transport: link.black)
+        host.host(variant: .classic)
+        guest.browse()
+        guest.join(NearbyGame(id: "test", matchID: try XCTUnwrap(host.identity).id, variant: .classic))
+        link.connect()
+        link.pump()
+        XCTAssertEqual(host.phase, .awaitingApproval)
+        XCTAssertEqual(guest.phase, .awaitingApproval)
+        XCTAssertNil(guest.game, "No transcript or resume key is shared before approval")
+        XCTAssertFalse(host.canPlay)
+        XCTAssertFalse(guest.hasStarted)
+        host.acceptInvitation()
+        let approvedHost = GameStore(inMemory: true)
+        approvedHost.adoptNetwork(host)
+        XCTAssertNotNil(approvedHost.game?.network, "Host approval must establish the resumable match before the first acknowledgement")
+        XCTAssertFalse(approvedHost.isHumanTurn)
+        link.pump()
+        XCTAssertTrue(host.hasStarted)
+        XCTAssertTrue(guest.hasStarted)
+        XCTAssertTrue(host.canPlay)
+        XCTAssertFalse(guest.canPlay)
+        XCTAssertEqual(host.position?.fen, guest.position?.fen)
+        XCTAssertEqual(guest.identity?.side, 1)
+        host.stop(); guest.stop()
+    }
+
+    @MainActor func testNetworkAllArchivedGamesStayIdenticalIncludingCapturesAndGameOver() throws {
+        let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "offline-games", withExtension: "json"))
+        let fixtures = try JSONDecoder().decode(OfflineFixtures.self, from: Data(contentsOf: url))
+        for fixture in fixtures.games {
+            let link = MatchTestLink()
+            let host = LocalMatchSession(transport: link.white)
+            let guest = LocalMatchSession(transport: link.black)
+            let variant = try XCTUnwrap(Variant(rawValue: fixture.preset))
+            host.host(variant: variant)
+            guest.browse()
+            guest.join(NearbyGame(id: "test", matchID: try XCTUnwrap(host.identity).id, variant: variant))
+            link.connect(); link.pump(); host.acceptInvitation(); link.pump()
+            let white = GameStore(inMemory: true), black = GameStore(inMemory: true)
+            white.adoptNetwork(host); black.adoptNetwork(guest)
+            for notation in fixture.moves {
+                let actor = host.position?.side == 0 ? white : black
+                let other = host.position?.side == 0 ? black : white
+                XCTAssertTrue(actor.isHumanTurn, fixture.name)
+                XCTAssertFalse(other.isHumanTurn)
+                XCTAssertFalse(actor.canUndo)
+                XCTAssertFalse(actor.canHint)
+                actor.toggleHint(); actor.undo()
+                XCTAssertFalse(actor.isThinking)
+                let action = try XCTUnwrap(actor.position?.legal.first { $0.notation == notation })
+                let count = actor.game?.moves.count
+                other.play(action)
+                XCTAssertEqual(actor.game?.moves.count, count)
+                if action.kind == 1 { actor.tap(action.from) }
+                actor.tap(action.to)
+                XCTAssertFalse(actor.isHumanTurn, "Wait for the authoritative snapshot/acknowledgement")
+                link.pump()
+                XCTAssertEqual(host.phase, .connected)
+                XCTAssertEqual(guest.phase, .connected)
+                XCTAssertEqual(white.game?.moves, black.game?.moves)
+                XCTAssertEqual(white.position?.fen, black.position?.fen)
+                XCTAssertEqual(white.position?.legal, black.position?.legal)
+            }
+            XCTAssertEqual(host.position?.fen, fixture.fen, fixture.name)
+            XCTAssertEqual(guest.position?.outcome, fixture.outcome, fixture.name)
+            XCTAssertFalse(host.canPlay); XCTAssertFalse(guest.canPlay)
+            host.stop(); guest.stop()
+        }
+    }
+
+    @MainActor func testNetworkRelaunchRecoversUnacknowledgedMoveWithoutDuplicatingIt() throws {
+        let link = MatchTestLink()
+        let host = LocalMatchSession(transport: link.white), guest = LocalMatchSession(transport: link.black)
+        host.host(variant: .lasker); guest.browse()
+        guest.join(NearbyGame(id: "test", matchID: try XCTUnwrap(host.identity).id, variant: .lasker))
+        link.connect(); link.pump(); host.acceptInvitation(); link.pump()
+        let whiteFile = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        let blackFile = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: whiteFile); try? FileManager.default.removeItem(at: blackFile) }
+        let white = GameStore(storageURL: whiteFile), black = GameStore(storageURL: blackFile)
+        white.adoptNetwork(host); black.adoptNetwork(guest)
+        let action = try XCTUnwrap(host.position?.legal.first)
+        white.play(action)
+        // Simulate a lost connection after the host saved a move, before the guest received it.
+        link.pending.removeAll(); host.pause(); guest.pause(); link.pending.removeAll()
+        let restoredWhite = GameStore(storageURL: whiteFile), restoredBlack = GameStore(storageURL: blackFile)
+        XCTAssertEqual(restoredWhite.game?.moves.count, 1)
+        XCTAssertEqual(restoredBlack.game?.moves.count, 0)
+        XCTAssertFalse(restoredWhite.isHumanTurn); XCTAssertFalse(restoredBlack.isHumanTurn)
+        XCTAssertFalse(restoredWhite.canUndo); XCTAssertFalse(restoredBlack.canHint)
+        let recoveredHost = try LocalMatchSession(restoring: XCTUnwrap(restoredWhite.game), transport: link.white)
+        let recoveredGuest = try LocalMatchSession(restoring: XCTUnwrap(restoredBlack.game), transport: link.black)
+        recoveredHost.reconnect(); recoveredGuest.reconnect()
+        link.black.onGames?([NearbyGame(id: "test", matchID: try XCTUnwrap(host.identity).id, variant: .lasker)])
+        link.connect(); link.pump()
+        XCTAssertTrue(recoveredHost.hasStarted)
+        XCTAssertEqual(recoveredGuest.phase, .connected, "The original partner resumes without another invitation")
+        XCTAssertEqual(recoveredHost.game?.moves, recoveredGuest.game?.moves)
+        XCTAssertEqual(recoveredGuest.game?.moves.count, 1)
+        XCTAssertEqual(recoveredHost.position?.fen, recoveredGuest.position?.fen)
+        recoveredHost.stop(); recoveredGuest.stop()
+    }
+
+    @MainActor func testNetworkRejectsOutOfTurnAndCorruptPackets() throws {
+        let link = MatchTestLink()
+        let host = LocalMatchSession(transport: link.white), guest = LocalMatchSession(transport: link.black)
+        host.host(variant: .classic); guest.browse()
+        guest.join(NearbyGame(id: "test", matchID: try XCTUnwrap(host.identity).id, variant: .classic))
+        link.connect(); link.pump(); host.acceptInvitation(); link.pump()
+        let game = try XCTUnwrap(guest.game), identity = try XCTUnwrap(guest.identity), position = try XCTUnwrap(guest.position)
+        let snapshot = LocalMatchSnapshot(id: identity.id, resumeKey: identity.resumeKey, variant: .classic, moves: [], fen: position.fen)
+        let illegalTurn = LocalMatchPacket(event: .move(revision: 0, digest: snapshot.digest, action: try XCTUnwrap(position.legal.first)))
+        link.white.onData?(try illegalTurn.encoded())
+        XCTAssertEqual(host.failure, .invalidGame)
+        XCTAssertEqual(host.game?.moves, game.moves)
+        var incompatible = LocalMatchPacket(event: .pause)
+        incompatible.version += 1
+        XCTAssertThrowsError(try LocalMatchPacket.decode(incompatible.encoded()))
+        XCTAssertThrowsError(try LocalMatchPacket.decode(Data(repeating: 0, count: LocalMatchPacket.maximumBytes + 1)))
+        let invalid = LocalMatchSnapshot(id: identity.id, resumeKey: identity.resumeKey, variant: .classic,
+                                        moves: [MoveRecord(notation: "a7", side: 1)], fen: position.fen)
+        XCTAssertThrowsError(try invalid.validatedGame(previous: game))
+        host.stop(); guest.stop()
+    }
+
+    @MainActor func testNetworkDeclinedInvitationLeavesExistingGameUntouched() throws {
+        let store = GameStore(inMemory: true)
+        store.start(GameSettings(opponent: .local))
+        store.play(try XCTUnwrap(store.position?.legal.first))
+        let original = store.game?.moves
+        let link = MatchTestLink()
+        let host = LocalMatchSession(transport: link.white), guest = LocalMatchSession(transport: link.black)
+        host.host(variant: .classic); guest.browse()
+        guest.join(NearbyGame(id: "test", matchID: try XCTUnwrap(host.identity).id, variant: .classic))
+        link.connect(); link.pump(); host.declineInvitation(); link.pump()
+        store.adoptNetwork(guest)
+        XCTAssertNil(store.network)
+        XCTAssertEqual(store.game?.moves, original)
+        XCTAssertFalse(guest.hasStarted)
+        XCTAssertEqual(guest.failure, .declined)
+        host.stop(); guest.stop()
+    }
+
+
     func testNativeLocalizationsAreBundledCompleteAndUseValidFormats() throws {
         let languages = ["de", "en", "es", "fr", "ja", "ko", "zh-Hans", "zh-Hant"]
         func strings(_ language: String) throws -> [String: String] {
@@ -13,7 +202,7 @@ final class GameStoreTests: XCTestCase {
             return try XCTUnwrap(PropertyListSerialization.propertyList(from: Data(contentsOf: url), format: nil) as? [String: String])
         }
         let english = try strings("en")
-        XCTAssertEqual(english.count, 181)
+        XCTAssertEqual(english.count, 212)
         let format = try NSRegularExpression(pattern: "%[@d]")
         func arguments(_ value: String) -> [String] {
             format.matches(in: value, range: NSRange(value.startIndex..., in: value))
@@ -664,4 +853,33 @@ final class GameStoreTests: XCTestCase {
     func testPerformanceStandardSearch() { measureSearch(level: 3, effort: .standard) }
     func testPerformanceExtendedSearch() { measureSearch(level: 5, effort: .extended) }
 
+}
+
+/// Deliberately queued transport: assertions can observe dropped acknowledgements and pending moves.
+@MainActor private final class MatchTestLink {
+    let white = MatchTestTransport(), black = MatchTestTransport()
+    var pending: [() -> Void] = []
+    init() {
+        white.deliver = { [weak self] data in self?.pending.append { [weak self] in self?.black.onData?(data) } }
+        black.deliver = { [weak self] data in self?.pending.append { [weak self] in self?.white.onData?(data) } }
+    }
+    func connect() { white.onConnected?(); black.onConnected?() }
+    func pump() {
+        var count = 0
+        while !pending.isEmpty && count < 30 { let delivery = pending.removeFirst(); delivery(); count += 1 }
+        XCTAssertLessThan(count, 30, "Protocol must not echo indefinitely")
+    }
+}
+@MainActor private final class MatchTestTransport: MatchTransport {
+    var onGames: (([NearbyGame]) -> Void)?
+    var onConnected: (() -> Void)?
+    var onDisconnected: (() -> Void)?
+    var onData: ((Data) -> Void)?
+    var onFailure: (() -> Void)?
+    var deliver: ((Data) -> Void)?
+    func host(id: UUID, variant: Variant) {}
+    func browse() {}
+    func connect(to game: NearbyGame) {}
+    func send(_ data: Data) throws { deliver?(data) }
+    func stop() {}
 }

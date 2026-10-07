@@ -93,3 +93,14 @@ as `v1.0.2` (build 5). Existing tags stay fixed.
 8. Complete a device and accessibility matrix, source-to-binary reproducibility check and review notes explaining the independent native UI and inherited engine.
 
 Sources and prior findings: `Research/Projektplanung_native_iOS_Muehle.pdf`, `Engine/vendor/Sanmill/Copying.txt`, `Engine/vendor/Sanmill/README.upstream.md`, `Engine/vendor/Sanmill/AUTHORS`.
+
+## Next development milestone — local network play (2026-10-07)
+
+The working source adds local two-device games after tag `v1.2`: explicit
+invitations without a pairing code, all four variants, encrypted Apple Multipeer
+Connectivity, transcript validation, persistence and reconnection. No new app
+version, build, source tag or upload is created by this feature change. Before
+distribution, assign a new version/build, publish the matching complete source,
+update Store copy/screenshots/review notes, and verify local network permissions
+and two-device behavior on physical hardware. The app still collects no game
+or usage data on a server. See [LOCAL_NETWORK.md](LOCAL_NETWORK.md).

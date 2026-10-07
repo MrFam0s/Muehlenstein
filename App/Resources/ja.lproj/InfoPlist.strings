@@ -1,1 +1,2 @@
 "CFBundleDisplayName" = "Muehlenstein";
+"NSLocalNetworkUsageDescription" = "Muehlensteinはネットワーク内の端末を探して、インターネットなしで対戦できるようにします。";

@@ -1,5 +1,13 @@
 # Versionshinweise
 
+## Unveröffentlicht — Lokale Netzwerkpartien (07.10.2026)
+
+- Auf zwei Geräten im selben WLAN spielen; die eröffnende Person nimmt die Einladung an, ohne Kopplungscode.
+- Alle vier Spielvarianten mit synchronisierten, beidseitig geprüften Zügen und gespeicherter Wiederverbindung.
+- Unterbrochene Verbindungen pausieren das Brett. Kein einseitiges Zurücknehmen und keine Computertipps im Netzwerkmodus.
+- Verbindungsauswahl, Datenschutzhinweise und Netzwerkberechtigung in allen acht App-Sprachen.
+- Noch keine neue Versionsnummer, kein neuer Quelltag und kein Store-Upload.
+
 ## 1.2 — 06.10.2026
 
 App-Version **1.2**, Build **8**, Quelltag **v1.2**. Dieser Quellrelease bündelt

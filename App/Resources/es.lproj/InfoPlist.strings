@@ -1,1 +1,2 @@
 "CFBundleDisplayName" = "Muehlenstein";
+"NSLocalNetworkUsageDescription" = "Muehlenstein busca otros dispositivos en tu red para que podáis jugar sin internet.";

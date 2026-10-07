@@ -7,6 +7,7 @@ struct GameView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(AppPreferences.self) private var preferences
+    @State private var showingNetwork = false
     @State private var showingHistory = false
     @State private var showingRules = false
     @State private var showingNewGame = false
@@ -56,6 +57,9 @@ struct GameView: View {
                 Menu {
                     Section {
                         Button(L10n.text("new_game"), systemImage: "plus") { showingNewGame = true }
+                        if store.network != nil {
+                            Button(L10n.text("network_connection"), systemImage: "wifi") { showingNetwork = true }
+                        }
                         if store.game?.settings.opponent == .computer {
                             Button(L10n.text("computer_options"), systemImage: "slider.horizontal.3") { showingComputerOptions = true }
                         }
@@ -69,10 +73,13 @@ struct GameView: View {
                 } label: { Image(systemName: "ellipsis") }.accessibilityLabel(L10n.text("game_options")).accessibilityIdentifier("game_options")
             }
         }
+        .sheet(isPresented: $showingNetwork) {
+            if let network = store.network { NetworkConnectionView(session: network) }
+        }
         .sheet(isPresented: $showingHistory) { HistoryView(game: store.game, position: store.position) }
         .sheet(isPresented: $showingRules) { RulesView(variant: store.game?.settings.variant ?? .classic) }
         .sheet(isPresented: $showingNewGame) {
-            NewGameView(hasOngoingGame: store.hasOngoingGame, initialLevel: preferences.lastComputerLevel) { store.start($0) }
+            NewGameView(hasOngoingGame: store.hasOngoingGame, initialLevel: preferences.lastComputerLevel, startNetwork: store.adoptNetwork) { store.start($0) }
         }
         .sheet(isPresented: $showingMoves) { LegalMovesView(store: store) }
         .sheet(isPresented: $showingDisplayOptions) { DisplayOptionsView() }
@@ -84,10 +91,11 @@ struct GameView: View {
                 ReadingSheet(title: L10n.text("hint_explanation"), text: explanation.text, compactHeight: 380)
             }
         }
-        .onAppear { store.resumeComputer() }
-        .onDisappear { store.suspend() }
+        .onAppear { store.resumeComputer(); store.network?.reconnect() }
+        .onDisappear { store.suspend(); store.network?.pause() }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active { store.resumeComputer() } else { store.suspend() }
+            if phase == .active { store.resumeComputer(); store.network?.reconnect() }
+            else { store.suspend(); if phase == .background { store.network?.pause() } }
         }
         .sensoryFeedback(.selection, trigger: store.game?.moves.count ?? 0)
     }
@@ -136,6 +144,8 @@ struct GameView: View {
         if position.isOver {
             return position.outcome == "draw" ? L10n.text("draw") : L10n.format("wins", L10n.text(position.winner == 0 ? "white" : "black"))
         }
+        if let network = store.network, !network.isConnected { return L10n.text("network_paused") }
+        if let network = store.network { return L10n.text(position.side == network.identity?.side ? "your_turn" : "network_opponent_turn") }
         if store.activity == .hint && store.searchProgress.isVisible { return L10n.text("hint_thinking") }
         if store.activity == .computer { return L10n.text("computer_turn") }
         if position.action == 2 { return L10n.text("mill_formed") }
@@ -144,6 +154,10 @@ struct GameView: View {
     }
     private func instruction(_ position: Position) -> String {
         if position.isOver { return L10n.text("game_finished") }
+        if let network = store.network {
+            if !network.isConnected { return L10n.text("network_resume_help") }
+            if !store.isHumanTurn { return L10n.format("network_you_are", L10n.text(network.identity?.side == 0 ? "white" : "black")) }
+        }
         if store.activity == .computer {
             return L10n.text(position.action == 2 ? "computer_capture" : "computer_considers")
         }
@@ -200,12 +214,16 @@ struct GameView: View {
         HStack(spacing: 0) {
             if position.isOver {
                 control("play_again", icon: "plus", disabled: false) { showingNewGame = true }
+            } else if store.network != nil {
+                control("network_connection", icon: "wifi", disabled: false) { showingNetwork = true }
             } else if !store.isHumanTurn && !store.isThinking {
                 control("resume_computer", icon: "play.fill", disabled: false) { store.resumeComputer() }
             } else {
                 control("undo", icon: "arrow.uturn.backward", disabled: !store.canUndo) { store.undo() }
             }
-            control("hint", icon: "lightbulb", disabled: !store.isHumanTurn) { store.toggleHint() }
+            if store.network == nil {
+                control("hint", icon: "lightbulb", disabled: !store.canHint) { store.toggleHint() }
+            }
             if dynamicType.isAccessibilitySize {
                 control("legal_moves", icon: "square.grid.3x3", disabled: !store.isHumanTurn || store.isThinking) { showingMoves = true }
             }

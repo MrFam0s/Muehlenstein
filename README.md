@@ -1,5 +1,7 @@
 # Muehlenstein
 
+Neu im Entwicklungsstand: **zu zweit auf zwei Geräten im selben WLAN**, mit Einladung ohne Code, vier Spielvarianten und Wiederverbindung gespeicherter Partien. Bedienung und Grenzen: [Lokaler Netzwerkmodus](Docs/LOCAL_NETWORK.md). Noch kein neuer Store-Upload.
+
 **Mühlenstein** is the German product name; **Muehlenstein** is the international name and the technical project name. An independent, native SwiftUI Morris app for iPhone and iPad, with Sanmill's original Rust rules and search engine.
 
 **Version 1.2 (build 8)** is the current source release, available under [`v1.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.2). It adds five native languages, with both Chinese scripts, and starts new players at level 1 while remembering their last confirmed difficulty. The eight offline localizations cover the complete interface and help. Slate blue and the six-color palette remain available. The business model is a paid download at €0.99 in Germany, with the corresponding complete source available under AGPL-3.0-or-later. See the [version notes](CHANGELOG.md).

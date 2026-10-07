@@ -51,7 +51,7 @@ struct HistoryView: View {
                 L10n.text("computer_style") + ": " + L10n.text("style_" + game.settings.style.rawValue),
                 game.settings.algorithm.name + " · " + L10n.text("effort_" + game.settings.effort.rawValue),
                 L10n.text("opening_book") + ": " + L10n.text(game.settings.openingBook ? "book_automatic" : "book_off")]
-        } else { lines.append(L10n.text("local")) }
+        } else { lines.append(L10n.text(game.settings.opponent.rawValue)) }
         return lines.joined(separator: "\n\n")
     }
 }

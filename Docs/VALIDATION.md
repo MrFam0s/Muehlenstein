@@ -645,3 +645,56 @@ Projektsynchronisierung, die Produktdaten-/Textlängenprüfung und
 Sprachabläufe auf iPhone und iPad wurden vor diesem Versionswechsel geprüft.
 
 Für 1.2 wurden kein Gerätearchiv, Upload oder Review-Antrag erstellt.
+
+## Lokales Netzwerkspiel — 07.10.2026
+
+**Bestanden:** Der reale Verbindungsablauf zwischen dem physischen FA-iPhone
+(iPhone 18 Pro, iOS 27) als Host und einem iPad-mini-Simulator als Gast. Bonjour
+findet die Partie; eine Einladung wird ausdrücklich angenommen, ohne Code.
+Beide Geräte setzen abwechselnd Steine, Weiß schließt eine Mühle und schlägt
+einen schwarzen Stein. Nach Hintergrundwechsel, Beenden und Neustart der
+Gast-App wird dieselbe gespeicherte Partie ohne neue Einladung verbunden.
+Anschließend werden weitere Züge beider Farben erfolgreich abgeglichen.
+
+Nachweise: `.build/Network-Phone4-Host.xcresult` und
+`.build/Network-Phone4-Guest.xcresult`, je ein bestandener UI-Test. Die
+Testaufnahmen dokumentieren Einladung, Schlagen und Wiederaufnahme. Die Tests
+verwenden eigene Spielstanddateien und überschreiben keine Benutzerpartie.
+Bei Netzwerktests warten Eingaben ausdrücklich auf die Freigabe des Bretts;
+ein bereits angezeigter empfangener Stein allein bestätigt noch nicht den
+Abschluss der Gegenstellenbestätigung.
+
+Weitere erfolgreiche Prüfungen:
+
+- `.build/Network-Final-Unit.xcresult`: alle 37 funktionalen GameStore-Tests,
+  einschließlich Einladungsfreigabe, Ablehnen ohne Spielstandverlust,
+  Protokoll-/Größenprüfung, Wiederaufnahme nach verlorener Bestätigung,
+  doppelten Zugvorschlägen und verspäteten Bestätigungen. Die 18 vollständigen
+  Referenzpartien aller vier Varianten werden auf beiden simulierten
+  Protokollseiten bis zum identischen Ende gespielt; diese Protokolltests
+  ersetzen keine Prüfung der Funkverbindung.
+- `.build/Network-Checks.xcresult`: vier UI-Regressionen zu kompakter
+  Netzwerkeinrichtung, Abbruch ohne Spielstandverlust, Startseite, Querformat
+  und gemerkter Spielstärke; die dort ebenfalls bestandenen 37 Funktionstests
+  wurden im vorstehenden finalen Lauf nach der letzten Speicheranpassung
+  erneut ausgeführt.
+- Signierter Release-Gerätebuild und Release-Simulatorbuild erfolgreich:
+  `.build/Network-Final-Device-Build.log` und
+  `.build/Network-Final-Simulator-Build.log`.
+- Alle 212 Textschlüssel in acht Sprachen vollständig. Lokale
+  Netzwerkberechtigung und Bonjour-Dienst im Bundle geprüft.
+- Fünf Python-Prüfungen, unveränderte wiederholte Projektsynchronisierung und
+  `git diff --check` erfolgreich.
+
+Vorherige reine Simulator-Paarversuche fanden die Partie, scheiterten aber
+beim Verbindungsaufbau. Auch nach der gemeldeten Firewall-Freigabe wurde diese
+Konstellation nicht erfolgreich bestätigt; die genaue Ursache bleibt offen.
+Der anschließend bestandene iPhone-/Simulator-Test bestätigt einen echten
+verschlüsselten Datenaustausch, nicht nur den Mock-Transport.
+
+**Verbleibende Geräteabdeckung:** Zwei physische iOS-Geräte im selben WLAN
+(auch mit vertauschten Rollen), längere Funkunterbrechungen, Gastnetze und
+verweigerte bzw. später widerrufene Netzwerkberechtigung sind vor der
+Veröffentlichung zusätzlich praktisch zu prüfen. VoiceOver und Akkumessungen
+bleiben wie vereinbart zurückgestellt. Version 1.2 (8) und vorhandene Tags
+bleiben unverändert; dieser Entwicklungsstand wurde nicht bei Apple hochgeladen.

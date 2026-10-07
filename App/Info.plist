@@ -24,6 +24,12 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_muehlenstein._tcp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Muehlenstein finds other devices on your network so you can play together without the internet.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

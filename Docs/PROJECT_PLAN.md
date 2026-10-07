@@ -1,6 +1,6 @@
 # Muehlenstein — Projektplanung
 
-Aktualisiert am 02.10.2026. Release-Quellstand: **Version 1.1, Build 7, Tag v1.1**; für diesen Stand ist noch kein Gerätearchiv erstellt. Version **1.0.2 (6)** wurde am 01.10.2026 bei Apple eingereicht und damals als `WAITING_FOR_REVIEW` bestätigt. Der Quellrelease 1.1 verändert diese Einreichung nicht. Die ursprüngliche Rechts- und Produktplanung liegt unverändert in `Research/Projektplanung_native_iOS_Muehle.pdf`; daneben steht das Rechercheprotokoll zur Namensgebung.
+Netzwerketappe aktualisiert am 07.10.2026. Die folgenden älteren Release-Angaben beschreiben den damaligen Planungsstand. Release-Quellstand: **Version 1.1, Build 7, Tag v1.1**; für diesen Stand ist noch kein Gerätearchiv erstellt. Version **1.0.2 (6)** wurde am 01.10.2026 bei Apple eingereicht und damals als `WAITING_FOR_REVIEW` bestätigt. Der Quellrelease 1.1 verändert diese Einreichung nicht. Die ursprüngliche Rechts- und Produktplanung liegt unverändert in `Research/Projektplanung_native_iOS_Muehle.pdf`; daneben steht das Rechercheprotokoll zur Namensgebung.
 
 | Meilenstein | Ergebnis und Abnahme | Stand |
 | --- | --- | --- |
@@ -10,7 +10,7 @@ Aktualisiert am 02.10.2026. Release-Quellstand: **Version 1.1, Build 7, Tag v1.1
 | 3 — Sanmill-Funktionsumfang | Weitere sieben Presets und erweiterte Regeln, zusätzliche Suchverfahren, KI gegen KI, Analyse/Stellungseditor, Eröffnungsbuch/Human DB/Perfect DB mit Herkunftsnachweisen | Teilweise: MTD(f)/PVS, Rechenzeitwahl, Spielstil und kleines klassisches Eröffnungsbuch umgesetzt. Perfect DB nach Aufwand-/Nutzenprüfung vorerst zurückgestellt; Analyse bleibt späteres Vorhaben |
 | 4 — Lernen und Sammlung | Einführung, Rätsel mit geklärten Inhaltsrechten, Import/Export, navigierbare Nachspiel- und Analyseansicht | Geplant |
 | 5 — Veröffentlichung | Quellarchiv passend zum Binary, Rechte-/Abhängigkeitsprüfung, Signierung, Datenschutz/Barrierefreiheit/Geräte, Support/Store-Inhalte, deutscher Zielpreis 0,99 € | 1.0.2 (6) mit DE/EN-Store-Inhalten, 16 Screenshots, Datenschutzangaben und Preis 0,99 € am 01.10.2026 eingereicht. Neuer Quellstand 1.1 (7), Tag v1.1, mit Schieferblau und Rosé; passendes Gerätearchiv, aktualisierte Store-Aufnahmen und Upload für 1.1 noch offen |
-| 6 — Netzwerk | Zunächst Game-Center-Eignung prüfen; validierte Zugnachrichten, Einladungen/Wiederverbindung/Ergebnisse, Tests auf zwei Geräten; eigener Dienst bei Bedarf | Später |
+| 6 — Netzwerk | Lokales Spiel auf zwei Geräten, Einladungen, validierte Zugfolge, Speicherung und Wiederverbindung | Am 07.10.2026 umgesetzt; Prüfstand und Grenzen siehe `LOCAL_NETWORK.md` und `VALIDATION.md`. Internetspiel bleibt späteres Vorhaben |
 
 ## Jetzt beurteilen
 
@@ -25,7 +25,7 @@ Die verbleibenden Arbeiten an Meilenstein 2 sind:
 1. Vollständige Offline-Partien und Randfälle gezielt abnehmen: Setzen, Ziehen, Springen, mehrfache Mühlen, erlaubte Abnahmen, Blockade und Remis in allen vier sichtbaren Varianten. Vorhandene Tests verwenden und nur belegte Lücken ergänzen.
 2. Unterbrechungen und Speicherung prüfen: Hintergrund/Vordergrund, Beenden und Wiederöffnen, Rücknahme und neue Partie während einer Computersuche. Ergebnisse und Wiederherstellung müssen konsistent bleiben.
 3. Auf echten iPhones und iPads Spielgefühl, VoiceOver, Lesbarkeit, längere Computersuchen sowie Energie- und Speicherverhalten prüfen. Simulatorbefunde und echte Gerätebefunde getrennt dokumentieren.
-4. Gefundene Probleme beheben und den stabilen Offline-Stand sichern. Danach den noch fehlenden Sanmill-Funktionsumfang priorisieren, insbesondere Nachspiel/Analyse und weitere Regeln. Die Netzwerkfunktion bleibt eine spätere, eigene Etappe.
+4. Gefundene Probleme beheben und den stabilen Offline-Stand sichern. Danach den noch fehlenden Sanmill-Funktionsumfang priorisieren, insbesondere Nachspiel/Analyse und weitere Regeln. Die lokale Netzwerkfunktion ist inzwischen als eigene Etappe umgesetzt; die frühere Planung für Internetspiel bleibt davon getrennt.
 
 Die nächste Arbeit erweitert damit vor allem die Verlässlichkeit des bestätigten Bedienkonzepts. Eine zahlenmäßige Elo-Anzeige bleibt bis zur belastbaren Kalibrierung zurückgestellt.
 
@@ -37,7 +37,7 @@ Auf Wunsch vom 30.09.2026 folgen jetzt die Kontrastprüfung und das App-Icon. Vo
 
 - Umgesetzt: Kontrast der Texte, Brettlinien, Steinränder, Auswahl- und Abnahmemarkierungen in Hell und Dunkel messen; transparente und native Systemflächen anhand gerenderter Ansichten beurteilen. Ergebnisse unter `Contrast/` und in `VALIDATION.md`.
 - Umgesetzt: Eigenes Icon aus Mühle-Geometrie und zwei Steinen, mit Standard-, Dunkel- und Tönungsvorlage. Export, kleine Größen und Xcode-Integration prüfen; Gestaltung anschließend in der laufenden App beurteilen.
-- Nach dieser Gestaltungsetappe den nächsten Funktionsumfang auswählen. Netzwerk bleibt eine spätere Etappe.
+- Nach dieser Gestaltungsetappe den nächsten Funktionsumfang auswählen. Lokale Netzwerkpartien sind inzwischen umgesetzt, Internetspiel bleibt eine spätere Etappe.
 
 ## Umfang und offene Produktangaben
 
@@ -45,7 +45,7 @@ Die Original-KI-Optionen wurden am 01.10.2026 erneut gegen den aktuellen öffent
 
 Das geprüfte klassische Eröffnungsbuch ist seit 01.10.2026 umgesetzt: 109 Stellungen/437 Kandidaten, 16 Symmetrien, Legalitätsprüfung und Such-Fallback, Automatisch/Aus unter Erweitert, automatische Nutzung nur auf Stufe 4/5. Eine perfekte Datenbank bleibt nach konkreter Bewertung zurückgestellt: selbst die experimentelle exakte WDL-Kompression benötigt rund 2,1 GB, Teilpakete bieten nur begrenzte Abdeckung und die Regelübereinstimmung benötigt einen eigenen Nachweis. Ein späterer optionaler Analysemodus ist der passendere Ort. Details: `OPENING_AND_DATABASE.md`. Zehn Stufen erst bei belegbaren Zwischenabstufungen, Sprachmodell-Erklärungen nur als eigenständige optionale Trainerfunktion. Diese Punkte ersetzen weder die geplante Netzwerkphase noch die zurückgestellten Geräte-/Energieprüfungen.
 
-Die ursprünglichen 70–110 Personentage sind die erste Planungsspanne für das gesamte Offline-Produkt. Dieser Prototyp erfüllt noch nicht diesen Gesamtumfang. Nach Geräteintegration und genauer Funktionsabnahme neu schätzen. Die vorläufige Netzwerkplanung bleibt separat: 4–7 Wochen mit Game Center oder 8–14 Wochen mit eigenem Dienst, abhängig vom Umfang.
+Die ursprünglichen 70–110 Personentage sind die erste Planungsspanne für das gesamte Offline-Produkt. Dieser Prototyp erfüllt noch nicht diesen Gesamtumfang. Nach Geräteintegration und genauer Funktionsabnahme neu schätzen. Die frühere Schätzung für Internetspiel (nicht für den jetzt umgesetzten lokalen Modus) bleibt separat: 4–7 Wochen mit Game Center oder 8–14 Wochen mit eigenem Dienst, abhängig vom Umfang.
 
 Bundle-Identifier `org.amosystems.Muehlenstein` und das vorhandene Developer-Team sind im lokalen Projekt dauerhaft konfiguriert. Bundle-ID und Store-Eintrag **Mühlenstein**, Apple-ID **6818139673**, wurden am 01.10.2026 registriert und überprüft; zuletzt am 01.10.2026 bestätigter Apple-Stand: Version 1.0.2 (6), zur Prüfung eingereicht. Die lokale Anhebung auf 1.1 hat diesen Datensatz nicht verändert. Quellrepository, Impressum, Kontakt, Versionsanzeige und Lizenznachweise sind vorbereitet bzw. veröffentlicht; der genaue Prüfstand und die verbleibende Dritt-Rechtefrage stehen in `LICENSE_REVIEW.md`. Die Store-Angaben und Datenschutzerklärung für 1.0.2 sind veröffentlicht; die verbleibenden Geräte- und Barrierefreiheitsprüfungen sind im Validierungsprotokoll aufgeführt. Für weitere Simulatorarbeit werden keine Zugangsdaten benötigt. Eine neue App-Domain und Marke wurden nicht reserviert. Quellrepository: https://github.com/MrFam0s/Muehlenstein.
 

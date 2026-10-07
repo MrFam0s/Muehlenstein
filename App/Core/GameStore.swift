@@ -5,6 +5,7 @@ import Observation
 @MainActor @Observable final class GameStore {
     private(set) var game: SavedGame?
     private(set) var position: Position?
+    private(set) var network: LocalMatchSession?
     private(set) var boardID = UUID()
     enum Activity { case computer, hint }
     private(set) var activity: Activity?
@@ -34,16 +35,25 @@ import Observation
             // The Rust replay validates the whole transcript before accepting it.
             position = try Engine.query(saved)
             game = saved
-        } catch { errorMessage = L10n.text("restore_error") }
+            if saved.settings.opponent == .network {
+                network = try LocalMatchSession(restoring: saved)
+                observeNetwork()
+            }
+        } catch { game = nil; position = nil; network = nil; errorMessage = L10n.text("restore_error") }
     }
     var isHumanTurn: Bool {
         guard let game, let position, !position.isOver else { return false }
+        if game.settings.opponent == .network { return network?.canPlay == true }
         return game.settings.opponent == .local || position.side == 0
     }
-    var canUndo: Bool { !(game?.moves.isEmpty ?? true) && !isThinking }
+    var canUndo: Bool { game?.settings.opponent != .network && !(game?.moves.isEmpty ?? true) && !isThinking }
+    var canHint: Bool { game?.settings.opponent != .network && isHumanTurn }
     var hasOngoingGame: Bool { position?.isOver == false }
 
     func start(_ settings: GameSettings) {
+        guard settings.opponent != .network else { return }
+        network?.stop()
+        network = nil
         cancelWork()
         do {
             let next = SavedGame(settings: settings)
@@ -55,6 +65,29 @@ import Observation
             hint = nil
             persist()
         } catch { errorMessage = error.localizedDescription }
+    }
+    func adoptNetwork(_ session: LocalMatchSession) {
+        guard session.hasStarted, let game = session.game, let position = session.position else { return }
+        cancelWork()
+        network?.stop()
+        network = session
+        self.game = game
+        self.position = position
+        boardID = UUID()
+        selectedNode = nil
+        hint = nil
+        observeNetwork()
+        persist()
+    }
+    private func observeNetwork() {
+        network?.onUpdate = { [weak self] game, position in
+            guard let self else { return }
+            self.game = game
+            self.position = position
+            self.selectedNode = nil
+            self.hint = nil
+            self.persist()
+        }
     }
     func tap(_ node: Int) {
         guard let position, isHumanTurn, !isThinking else { return }
@@ -73,6 +106,12 @@ import Observation
         apply(action)
     }
     private func apply(_ action: EngineAction) {
+        if let network {
+            selectedNode = nil
+            hint = nil
+            network.play(action)
+            return
+        }
         guard var next = game, let position, position.legal.contains(action) else { return }
         next.moves.append(MoveRecord(notation: action.notation, side: position.side))
         do {
@@ -125,7 +164,7 @@ import Observation
         } catch { errorMessage = error.localizedDescription }
     }
     func toggleHint() {
-        guard isHumanTurn else { return }
+        guard canHint else { return }
         if hint != nil || activity == .hint {
             cancelWork()
             hint = nil

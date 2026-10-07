@@ -41,7 +41,7 @@ struct GameSetupEditor: View {
         .sheet(item: $help) { item in ReadingSheet(title: item.title, text: item.text) }
         .onChange(of: expanded) { _, open in if open { panel = .advanced } }
         .onChange(of: settings.opponent) { _, opponent in
-            if opponent == .local { expanded = false; panel = .opponent }
+            if opponent != .computer { expanded = false; panel = .opponent }
         }
     }
 

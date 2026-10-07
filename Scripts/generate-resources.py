@@ -174,6 +174,41 @@ copy.update({
 'accent_rose': ('Rosé', 'Rose'),
 })
 copy['display_help_body'] = tuple(text + addition for text, addition in zip(copy['display_help_body'], ('\n\nAkzentfarbe\nSchieferblau ist voreingestellt. Die Farbauswahl gilt für die gesamte App und wird auf diesem Gerät gespeichert. Sand, Graphit und die Spielsteine behalten ihre Farben.', '\n\nAccent color\nSlate blue is the default. Your color choice applies throughout the app and is saved on this device. Sand, graphite and the playing pieces keep their colors.')))
+copy.update({
+    'network': ('WLAN', 'Wi-Fi'),
+    'network_continue': ('Über WLAN spielen', 'Play over Wi-Fi'),
+    'network_intro': ('Spielt auf zwei Geräten im selben WLAN. Wer die Partie eröffnet, wählt die Variante und spielt Weiß.', 'Play on two devices on the same Wi-Fi network. The host chooses the variant and plays White.'),
+    'network_host': ('Partie anbieten', 'Host a game'),
+    'network_join': ('Partie suchen', 'Find a game'),
+    'network_room': ('Partie %@', 'Game %@'),
+    'network_waiting': ('Warte auf Mitspieler …', 'Waiting for a player…'),
+    'network_searching': ('Suche nach Partien …', 'Looking for games…'),
+    'network_choose_room': ('Partie auswählen', 'Choose a game'),
+    'network_connecting': ('Verbindung wird hergestellt …', 'Connecting…'),
+    'network_connected': ('Verbunden', 'Connected'),
+    'network_you_are': ('Du spielst %@.', 'You play %@.'),
+    'network_fair_play': ('In Netzwerkpartien gibt es keine Computertipps und kein Zurücknehmen von Zügen. Darstellung und Zugziele lassen sich weiterhin anpassen.', 'Network games have no computer hints or undo. You can still adjust appearance and legal-target markers.'),
+    'network_paused': ('Verbindung unterbrochen', 'Connection paused'),
+    'network_resume_help': ('Öffnet diese Partie auf beiden Geräten. Über „Verbindung“ könnt ihr euch erneut verbinden; der Spielstand bleibt erhalten.', 'Open this game on both devices. Use Connection to reconnect; your moves are saved.'),
+    'network_reconnect': ('Erneut verbinden', 'Reconnect'),
+    'network_connection': ('Verbindung', 'Connection'),
+    'network_opponent_turn': ('Dein Gegenüber ist am Zug', 'Your opponent’s turn'),
+    'network_help': ('Beide Geräte brauchen Zugriff auf das lokale Netzwerk. Gast-WLANs können Verbindungen zwischen Geräten sperren.', 'Both devices need local network access. Guest Wi-Fi networks may block connections between devices.'),
+    'network_settings': ('App-Einstellungen öffnen', 'Open app settings'),
+    'network_permission': ('Mühlenstein findet andere Geräte in deinem Netzwerk, damit ihr ohne Internet gegeneinander spielen könnt.', 'Muehlenstein finds other devices on your network so you can play together without the internet.'),
+    'network_error_incompatible': ('Die App-Versionen passen nicht zusammen. Aktualisiert Mühlenstein auf beiden Geräten.', 'These app versions cannot play together. Update Muehlenstein on both devices.'),
+    'network_error_invalidGame': ('Die Spielstände stimmen nicht überein. Die Verbindung wurde angehalten; der letzte geprüfte Stand bleibt erhalten.', 'The game states do not match. The connection was paused; the last validated position is preserved.'),
+    'network_error_unavailable': ('Die Verbindung ist nicht verfügbar. Prüft WLAN und die Freigabe für das lokale Netzwerk.', 'The connection is unavailable. Check Wi-Fi and local network permission.'),
+    'network_error_timeout': ('Das andere Gerät antwortet nicht. Öffnet die Partie auf beiden Geräten und verbindet euch erneut.', 'The other device did not respond. Open the game on both devices and reconnect.'),
+    'network_invite_help': ('Wähle diese Partie auf dem zweiten Gerät aus. Hier kannst du die Einladung anschließend annehmen. Du spielst Weiß.', 'Select this game on the other device, then accept the invitation here. You play White.'),
+    'network_invitation': ('Jemand möchte deiner Partie beitreten. Einladung annehmen?', 'Someone would like to join your game. Accept the invitation?'),
+    'network_wait_approval': ('Warte auf die Annahme deiner Einladung …', 'Waiting for your invitation to be accepted…'),
+    'network_accept': ('Annehmen', 'Accept'),
+    'network_decline': ('Ablehnen', 'Decline'),
+    'network_error_declined': ('Die Einladung wurde abgelehnt. Du kannst nach einer anderen Partie suchen.', 'The invitation was declined. You can look for another game.'),
+})
+copy["privacy_body"] = tuple(text.replace("\n\n", addition + "\n\n", 1) for text, addition in zip(copy["privacy_body"], [' Für Netzwerkpartien werden eine zufällige Partiekennung und Spielzüge direkt und verschlüsselt zwischen den beiden Geräten übertragen. Es gibt keinen Spielserver; dein Gerätename wird nicht verwendet.', ' For network games, a random game identifier and moves are sent directly between the two devices over an encrypted connection. There is no game server, and your device name is not used.']))
+copy["about_body"] = tuple(text + addition for text, addition in zip(copy["about_body"], [' Oder auf zwei Geräten im selben WLAN.', ' Or on two devices on the same Wi-Fi network.']))
 copy.pop(' twelve')
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--check-localizations', action='store_true')
@@ -206,7 +241,7 @@ for lang, strings in translations.items():
             raise ValueError(f'{lang}/{key}: unsupported format token')
     outputs = {
         'Localizable.strings': '\n'.join(f'{json.dumps(k)} = {json.dumps(strings[k], ensure_ascii=False)};' for k in copy) + '\n',
-        'InfoPlist.strings': f'"CFBundleDisplayName" = {json.dumps(strings["app_name"], ensure_ascii=False)};\n',
+        'InfoPlist.strings': f'"CFBundleDisplayName" = {json.dumps(strings["app_name"], ensure_ascii=False)};\n"NSLocalNetworkUsageDescription" = {json.dumps(strings["network_permission"], ensure_ascii=False)};\n',
     }
     # Writing is deferred until all dictionaries have passed validation below.
     translations[lang] = outputs
@@ -247,6 +282,7 @@ for name,values in colors.items():
 plist={'CFBundleDisplayName':'Muehlenstein','CFBundleDevelopmentRegion':'en','CFBundleExecutable':'$(EXECUTABLE_NAME)',
 'CFBundleIdentifier':'$(PRODUCT_BUNDLE_IDENTIFIER)','CFBundleInfoDictionaryVersion':'6.0','CFBundleName':'$(PRODUCT_NAME)',
 'CFBundlePackageType':'APPL','CFBundleShortVersionString':'$(MARKETING_VERSION)','CFBundleVersion':'$(CURRENT_PROJECT_VERSION)',
+'NSLocalNetworkUsageDescription': copy['network_permission'][1], 'NSBonjourServices': ['_muehlenstein._tcp'],
 'LSRequiresIPhoneOS':True,'ITSAppUsesNonExemptEncryption':False,'UILaunchScreen':{},'UIApplicationSceneManifest':{'UIApplicationSupportsMultipleScenes':False},
 'UISupportedInterfaceOrientations':['UIInterfaceOrientationPortrait','UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],
 'UISupportedInterfaceOrientations~ipad':['UIInterfaceOrientationPortrait','UIInterfaceOrientationPortraitUpsideDown','UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight']}

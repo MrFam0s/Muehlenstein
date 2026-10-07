@@ -92,3 +92,7 @@ Beispielaufnahmen der iPhone-Einrichtung:
 Die Übersetzungen wurden im Rahmen der Entwicklung erstellt. Eine externe
 muttersprachliche Redaktion ist damit nicht nachgewiesen. Testergebnisse
 und Geräteumfang sind im [Validierungsprotokoll](VALIDATION.md) dokumentiert.
+
+## Lokale Netzwerkpartien · 07.10.2026
+
+Der Entwicklungsstand enthält jetzt 212 gemeinsame Textschlüssel in acht Sprachen. Einladungen, Suche, Verbindung, Fehler- und Wiederaufnahmehinweise sind vollständig lokalisiert. `InfoPlist.strings` enthält zusätzlich zur App-Benennung die jeweilige Begründung für den lokalen Netzwerkzugriff. Die Datenschutzhinweise erläutern die direkte verschlüsselte Geräteverbindung. Die Sprachwahl selbst löst weiterhin keine Netzwerkzugriffe aus.

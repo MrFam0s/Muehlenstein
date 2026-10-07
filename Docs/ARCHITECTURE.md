@@ -44,7 +44,7 @@ History and legal moves use `PagedGrid` with width- and type-dependent columns a
 
 ## Networking seam
 
-Future network commands should carry protocol version, game ID, variant configuration hash, sequence number, expected prior position hash and canonical action. Receivers must replay/validate before accepting. Distinguish transport/identity (GameKit or later server) from rules. Add reconnection, idempotency, abandonment and time control policies in the dedicated network milestone. Current saves are an internal format, not an authenticated network protocol.
+Local two-device play now uses a separate encrypted Multipeer Connectivity transport, an explicit host-approved invitation and a host-authoritative transcript. Proposals carry action index and a hash of the match ID, variant and prior moves. Both devices validate snapshots through Rust replay. Optional network identity in schema-2 saves records the match ID, local side and private resume key; restored games remain paused until opened. Timed acknowledgements, prefix-only recovery and stale-session filtering prevent duplicate/out-of-turn moves. See [LOCAL_NETWORK.md](LOCAL_NETWORK.md) for ownership, lifecycle, privacy and limitations. Internet matchmaking, ratings and clocks remain outside this mode.
 
 ## Build
 
