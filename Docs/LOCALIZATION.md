@@ -55,9 +55,18 @@ Herkunftsangaben. Diese Änderung ergänzt keine neuen Bibliotheken, Dienste
 oder Netzwerkzugriffe. Adresse, Anbieteridentität, Links und Spielregeln
 bleiben inhaltlich erhalten.
 
-App-Store-Beschreibungen, Keywords und Store-Screenshots sind ein eigener
-Bestand unter `Store/`. Die neuen Sprachen betreffen zunächst die native App;
-Store-Metadaten und Länderverfügbarkeit werden dadurch nicht bearbeitet.
+App-Store-Texte werden getrennt von den nativen Ressourcen unter `metadata/`
+gepflegt. Für Version 1.2 sind Name, Untertitel, Beschreibung, Keywords,
+Werbetext, Versionshinweise und Support-/Datenschutz-URLs in allen acht
+Store-Sprachfassungen bei Apple hinterlegt und erneut abgeglichen:
+`de-DE`, `en-US`, `fr-FR`, `es-ES`, `ja`, `ko`, `zh-Hans` und `zh-Hant`.
+Auch TestFlight-Beschreibungen und Testhinweise liegen in diesen Fassungen vor.
+Für Version 1.3 sind die WLAN-Beschreibung, Werbetexte und Versionshinweise
+in allen acht Store-Sprachen bei Apple gespeichert und abgeglichen.
+Die 80 aktuellen Originalaufnahmen unter `Store/Screenshots/` decken fünf
+Motive je Sprache auf iPhone und iPad ab, einschließlich WLAN-Einrichtung.
+Die Länderverfügbarkeit wurde hierdurch nicht geändert.
+[Releaseprotokoll 1.3](../Store/RELEASE-1.3-9.md).
 
 ## Pflege und Prüfung
 

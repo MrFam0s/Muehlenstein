@@ -1,20 +1,20 @@
 {
-  "status": "Source release 1.2 build 8, not uploaded; last recorded TestFlight distribution is 1.1 build 7 on 2026-10-02; last verified App Store submission is 1.0.2 build 6 on 2026-10-01",
+  "status": "Release 1.3 build 9 uploaded; App Store metadata prepared. Submission checks are in progress. Version 1.2 build 8 is published.",
   "bundle_id": "org.amosystems.Muehlenstein",
   "bundle_resource_id": "864J73UNMD",
   "developer_team_id": "4WHV5UZ8E5",
   "app_store_connect_id": "6818139673",
-  "app_store_version_id": "3e275fea-964a-47db-8a26-ebfe5b0b78fc",
+  "app_store_version_id": "78ec4878-594b-4774-9fb7-a79eb9a2b640",
   "registration_date": "2026-10-01",
-  "app_store_state": "WAITING_FOR_REVIEW",
-  "app_store_version": "1.0.2",
-  "app_store_version_note": "Last verified 2026-10-01; build 6 contains the beige and forest-green icon. This Apple record is separate from source release 1.2 build 8.",
-  "app_store_build_number": "6",
-  "app_store_source_tag": "v1.0.2-build.6",
-  "app_store_last_verified_date": "2026-10-01",
-  "version": "1.2",
-  "build_number": "8",
-  "source_tag": "v1.2",
+  "app_store_state": "READY_FOR_DISTRIBUTION",
+  "app_store_version": "1.2",
+  "app_store_version_note": "Version 1.2 build 8 is published; 1.3 build 9 is being prepared as a new version.",
+  "app_store_build_number": "8",
+  "app_store_source_tag": "v1.2",
+  "app_store_last_verified_date": "2026-10-08",
+  "version": "1.3",
+  "build_number": "9",
+  "source_tag": "v1.3",
   "sku": "Muehlenstein-iOS",
   "primary_locale": "de-DE",
   "category": "Games",
@@ -30,25 +30,71 @@
     "de-DE": {
       "name": "Mühlenstein",
       "subtitle": "Mühle in deinem Tempo",
-      "promotional_text": "Vier Mühlevarianten, fünf Spielstufen und hilfreiche Zugtipps. Spiele offline gegen den Computer oder zu zweit auf einem Gerät – ohne Werbung und ohne Konto.",
-      "keywords": "Brettspiel,Strategie,Morris,Morabaraba,Lasker,offline,Denksport,zu zweit",
-      "description": "Mühlenstein bringt Mühle auf iPhone und iPad: mit einem übersichtlichen Spielbrett, sanften Steinbewegungen und Platz für deine nächsten Züge.\n\nSpiele gegen den Computer oder zu zweit auf demselben Gerät. Wähle zwischen klassischer Mühle, Zwölfstein-Mühle, Morabaraba und Lasker-Mühle. Fünf Spielstufen bieten unterschiedliche Herausforderungen.\n\nZugtipps erscheinen direkt auf dem Brett. Mögliche Zugziele und der letzte Zug lassen sich nach Wunsch einblenden. Im Verlauf kannst du die Partie nachvollziehen; mit der Rücknahme kannst du Entscheidungen noch einmal überdenken.\n\nDeine aktuelle Partie wird automatisch lokal gespeichert. Alle Computerzüge werden auf dem Gerät berechnet. Du brauchst kein Konto und keine Internetverbindung zum Spielen.\n\n• Vier Spielvarianten und fünf Computerstufen\n• Zwei Personen an einem Gerät\n• Grafische Tipps und einstellbare Spielhilfen\n• Zugverlauf und Rücknahme\n• Hoch- und Querformat auf iPhone und iPad\n• Deutsch, Englisch, Französisch, Spanisch, Japanisch, Koreanisch und Chinesisch (vereinfacht und traditionell)\n• Keine Werbung, keine Abos und keine In-App-Käufe\n\nMühlenstein ist eine unabhängig gestaltete native App auf Basis des freien Sanmill-Spielkerns. Der vollständige Quellcode und die Lizenzhinweise sind öffentlich zugänglich. Online-Partien sind nicht enthalten.",
-      "whats_new": "Mühlenstein spricht jetzt auch Französisch, Spanisch, Japanisch, Koreanisch und Chinesisch – in vereinfachter und traditioneller Schrift. Die Oberfläche, Spielregeln und Hilfetexte sind vollständig übersetzt.\n\nZum Einstieg beginnt die erste Partie auf Stufe 1. Danach merkt sich die App deine zuletzt bestätigte Spielstärke, auch nach einem Neustart."
+      "promotional_text": "Jetzt auch auf zwei Geräten im selben WLAN spielen: Einladung ohne Code, vier Mühlevarianten und gespeicherte Wiederaufnahme. Ohne Werbung und ohne Konto.",
+      "keywords": "mühle,muehle,Brettspiel,Strategie,Morris,Morabaraba,Lasker,offline,Denksport,zu zweit",
+      "description": "Mühlenstein bringt Mühle auf iPhone und iPad: mit einem übersichtlichen Spielbrett, sanften Steinbewegungen und Platz für deine nächsten Züge.\n\nSpiele gegen den Computer, zu zweit auf demselben Gerät oder auf zwei Geräten im selben WLAN. Wähle zwischen klassischer Mühle, Zwölfstein-Mühle, Morabaraba und Lasker-Mühle. Fünf Spielstufen bieten unterschiedliche Herausforderungen.\n\nIm WLAN-Modus eröffnet eine Person eine Partie, die andere schickt eine Einladung. Nach der Annahme spielt ihr ohne Kopplungscode. Alle vier Varianten werden unterstützt. Gespeicherte Partien lassen sich nach einer Unterbrechung wieder verbinden. Zugtipps und Rücknahme stehen im Netzwerkmodus nicht zur Verfügung.\n\nZugtipps erscheinen direkt auf dem Brett. Mögliche Zugziele und der letzte Zug lassen sich nach Wunsch einblenden. Im Verlauf kannst du die Partie nachvollziehen; mit der Rücknahme kannst du Entscheidungen noch einmal überdenken.\n\nDeine aktuelle Partie wird automatisch lokal gespeichert. Alle Computerzüge werden auf dem Gerät berechnet. Du brauchst kein Konto und keine Internetverbindung zum Spielen.\n\n• Vier Spielvarianten und fünf Computerstufen\n• Zwei Personen an einem Gerät oder auf zwei Geräten im selben WLAN\n• Grafische Tipps und einstellbare Spielhilfen\n• Zugverlauf und Rücknahme\n• Hoch- und Querformat auf iPhone und iPad\n• Deutsch, Englisch, Französisch, Spanisch, Japanisch, Koreanisch und Chinesisch (vereinfacht und traditionell)\n• Keine Werbung, keine Abos und keine In-App-Käufe\n\nMühlenstein ist eine unabhängig gestaltete native App auf Basis des freien Sanmill-Spielkerns. Der vollständige Quellcode und die Lizenzhinweise sind öffentlich zugänglich. Partien über das Internet sind nicht enthalten.",
+      "whats_new": "Neu: Mühle zu zweit auf zwei Geräten im selben WLAN. Eröffne eine Partie oder schicke eine Einladung – ein Kopplungscode ist nicht nötig.\n\nAlle vier Spielvarianten sind dabei. Eure Züge werden auf beiden Geräten abgeglichen und die Partie wird lokal gespeichert. Bei einer Unterbrechung pausiert das Brett; danach könnt ihr dieselbe Partie wieder verbinden und fortsetzen.\n\nDie Netzwerkeinrichtung und die zugehörigen Hilfen sind in allen acht App-Sprachen verfügbar. Computerpartien und gemeinsames Spielen auf einem Gerät bleiben verfügbar."
     },
     "en-US": {
       "name": "Muehlenstein",
       "subtitle": "Nine Men’s Morris, your pace",
-      "promotional_text": "Four Morris variants, five difficulty levels and visual hints. Play offline against the computer or take turns on one device. No ads or account required.",
-      "keywords": "board,strategy,mill,merels,morabaraba,lasker,offline,two players,brain",
-      "description": "Play Morris on iPhone and iPad with a clear board, gentle stone movements and room to consider your next move.\n\nChallenge the computer or take turns with another person on the same device. Choose Nine Men’s Morris, Twelve Men’s Morris, Morabaraba or Lasker Morris. Five difficulty levels offer different challenges.\n\nHints show a suggested move directly on the board. Turn legal targets and last-move markers on or off to suit your preferences. Review the move history or undo a move to reconsider a decision.\n\nYour current game is saved locally. All computer moves are calculated on your device. No account or internet connection is needed to play.\n\n• Four variants and five computer levels\n• Two players on the same device\n• Visual hints and adjustable playing aids\n• Move history and undo\n• Portrait and landscape on iPhone and iPad\n• English, German, French, Spanish, Japanese, Korean and Chinese (Simplified and Traditional)\n• No ads, subscriptions or in-app purchases\n\nMuehlenstein is an independently designed native app using the free Sanmill game engine. Complete source code and license notices are publicly available. Online games are not included.",
-      "whats_new": "Muehlenstein now also speaks French, Spanish, Japanese, Korean and Chinese in both Simplified and Traditional scripts. The interface, game rules and help are fully translated.\n\nYour first game starts at level 1. After that, the app remembers your last confirmed difficulty, even after a restart."
+      "promotional_text": "Now play on two devices on the same Wi-Fi network, with invitations, four Morris variants and saved games you can reconnect to. No ads or account required.",
+      "keywords": "nine men's morris,board,strategy,mill,merels,morabaraba,lasker,offline,two players,brain",
+      "description": "Play Nine Men’s Morris on iPhone and iPad with a clear board, gentle stone movements and room to consider your next move.\n\nChallenge the computer, take turns on one device, or play on two devices connected to the same Wi-Fi network. Choose Nine Men’s Morris, Twelve Men’s Morris, Morabaraba or Lasker Morris. Five difficulty levels offer different challenges.\n\nFor a Wi-Fi game, one person hosts and the other sends an invitation. Accept it to play without a pairing code. All four variants are supported. Saved games can reconnect after an interruption. Hints and undo are unavailable in network games.\n\nHints show a suggested move directly on the board. Turn legal targets and last-move markers on or off to suit your preferences. Review the move history or undo a move to reconsider a decision.\n\nYour current game is saved locally. All computer moves are calculated on your device. No account or internet connection is needed to play.\n\n• Four variants and five computer levels\n• Two players on one device or two devices on the same Wi-Fi network\n• Visual hints and adjustable playing aids\n• Move history and undo\n• Portrait and landscape on iPhone and iPad\n• English, German, French, Spanish, Japanese, Korean and Chinese (Simplified and Traditional)\n• No ads, subscriptions or in-app purchases\n\nMuehlenstein is an independently designed native app using the free Sanmill game engine. Complete source code and license notices are publicly available. Play over the internet is not included.",
+      "whats_new": "New: play Morris together on two devices connected to the same Wi-Fi network. Host a game or send an invitation – no pairing code needed.\n\nAll four variants are supported. Moves are checked on both devices and your game is saved locally. If the connection is interrupted, the board pauses; reconnect to continue the same game.\n\nNetwork setup and help are available in all eight app languages. Computer games and play on a single shared device remain available."
+    },
+    "es-ES": {
+      "name": "Muehlenstein",
+      "subtitle": "El molino a su ritmo",
+      "promotional_text": "Juegue en dos dispositivos con la misma red wifi: invitaciones sin código, cuatro variantes y partidas guardadas que puede retomar. Sin anuncios ni cuenta.",
+      "keywords": "molino,nueve fichas,morris,estrategia,mesa,morabaraba,lasker,sin conexión,dos jugadores",
+      "description": "Disfrute del molino en iPhone y iPad, con un tablero claro, movimientos suaves de las fichas y tiempo para pensar en su próxima jugada.\n\nJuegue contra el ordenador, con otra persona en el mismo dispositivo o en dos dispositivos conectados a la misma red wifi. Elija entre el molino de nueve fichas, el molino de doce fichas, Morabaraba y el molino de Lasker. Cinco niveles de dificultad ofrecen retos diferentes.\n\nEn el modo wifi, una persona crea la partida y la otra envía una invitación. Basta con aceptarla, sin código de emparejamiento. Están disponibles las cuatro variantes. Las partidas guardadas pueden reconectarse tras una interrupción. Las pistas y la opción de deshacer no están disponibles en las partidas en red.\n\nLas pistas muestran una jugada directamente en el tablero. Active o desactive las casillas de destino posibles y la marca de la última jugada según sus preferencias. Consulte el historial o deshaga una jugada para reconsiderar su decisión.\n\nLa partida se guarda automáticamente en el dispositivo. Todas las jugadas del ordenador se calculan de forma local. No necesita una cuenta ni conexión a Internet para jugar.\n\n• Cuatro variantes y cinco niveles de dificultad\n• Dos personas en un dispositivo o en dos dispositivos con la misma red wifi\n• Pistas visuales y ayudas de juego ajustables\n• Historial y opción de deshacer jugadas\n• Orientación vertical y horizontal en iPhone y iPad\n• Español, alemán, inglés, francés, japonés, coreano y chino simplificado y tradicional\n• Sin anuncios, suscripciones ni compras dentro de la app\n\nMuehlenstein es una app nativa de diseño independiente que utiliza el motor de juego libre Sanmill. El código fuente completo y los avisos de licencia están disponibles públicamente. No incluye partidas a distancia por Internet.",
+      "whats_new": "Nuevo: juegue al molino en dos dispositivos conectados a la misma red wifi. Cree una partida o envíe una invitación, sin código de emparejamiento.\n\nLas cuatro variantes están disponibles. Las jugadas se comprueban en ambos dispositivos y la partida se guarda localmente. Si se interrumpe la conexión, el tablero se pausa. Vuelva a conectarse para continuar la misma partida.\n\nLa configuración de red y la ayuda están disponibles en los ocho idiomas de la app. Se mantienen las partidas contra el ordenador y en un solo dispositivo compartido."
+    },
+    "fr-FR": {
+      "name": "Muehlenstein",
+      "subtitle": "Jeu du moulin à votre rythme",
+      "promotional_text": "Jouez à deux sur le même Wi-Fi : invitation sans code, quatre variantes du moulin et reprise des parties enregistrées. Sans publicité ni compte.",
+      "keywords": "moulin,mérelles,marelle,stratégie,plateau,morris,morabaraba,lasker,hors ligne,deux joueurs",
+      "description": "Découvrez le jeu du moulin sur iPhone et iPad, avec un plateau lisible, des déplacements fluides et le temps de réfléchir à votre prochain coup.\n\nAffrontez l’ordinateur, jouez à deux sur le même appareil ou sur deux appareils connectés au même réseau Wi-Fi. Choisissez le jeu du moulin classique, le moulin à douze pions, le Morabaraba ou le moulin de Lasker. Cinq niveaux de difficulté proposent des défis variés.\n\nEn Wi-Fi, une personne crée une partie et l’autre envoie une invitation. Il suffit de l’accepter, sans code d’association. Les quatre variantes sont disponibles. Une partie enregistrée peut être reconnectée après une interruption. Les conseils et l’annulation des coups ne sont pas disponibles en réseau.\n\nLes conseils indiquent un coup directement sur le plateau. Affichez ou masquez les destinations possibles et le dernier coup selon vos préférences. Consultez l’historique ou annulez un coup pour revoir votre décision.\n\nVotre partie est enregistrée automatiquement sur votre appareil. Tous les coups de l’ordinateur sont calculés localement. Aucun compte ni connexion Internet n’est nécessaire pour jouer.\n\n• Quatre variantes et cinq niveaux de difficulté\n• À deux sur un appareil ou sur deux appareils connectés au même Wi-Fi\n• Conseils visuels et aides de jeu réglables\n• Historique et annulation des coups\n• Modes portrait et paysage sur iPhone et iPad\n• Français, allemand, anglais, espagnol, japonais, coréen et chinois simplifié et traditionnel\n• Sans publicité, abonnement ni achat intégré\n\nMuehlenstein est une application native conçue indépendamment à partir du moteur libre Sanmill. Le code source complet et les mentions de licence sont accessibles au public. Le jeu à distance par Internet n’est pas proposé.",
+      "whats_new": "Nouveau : jouez au moulin sur deux appareils connectés au même réseau Wi-Fi. Créez une partie ou envoyez une invitation, sans code d’association.\n\nLes quatre variantes sont disponibles. Les coups sont vérifiés sur les deux appareils et la partie est enregistrée localement. En cas de coupure, le plateau se met en pause. Reconnectez-vous pour poursuivre la même partie.\n\nLa configuration du réseau et l’aide sont disponibles dans les huit langues de l’app. Vous pouvez toujours affronter l’ordinateur ou partager un seul appareil."
+    },
+    "ja": {
+      "name": "Muehlenstein",
+      "subtitle": "自分のペースでナイン・メンズ・モリス",
+      "promotional_text": "同じWi-Fiに接続した2台の端末で対局できるようになりました。コード不要の招待、4種類のルール、保存した対局への再接続に対応。広告もアカウント登録も不要です。",
+      "keywords": "ナインメンズモリス,ミル,ボードゲーム,戦略,オフライン,二人対戦,思考,モラバラバ,ラスカー",
+      "description": "iPhoneとiPadでナイン・メンズ・モリスを楽しめます。見やすい盤面と滑らかな駒の動きで、次の一手をじっくり考えられます。\n\nコンピュータとの対局に加え、1台の端末で交互に、または同じWi-Fiに接続した2台の端末で2人対局ができます。ナイン・メンズ・モリス、トゥエルブ・メンズ・モリス、モラバラバ、ラスカー・モリスの4種類のルールと、5段階の難易度を選べます。\n\nWi-Fi対局では、1人が対局を作成し、もう1人が招待を送ります。招待を承認すれば、ペアリングコードなしで始められます。4種類すべてのルールに対応し、接続が途切れても保存済みの対局に再接続できます。ネットワーク対局ではヒントと待ったは利用できません。\n\nヒントはおすすめの一手を盤面に直接表示します。移動できる場所や直前の手の表示は、お好みで切り替えられます。棋譜を確認したり、一手を戻して考え直したりすることもできます。\n\n対局は端末内に自動保存されます。コンピュータの着手もすべて端末上で計算するため、アカウントやインターネット接続は必要ありません。\n\n• 4種類のルールと5段階の難易度\n• 1台の端末、または同じWi-Fi上の2台の端末で2人対局\n• 視覚的なヒントと調整可能な対局補助\n• 棋譜と待った機能\n• iPhoneとiPadの縦向き・横向きに対応\n• 日本語、ドイツ語、英語、フランス語、スペイン語、韓国語、中国語（簡体字・繁体字）に対応\n• 広告、サブスクリプション、アプリ内課金なし\n\nMuehlensteinは、自由に利用できるSanmillゲームエンジンを用いた、独自デザインのネイティブアプリです。完全なソースコードとライセンス表記を公開しています。インターネット経由の遠隔対局には対応していません。",
+      "whats_new": "新機能：同じWi-Fiに接続した2台の端末でモリスを対局できます。対局を作成するか招待を送り、相手が承認するだけ。ペアリングコードは不要です。\n\n4種類すべてのルールに対応しています。着手は両方の端末で確認され、対局は端末内に保存されます。接続が途切れると盤面が一時停止し、再接続後に同じ対局を続けられます。\n\nネットワーク設定とヘルプはアプリの全8言語に対応しています。コンピュータとの対局や1台の端末での2人対局も引き続き楽しめます。"
+    },
+    "ko": {
+      "name": "Muehlenstein",
+      "subtitle": "내 속도로 즐기는 나인 멘스 모리스",
+      "promotional_text": "이제 같은 Wi-Fi에 연결된 두 기기에서 대국하세요. 코드 없는 초대, 네 가지 규칙, 저장된 대국의 재연결을 지원합니다. 광고와 계정 등록이 없습니다.",
+      "keywords": "나인멘스모리스,밀,보드게임,전략,오프라인,2인용,두뇌게임,모라바라바,라스커",
+      "description": "iPhone과 iPad에서 나인 멘스 모리스를 즐겨 보세요. 보기 편한 게임판과 부드러운 말의 움직임으로 다음 수를 차분히 생각할 수 있습니다.\n\n컴퓨터와 대국하거나 한 기기에서 번갈아 둘 수 있으며, 같은 Wi-Fi에 연결된 두 기기에서도 함께 대국할 수 있습니다. 나인 멘스 모리스, 트웰브 멘스 모리스, 모라바라바, 라스커 모리스 중에서 선택하세요. 다섯 단계의 난이도로 다양한 도전을 즐길 수 있습니다.\n\nWi-Fi 대국에서는 한 사람이 대국을 만들고 다른 사람이 초대를 보냅니다. 초대를 수락하면 페어링 코드 없이 시작할 수 있습니다. 네 가지 변형 규칙을 모두 지원하며, 연결이 끊겨도 저장된 대국에 다시 연결할 수 있습니다. 네트워크 대국에서는 힌트와 무르기를 사용할 수 없습니다.\n\n힌트는 추천하는 수를 게임판에 직접 표시합니다. 이동 가능한 위치와 마지막 수 표시는 원하는 대로 켜거나 끌 수 있습니다. 기보를 확인하거나 수를 되돌려 결정을 다시 생각해 볼 수도 있습니다.\n\n진행 중인 대국은 기기에 자동으로 저장됩니다. 컴퓨터의 모든 수는 기기 안에서 계산합니다. 계정이나 인터넷 연결 없이 플레이할 수 있습니다.\n\n• 네 가지 변형 규칙과 다섯 단계의 난이도\n• 한 기기 또는 같은 Wi-Fi에 연결된 두 기기에서 대국\n• 시각적 힌트와 조절 가능한 대국 보조 기능\n• 기보와 무르기\n• iPhone과 iPad의 세로 및 가로 화면 지원\n• 한국어, 독일어, 영어, 프랑스어, 스페인어, 일본어, 중국어 간체 및 번체 지원\n• 광고, 구독, 앱 내 구입 없음\n\nMuehlenstein은 자유 소프트웨어 게임 엔진 Sanmill을 사용하는 독립적으로 디자인된 네이티브 앱입니다. 전체 소스 코드와 라이선스 고지를 공개하고 있습니다. 인터넷을 통한 원격 대국은 지원하지 않습니다.",
+      "whats_new": "새 기능: 같은 Wi-Fi에 연결된 두 기기에서 모리스를 함께 즐길 수 있습니다. 대국을 만들거나 초대를 보내세요. 페어링 코드는 필요 없습니다.\n\n네 가지 변형 규칙을 모두 지원합니다. 수는 양쪽 기기에서 확인되며 대국은 기기에 저장됩니다. 연결이 끊기면 게임판이 일시 정지되고, 다시 연결하면 같은 대국을 이어갈 수 있습니다.\n\n네트워크 설정과 도움말은 앱의 8개 언어로 제공됩니다. 컴퓨터 대국과 한 기기를 공유하는 대국도 계속 이용할 수 있습니다."
+    },
+    "zh-Hans": {
+      "name": "Muehlenstein",
+      "subtitle": "按自己的节奏，享受九子棋",
+      "promotional_text": "现在可在连接同一 Wi-Fi 的两台设备上对弈：无需配对码的邀请、四种玩法，以及已保存对局的重新连接。无广告，无需账户。",
+      "keywords": "九子棋,磨坊棋,直棋,棋类,策略,桌游,离线,双人,十二子棋,益智,Morris,Morabaraba,Lasker",
+      "description": "在 iPhone 和 iPad 上体验九子棋。清晰的棋盘、流畅的棋子移动，让您从容思考下一步。\n\n您可以与电脑对弈，与另一位玩家共用一台设备，或在连接同一 Wi-Fi 的两台设备上对弈。经典九子棋、十二子棋、Morabaraba 和拉斯克磨坊棋四种玩法，以及五档难度，带来不同的挑战。\n\nWi-Fi 对局中，一人创建对局，另一人发送邀请。接受邀请即可开始，无需配对码。四种玩法均可使用；连接中断后，可重新连接已保存的对局。网络对局不提供提示和悔棋。\n\n提示会直接在棋盘上显示建议的走法。您可以按需显示或隐藏可走位置和上一步标记，也可以查看棋谱或悔棋，重新考虑自己的选择。\n\n当前对局会自动保存在设备本地。电脑的所有走法均在设备上计算，无需账户或互联网连接即可游玩；双设备对局需要连接同一 Wi-Fi。\n\n• 四种玩法，五档电脑难度\n• 共用一台设备，或在同一 Wi-Fi 下的两台设备上对弈\n• 图形化提示和可调整的辅助功能\n• 棋谱与悔棋\n• 支持 iPhone 和 iPad 横屏、竖屏\n• 支持简体中文、繁体中文、德语、英语、法语、西班牙语、日语和韩语\n• 无广告、无订阅、无 App 内购买\n\nMuehlenstein 是一款独立设计的原生应用，采用自由软件游戏引擎 Sanmill。完整源代码和许可证声明均已公开。不支持通过互联网进行远程对弈。",
+      "whats_new": "新增：在连接同一 Wi-Fi 的两台设备上一起下九子棋。创建对局或发送邀请，无需配对码。\n\n支持全部四种玩法。每一步都会在两台设备上核对，对局保存在本地。连接中断时棋盘会暂停，重新连接后即可继续同一场对局。\n\n网络设置和帮助支持应用的全部八种语言。仍可与电脑对弈，或在一台设备上轮流游玩。"
+    },
+    "zh-Hant": {
+      "name": "Muehlenstein",
+      "subtitle": "依自己的步調，享受九子棋",
+      "promotional_text": "現在可在連接同一 Wi-Fi 的兩台裝置上對弈：無需配對碼的邀請、四種玩法，以及已儲存對局的重新連線。無廣告，無需帳號。",
+      "keywords": "九子棋,磨坊棋,直棋,棋類,策略,桌遊,離線,雙人,十二子棋,益智,Morris,Morabaraba,Lasker",
+      "description": "在 iPhone 和 iPad 上體驗九子棋。清晰的棋盤、流暢的棋子移動，讓您從容思考下一步。\n\n您可以與電腦對弈、與另一位玩家共用一台裝置，或在連接同一 Wi-Fi 的兩台裝置上對弈。經典九子棋、十二子棋、Morabaraba 和拉斯克磨坊棋四種玩法，以及五段難度，帶來不同的挑戰。\n\nWi-Fi 對局中，一人建立對局，另一人傳送邀請。接受邀請即可開始，無需配對碼。四種玩法皆可使用；連線中斷後，可重新連接已儲存的對局。網路對局不提供提示與悔棋。\n\n提示會直接在棋盤上顯示建議的走法。您可以依需求顯示或隱藏可走位置和上一步標記，也可以查看棋譜或悔棋，重新考慮自己的選擇。\n\n目前的對局會自動儲存在裝置本機。電腦的所有走法都在裝置上運算，無需帳號或網際網路連線即可遊玩；雙裝置對局需要連接同一 Wi-Fi。\n\n• 四種玩法，五段電腦難度\n• 共用一台裝置，或在同一 Wi-Fi 下的兩台裝置上對弈\n• 圖像化提示與可調整的輔助功能\n• 棋譜與悔棋\n• 支援 iPhone 和 iPad 橫向、直向顯示\n• 支援繁體中文、簡體中文、德文、英文、法文、西班牙文、日文和韓文\n• 無廣告、無訂閱、無 App 內購買\n\nMuehlenstein 是一款獨立設計的原生 App，採用自由軟體遊戲引擎 Sanmill。完整原始碼與授權聲明皆已公開。不支援透過網際網路進行遠端對弈。",
+      "whats_new": "新增：在連接同一 Wi-Fi 的兩台裝置上一起下九子棋。建立對局或傳送邀請，無需配對碼。\n\n支援全部四種玩法。每一步都會在兩台裝置上核對，對局儲存在本機。連線中斷時棋盤會暫停，重新連線後即可繼續同一場對局。\n\n網路設定與說明支援 App 的全部八種語言。仍可與電腦對弈，或在一台裝置上輪流遊玩。"
     }
   },
-  "review_notes": "Muehlenstein is an offline native SwiftUI Morris game. No login, demo credentials, server connection, in-app purchases or special equipment are required. New game starts a game against the computer or another player on the same device. There are four rule variants and five difficulty levels. Hint toggles a graphical suggestion; its info button describes immediate tactical effects.\n\nThe interface and geometric artwork are original Muehlenstein work. The Rust game engine comes from Sanmill, revision 8901a06f088bf49a1602fee8686ed25ac5a33925, under AGPL-3.0-or-later with its published section 7 App Store additional permission. The full corresponding source, build scripts, preserved notices and own additional permission are at https://github.com/MrFam0s/Muehlenstein. Upstream permission: https://github.com/calcitem/Sanmill#terms-of-use. This is an independently named fork, not an official Sanmill release. Offline legal notices, provider details and source links are in About Muehlenstein.",
-  "app_store_build_id": "557f1a60-ab60-4005-a3c3-aea9e1efa528",
+  "review_notes": "Muehlenstein is a native SwiftUI Morris game for iPhone and iPad. No account, demo credentials, in-app purchases or game server are required. Computer games and two-player games on one device work offline. There are four rule variants and five computer difficulty levels.\n\nNew in 1.3: two-player local Wi-Fi games. To review this optional mode, install the app on two iOS devices on the same Wi-Fi network (guest networks with client isolation can prevent discovery). On both devices select New game > Wi-Fi > Play over Wi-Fi. On device A choose Host a game. On device B choose Find a game, select the discovered game and send an invitation. Accept the invitation on device A. Allow Local Network access on both devices when iOS asks. No pairing code or personal device names are used. All four variants are supported. Moves are synchronized and validated on both devices. Hints and undo are intentionally unavailable in network games.\n\nTo test reconnection, send the guest app to the background and close it. On the host, open the connection controls and choose Reconnect. Reopen the guest app and choose Continue game. The saved game reconnects without another invitation. A disconnected board is paused. Network traffic uses Apple's Multipeer Connectivity with required system encryption; no game or usage data is sent to AmoSystems. Internet matchmaking is not offered.\n\nThe interface and geometric artwork are original Muehlenstein work. The Rust game engine comes from Sanmill, revision 8901a06f088bf49a1602fee8686ed25ac5a33925, under AGPL-3.0-or-later with its published section 7 App Store additional permission. Full corresponding source, build scripts, preserved notices and our additional permission: https://github.com/MrFam0s/Muehlenstein. Upstream permission: https://github.com/calcitem/Sanmill#terms-of-use. This is an independently named fork, not an official Sanmill release. Offline legal notices, provider details and source links are in About Muehlenstein.",
+  "app_store_build_id": "38cb613d-db9e-4687-ace0-fcf0b97aeaa2",
   "app_privacy_published": true,
-  "review_submission_id": "46d51255-9511-4a14-9814-839a35b050e0",
-  "review_submitted_at": "2026-10-01T16:31:32.061Z",
   "app_localizations": [
     "de",
     "en",
@@ -58,5 +104,10 @@
     "ko",
     "zh-Hans",
     "zh-Hant"
-  ]
+  ],
+  "review_submission_id": "5dfe3873-caa3-4ec0-975a-dea68ee21561",
+  "review_submitted_at": "2026-10-06T17:16:42.447Z",
+  "pending_app_store_version": "1.3",
+  "pending_app_store_version_id": "00c0176b-7d42-4a48-914d-9ae5f26f93cf",
+  "pending_app_store_build_number": "9"
 }

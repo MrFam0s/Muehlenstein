@@ -646,6 +646,26 @@ Sprachabläufe auf iPhone und iPad wurden vor diesem Versionswechsel geprüft.
 
 Für 1.2 wurden kein Gerätearchiv, Upload oder Review-Antrag erstellt.
 
+
+## Distribution 1.2 (8) — 06.10.2026
+
+Signiertes Gerätearchiv und App-Store-Export des Quelltags `v1.2` erfolgreich.
+Das exportierte IPA bestätigt Identität, Version, Build, alle acht Sprachen,
+Datenschutzmanifest, Lizenzressourcen und Distributionsentitlements;
+strikte Codesign-Prüfung bestanden. Apple verarbeitet Build 8 als `VALID`.
+
+Der bestehende Store-Screenshotablauf wurde auf acht Sprachfassungen erweitert.
+Die Läufe auf iPhone 18 Pro Max und iPad Pro 13 Zoll bestanden; 64 Originalbilder
+wurden gesichtet, exportiert und bei Apple hochgeladen. Alle Bilder sind
+`COMPLETE`; Reihenfolge, Abmessungen und MD5-Prüfsummen stimmen überein.
+`ENABLE_TESTABILITY=YES` gilt ausschließlich für den Screenshot-Testlauf.
+
+Alle 16 Store-Metadatendateien, acht TestFlight-Beschreibungen und acht
+Testhinweise wurden nach dem Speichern erneut abgeglichen. Metadatenprüfung
+und abschließende strikte Einreichungsprüfung: keine Fehler oder Warnungen.
+App-Store- und TestFlight-Prüfung sind eingereicht und warten auf Apple.
+[Nachweise und IDs](../Store/RELEASE-1.2-8.md).
+
 ## Lokales Netzwerkspiel — 07.10.2026
 
 **Bestanden:** Der reale Verbindungsablauf zwischen dem physischen FA-iPhone
@@ -698,3 +718,22 @@ verweigerte bzw. später widerrufene Netzwerkberechtigung sind vor der
 Veröffentlichung zusätzlich praktisch zu prüfen. VoiceOver und Akkumessungen
 bleiben wie vereinbart zurückgestellt. Version 1.2 (8) und vorhandene Tags
 bleiben unverändert; dieser Entwicklungsstand wurde nicht bei Apple hochgeladen.
+
+
+## Releasevorbereitung 1.3 (9) — 08.10.2026
+
+Release-Simulatorbuild, signiertes Gerätearchiv und App-Store-Export bestanden.
+Am IPA sind Version 1.3, Build 9, Identität, Signatur, Distributionsentitlements,
+alle acht Sprachen, Bonjour-Dienst und Datenschutzmanifest geprüft.
+
+`.build/Release-1.3-9/Store-iPhone.xcresult`: 41 bestandene Tests ohne Fehler
+oder übersprungene Tests (39 GameStore-Tests einschließlich Leistungsprüfungen,
+Versions-/Impressums-/Lizenznavigation und vollständiger Screenshotablauf).
+`.build/Release-1.3-9/Store-iPad.xcresult`: ein bestandener Screenshotablauf
+über alle acht Sprachen. 80 neue Original-Screenshots einschließlich WLAN-
+Einrichtung; alle 16 Kontaktbögen geprüft, Abmessungen und Prüfsummen erfasst.
+
+Die zusätzliche Zwei-iPhone-Prüfung wartet auf entsperrte Geräte; der bestehende
+erfolgreiche reale iPhone-/Simulator-Test vom 07.10.2026 bleibt gültig für die
+unveränderte Netzwerklogik. Aktueller Apple-Stand und Artefakte:
+[Releaseprotokoll](../Store/RELEASE-1.3-9.md).

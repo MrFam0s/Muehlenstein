@@ -1,12 +1,24 @@
 # Muehlenstein
 
-Neu im Entwicklungsstand: **zu zweit auf zwei Geräten im selben WLAN**, mit Einladung ohne Code, vier Spielvarianten und Wiederverbindung gespeicherter Partien. Bedienung und Grenzen: [Lokaler Netzwerkmodus](Docs/LOCAL_NETWORK.md). Noch kein neuer Store-Upload.
+**Version 1.3 (Build 9)** ergänzt Spiele auf zwei Geräten im selben WLAN:
+Einladung ohne Code, vier Varianten und gespeicherte Wiederverbindung.
+Bedienung und Grenzen: [Lokaler Netzwerkmodus](Docs/LOCAL_NETWORK.md).
+Der Release wird für den App Store vorbereitet; der genaue Stand steht im
+[Releaseprotokoll](Store/RELEASE-1.3-9.md).
 
-**Mühlenstein** is the German product name; **Muehlenstein** is the international name and the technical project name. An independent, native SwiftUI Morris app for iPhone and iPad, with Sanmill's original Rust rules and search engine.
+**Mühlenstein** is the German product name; **Muehlenstein** is the international
+name and technical project name. An independent native SwiftUI Morris app for
+iPhone and iPad, using Sanmill's Rust rules and search engine. Eight offline
+localizations cover the interface and help. New players start at level 1;
+the app remembers their last confirmed difficulty. Six accent colors are available.
+The business model is a paid download at €0.99 in Germany, with the complete
+corresponding source under AGPL-3.0-or-later. See the [version notes](CHANGELOG.md).
 
-**Version 1.2 (build 8)** is the current source release, available under [`v1.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.2). It adds five native languages, with both Chinese scripts, and starts new players at level 1 while remembering their last confirmed difficulty. The eight offline localizations cover the complete interface and help. Slate blue and the six-color palette remain available. The business model is a paid download at €0.99 in Germany, with the corresponding complete source available under AGPL-3.0-or-later. See the [version notes](CHANGELOG.md).
-
-[App Store documentation](Store/README.md) includes German/English listing copy, historical iPhone/iPad screenshots, public [support](Docs/SUPPORT.md) and [privacy information](Docs/PRIVACY.md). Version **1.0.2 (build 6)** was submitted to App Store review on 2026-10-01; see its [submission record](Store/RELEASE-1.0.2-6.md). Version **1.1 (build 7)** was uploaded for TestFlight on 2026-10-02; its dated [TestFlight record](Store/TESTFLIGHT-1.1-7.md) preserves the last verified status. Version **1.2 (build 8)** is a source release with no upload or review submission. A matching device archive and refreshed Store screenshots are needed before distribution; native app languages and Store listing localizations are separate.
+Version **1.2 (8)** is published: App Store Connect confirmed
+`READY_FOR_DISTRIBUTION` on 2026-10-07. [Its release record](Store/RELEASE-1.2-8.md)
+preserves the original submission evidence. [App Store documentation](Store/README.md)
+includes listing copy and original iPhone/iPad screenshots in all eight languages,
+with public [support](Docs/SUPPORT.md) and [privacy information](Docs/PRIVACY.md).
 
 ## Run
 
@@ -38,7 +50,7 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 
 ## Deliberately still pending
 
-Full Sanmill feature parity: remaining seven rule presets in the UI, broader opening recognition/training / Human DB / Perfect DB, additional search methods and calibrated strengths, analysis/replay navigation, puzzles and imports/exports. The large Perfect DB is deferred by product decision, not exposed as a placeholder setting. Network play follows the offline version. See [the plan](Docs/PROJECT_PLAN.md), [AI options and rating roadmap](Docs/AI_OPTIONS.md) and [architecture](Docs/ARCHITECTURE.md).
+Full Sanmill feature parity: remaining seven rule presets in the UI, broader opening recognition/training / Human DB / Perfect DB, additional search methods and calibrated strengths, analysis/replay navigation, puzzles and imports/exports. The large Perfect DB is deferred by product decision, not exposed as a placeholder setting. Local network play is included in 1.3; internet matchmaking remains outside the current scope. See [the plan](Docs/PROJECT_PLAN.md), [AI options and rating roadmap](Docs/AI_OPTIONS.md) and [architecture](Docs/ARCHITECTURE.md).
 
 The original engine code is retained; the app's search orchestration is new. Equal playing strength to the Sanmill app has **not** been established. The public source repository is [MrFam0s/Muehlenstein](https://github.com/MrFam0s/Muehlenstein); recorded distribution status is in the [release documentation](Docs/RELEASE.md).
 

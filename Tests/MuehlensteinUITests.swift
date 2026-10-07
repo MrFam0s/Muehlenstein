@@ -183,10 +183,12 @@ final class MuehlensteinUITests: XCTestCase {
 
     @MainActor func testStoreScreenshots() {
         XCUIDevice.shared.orientation = .portrait
-        for language in ["de", "en"] {
+        let locales = [("de", "de_DE"), ("en", "en_US"), ("fr", "fr_FR"), ("es", "es_ES"),
+                       ("ja", "ja_JP"), ("ko", "ko_KR"), ("zh-Hans", "zh_CN"), ("zh-Hant", "zh_TW")]
+        for (language, locale) in locales {
             let app = XCUIApplication()
             app.launchArguments = ["-ui-testing", "-ui-appearance", "light", "-AppleLanguages", "(\(language))",
-                                   "-AppleLocale", language == "de" ? "de_DE" : "en_US"]
+                                   "-AppleLocale", locale]
             app.launch()
             XCTAssertTrue(app.buttons["new_game"].waitForExistence(timeout: 5))
             record("Store-\(language)-01-Home", app: app)
@@ -194,6 +196,12 @@ final class MuehlensteinUITests: XCTestCase {
             XCTAssertTrue(app.buttons["start_game"].waitForExistence(timeout: 5))
             assertVariantsVisible(app)
             record("Store-\(language)-02-Setup", app: app)
+            app.buttons["opponent_network"].tap()
+            app.buttons["start_game"].tap()
+            XCTAssertTrue(app.buttons["network_host"].waitForExistence(timeout: 5))
+            assertVisible(app.buttons["network_host"], in: app)
+            assertVisible(app.buttons["network_browse"], in: app)
+            record("Store-\(language)-05-Network", app: app)
             app.terminate()
             app.launchArguments += ["-ui-demo"]
             app.launch()
@@ -211,7 +219,7 @@ final class MuehlensteinUITests: XCTestCase {
     @MainActor func testAboutShowsVersionImprintSourceAndBundledNotices() {
         let app = launch()
         app.buttons["about"].tap()
-        XCTAssertTrue(app.staticTexts["about_version"].label.contains("Version 1.2 · Build 8"))
+        XCTAssertTrue(app.staticTexts["about_version"].label.contains("Version 1.3 · Build 9"))
         XCTAssertTrue(app.scrollViews["about_sections"].exists)
         XCTAssertFalse(app.buttons["next_page"].exists)
         record("About-Overview", app: app)

@@ -10,13 +10,15 @@ import sys
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / '.build/StoreScreenshotAttachments'
 TARGET = ROOT / 'Store/Screenshots'
-ORDER = {'Game': '01-Game', 'Hint': '02-Hint', 'Setup': '03-Setup', 'Home': '04-Home'}
+ORDER = {'Game': '01-Game', 'Hint': '02-Hint', 'Setup': '03-Setup', 'Home': '04-Home', 'Network': '05-Network'}
 SIZES = {(1320, 2868): 'iPhone-6.9', (2064, 2752): 'iPad-13'}
+LOCALES = {'de': 'de-DE', 'en': 'en-US', 'fr': 'fr-FR', 'es': 'es-ES',
+           'ja': 'ja', 'ko': 'ko', 'zh-Hans': 'zh-Hans', 'zh-Hant': 'zh-Hant'}
 rows = []
 seen = set()
 for test in json.loads((SOURCE / 'manifest.json').read_text()):
     for item in test['attachments']:
-        match = re.match(r'Store-(de|en)-\d+-(Home|Setup|Game|Hint)_', item['suggestedHumanReadableName'])
+        match = re.match(r'Store-(de|en|fr|es|ja|ko|zh-Hans|zh-Hant)-\d+-(Home|Setup|Game|Hint|Network)_', item['suggestedHumanReadableName'])
         if not match:
             continue
         if item['isAssociatedWithFailure']:
@@ -27,7 +29,7 @@ for test in json.loads((SOURCE / 'manifest.json').read_text()):
         assert depth == 8 and color == 2, 'Store screenshots must be RGB without alpha.'
         device = SIZES[(width, height)]
         language, screen = match.groups()
-        locale = 'de-DE' if language == 'de' else 'en-US'
+        locale = LOCALES[language]
         relative = f'{locale}/{device}/{ORDER[screen]}.png'
         assert relative not in seen, 'Duplicate screenshot: ' + relative
         seen.add(relative)
@@ -35,10 +37,12 @@ for test in json.loads((SOURCE / 'manifest.json').read_text()):
             'path': relative, 'device': item['deviceName'], 'width': width, 'height': height,
             'sha256': hashlib.sha256(data).hexdigest(),
         }))
-assert len(rows) == 16, f'Expected 16 screenshots; got {len(rows)}.'
+expected = {f'{locale}/{device}/{screen}.png'
+            for locale in LOCALES.values() for device in SIZES.values() for screen in ORDER.values()}
+assert seen == expected, f'Screenshot coverage differs: missing {expected - seen}; extra {seen - expected}'
 for relative, data, _ in rows:
     destination = TARGET / relative
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_bytes(data)
 (TARGET / 'manifest.json').write_text(json.dumps([r for _, _, r in sorted(rows)], indent=2) + '\n')
-print('Exported 16 original RGB screenshots; dimensions and hashes verified.')
+print(f'Exported {len(rows)} original RGB screenshots; coverage, dimensions and hashes verified.')

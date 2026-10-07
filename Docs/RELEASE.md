@@ -1,6 +1,18 @@
 # Distribution requirements and open decisions
 
-## Current source release — 2026-10-06
+## Current release preparation — 2026-10-08
+
+Version **1.3 (build 9)** contains the local network mode. The signed archive
+and App Store IPA were created and their bundle identity, signature, eight
+localizations, Bonjour declaration, privacy manifest and system-only encryption
+setting verified. Store copy and review instructions now describe two-device
+Wi-Fi games and the limitations of hints and undo in this mode.
+
+The prior **1.2 (8)** release is published (`READY_FOR_DISTRIBUTION`, verified
+2026-10-07). Current 1.3 submission progress and test limits are recorded in
+[the release record](../Store/RELEASE-1.3-9.md).
+
+## Previous source release — 2026-10-06
 
 Version **1.2 (build 8)**, annotated source tag
 [`v1.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.2), adds Japanese,
@@ -14,14 +26,17 @@ Cargo versions are unchanged. See the [changelog](../CHANGELOG.md),
 [localization documentation](LOCALIZATION.md) and [validation record](VALIDATION.md).
 Existing source tags remain fixed.
 
-This is a source release. No device archive, upload or review submission was
-created for 1.2. Before distribution, archive this exact source and refresh
-Store screenshots to show the current colors and setup. The German/English
-listing drafts describe the new language support; listings in the additional
-languages are a separate future step. Apple records were not changed or
-re-queried for this source release.
+Version **1.2 (8)** has now been archived, uploaded and processed as `VALID`.
+It is assigned to the existing external TestFlight group (two testers), with
+beta review submitted and automatic notifications enabled. All eight Store
+localizations, TestFlight descriptions and test notes have been saved and
+read back for verification. There are 64 new original iPhone/iPad screenshots.
+All 64 images are processed and their checksums, dimensions and order verified.
+App Store review was submitted at **17:16:42 UTC on 2026-10-06**; both version
+and submission are `WAITING_FOR_REVIEW`, with automatic release after approval. See the [distribution record](../Store/RELEASE-1.2-8.md)
+and [metadata audit](../Store/METADATA-1.2-AUDIT.md).
 
-## Last recorded TestFlight distribution — 2026-10-02
+## Historical TestFlight distribution — 2026-10-02
 
 Version **1.1 (build 7)** was archived, exported and uploaded for TestFlight.
 The saved verification reports successful processing (`VALID`), assignment
@@ -31,7 +46,7 @@ notification enabled and German/English test notes saved. See the dated
 [TestFlight record](../Store/TESTFLIGHT-1.1-7.md). This is historical evidence,
 not a fresh claim about the current Apple review state.
 
-## Last verified App Store submission — 2026-10-01
+## Historical App Store submission — 2026-10-01
 
 The user authorized continuation of the App Store submission. Version **1.0.2
 (build 6)** contains the latest approved beige/forest-green icon and has been
@@ -98,9 +113,7 @@ Sources and prior findings: `Research/Projektplanung_native_iOS_Muehle.pdf`, `En
 
 The working source adds local two-device games after tag `v1.2`: explicit
 invitations without a pairing code, all four variants, encrypted Apple Multipeer
-Connectivity, transcript validation, persistence and reconnection. No new app
-version, build, source tag or upload is created by this feature change. Before
-distribution, assign a new version/build, publish the matching complete source,
-update Store copy/screenshots/review notes, and verify local network permissions
+Connectivity, transcript validation, persistence and reconnection. The feature is assigned to version 1.3 (build 9). Before final submission,
+verify the release record, matching complete source and local network permissions
 and two-device behavior on physical hardware. The app still collects no game
 or usage data on a server. See [LOCAL_NETWORK.md](LOCAL_NETWORK.md).

@@ -1,5 +1,12 @@
 # App-Store-Vorbereitung
 
+## Aktuelle Vorbereitung — 08.10.2026, Version 1.3 (Build 9)
+
+Der neue WLAN-Spielmodus wird für die Veröffentlichung vorbereitet.
+Version 1.2 (8) ist inzwischen im App Store verfügbar, über Apple am
+07.10.2026 als `READY_FOR_DISTRIBUTION` bestätigt.
+[Aktueller Release- und Prüfstand für 1.3](RELEASE-1.3-9.md).
+
 ## Aktueller Quellrelease — 06.10.2026, Version 1.2 (Build 8)
 
 Quelltag: [`v1.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.2).
@@ -10,14 +17,18 @@ Spielstärke für weitere Partien und App-Neustarts erhalten.
 [Änderungen](../CHANGELOG.md), [Sprachen](../Docs/LOCALIZATION.md) und
 [Prüfnachweise](../Docs/VALIDATION.md).
 
-Für **1.2 (8)** wurde kein Gerätearchiv, Upload oder Review-Antrag erstellt.
-Vor der Distribution sind ein passendes Archiv vom Quelltag und aktuelle
-Store-Screenshots erforderlich. Die lokalen Produktdaten DE/EN enthalten
-aktualisierte Beschreibungen und Versionshinweise. Zusätzliche Sprachen der
-Store-Beschreibung sind von den nativen App-Sprachen getrennt und noch nicht
-angelegt. Vorhandene Store-Aufnahmen gehören zu **1.0.2 (6)**.
+**1.2 (8)** ist bei Apple hochgeladen und erfolgreich verarbeitet (`VALID`).
+Der Build ist der Gruppe **Externe Tests** mit zwei Testern zugeordnet und
+zur Beta-Prüfung eingereicht; automatische Testerbenachrichtigung ist aktiv.
+Beschreibungen, Keywords und weitere Store-Felder sind in allen acht
+Sprachfassungen gespeichert und erneut abgeglichen. Englisches Keyword:
+**`nine men's morris`**. 64 aktuelle Original-Screenshots decken alle Sprachen
+auf iPhone und iPad ab und sind bei Apple vollständig verarbeitet.
+**Am 06.10.2026 um 19:16 Uhr zur App-Store-Prüfung eingereicht:**
+`WAITING_FOR_REVIEW`, automatische Veröffentlichung nach Apple-Freigabe.
+[Distributionsnachweis](RELEASE-1.2-8.md), [Sprachprüfung](METADATA-1.2-AUDIT.md).
 
-## Zuletzt dokumentierter TestFlight-Stand — 02.10.2026
+## Historischer TestFlight-Stand — 02.10.2026
 
 **1.1 (7)** wurde als Gerätearchiv erstellt, für App Store Connect exportiert
 und erfolgreich verarbeitet (`VALID`). Am 02.10.2026 war die Zuordnung zur
@@ -28,7 +39,7 @@ deutschen und englischen Testhinweisen.
 [Historisches Protokoll](TESTFLIGHT-1.1-7.md). Für den Quellrelease 1.2 wurde
 der aktuelle Apple-Status nicht erneut abgefragt oder verändert.
 
-## Zuletzt bestätigte Einreichung — 01.10.2026, Build 6
+## Historische Einreichung — 01.10.2026, Build 6
 
 **Version 1.0.2 (6) mit dem zuletzt bestätigten beigen App-Icon ist bei Apple
 hochgeladen und erfolgreich verarbeitet (`VALID`).** Die 16 aktuellen
