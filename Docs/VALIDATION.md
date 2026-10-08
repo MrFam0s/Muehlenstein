@@ -789,3 +789,32 @@ inaktiven Optionen wurden zusätzlich gesichtet.
 
 Menschliche Anfänger wurden in dieser Runde nicht kalibriert. VoiceOver und
 Akkumessungen bleiben zurückgestellt. Kein Versionswechsel, Tag oder Apple-Upload.
+
+
+## Release 1.3.1 (11) — 08.10.2026
+
+Der Produktstand für den Anfängermodus wurde erneut geprüft: 27
+Rust-Adaptertests und 288 Sanmill-Tests bestanden. Build 10 bestand
+41 Release-Tests auf iPhone (38 funktionale Tests, Versions-/Lizenzanzeige,
+feste Einrichtungshöhe und Screenshotablauf) sowie den iPad-Screenshotablauf.
+80 Original-Aufnahmen in acht Sprachen wurden exportiert und visuell geprüft.
+
+Build 11 unterscheidet sich ausschließlich in Versions-/Buildkonfiguration;
+die 191 Produktdateien wurden per SHA-256 verglichen. Zwei weitere
+Versions-/Lizenzprüfungen bestanden für 1.3.1 (11). Insgesamt 44
+Release-Prüfungen ohne Fehler und ohne übersprungene Tests. Signatur,
+Distributionsentitlements, Bundlewerte, Netzwerkangaben und Sprachressourcen
+sind am exportierten IPA verifiziert.
+
+Apple bestätigt `VALID`, `WAITING_FOR_REVIEW` und
+`WAITING_FOR_BETA_REVIEW`. Die strikten Vorprüfungen enthalten keine Fehler,
+Warnungen oder Blocker. Alle 80 Screenshots sind verarbeitet; Prüfsummen,
+Reihenfolge und Abmessungen stimmen. 16 Metadatendateien und acht
+Testhinweise sind feldgenau mit Apple abgeglichen. Automatische
+Store-Veröffentlichung und Benachrichtigung der drei vorhandenen Tester
+nach Apple-Freigabe sind aktiv.
+
+Nachweise: `.build/Release-1.3.1-11/` und `.build/Release-1.3-10/`.
+[Releaseprotokoll](../Store/RELEASE-1.3.1-11.md). Der Quelltag `v1.3.1`
+entspricht den archivierten Produktdateien. Die bisherigen Grenzen der
+physischen Netzwerk-Testabdeckung bleiben bestehen.

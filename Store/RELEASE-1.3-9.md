@@ -1,5 +1,10 @@
 # Mühlenstein 1.3 · Build 9
 
+**Nachtrag vom 08.10.2026:** Diese App-Store-Einreichung wurde zugunsten
+von [1.3.1 (Build 11)](RELEASE-1.3.1-11.md) zurückgezogen. Eine inzwischen
+separat angelegte TestFlight-Beta-Prüfung für Build 9 bleibt davon unabhängig.
+Die folgenden Statuswerte dokumentieren die ursprüngliche Einreichung.
+
 Stand: 08.10.2026. Der Nutzer hat die Veröffentlichung des neuesten Standes
 beauftragt. Version 1.2 (8) ist bereits veröffentlicht; Version 1.3 (9)
 enthält zusätzlich den lokalen WLAN-Spielmodus. **Am 08.10.2026 um

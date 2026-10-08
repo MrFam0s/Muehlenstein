@@ -1,6 +1,18 @@
 # App-Store-Vorbereitung
 
-## Aktuelle Einreichung — 08.10.2026, Version 1.3 (Build 9)
+## Neuer Release — 08.10.2026, Version 1.3.1 (Build 11)
+
+Der neueste Stand ergänzt den WLAN-Modus um den bewusst fehlbaren
+Anfängergegner und die stabile Spieleinrichtung. Signierter Build,
+44 Release-Prüfungen einschließlich der neuen Versionsanzeige sowie
+80 aktuelle Original-Screenshots sind geprüft. Am **08.10.2026 um 09:25 Uhr**
+zur App-Store-Prüfung eingereicht (`WAITING_FOR_REVIEW`); TestFlight wartet
+auf Beta-Freigabe (`WAITING_FOR_BETA_REVIEW`). Automatische Veröffentlichung
+und Benachrichtigung der drei Tester nach Apple-Freigabe.
+[Release- und Distributionsprotokoll 1.3.1](RELEASE-1.3.1-11.md).
+Die folgenden Abschnitte bewahren den früheren Einreichungsstand.
+
+## Zurückgezogene Einreichung — 08.10.2026, Version 1.3 (Build 9)
 
 Der neue WLAN-Spielmodus ist mit **1.3 (9)** um **00:16:57 Uhr** zur
 App-Store-Prüfung eingereicht: **`WAITING_FOR_REVIEW`**, automatische

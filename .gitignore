@@ -5,3 +5,4 @@ Engine/Artifacts/
 xcuserdata/
 *.xcuserstate
 __pycache__/
+.asc/release/checkpoints/

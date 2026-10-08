@@ -1,6 +1,23 @@
 # Distribution requirements and open decisions
 
-## Current App Store submission — 2026-10-08
+## Release 1.3.1 (11) — 2026-10-08
+
+The current release contains local Wi-Fi play, the deliberately fallible
+beginner opponent and stable game setup. Source tag: `v1.3.1`, commit
+`36d3f27d7e0acb60ec0f11c35ac34d3bdaf54d94`. Its product logic matches
+the fully tested build 10; only version/build configuration differs.
+The signed build 11 and its version/license UI checks passed. Submitted on
+2026-10-08 at 07:25:09 UTC: `WAITING_FOR_REVIEW`, automatic Store release
+after approval. TestFlight is `WAITING_FOR_BETA_REVIEW`, assigned to the
+existing three-tester group with automatic notification enabled.
+[Current release and distribution record](../Store/RELEASE-1.3.1-11.md).
+
+The App Store submission of 1.3 (9) was withdrawn for this replacement.
+A separate 1.3.1 TestFlight version avoids the already pending beta review
+of 1.3 (9); previous TestFlight builds have not been expired.
+The following sections retain the earlier, dated release evidence.
+
+## Withdrawn App Store submission — 2026-10-08
 
 Version **1.3 (build 9)** contains the local network mode. It was submitted
 at 22:16:57 UTC on 2026-10-07 (00:16:57 Europe/Berlin on 2026-10-08).
