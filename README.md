@@ -1,16 +1,15 @@
 # Muehlenstein
 
-Entwicklungsstand nach 1.3: Ein bewusst fehlbarer Anfängergegner auf Stufe 1
-und eine Einrichtung mit gleichbleibender Höhe beim Moduswechsel.
-[Verhalten und Vergleichspartien](Docs/AI_OPTIONS.md).
+**Version 1.3 (Build 10)** ergänzt den WLAN-Modus um einen bewusst
+fehlbaren Anfängergegner auf Stufe 1 und eine Einrichtung mit gleichbleibender
+Höhe beim Moduswechsel. [Verhalten und Vergleichspartien](Docs/AI_OPTIONS.md).
+Die Veröffentlichung dieses neuesten Standes und die Bereitstellung für die
+bestehende TestFlight-Gruppe wurden am **08.10.2026** beauftragt.
+[Release- und Distributionsprotokoll](Store/RELEASE-1.3-10.md).
 
-**Version 1.3 (Build 9)** ergänzt Spiele auf zwei Geräten im selben WLAN:
-Einladung ohne Code, vier Varianten und gespeicherte Wiederverbindung.
-Bedienung und Grenzen: [Lokaler Netzwerkmodus](Docs/LOCAL_NETWORK.md).
-Am **08.10.2026** zur App-Store-Prüfung eingereicht: **`WAITING_FOR_REVIEW`**,
-automatische Veröffentlichung nach Freigabe. Quelltag [v1.3](https://github.com/MrFam0s/Muehlenstein/tree/v1.3).
-Build, 42 bestandene Prüfungen, 80 Store-Aufnahmen und verbleibende
-Geräteabdeckung sind im [Releaseprotokoll](Store/RELEASE-1.3-9.md) dokumentiert.
+Build 9 wurde zuvor zur App-Store-Prüfung eingereicht; sein unveränderter
+Quelltag ist [v1.3](https://github.com/MrFam0s/Muehlenstein/tree/v1.3).
+[Historisches Releaseprotokoll](Store/RELEASE-1.3-9.md).
 
 **Mühlenstein** is the German product name; **Muehlenstein** is the international
 name and technical project name. An independent native SwiftUI Morris app for
