@@ -1,11 +1,11 @@
 # Muehlenstein
 
-**Version 1.3 (Build 10)** ergänzt den WLAN-Modus um einen bewusst
+**Version 1.3.1 (Build 11)** ergänzt den WLAN-Modus um einen bewusst
 fehlbaren Anfängergegner auf Stufe 1 und eine Einrichtung mit gleichbleibender
 Höhe beim Moduswechsel. [Verhalten und Vergleichspartien](Docs/AI_OPTIONS.md).
 Die Veröffentlichung dieses neuesten Standes und die Bereitstellung für die
 bestehende TestFlight-Gruppe wurden am **08.10.2026** beauftragt.
-[Release- und Distributionsprotokoll](Store/RELEASE-1.3-10.md).
+[Release- und Distributionsprotokoll](Store/RELEASE-1.3.1-11.md).
 
 Build 9 wurde zuvor zur App-Store-Prüfung eingereicht; sein unveränderter
 Quelltag ist [v1.3](https://github.com/MrFam0s/Muehlenstein/tree/v1.3).
