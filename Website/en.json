@@ -1,0 +1,70 @@
+{
+  "language": "en",
+  "name": "Muehlenstein",
+  "category": "Board game · iPhone & iPad",
+  "headline": "Morris. Clearly designed. Played together.",
+  "card": "Four Morris variants, five computer levels and games together on one device or over local Wi-Fi. No ads, tracking or account required.",
+  "intro": "Muehlenstein brings the classic board game to iPhone and iPad. Challenge the computer, take turns on one device, or play on two devices connected to the same Wi-Fi network. A clear board, gentle stone movements and a calm design leave room to consider your next move.",
+  "description": [
+    "Choose Nine Men’s Morris, Twelve Men’s Morris, Morabaraba or Lasker Morris. Five computer levels offer a starting point and further challenges. At level 1, the computer deliberately overlooks opportunities and threats. Your last confirmed difficulty is remembered for the next game.",
+    "Hints show a suggested move directly on the board. Tap again to hide it. Legal targets and the last move can be highlighted when you want them. The history records your moves; outside network games, you can also undo a move.",
+    "To play over Wi-Fi, one person hosts a game and the other finds it and sends an invitation. Once it is accepted, you can play without an account or pairing code. All four variants are supported. If the connection is interrupted, the board pauses; reopen the same saved game on both devices to reconnect.",
+    "Computer moves and hints are calculated on your device. Your current game is saved locally. Muehlenstein has no advertising, subscriptions or in-app purchases. The interface and help are available in eight language versions."
+  ],
+  "features": [
+    {"title": "Four ways to play a classic", "text": "Nine Men’s Morris, Twelve Men’s Morris, Morabaraba and Lasker Morris, each with its own rules and board."},
+    {"title": "An easier place to start", "text": "Five computer levels include a deliberately fallible beginner opponent. Your last confirmed difficulty is remembered."},
+    {"title": "Play together", "text": "Take turns on one device or use two devices on the same Wi-Fi network. Accept an invitation to begin; no pairing code is needed."},
+    {"title": "Help when you want it", "text": "Visual hints, optional highlights, move history and undo. Hints and undo are disabled in Wi-Fi games."},
+    {"title": "Calm and personal", "text": "Portrait and landscape layouts, light and dark appearance, and six accent colours. Games and preferences are saved on your device."}
+  ],
+  "footer": "A one-time purchase with no ads, tracking, subscriptions or in-app purchases. For iPhone and iPad running iOS or iPadOS 18 or later. No account required. Wi-Fi games connect two devices on a local network; play over the internet is not included.",
+  "price": "€0.99 in the German App Store · one-time purchase. Checked 8 October 2026. Local prices may vary; the price shown in your App Store applies.",
+  "cta": "Muehlenstein on the App Store",
+  "madeIn": "Made with ♥ in Berlin",
+  "seo": {"title": "Muehlenstein – Morris for iPhone & iPad | AmoSystems", "description": "Play Morris on iPhone and iPad: four variants, five computer levels and two-player games over local Wi-Fi. No ads, tracking or account required."},
+  "gallery": [
+    {"screen": "01-Game", "caption": "The board takes centre stage", "alt": "Muehlenstein during the placing phase, showing white and black stones, stones in hand, and Undo, Hint and History buttons."},
+    {"screen": "02-Hint", "caption": "A hint right on the board", "alt": "A Muehlenstein game with a suggested move highlighted on the board."},
+    {"screen": "03-Setup", "caption": "Four variants, five difficulty levels", "alt": "New game setup with Computer, Two players and Wi-Fi modes, four game variants, and difficulty level 1 below the variant selection."},
+    {"screen": "04-Home", "caption": "A clear start to your next game", "alt": "The Muehlenstein home screen with its logo, a sample Morris board and the New game button."},
+    {"screen": "05-Network", "caption": "Play together on the same Wi-Fi", "alt": "Muehlenstein Wi-Fi setup with options to host a game or find a game."}
+  ],
+  "support": {
+    "title": "Muehlenstein support",
+    "intro": "For questions or problems, email info@fabianamos.com. Useful details include the version and build from “About Muehlenstein”, your device model, iOS version, game variant and the steps leading to the problem. Screenshots are optional; remove personal content before sending them.",
+    "questions": [
+      {"question": "How do I start a game?", "answer": "Choose New game, a mode and one of the four variants. For a computer game, select a difficulty from 1 to 5 below the variants. New players start at level 1. Your last confirmed level is remembered for future games."},
+      {"question": "How easy is level 1?", "answer": "The computer deliberately plays imperfectly at this level. It can overlook opportunities to form a mill and miss threats from its opponent. It can still find good moves and win; the outcome is not predetermined."},
+      {"question": "How do hints and appearance settings work?", "answer": "Tap Hint to show a suggested move on the board; tap again to hide it. More → Appearance lets you adjust legal targets, last-move highlights, stone animations and the accent colour. Hints are calculated independently of the beginner opponent’s deliberate mistakes."},
+      {"question": "How can I play with another person?", "answer": "Two players lets you take turns on the same device. For two devices, connect both to the same Wi-Fi network, allow local network access for Muehlenstein and choose New game → Wi-Fi on each device. One person hosts; the other finds the game and sends an invitation. The host accepts it. No pairing code or account is needed. Both devices need a version that supports Wi-Fi play, available from 1.3.1; if you have problems, update both to the same version."},
+      {"question": "Why can’t I find the other game?", "answer": "Check that both devices are on the same Wi-Fi network and allow local network access. Guest networks with device isolation, VPNs or a firewall may prevent a connection. The app’s connection help links to Settings. An internet connection alone does not replace a shared local network."},
+      {"question": "What happens if the connection is interrupted?", "answer": "The board pauses. Open the same saved game on both devices and use Connection → Reconnect if needed. If the game has been replaced on either device or the app has been deleted, that shared game cannot be resumed with it."},
+      {"question": "Are hints and undo available over Wi-Fi?", "answer": "No. Computer hints and unilateral undo are disabled in network games. Appearance settings, move history and rules remain available."},
+      {"question": "Where is my game saved?", "answer": "The current game is saved automatically on your device. Starting a new game replaces the previous save. Muehlenstein has no cloud-sync service of its own. Device backups depend on your Apple settings."},
+      {"question": "Which languages and devices are supported?", "answer": "Muehlenstein runs on iPhone and iPad with iOS or iPadOS 18 or later. It includes English, German, French, Spanish, Japanese, Korean, Simplified Chinese and Traditional Chinese. Your iOS language settings determine the app language."},
+      {"question": "Is there a subscription or internet play?", "answer": "The app is a one-time purchase without subscriptions, in-app purchases or advertising. Internet games and public matchmaking are not included."}
+    ]
+  },
+  "privacy": {
+    "title": "Privacy policy for Muehlenstein",
+    "intro": "Last updated: 8 October 2026. This policy describes Muehlenstein 1.3.1 for iPhone and iPad. No account is required. Rules, computer moves and hints are calculated on your device. An optional Wi-Fi mode connects two devices directly.",
+    "sections": [
+      {"title": "1. Controller", "paragraphs": ["Fabian Andres Pablo Amos, trading as AmoSystems. Christburger Straße 15-2, 10405 Berlin, Germany. Email: info@fabianamos.com. Telephone: +49 30 442 54 22."]},
+      {"title": "2. Local storage", "paragraphs": ["Your current game, including move history and game options, as well as appearance and difficulty preferences are saved in the app’s storage on your device. Starting a new game replaces the previous one. The app does not send this data to AmoSystems or a game server.", "Deleting the app removes its local data. Offloading is different from deleting. Device backups and restoration depend on your Apple settings. Muehlenstein has no cloud-sync service of its own."]},
+      {"title": "3. Optional Wi-Fi games", "paragraphs": ["When you choose Wi-Fi mode, the app searches for games or advertises your game on the local network. It uses a random technical peer identifier, a random game identifier, the game variant and technical protocol information. Personal device names are not used.", "After the invitation is accepted, both devices exchange move history and a reconnection key directly over an encrypted connection. The key is saved locally with the game. The recipient is the connected device of the other player. There is no game server; this data is not sent to AmoSystems.", "You can revoke local network access in iOS Settings. Offline game modes remain available. Leaving a network game or moving the app into the background pauses the connection. A saved game can subsequently reconnect to the same opponent."]},
+      {"title": "4. Advertising, tracking and analytics", "paragraphs": ["Muehlenstein includes no advertising, tracking services or embedded analytics or crash-reporting services. The app does not send usage data or device identifiers to AmoSystems. Any operating-system diagnostics you choose to share are processed by Apple under its own terms."]},
+      {"title": "5. Purchases, external links and the website", "paragraphs": ["Apple handles downloads and payments. Muehlenstein has no payment processing of its own and receives no payment details through the app. Apple’s privacy information applies to Apple services: https://www.apple.com/legal/privacy/.", "Website and source-code links open in an external browser only when you select them. The app does not append saved games or device identifiers to these links. The destination provider’s privacy rules apply to the visit. The general privacy policy covers visits to amosystems.org, including hosting and server logs: https://amosystems.org/en/privacy. For GitHub, see https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement."]},
+      {"title": "6. Voluntary contact", "paragraphs": ["If you contact us, we process your contact details, message and any attachments you choose to send to handle your request. Please include only what your enquiry needs. The legal basis is GDPR Article 6(1)(b) for contractual matters, or Article 6(1)(f) otherwise. Our legitimate interest is responding appropriately to enquiries.", "As described in AmoSystems’ general privacy policy, a Google email service is used to receive and handle email. Google Ireland Limited and affiliated companies may process messages and metadata; processing outside the European Union cannot be ruled out. Details: https://amosystems.org/en/privacy and https://policies.google.com/privacy.", "Support and contact enquiries are normally deleted twelve months after they have been resolved. Longer retention applies only where required by law or necessary for legal claims. Correspondence is not used for advertising."]},
+      {"title": "7. Your rights", "paragraphs": ["Where we process personal data, you may request access, correction, deletion, restriction and portability, subject to the legal conditions. You may object to processing based on legitimate interests on grounds relating to your particular situation. Please contact us using the details above.", "You may also complain to a data-protection authority, including the Berlin Commissioner for Data Protection and Freedom of Information: https://www.datenschutz-berlin.de/buergerinnen-und-buerger/beschwerde/."]}
+    ]
+  },
+  "credits": {
+    "title": "Origins and source code",
+    "paragraphs": [
+      "Muehlenstein is an independent app by AmoSystems, not an official Sanmill release. Its native SwiftUI interface, visual design and integration were developed for Muehlenstein. Rules, search algorithms and classic opening data come from Sanmill by calcitem and the Sanmill contributors.",
+      "The app is licensed under GNU AGPL v3 or later. Complete source code, build instructions and license notices are publicly available at https://github.com/MrFam0s/Muehlenstein. Source for version 1.3.1: https://github.com/MrFam0s/Muehlenstein/tree/v1.3.1. Original license and author notices are preserved. Full license texts are also included offline in the app.",
+      "© 2026 Fabian Amos / AmoSystems. Made with ♥ in Berlin."
+    ]
+  }
+}

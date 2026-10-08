@@ -75,6 +75,7 @@ Sanmill source revision: `8901a06f088bf49a1602fee8686ed25ac5a33925`. See [proven
 
 ## Design and evidence
 
+- [AmoSystems website handoff](Website/README.txt): German/English product copy, privacy, support, SEO and image descriptions. `Scripts/package-website.py` assembles an offline preview and ZIP with the verified original screenshots and web exports; it does not publish the website.
 - [Design direction (German)](Docs/DESIGN.md)
 - [Validation record (German)](Docs/VALIDATION.md)
 - [Slate-blue home](Docs/Previews/Slate-Home-iPhone-Light.png), [six accent colors — light](Docs/Previews/Slate-Rose-Options-iPhone-Light.png), [dark](Docs/Previews/Slate-Rose-Options-iPhone-Dark.png), [app icons](Docs/Previews/App-Icon-Appearances.png)

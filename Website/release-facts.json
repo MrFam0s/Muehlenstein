@@ -1,0 +1,27 @@
+{
+  "checkedOn": "2026-10-08",
+  "timezone": "Europe/Berlin",
+  "version": "1.3.1",
+  "build": "11",
+  "sourceTag": "v1.3.1",
+  "sourceRevision": "36d3f27d7e0acb60ec0f11c35ac34d3bdaf54d94",
+  "appleAppID": "6818139673",
+  "bundleID": "org.amosystems.Muehlenstein",
+  "storefrontChecked": "DE",
+  "publicStoreVersion": "1.3.1",
+  "publicReleaseDateUTC": "2026-10-08T08:53:55Z",
+  "price": {"amount": 0.99, "currency": "EUR", "model": "one-time purchase", "subscriptions": false, "inAppPurchases": false},
+  "minimumOS": "18.0",
+  "devicesPromoted": ["iPhone", "iPad"],
+  "ageRating": "4+",
+  "languages": ["de", "en", "fr", "es", "ja", "ko", "zh-Hans", "zh-Hant"],
+  "appStoreURL": "https://apps.apple.com/de/app/m%C3%BChlenstein/id6818139673",
+  "internationalAppStoreURL": "https://apps.apple.com/app/id6818139673",
+  "appleVerificationURL": "https://itunes.apple.com/lookup?id=6818139673&country=de",
+  "sourceURL": "https://github.com/MrFam0s/Muehlenstein/tree/v1.3.1",
+  "websiteStatus": "Package prepared; no website changes published",
+  "proposedRoutes": {
+    "de": {"product": "/#muehlenstein", "privacy": "/datenschutz/muehlenstein", "support": "/app-support/muehlenstein"},
+    "en": {"product": "/en/#muehlenstein", "privacy": "/en/privacy/muehlenstein", "support": "/en/support/muehlenstein"}
+  }
+}
