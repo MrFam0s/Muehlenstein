@@ -3,9 +3,11 @@
 **Version 1.3.1 (Build 11)** ergänzt den WLAN-Modus um einen bewusst
 fehlbaren Anfängergegner auf Stufe 1 und eine Einrichtung mit gleichbleibender
 Höhe beim Moduswechsel. [Verhalten und Vergleichspartien](Docs/AI_OPTIONS.md).
-Am **08.10.2026** zur App-Store- und TestFlight-Prüfung eingereicht:
-**`WAITING_FOR_REVIEW`** / **`WAITING_FOR_BETA_REVIEW`**. Automatische
-Store-Veröffentlichung und Benachrichtigung der drei Tester nach Apple-Freigabe.
+Seit **08.10.2026, 10:53:55 Uhr (Europe/Berlin)** im App Store veröffentlicht
+(**`READY_FOR_DISTRIBUTION`**). TestFlight wartet separat auf Apples
+Beta-Freigabe (**`WAITING_FOR_BETA_REVIEW`**); Build 11 ist der Gruppe
+**Externe Tests** mit drei Testern zugeordnet, automatische Benachrichtigung
+ist aktiviert. Status am **08.10.2026, 20:55 Uhr** erneut geprüft.
 [Release- und Distributionsprotokoll](Store/RELEASE-1.3.1-11.md).
 
 Build 9 wurde zuvor zur App-Store-Prüfung eingereicht; sein unveränderter

@@ -5,10 +5,13 @@
 Der neueste Stand ergänzt den WLAN-Modus um den bewusst fehlbaren
 Anfängergegner und die stabile Spieleinrichtung. Signierter Build,
 44 Release-Prüfungen einschließlich der neuen Versionsanzeige sowie
-80 aktuelle Original-Screenshots sind geprüft. Am **08.10.2026 um 09:25 Uhr**
-zur App-Store-Prüfung eingereicht (`WAITING_FOR_REVIEW`); TestFlight wartet
-auf Beta-Freigabe (`WAITING_FOR_BETA_REVIEW`). Automatische Veröffentlichung
-und Benachrichtigung der drei Tester nach Apple-Freigabe.
+80 aktuelle Original-Screenshots sind geprüft. Seit **08.10.2026 um
+10:53:55 Uhr (Europe/Berlin)** im App Store veröffentlicht
+(`READY_FOR_DISTRIBUTION`), am **08.10.2026 um 20:55 Uhr** über App Store
+Connect und Apples öffentliche Lookup-API erneut bestätigt. TestFlight
+wartet separat auf Beta-Freigabe (`WAITING_FOR_BETA_REVIEW`). Build 11 ist
+der Gruppe **Externe Tests** mit drei Testern zugeordnet; die automatische
+Benachrichtigung nach Beta-Freigabe ist aktiviert.
 [Release- und Distributionsprotokoll 1.3.1](RELEASE-1.3.1-11.md).
 Die folgenden Abschnitte bewahren den früheren Einreichungsstand.
 

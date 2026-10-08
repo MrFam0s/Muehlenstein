@@ -7,9 +7,13 @@ beginner opponent and stable game setup. Source tag: `v1.3.1`, commit
 `36d3f27d7e0acb60ec0f11c35ac34d3bdaf54d94`. Its product logic matches
 the fully tested build 10; only version/build configuration differs.
 The signed build 11 and its version/license UI checks passed. Submitted on
-2026-10-08 at 07:25:09 UTC: `WAITING_FOR_REVIEW`, automatic Store release
-after approval. TestFlight is `WAITING_FOR_BETA_REVIEW`, assigned to the
-existing three-tester group with automatic notification enabled.
+2026-10-08 at 07:25:09 UTC and published at **08:53:55 UTC** that day.
+App Store Connect confirms **`READY_FOR_DISTRIBUTION`** with build 11;
+Apple's public German storefront lookup returns version **1.3.1**.
+Rechecked on **2026-10-08 at 18:55:38 UTC**. TestFlight separately remains
+`WAITING_FOR_BETA_REVIEW`, assigned to the existing three-tester group
+with automatic notification enabled. External installation still awaits
+Apple's beta approval. No new build, version bump or source tag is needed.
 [Current release and distribution record](../Store/RELEASE-1.3.1-11.md).
 
 The App Store submission of 1.3 (9) was withdrawn for this replacement.

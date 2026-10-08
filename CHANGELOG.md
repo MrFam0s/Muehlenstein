@@ -5,7 +5,7 @@
 - Stufe 1 spielt ohne Vorausberechnung, übersieht Chancen und Drohungen und wählt Abnahmen nicht mehr gezielt nach Stärke. Stufen 2–5 bleiben unverändert; Tipps bleiben eine gesonderte berechnete Hilfe.
 - Spielstärke steht unter der Spielvariante. Zu zweit und WLAN deaktivieren Computeroptionen, ohne deren Platz oder die Höhe der Einrichtung zu verändern.
 - Erläuterungen in allen acht App-Sprachen aktualisiert. Vergleichspartien und Prüfstand stehen in `Docs/AI_OPTIONS.md` und `Docs/VALIDATION.md`.
-- Neuer Distributionsbuild **1.3.1 (11)**; Quelltag **v1.3.1**. Er ersetzt Build 9 in der App-Store-Einreichung und wird der bestehenden TestFlight-Gruppe bereitgestellt. [Releaseprotokoll](Store/RELEASE-1.3.1-11.md).
+- Distributionsbuild **1.3.1 (11)**; Quelltag **v1.3.1**. Seit 08.10.2026 im App Store veröffentlicht. Der bestehenden TestFlight-Gruppe zugeordnet; Apples separate Beta-Freigabe steht noch aus (geprüft am 08.10.2026, 20:55 Uhr Europe/Berlin). [Releaseprotokoll](Store/RELEASE-1.3.1-11.md).
 
 ## 1.3 — Lokale Netzwerkpartien (08.10.2026)
 

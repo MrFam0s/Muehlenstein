@@ -818,3 +818,23 @@ Nachweise: `.build/Release-1.3.1-11/` und `.build/Release-1.3-10/`.
 [Releaseprotokoll](../Store/RELEASE-1.3.1-11.md). Der Quelltag `v1.3.1`
 entspricht den archivierten Produktdateien. Die bisherigen Grenzen der
 physischen Netzwerk-Testabdeckung bleiben bestehen.
+
+## Veröffentlichungsstatus 1.3.1 (11) — 08.10.2026, 20:55 Uhr
+
+App Store Connect bestätigt `READY_FOR_DISTRIBUTION` für Version 1.3.1
+mit Build 11. Apples öffentliche Lookup-API für Deutschland liefert
+Version 1.3.1 und den Veröffentlichungszeitpunkt `2026-10-08T08:53:55Z`.
+Die erneute Prüfung erfolgte um `2026-10-08T18:55:38Z`.
+
+TestFlight meldet separat `WAITING_FOR_BETA_REVIEW`; die Beta-Einreichung
+steht auf `WAITING_FOR_REVIEW`. Die Gruppenzuordnung von Build 11 zu
+**Externe Tests**, drei Gruppenmitglieder und `autoNotifyEnabled = true`
+sind direkt über die API bestätigt. Damit ist der Store-Release verfügbar,
+die externe Beta-Installation wartet noch auf Apple.
+
+Branch und Quelltag sind auf GitHub vorhanden; seit `v1.3.1` gibt es keine
+Änderungen am App-Produktcode. Kein neuer Build oder Upload erforderlich.
+Diese Prüfung betrifft den Distributionsstatus; die früheren Build- und
+Geräteprüfungen wurden nicht erneut ausgeführt. Nachweise:
+`.build/Release-Status-2026-10-08/` und
+[aktuelles Releaseprotokoll](../Store/RELEASE-1.3.1-11.md).

@@ -4,6 +4,33 @@ Stand: 08.10.2026. Neuer Release auf Nutzerauftrag für App Store und die
 bestehende TestFlight-Gruppe. Er enthält den lokalen WLAN-Modus, den
 bewusst fehlbaren Anfängergegner und die Einrichtung mit gleichbleibender Höhe.
 
+## Aktueller Veröffentlichungsstand — 08.10.2026, 20:55 Uhr
+
+Erneut geprüft am **08.10.2026, 20:55:38 Uhr (Europe/Berlin)**,
+entsprechend `2026-10-08T18:55:38Z`:
+
+- **App Store veröffentlicht:** `READY_FOR_DISTRIBUTION`, Version **1.3.1**,
+  verifizierte Zuordnung zu Build **11** und Build-ID
+  `9ca58604-4ffb-4b8e-8a11-c8402a52512a`.
+- Apples [öffentliche Lookup-API für Deutschland](https://itunes.apple.com/lookup?id=6818139673&country=de)
+  bestätigt Version **1.3.1** und `currentVersionReleaseDate =
+  2026-10-08T08:53:55Z`, also **10:53:55 Uhr (Europe/Berlin)**.
+  [App im deutschen Store](https://apps.apple.com/de/app/m%C3%BChlenstein/id6818139673).
+- **TestFlight extern noch nicht installierbar:** `WAITING_FOR_BETA_REVIEW`.
+  Die Beta-Einreichung von 09:24:05 Uhr wartet weiterhin auf Apple
+  (`betaReviewState = WAITING_FOR_REVIEW`).
+- Build 11 ist der Gruppe **Externe Tests** zugeordnet; die Gruppe enthält
+  **drei Tester**. `autoNotifyEnabled = true`: automatische Benachrichtigung
+  nach Beta-Freigabe ist aktiviert. Der interne Buildstatus lautet
+  `READY_FOR_BETA_TESTING`; daraus folgt keine externe Verfügbarkeit.
+- Quelltag `v1.3.1` und Branch `main` sind bereits auf `origin` vorhanden.
+  Seit dem Quelltag liegen keine Änderungen am App-Produktcode vor.
+  Versionsnummer, Build und bestehender Tag bleiben unverändert.
+
+Die bestehenden Einreichungen wurden nicht erneut angelegt. Lokale
+API-Nachweise: `.build/Release-Status-2026-10-08/`. Die nachfolgenden
+Einreichungszustände dokumentieren den Stand vor der Store-Freigabe.
+
 ## Identität und Quellstand
 
 - App `6818139673`; Bundle-ID `org.amosystems.Muehlenstein`; iOS.
@@ -42,7 +69,7 @@ Die bestehende Gruppe **Externe Tests** enthält drei Tester; die
 Gruppen-ID ist `d6665987-bb28-44ae-9306-0125eda4801e`.
 Die Gruppenzuordnung wurde bei Apple erneut bestätigt.
 
-## Bestätigte Einreichungen
+## Historischer Einreichungsstand — 08.10.2026, 09:25 Uhr
 
 - Build-ID **`9ca58604-4ffb-4b8e-8a11-c8402a52512a`**, Verarbeitung **`VALID`**.
 - App Store: **`WAITING_FOR_REVIEW`**, eingereicht am **08.10.2026,
