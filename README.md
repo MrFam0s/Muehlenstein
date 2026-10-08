@@ -1,5 +1,9 @@
 # Muehlenstein
 
+Entwicklungsstand nach 1.3: Ein bewusst fehlbarer Anfängergegner auf Stufe 1
+und eine Einrichtung mit gleichbleibender Höhe beim Moduswechsel.
+[Verhalten und Vergleichspartien](Docs/AI_OPTIONS.md).
+
 **Version 1.3 (Build 9)** ergänzt Spiele auf zwei Geräten im selben WLAN:
 Einladung ohne Code, vier Varianten und gespeicherte Wiederverbindung.
 Bedienung und Grenzen: [Lokaler Netzwerkmodus](Docs/LOCAL_NETWORK.md).

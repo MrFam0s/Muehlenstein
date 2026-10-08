@@ -22,7 +22,7 @@ struct GameSetupEditor: View {
     @ScaledMetric(relativeTo: .subheadline) private var advancedLabelWidth: CGFloat = 118
 
     private enum Panel: String, CaseIterable {
-        case opponent, difficulty, variant, advanced, style, book
+        case opponent, variant, difficulty, advanced, style, book
         var icon: String {
             switch self { case .opponent: "person.2"; case .difficulty: "slider.horizontal.3"; case .variant: "square.grid.2x2"; case .advanced: "gearshape"; case .style: "arrow.triangle.branch"; case .book: "book.closed" }
         }
@@ -40,25 +40,14 @@ struct GameSetupEditor: View {
         }
         .sheet(item: $help) { item in ReadingSheet(title: item.title, text: item.text) }
         .onChange(of: expanded) { _, open in if open { panel = .advanced } }
-        .onChange(of: settings.opponent) { _, opponent in
-            if opponent != .computer { expanded = false; panel = .opponent }
-        }
     }
 
     private func fullControls(wide: Bool) -> some View {
         VStack(spacing: 8) {
-            if includesGame && wide {
-                HStack(alignment: .top, spacing: 24) {
-                    VStack(spacing: 8) { opponent; if settings.opponent == .computer { difficulty } }
-                        .frame(maxWidth: .infinity)
-                    variants().frame(maxWidth: .infinity)
-                }
-            } else {
-                if includesGame { opponent }
-                if settings.opponent == .computer { difficulty }
-                if includesGame { variants() }
-            }
-            if settings.opponent == .computer {
+            if includesGame { opponent; variants() }
+            difficulty.disabled(settings.opponent != .computer)
+                .opacity(settings.opponent == .computer ? 1 : 0.4)
+            VStack(spacing: 8) {
                 Button { withAnimation(.easeInOut(duration: 0.2)) { expanded.toggle() } } label: {
                     HStack {
                         Text(L10n.text("advanced_options"))
@@ -69,7 +58,8 @@ struct GameSetupEditor: View {
                     .accessibilityValue(L10n.text(expanded ? "expanded" : "collapsed"))
                     .accessibilityIdentifier("advanced_options")
                 if expanded { advanced(wide: wide) }
-            }
+            }.disabled(settings.opponent != .computer)
+                .opacity(settings.opponent == .computer ? 1 : 0.4)
         }
     }
 
@@ -77,7 +67,7 @@ struct GameSetupEditor: View {
     // Compact tabs replace clipped content; the main setup never scrolls beneath a finger.
     private func compactControls(wide: Bool) -> some View {
         let panels: [Panel] = includesGame
-            ? (settings.opponent == .computer ? Panel.allCases : [.opponent, .variant])
+            ? Panel.allCases
             : [.difficulty, .advanced, .style, .book]
         let selected = panels.contains(panel) ? panel : panels[0]
         return VStack(spacing: dynamicType.isAccessibilitySize ? 4 : 8) {
@@ -92,17 +82,22 @@ struct GameSetupEditor: View {
                         .accessibilityLabel(L10n.text(item.key))
                         .accessibilityAddTraits(selected == item ? .isSelected : [])
                         .accessibilityIdentifier("setup_tab_" + item.rawValue)
+                        .disabled(settings.opponent != .computer && item != .opponent && item != .variant)
+                        .opacity(settings.opponent == .computer || item == .opponent || item == .variant ? 1 : 0.4)
                 }
                 if selected == .variant { info("variant_help") }
             }
-            switch selected {
-            case .opponent: opponent
-            case .difficulty: difficulty
-            case .variant: variants(showHeading: false)
-            case .advanced: advanced(wide: wide, includesStyle: false)
-            case .style: style(wide: wide)
-            case .book: openingBook(wide: wide)
-            }
+            Group {
+                switch selected {
+                case .opponent: opponent
+                case .difficulty: difficulty
+                case .variant: variants(showHeading: false)
+                case .advanced: advanced(wide: wide, includesStyle: false)
+                case .style: style(wide: wide)
+                case .book: openingBook(wide: wide)
+                }
+            }.disabled(settings.opponent != .computer && selected != .opponent && selected != .variant)
+                .opacity(settings.opponent == .computer || selected == .opponent || selected == .variant ? 1 : 0.4)
         }
     }
 

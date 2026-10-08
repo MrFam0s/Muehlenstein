@@ -190,7 +190,7 @@ import Observation
                 // Rust receives a value snapshot and never touches UI-owned state.
                 let result = try await withTaskCancellationHandler {
                     try await Task.detached(priority: .userInitiated) {
-                        try Engine.query(game, search: true, cancellation: cancellation)
+                        try Engine.query(game, search: true, isHint: isHint, cancellation: cancellation)
                     }.value
                 } onCancel: { cancellation.cancel() }
                 guard let self, self.generation == token else { return }

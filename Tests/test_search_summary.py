@@ -42,6 +42,26 @@ class SearchSummaryTests(unittest.TestCase):
             self.assertIsNone(row["score_a"])
             self.assertEqual(row["capped"], 1)
 
+    def test_zero_depth_requires_the_beginner_policy(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp)
+            self.fixture(path)
+            manifest = json.loads((path / "manifest.json").read_text())
+            manifest["plan"]["a"] = {"level": 1, "level_scale": "five"}
+            (path / "manifest.json").write_text(json.dumps(manifest))
+            games = [json.loads(line) for line in (path / "games.jsonl").read_text().splitlines()]
+            games[0]["moves"] = ["a7"]
+            games[0]["samples"] = [{"actor": "a", "side": 0, "notation": "a7", "depth": 0,
+                                      "elapsed_us": 1, "phase": 1, "source": "beginner"}]
+            def save():
+                (path / "games.jsonl").write_text("\n".join(json.dumps(game) for game in games))
+            save()
+            self.assertEqual(summary.summarize(path)["variants"][0]["valid_pairs"], 1)
+            games[0]["samples"][0]["source"] = "search"
+            save()
+            with self.assertRaises(AssertionError):
+                summary.summarize(path)
+
     def test_duplicate_game_is_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp)

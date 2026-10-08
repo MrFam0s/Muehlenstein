@@ -35,7 +35,13 @@ def summarize(directory):
         assert [s["notation"] for s in game["samples"]] == game["moves"][len(opening["moves"]):]
         for sample in game["samples"]:
             assert sample["actor"] == ("a" if sample["side"] == game["a_side"] else "b")
-            assert sample["elapsed_us"] >= 0 and sample["depth"] > 0
+            assert sample["elapsed_us"] >= 0
+            if sample.get("source", "search") == "beginner":
+                player = plan[sample["actor"]]
+                assert player["level"] == 1 and player.get("level_scale") == "five"
+                assert sample["depth"] == 0
+            else:
+                assert sample["depth"] > 0
         if game["status"] == "finished":
             if game["outcome"] == "draw":
                 assert game["score_a"] == 0.5
@@ -93,7 +99,8 @@ def summarize(directory):
 
 def record_provenance(path):
     root = Path(__file__).resolve().parent.parent
-    files = ["Engine/src/lib.rs", "Engine/src/cancellation.rs", "Engine/examples/compare_search.rs",
+    files = ["Engine/src/lib.rs", "Engine/src/cancellation.rs", "Engine/src/beginner.rs",
+             "Engine/src/move_insights.rs", "Engine/src/opening_book.rs", "Engine/examples/compare_search.rs",
              "Engine/Cargo.lock", "Engine/UPSTREAM_SHA256.json", "Scripts/compare-search.sh", "Scripts/summarize-search.py",
              "Engine/target/release/examples/compare_search"]
     hashes = {name: hashlib.sha256((root / name).read_bytes()).hexdigest() for name in files}

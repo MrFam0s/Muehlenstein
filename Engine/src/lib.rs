@@ -1,12 +1,15 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 //! Muehlenstein's C boundary. Sanmill owns all rules, topology and search.
+mod beginner;
 mod cancellation;
 mod move_insights;
 mod opening_book;
 
 use serde::Deserialize;
 use serde_json::{Value, json};
+use std::collections::hash_map::RandomState;
 use std::ffi::{CStr, CString, c_char};
+use std::hash::BuildHasher;
 use std::sync::{Arc, atomic::Ordering};
 use std::time::{Duration, Instant};
 use tgf_core::{Action, Game, GameKernel, MoveOrderAlgorithm, MoveOrderContext, OutcomeKind};
@@ -36,6 +39,10 @@ struct Request {
     opening_book: bool,
     #[serde(default)]
     search_id: Option<u64>,
+    #[serde(default)]
+    purpose: SearchPurpose,
+    #[serde(default)]
+    selection_seed: Option<u64>,
 }
 fn default_level() -> u8 {
     2
@@ -84,6 +91,14 @@ enum PlayStyle {
     Blocking,
 }
 
+#[derive(Deserialize, Default, Clone, Copy)]
+#[serde(rename_all = "lowercase")]
+enum SearchPurpose {
+    #[default]
+    Opponent,
+    Hint,
+}
+
 fn search_budget(level: u8, effort: Effort) -> (i32, u64) {
     match (level, effort) {
         (1, Effort::Standard) => (2, 150),
@@ -113,6 +128,15 @@ fn process(input: &str) -> Result<Value, String> {
         return Err("historyTooLong".into());
     }
     let level = request.level_scale.resolve(request.level)?;
+    // Historical three-level callers retain their search budgets for archived audits.
+    let beginner = matches!(request.level_scale, LevelScale::Five) && level == 1;
+    let beginner_hint = beginner && matches!(request.purpose, SearchPurpose::Hint);
+    let search_level = if beginner_hint { 3 } else { level };
+    let effort = if beginner_hint {
+        Effort::Standard
+    } else {
+        request.effort
+    };
     let abort = cancellation::flag(request.search_id)?;
     let check_cancelled = || -> Result<(), String> {
         if abort.load(Ordering::Relaxed) {
@@ -126,7 +150,8 @@ fn process(input: &str) -> Result<Value, String> {
     // Both styles retain mobility evaluation. Blocking is an alternative objective,
     // not a higher difficulty: upstream suppresses material scoring in certain phases.
     preset.options.consider_mobility = true;
-    preset.options.focus_on_blocking_paths = matches!(request.style, PlayStyle::Blocking);
+    preset.options.focus_on_blocking_paths =
+        !beginner_hint && matches!(request.style, PlayStyle::Blocking);
     let rules = Arc::new(MillRules::new(preset.options.clone()));
     let mut kernel = GameKernel::new(rules.clone(), &[]);
     let mut actors = Vec::with_capacity(request.moves.len());
@@ -171,9 +196,20 @@ fn process(input: &str) -> Result<Value, String> {
         "searchDepth": 0, "searchNodes": 0, "moveSource": null, "moveInsights": []
     });
     if request.search && outcome_kind == "ongoing" && !legal.is_empty() {
+        if beginner && !beginner_hint {
+            let seed = request
+                .selection_seed
+                .unwrap_or_else(|| RandomState::new().hash_one(&request.moves));
+            let action = beginner::choose(&mut kernel, &legal, seed, check_cancelled)?;
+            check_cancelled()?;
+            result["best"] = action_json(action);
+            result["moveSource"] = json!("beginner");
+            result["moveInsights"] = json!(move_insights::describe(&mut kernel, action));
+            return Ok(result);
+        }
         if let Some(action) = opening_book::lookup(
             request.preset,
-            level,
+            search_level,
             request.opening_book,
             result["fen"].as_str().expect("exported FEN"),
             &legal,
@@ -195,7 +231,7 @@ fn process(input: &str) -> Result<Value, String> {
             quiescence_kind_tag: Some(MillActionKind::Remove as i16),
             ..Default::default()
         });
-        let (ceiling, budget_ms) = search_budget(level, request.effort);
+        let (ceiling, budget_ms) = search_budget(search_level, effort);
         let start = Instant::now();
         let mut best = None;
         let mut guess = 0;
@@ -212,7 +248,7 @@ fn process(input: &str) -> Result<Value, String> {
                         Algorithm::Mtdf => MoveOrderAlgorithm::Mtdf,
                         Algorithm::Pvs => MoveOrderAlgorithm::Pvs,
                     },
-                    skill_level: (level + 1) * 4,
+                    skill_level: (search_level + 1) * 4,
                     shuffling: false,
                     ..Default::default()
                 },
@@ -288,6 +324,110 @@ mod tests {
                 .to_string(),
         )
     }
+    #[test]
+    fn beginner_notices_but_often_misses_mills_and_threats() {
+        for preset in [0, 1, 3, 5] {
+            for moves in [vec!["c5", "a7", "d5", "d7"], vec!["a7", "c5", "g1", "d5"]] {
+                let mut noticed = 0;
+                let mut choices = std::collections::HashSet::new();
+                for seed in 0..256 {
+                    let input = json!({"version":1,"preset":preset,"moves":moves,
+                        "search":true,"level":1,"level_scale":"five","selection_seed":seed});
+                    let result = process(&input.to_string()).unwrap();
+                    assert_eq!(result["moveSource"], "beginner");
+                    assert_eq!(result["searchDepth"], 0);
+                    assert_eq!(result["searchNodes"], 0);
+                    assert!(
+                        result["legal"]
+                            .as_array()
+                            .unwrap()
+                            .contains(&result["best"])
+                    );
+                    if result["best"]["notation"] == "e5" {
+                        noticed += 1;
+                    }
+                    choices.insert(result["best"]["notation"].as_str().unwrap().to_owned());
+                    assert_eq!(
+                        result,
+                        process(&input.to_string()).unwrap(),
+                        "A seeded audit is repeatable"
+                    );
+                }
+                // Broad quality bounds: neither expert-perfect nor unable to notice anything.
+                assert!(
+                    (50..150).contains(&noticed),
+                    "preset {preset}: {noticed}/256 noticed e5"
+                );
+                assert!(
+                    choices.len() >= 10,
+                    "Do not always play the first legal action"
+                );
+                println!("beginner preset {preset}, history {moves:?}: {noticed}/256 notice e5");
+            }
+        }
+    }
+    #[test]
+    fn beginner_settings_cannot_restore_expert_play_but_hints_still_search() {
+        let mut input = json!({"version":1,"preset":0,"moves":["c5","a7","d5","d7"],
+            "search":true,"level":1,"level_scale":"five","selection_seed":42});
+        let easy = process(&input.to_string()).unwrap();
+        input["effort"] = json!("extended");
+        input["style"] = json!("blocking");
+        input["algorithm"] = json!("pvs");
+        input["opening_book"] = json!(true);
+        assert_eq!(easy, process(&input.to_string()).unwrap());
+        input["purpose"] = json!("hint");
+        let hint = process(&input.to_string()).unwrap();
+        assert_eq!(hint["moveSource"], "search");
+        assert!(hint["searchDepth"].as_u64().unwrap() > 0);
+        assert!(
+            hint["moveInsights"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|fact| fact == "mill" || fact == "blocks_line")
+        );
+        for key in ["fen", "legal", "actors", "lastTurn", "outcome"] {
+            assert_eq!(hint[key], easy[key]);
+        }
+        input["purpose"] = json!("opponent");
+        input["level_scale"] = json!("three");
+        assert_eq!(process(&input.to_string()).unwrap()["moveSource"], "search");
+        let id = cancellation::ms_search_create();
+        cancellation::ms_search_cancel(id);
+        input["level_scale"] = json!("five");
+        input["search_id"] = json!(id);
+        assert_eq!(process(&input.to_string()).unwrap_err(), "cancelled");
+        cancellation::ms_search_release(id);
+    }
+    #[test]
+    fn beginner_moves_remain_legal_in_every_archived_phase_without_changing_state() {
+        let fixtures: Value =
+            serde_json::from_str(include_str!("../../Tests/Fixtures/offline-games.json")).unwrap();
+        let mut captures = std::collections::HashSet::new();
+        for game in fixtures["games"].as_array().unwrap() {
+            let moves = game["moves"].as_array().unwrap();
+            for count in 0..moves.len() {
+                let mut input = json!({"version":1,"preset":game["preset"],"moves":&moves[..count],
+                    "level":1,"level_scale":"five"});
+                let before = process(&input.to_string()).unwrap();
+                input["search"] = json!(true);
+                for seed in [0, 7, 9001] {
+                    input["selection_seed"] = json!(seed);
+                    let after = process(&input.to_string()).unwrap();
+                    assert!(before["legal"].as_array().unwrap().contains(&after["best"]));
+                    for key in ["fen", "legal", "actors", "lastTurn", "outcome"] {
+                        assert_eq!(before[key], after[key]);
+                    }
+                    if after["best"]["kind"] == 2 {
+                        captures.insert(after["best"]["notation"].as_str().unwrap().to_owned());
+                    }
+                }
+            }
+        }
+        assert!(captures.len() > 1);
+    }
+
     #[test]
     fn book_hits_and_search_fallback_use_the_same_bridge_and_rules() {
         let mut input = json!({"version":1,"preset":0,"moves":["b4"],"search":true,
@@ -557,7 +697,7 @@ mod tests {
     fn omitted_style_preserves_balanced_search() {
         for preset in [0, 1, 3, 5] {
             let mut input = json!({"version":1,"preset":preset,"moves":["a7","g7"],
-                                  "search":true,"level":1,"level_scale":"five"});
+                                  "search":true,"level":2,"level_scale":"five"});
             let original = process(&input.to_string()).unwrap();
             input["style"] = json!("balanced");
             assert_eq!(original, process(&input.to_string()).unwrap());
@@ -576,7 +716,11 @@ mod tests {
                     )
                     .unwrap();
                     assert!(v["legal"].as_array().unwrap().contains(&v["best"]));
-                    assert!(v["searchDepth"].as_u64().unwrap() > 0);
+                    assert_eq!(
+                        v["moveSource"],
+                        if level == 1 { "beginner" } else { "search" }
+                    );
+                    assert_eq!(v["searchDepth"].as_u64().unwrap() == 0, level == 1);
                 }
             }
         }

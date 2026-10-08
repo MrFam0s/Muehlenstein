@@ -3,6 +3,42 @@ import XCTest
 import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    @MainActor func testNewGameModeChangesKeepLayoutAndDisableComputerControls() {
+        XCUIDevice.shared.orientation = .portrait
+        let app = launch()
+        app.buttons["new_game"].tap()
+        let slider = app.sliders["difficulty_slider"]
+        XCTAssertTrue(slider.waitForExistence(timeout: 5))
+        XCTAssertLessThan(app.buttons["variant_lasker"].frame.maxY, slider.frame.minY)
+        let ids = ["opponent_computer", "variant_classic", "variant_lasker", "advanced_options", "start_game"]
+        let frames = ids.map { app.buttons[$0].frame }
+        let sliderFrame = slider.frame
+        for mode in ["local", "network", "computer"] {
+            app.buttons["opponent_" + mode].tap()
+            XCTAssertEqual(slider.isEnabled, mode == "computer")
+            XCTAssertEqual(app.buttons["advanced_options"].isEnabled, mode == "computer")
+            XCTAssertTrue(app.buttons["variant_lasker"].isEnabled)
+            for (id, frame) in zip(ids, frames) {
+                XCTAssertEqual(app.buttons[id].frame.minY, frame.minY, accuracy: 1, id)
+                XCTAssertEqual(app.buttons[id].frame.height, frame.height, accuracy: 1, id)
+            }
+            XCTAssertEqual(slider.frame.minY, sliderFrame.minY, accuracy: 1)
+            XCTAssertEqual(app.scrollViews.count, 0)
+            record("Stable-Setup-" + mode, app: app)
+        }
+        app.buttons["advanced_options"].tap()
+        XCTAssertTrue(app.buttons["algorithm_pvs"].waitForExistence(timeout: 5))
+        let expandedTop = app.buttons["opponent_computer"].frame.minY
+        let expandedBottom = app.buttons["start_game"].frame.minY
+        for mode in ["local", "network", "computer"] {
+            app.buttons["opponent_" + mode].tap()
+            XCTAssertEqual(app.buttons["algorithm_pvs"].isEnabled, mode == "computer")
+            XCTAssertEqual(app.buttons["opponent_computer"].frame.minY, expandedTop, accuracy: 1)
+            XCTAssertEqual(app.buttons["start_game"].frame.minY, expandedBottom, accuracy: 1)
+            record("Stable-Setup-Expanded-" + mode, app: app)
+        }
+    }
+
     // Run these two tests concurrently on separate devices/simulators with NETWORK_E2E=1.
     // They use real Bonjour discovery and encrypted MCSession traffic, never a mock transport.
     @MainActor func testLocalNetworkHostOnSecondSimulator() throws {

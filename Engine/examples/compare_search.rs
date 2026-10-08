@@ -19,6 +19,8 @@ struct Player {
     effort: String,
     #[serde(default = "balanced_style")]
     style: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    selection_seed: Option<u64>,
 }
 fn balanced_style() -> String {
     "balanced".into()
@@ -69,10 +71,19 @@ impl Random {
 }
 
 fn query(preset: i32, moves: &[String], player: &Player, search: bool) -> Result<Value, String> {
+    // Fixed byte hashing makes beginner choices reproducible across host runs.
+    let selection_seed = player.selection_seed.map(|seed| {
+        moves
+            .iter()
+            .flat_map(|notation| notation.bytes().chain(std::iter::once(b'|')))
+            .fold(seed ^ preset as u64, |value, byte| {
+                (value ^ byte as u64).wrapping_mul(0x100000001b3)
+            })
+    });
     let input = CString::new(
         json!({"version":1,"preset":preset,"moves":moves,"search":search,
         "level":player.level,"level_scale":player.level_scale,
-        "algorithm":player.algorithm,"effort":player.effort,"style":player.style})
+        "algorithm":player.algorithm,"effort":player.effort,"style":player.style,"selection_seed":selection_seed})
         .to_string(),
     )
     .unwrap();
@@ -210,7 +221,7 @@ fn play(plan: &Plan, opening: &Opening, a_side: i64, deadline: Instant) -> Value
             samples.push(
                 json!({"actor":if side == a_side {"a"} else {"b"},"side":side,
                 "notation":notation,"phase":searched["phase"],"kind":best["kind"],
-                "elapsed_us":elapsed_us,"depth":searched["searchDepth"]}),
+                "elapsed_us":elapsed_us,"depth":searched["searchDepth"],"source":searched["moveSource"]}),
             );
             moves.push(notation);
             final_position = query(opening.preset, &moves, player, false)?;

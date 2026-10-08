@@ -451,7 +451,7 @@ final class GameStoreTests: XCTestCase {
         defer { try? FileManager.default.removeItem(at: file) }
         // Black's only immediate mill is e5; a separate action must then remove a white stone.
         let records = ["a7", "c5", "d7", "d5", "g1"].enumerated().map { MoveRecord(notation: $0.element, side: $0.offset % 2) }
-        let saved = SavedGame(settings: GameSettings(level: 1), moves: records)
+        let saved = SavedGame(settings: GameSettings(level: 2), moves: records)
         try JSONEncoder().encode(saved).write(to: file)
         let store = GameStore(storageURL: file, pacing: ComputerPacing(fixedDelay: .milliseconds(450)))
         store.resumeComputer()
@@ -557,6 +557,22 @@ final class GameStoreTests: XCTestCase {
             defaults.set(invalidLevel, forKey: "lastComputerLevel")
             XCTAssertEqual(AppPreferences(defaults: defaults).lastComputerLevel, 1)
         }
+    }
+
+    func testBeginnerOpponentIsSeparateFromUsefulHints() throws {
+        let moves = ["a7", "c5", "d7", "d5", "g1"].enumerated().map { MoveRecord(notation: $0.element, side: $0.offset % 2) }
+        let game = SavedGame(settings: GameSettings(level: 1, effort: .extended, style: .blocking), moves: moves)
+        let opponent = try Engine.query(game, search: true)
+        XCTAssertEqual(opponent.moveSource, "beginner")
+        XCTAssertEqual(opponent.searchDepth, 0)
+        XCTAssertEqual(opponent.searchNodes, 0)
+        XCTAssertTrue(opponent.legal.contains(try XCTUnwrap(opponent.best)))
+        let hint = try Engine.query(game, search: true, isHint: true)
+        XCTAssertEqual(hint.moveSource, "search")
+        XCTAssertTrue(hint.moveInsights?.contains(where: { ["mill", "blocks_line"].contains($0) }) == true)
+        XCTAssertGreaterThan(hint.searchDepth, 0)
+        XCTAssertEqual(hint.fen, opponent.fen)
+        XCTAssertEqual(hint.actors, moves.map(\.side))
     }
 
     func testFiveLevelSettingsRoundtripThroughSaveAndEngine() throws {

@@ -749,3 +749,43 @@ stimmen mit den Originalen überein. Abschließende strikte ASC-Validierung:
 0 Fehler, 0 Warnungen, 0 Blocker. Die Datenschutzveröffentlichung wurde über
 die öffentliche Store-Seite bestätigt. Keine Änderung der Binärquellen nach
 Quelltag `v1.3`.
+
+## Anfängermodus und feste Einrichtungshöhe — 08.10.2026
+
+**Bestanden:** 27 Rust-Adaptertests, fünf Tests des Vergleichsprogramms und
+sechs Python-Prüfungen. Geprüft sind reproduzierbare Fehlentscheidungen,
+regelgerechte Auswahl in den Zwischenständen aller 18 Referenzpartien,
+Mühlen-/Schlagphasen, unveränderte Ausgangsstellungen, getrennte Tipp-Suche und
+Abbruch. Sämtliche importierten Sanmill-Dateien stimmen mit dem Manifest überein.
+Die beiden Vergleichsserien mit insgesamt 256 abgeschlossenen Partien sind in
+`AI_OPTIONS.md` und `Benchmarks/2026-10-08-anfaengermodus/` dokumentiert.
+
+Release-Simulatorbuild und alle 38 funktionalen GameStore-Tests bestanden,
+einschließlich der Trennung von Anfängerzügen und berechneten Tipps. Der Test
+für die getrennte Darstellung einer Computer-Mühle und anschließenden Abnahme
+verwendet nun die berechnende Stufe 2, da Stufe 1 Mühlen bewusst übersehen darf.
+Speicherung, Abbruch, Offline-Partien und Netzwerkprotokoll bleiben geprüft.
+
+- `.build/Beginner-Checks.xcresult`: iPhone, 390 × 844 Punkte; vier UI-Tests
+  für feste Einrichtungshöhe in allen drei Modi, auch ausgeklappt, Abbruch der
+  WLAN-Einrichtung, Querformat und gemerkte Spielstärke; zusätzlich 38 Funktionstests.
+- `.build/Beginner-iPad.xcresult`: iPad mini, 744 × 1133 Punkte; feste
+  Einrichtungshöhe sowie erweiterte Einstellungen, Erklärungen und Speicherung.
+- Die Layoutprüfung vergleicht tatsächliche Bildschirmkoordinaten vor/nach dem
+  Moduswechsel, prüft deaktivierte Computeroptionen und die neue Reihenfolge
+  Spielvariante vor Spielstärke. Keine Scrollansicht in der Einrichtung.
+- Alle 212 Textschlüssel in acht Sprachen vollständig; Änderungen an den sechs
+  KI-Hilfetexten lokalisiert. Keine externen Sprachprüfer hinzugezogen.
+
+Der signierte Release-Gerätebuild wurde erfolgreich erstellt und auf dem
+FA-iPhone installiert (`.build/Beginner-Device-Build.log`,
+`.build/Beginner-Phone-Install.log`). Das ist noch kein dokumentierter Spieltest
+mit menschlichen Anfängern auf dem Gerät.
+
+Protokolle: `.build/Beginner-Engine-Verified.log`,
+`.build/Beginner-Benchmark-Tests.log`, `.build/Beginner-Checks.log` und
+`.build/Beginner-iPad.log`. Bildschirmaufnahmen der Einrichtung und ihrer
+inaktiven Optionen wurden zusätzlich gesichtet.
+
+Menschliche Anfänger wurden in dieser Runde nicht kalibriert. VoiceOver und
+Akkumessungen bleiben zurückgestellt. Kein Versionswechsel, Tag oder Apple-Upload.

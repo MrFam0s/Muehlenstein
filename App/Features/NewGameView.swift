@@ -24,8 +24,6 @@ struct NewGameView: View {
     }
     private var sheetHeight: CGFloat {
         if dynamicType.isAccessibilitySize { return 760 }
-        if showingNetwork { return network.phase == .awaitingApproval ? 380 : 440 }
-        if settings.opponent != .computer { return 400 }
         return expanded ? 750 : 540
     }
 
@@ -41,7 +39,9 @@ struct NewGameView: View {
                         else { begin() }
                     } label: {
                         ZStack {
-                            // Reserve both labels so confirmation never moves the button or setup controls.
+                            // Keep the same button height in every opponent mode and on confirmation.
+                            Text(L10n.text("start_game")).hidden().accessibilityHidden(true)
+                            Text(L10n.text("network_continue")).hidden().accessibilityHidden(true)
                             if hasOngoingGame {
                                 Text(L10n.text("replace_ongoing_game")).hidden().accessibilityHidden(true)
                             }

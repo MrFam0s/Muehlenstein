@@ -1,30 +1,85 @@
 # Spielhilfen, Suchverfahren und Spielstärke
 
-Stand: 01.10.2026, Voreinstellung und Speicherung ergänzt am 06.10.2026. Produktentscheidung für den lokalen Prototyp, einschließlich Abgleich mit der Original-App.
+Stand: 08.10.2026, Stufe 1 als eigener Anfängermodus und ruhige Einrichtung ergänzt. Die Optionsprüfung vom 01.10.2026 weiter unten beschreibt den damaligen Suchstand. Produktentscheidung für den lokalen Prototyp, einschließlich Abgleich mit der Original-App.
 
-**Ergänzung nach der unten dokumentierten ersten Optionsprüfung:** Das kleine klassische Eröffnungsorakel ist inzwischen integriert: automatisch auf Stufe 4/5, unter Erweitert → Eröffnung abschaltbar, mit legalitätsgeprüften Symmetrien und Such-Fallback. Die vollständige Perfect DB und ihre Teilpakete bleiben nach konkreter Aufwand-/Nutzenprüfung zurückgestellt. Die bisherige Bezeichnung „separater C++-Wrapper“ ist zu präzisieren: Upstream besitzt bereits einen Rust-nativen Leser mit optionalem C++-Vergleich. Entscheidung, Größen, Grenzen und Prüfungen stehen in `OPENING_AND_DATABASE.md`; die Tabelle unten berücksichtigt diese Ergänzung. Die Suchbudgets bleiben gleich, Buchtreffer ändern auf Stufe 4/5 jedoch die Zugwahl.
+**Ergänzung nach der unten dokumentierten ersten Optionsprüfung:** Das kleine klassische Eröffnungsorakel ist inzwischen integriert: automatisch auf Stufe 4/5, unter Erweitert → Eröffnung abschaltbar, mit legalitätsgeprüften Symmetrien und Such-Fallback. Die vollständige Perfect DB und ihre Teilpakete bleiben nach konkreter Aufwand-/Nutzenprüfung zurückgestellt. Die bisherige Bezeichnung „separater C++-Wrapper“ ist zu präzisieren: Upstream besitzt bereits einen Rust-nativen Leser mit optionalem C++-Vergleich. Entscheidung, Größen, Grenzen und Prüfungen stehen in `OPENING_AND_DATABASE.md`; die Tabelle unten berücksichtigt diese Ergänzung. Die Suchbudgets auf Stufe 2–5 bleiben gleich, Buchtreffer ändern auf Stufe 4/5 jedoch die Zugwahl. Die neue Ausnahme für Stufe 1 ist unten beschrieben.
 
 ## Aktuell umgesetzt
 
-Die einfache Einrichtung bietet fünf Stufen: 1 Sehr leicht, 2 Leicht, 3 Mittel, 4 Schwer, 5 Sehr schwer. Anfangs ist Stufe 1 · Sehr leicht mit MTD(f) und normaler Rechenzeit eingestellt. Die zuletzt mit „Partie beginnen“ oder „Fertig“ bestätigte Spielstärke bleibt danach für neue Partien gespeichert, auch nach einem App-Neustart. Abbrechen verwirft die Auswahl; eine lokale Partie überschreibt die Computerstufe nicht. Die Stufe bezeichnet ein Suchprofil innerhalb dieser App, keine menschlich kalibrierte Wertung. Neben dem Computervorrat steht optional „Stufe n/5“; die Partiedetails nennen Stufe und Bezeichnung. Technische Suchangaben stehen ausschließlich im erweiterten Bereich.
+Die einfache Einrichtung bietet fünf Stufen: 1 Sehr leicht, 2 Leicht, 3 Mittel, 4 Schwer, 5 Sehr schwer. Anfangs ist Stufe 1 · Sehr leicht mit bewusst fehlerhafter Zugwahl ohne Vorausberechnung eingestellt. Die Suchverfahren werden erst ab Stufe 2 für den Computer verwendet. Die zuletzt mit „Partie beginnen“ oder „Fertig“ bestätigte Spielstärke bleibt danach für neue Partien gespeichert, auch nach einem App-Neustart. Abbrechen verwirft die Auswahl; eine lokale Partie überschreibt die Computerstufe nicht. Die Stufe bezeichnet ein Gegnerprofil innerhalb dieser App, keine menschlich kalibrierte Wertung. Die Partiedetails im Verlauf nennen Stufe und Bezeichnung. Technische Suchangaben stehen ausschließlich im erweiterten Bereich.
 
 Die geräteweit gespeicherten Spielhilfen schalten Zugziele, letzten Zug und Steinanimationen unabhängig. Spielstufe und Computer-Konfiguration stehen im Verlauf unter „Spieldetails“. Ohne Zielmarkierungen bleiben Regeln und Touchbedienung unverändert. Die Auswahl eines eigenen Steins bleibt als Bedienrückmeldung sichtbar. Ein angeforderter Tipp sowie die separate Zugauswahl und der Verlauf bleiben verfügbar. Dies ist kein gewerteter Wettbewerbsmodus.
 
-„Neue Partie“ enthält die direkte Computer-/Zwei-Spieler-Auswahl, den Regler mit fünf Rastpunkten und ein 2×2-Raster der vier Varianten. „Erweitert“ klappt MTD(f)/PVS, Normal/Länger, den Spielstil Ausgewogen/Blockierend und Eröffnung Automatisch/Aus direkt darunter auf. Ein separates Einstellungsfenster über der Einrichtung entfällt. Info-Schaltflächen neben den Einstellungen öffnen nur bei Bedarf die Erklärung. Bei großer Schrift und wenig Höhe erhält der Stil einen eigenen Abschnitt innerhalb desselben Blatts, damit die Einrichtung weiterhin ohne Scrollen bedienbar bleibt. Während einer Partie verwendet „Computer einstellen“ dieselben kompakten Bedienelemente; dort übernimmt „Fertig“ den gemeinsamen Entwurf. Eine neue Partie übernimmt die Auswahl mit „Partie beginnen“. Auch während einer Partie kann sie geändert werden, ohne den Spielverlauf zu verlieren. Laufende alte Berechnungen werden abgebrochen und verworfen.
+„Neue Partie“ enthält zuerst die Auswahl Computer/Zu zweit/WLAN, darunter das 2×2-Raster der Varianten und anschließend die Spielstärke mit fünf Rastpunkten. Spielstärke und Erweitert bleiben bei Zu zweit/WLAN sichtbar, werden aber deaktiviert. Auch bereits ausgeklappte Optionen behalten ihren Platz. Der Moduswechsel verändert weder die Sheet-Höhe noch die Position des Startknopfs. Nur ausdrückliches Auf-/Zuklappen und die verfügbare Gerätegröße bestimmen die Einrichtungshöhe; der Wechsel in die WLAN-Lobby behält sie ebenfalls bei. „Erweitert“ klappt MTD(f)/PVS, Normal/Länger, den Spielstil Ausgewogen/Blockierend und Eröffnung Automatisch/Aus direkt darunter auf. Ein separates Einstellungsfenster über der Einrichtung entfällt. Info-Schaltflächen neben den Einstellungen öffnen nur bei Bedarf die Erklärung. Bei großer Schrift und wenig Höhe erhält der Stil einen eigenen Abschnitt innerhalb desselben Blatts, damit die Einrichtung weiterhin ohne Scrollen bedienbar bleibt. Während einer Partie verwendet „Spielstärke“ dieselben kompakten Bedienelemente; dort übernimmt „Fertig“ den gemeinsamen Entwurf. Eine neue Partie übernimmt die Auswahl mit „Partie beginnen“. Auch während einer Partie kann sie geändert werden, ohne den Spielverlauf zu verlieren. Laufende alte Berechnungen werden abgebrochen und verworfen.
 
 | Stufe | Normal: Tiefe / Budget | Länger: Tiefe / Budget |
 | --- | --- | --- |
-| 1 | 2 / 150 ms | 4 / 600 ms |
+| 1 | Anfängermodus ohne Suche | unverändert Anfängermodus |
 | 2 | 4 / 250 ms | 6 / 1000 ms |
 | 3 | 5 / 450 ms | 8 / 1800 ms |
 | 4 | 8 / 800 ms | 12 / 2600 ms |
 | 5 | 12 / 1200 ms | 16 / 3600 ms |
 
-Tiefe und Zeit sind Suchgrenzen. Der Suchlauf kann früher enden; kooperative Zeitprüfung, Replay und Darstellung ergeben keine garantierte Gesamtantwortzeit. Beide Verfahren verwenden denselben Sanmill-Evaluator und reservieren jeweils 16 MiB Transpositionstabelle. Daraus folgt keine Gleichheit des gesamten Speicherverbrauchs oder der Laufzeit. Ein Vergleich auf echten iOS-Geräten bleibt offen. Die längere Suche erhöht die möglichen Rechenkosten; konkrete Energie- und Stärkegewinne sind noch zu messen.
+Ab Stufe 2 sind Tiefe und Zeit Suchgrenzen. Der Suchlauf kann früher enden; kooperative Zeitprüfung, Replay und Darstellung ergeben keine garantierte Gesamtantwortzeit. Beide Verfahren verwenden denselben Sanmill-Evaluator und reservieren jeweils 16 MiB Transpositionstabelle. Daraus folgt keine Gleichheit des gesamten Speicherverbrauchs oder der Laufzeit. Ein Vergleich auf echten iOS-Geräten bleibt offen. Die längere Suche erhöht die möglichen Rechenkosten; konkrete Energie- und Stärkegewinne sind noch zu messen.
 
 Die Entwicklung verwendet Spielstand-Schema 2 ohne Migration früherer Schemata. Der zusätzliche Stil wird mit der Partie gespeichert; fehlt das Feld, gilt die bisherige ausgewogene Bewertung. Die getrennte Engine-Schnittstelle kennzeichnet das Suchprofil mit `level_scale: "five"`; ihre alte Dreierskala bleibt ausschließlich zur eindeutigen Wiederholung archivierter Vergleichspläne verfügbar. Auch Vergleichspläne ohne Stil behalten ausdrücklich die bisherige ausgewogene Bewertung.
 
-## Begründung der Auswahl
+## Sehr leicht als Lerngegner — 08.10.2026
+
+Eine geringe Suchtiefe allein machte die bisherige Stufe 1 für den gewünschten
+Einstieg noch zu konsequent. Die neue eigene Auswahl arbeitet deshalb vor der
+Sanmill-Suche und dem Eröffnungsbuch:
+
+- Auf 65 % der Entscheidungen zieht der Computer zufällig unter allen erlaubten
+  Aktionen. Auch eine sofort mögliche Mühle oder Abwehr kann übersehen werden.
+- Auf 35 % bemerkt er ausschließlich unmittelbare Folgen seines eigenen Zugs:
+  Gewinn, Mühle, Besetzen einer offenen gegnerischen Reihe, Aufbau einer eigenen
+  Zweierreihe, in dieser Reihenfolge. Gleichwertige Kandidaten werden zufällig
+  gewählt. Gegnerantworten, Beweglichkeitsbewertung und Suchspeicher entfallen.
+- Schlagen wählt zufällig aus den regelgerechten Abnahmen. Geschützte Mühlen,
+  Mehrfachabnahmen und alle Variantenregeln bleiben vollständig erhalten.
+- Die natürliche Denkpause bleibt. Normal/Länger, MTD(f)/PVS und der Spielstil
+  machen Stufe 1 nicht heimlich wieder zu einem berechnenden Gegner. Stufen 2–5
+  behalten ihre bisherigen Profile. Es gibt keine Anpassung an Siege oder
+  Niederlagen des Menschen und keine garantierte Niederlage des Computers.
+- Angeforderte Tipps umgehen die Fehlerauswahl. Auf Stufe 1 verwenden sie die
+  ausgewogene Suche von Stufe 3 mit normalem Budget; das gewählte Suchverfahren
+  bleibt berücksichtigt. Die Hilfe erklärt diesen Unterschied in allen acht
+  App-Sprachen. Das ist keine Garantie eines optimalen Tipps.
+
+Die interne Schnittstelle trennt `purpose: opponent/hint`; der Standard ist
+`opponent`. Nur `level_scale: five` mit Stufe 1 verwendet den neuen Modus.
+Historische Dreierskalen-Aufrufe behalten die alte Suche. `selection_seed` erlaubt
+reproduzierbare Prüfungen. Ohne Seed erhält jede Auswahl neue Zufallswerte;
+Zufall beeinflusst nur zukünftige Züge, nicht Replay oder gespeicherte Regeln.
+Keine zusätzliche Abhängigkeit und keine Änderung an importierten Sanmill-Dateien.
+
+### Vergleich und Grenzen
+
+Zwei vorab festgelegte Serien zu je 128 Partien: 16 Eröffnungspaare je Variante,
+jeweils mit Farbtausch, fester Zugauswahl-Zufallsfolge und maximal 512 Aktionen.
+Der Anfängermodus ist Spieler A; ältere Stufe 1 bzw. unveränderte Stufe 2 ist B.
+Alle 256 Partien endeten regelgerecht, ohne Fehler oder abgeschnittene Partien.
+
+| Gegner | Klassisch W/R/N | Zwölfstein W/R/N | Morabaraba W/R/N | Lasker W/R/N |
+| --- | --- | --- | --- | --- |
+| Bisherige Stufe 1 | 0/3/29 | 0/5/27 | 0/1/31 | 0/4/28 |
+| Stufe 2 | 0/0/32 | 0/0/32 | 0/0/32 | 0/0/32 |
+
+Angaben aus Sicht des neuen Anfängermodus. Pläne: `Benchmarks/beginner-plans/`;
+Rohpartien, Prüfsummen und Auswertung: `Benchmarks/2026-10-08-anfaengermodus/`.
+Die Auswertung behandelt ein Farbwechselpaar als Beobachtung; Remis und
+unvollständige Partien bleiben getrennt. Die bisherigen Vergleiche vom
+30.09.2026 sind historische Daten und stufen den neuen Lerngegner nicht ein.
+
+In gezielten Mühlen-/Abwehrstellungen mit jeweils 256 Seeds übersah Stufe 1
+143–151 von 256 einfachen Chancen. Diese Fälle prüfen absichtliche Fehlbarkeit
+und Abwechslung, nicht menschliche Spielstärke. Die Serien verwenden synthetische
+Eröffnungen und die produktive Schnittstelle auf dem Mac; sie liefern keine
+menschliche Gewinnchance, keine Elo-Zahl und keine Energiemessung. Ob der Einstieg
+angenehm leicht genug ist, muss beim Spielen mit Anfängern beurteilt werden.
+
+## Begründung der ursprünglichen Auswahl
 
 MTD(f) bleibt die bewährte Voreinstellung dieser App. Der bisherige Vergleich mit PVS begründet keinen Wechsel und keine Aussage, dass beide Verfahren immer gleich effizient seien. Fünf Stufen füllen die großen Lücken zwischen den bisherigen Tiefengrenzen 2, 5 und 12. Die beiden Zwischenstufen verändern tatsächlich Suchverhalten und Ergebnisse. Die Vergleiche sind in `Benchmarks/SPIELSTUFEN-2026-09-30.md` dokumentiert. Die Namen sind vorläufige relative Schwierigkeitsangaben; Tests mit Menschen und auf Geräten folgen vor Veröffentlichung.
 

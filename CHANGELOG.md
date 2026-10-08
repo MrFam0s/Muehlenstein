@@ -1,5 +1,12 @@
 # Versionshinweise
 
+## Unveröffentlicht — Anfängermodus und ruhige Einrichtung (08.10.2026)
+
+- Stufe 1 spielt ohne Vorausberechnung, übersieht Chancen und Drohungen und wählt Abnahmen nicht mehr gezielt nach Stärke. Stufen 2–5 bleiben unverändert; Tipps bleiben eine gesonderte berechnete Hilfe.
+- Spielstärke steht unter der Spielvariante. Zu zweit und WLAN deaktivieren Computeroptionen, ohne deren Platz oder die Höhe der Einrichtung zu verändern.
+- Erläuterungen in allen acht App-Sprachen aktualisiert. Vergleichspartien und Prüfstand stehen in `Docs/AI_OPTIONS.md` und `Docs/VALIDATION.md`.
+- Version 1.3 (9), bestehende Tags und die laufende Apple-Einreichung bleiben unverändert.
+
 ## 1.3 — Lokale Netzwerkpartien (08.10.2026)
 
 App-Version **1.3**, Build **9**, Quelltag **v1.3**. Am 08.10.2026 zur
