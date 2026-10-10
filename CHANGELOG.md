@@ -4,7 +4,8 @@
 
 - Jeder angezeigte Tipp und jede ausgeführte Rücknahme werden dauerhaft im Verlauf festgehalten. Rücknahmen löschen diese Hinweise nicht; zurückgenommene Züge bleiben durchgestrichen sichtbar. Die Spieldetails zeigen beide Anzahlen.
 - Ein abgebrochener Tipp und das Ausblenden eines bereits sichtbaren Tipps zählen nicht erneut. Eine neue Partie beginnt mit eigenen Zählern. Ältere Spielstände bleiben lesbar und kennzeichnen ihre frühere, noch nicht aufgezeichnete Nutzung.
-- Sieg und Remis erscheinen in einer ausdrücklichen Spielende-Meldung. „Brett ansehen“ schließt sie; eine Zielflagge bleibt am Ergebnis sichtbar. Die Bestätigung bleibt beim erneuten Öffnen gespeichert.
+- Sieg und Remis erscheinen in einer eigenen Abschlusskarte mit Lorbeerzeichen, Spielstein, App-Farben und Serifenschrift. Sie enthält nur „Partie beendet“ und das Ergebnis. „Brett ansehen“ schließt sie; eine Zielflagge bleibt am Ergebnis sichtbar. Die Bestätigung bleibt beim erneuten Öffnen gespeichert.
+- Jeder Verlaufseintrag lässt sich auf einem eigenen Brett ansehen. Pfeile und Schieberegler führen durch Züge, Tipps und Rücknahmen einschließlich verworfener Zugfolgen. „Partie ansehen“ beginnt bei der Ausgangsstellung. Die Rückschau verändert weder Spielstand noch Hilfen-Zähler.
 - Bei aktivierten Zugzielen erhalten erlaubte Schlagziele einen ruhigen leuchtenden Rand. Geschützte Steine und Computerzüge erhalten keine Markierung.
 - Texte und Erläuterungen in allen acht App-Sprachen. Versionsnummer und veröffentlichter Quelltag bleiben unverändert.
 

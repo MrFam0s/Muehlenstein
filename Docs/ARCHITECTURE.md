@@ -30,12 +30,28 @@ their totals. For older saves, earlier assistance is explicitly unknown and
 only subsequent uses are counted. These are local game records, not a
 tamper-proof competition record or transmitted analytics.
 
-The result alert handles both wins and draws and defers while another game
+The result card handles both wins and draws and defers while another game
 sheet is open. Its acknowledgement is saved against the terminal FEN, so
 reopening the game does not repeat it. Undo clears acknowledgement; replaying
 the finish announces the new result. Repeated network updates of the same
 position preserve the local acknowledgement. The network protocol itself is
 unchanged and still disallows hints and unilateral undo.
+
+The card is a modal SwiftUI presentation using the app's semantic colors,
+serif result typography, playing pieces and vector laurel symbols. It follows
+the selected accent and appearance without a separate raster asset. Only the
+result is shown here; assistance totals remain in history/game details.
+
+History takes an immutable snapshot on opening. Each journal entry links to
+a graphical replay; previous/next, first/last and a scrubber navigate the
+chronological events. `SavedGame.replay(at:)` reconstructs the canonical path
+at that point, including abandoned moves and undo events, then requests a
+non-search engine snapshot. Hints highlight the suggested action on the
+unchanged board. Played moves highlight origin/destination or removal.
+Review never calls GameStore actions, persistence or the network transport,
+and never adds an assistance event. Legacy/network saves without a journal
+use their canonical moves. Any live AI/network updates remain separate from
+the frozen review until it is reopened.
 
 Legal capture targets have a solid outline and glow when legal-target display
 and human interaction are enabled. The engine's legal list remains the sole

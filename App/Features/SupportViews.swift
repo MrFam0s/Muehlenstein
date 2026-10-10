@@ -2,11 +2,18 @@
 import SwiftUI
 
 struct HistoryView: View {
+    @Environment(\.accentPalette) private var palette
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicType
-    let game: SavedGame?
-    let position: Position?
+    // Freeze the viewed game while an AI/network turn may finish behind the sheet.
+    @State private var game: SavedGame?
+    @State private var position: Position?
     @State private var showsDetails = false
+    @State private var replayStep: Int?
+    init(game: SavedGame?, position: Position?) {
+        _game = State(initialValue: game)
+        _position = State(initialValue: position)
+    }
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -17,9 +24,13 @@ struct HistoryView: View {
                     .accessibilityIdentifier("history_section")
                 if showsDetails { PagedReadingView(text: details) }
                 else if let game, !game.historyEntries.isEmpty {
+                    Button { replayStep = 0 } label: {
+                        Label(L10n.text("replay_game"), systemImage: "play.rectangle")
+                            .font(.subheadline.weight(.medium)).frame(maxWidth: .infinity, minHeight: 44)
+                    }.accessibilityIdentifier("replay_game").padding(.horizontal, 16).padding(.top, 8)
                     let active = game.activeHistoryMoves
                     PagedGrid(items: game.historyEntries) { index, entry in
-                        HStack(spacing: 6) {
+                        Button { replayStep = index + 1 } label: { HStack(spacing: 6) {
                             if entry.kind == .move {
                                 Text("\(entry.moveNumber)").font(.caption2).monospacedDigit().foregroundStyle(Color.quietInk)
                                 Stone(side: entry.side, size: 14)
@@ -32,9 +43,10 @@ struct HistoryView: View {
                                     .font(.caption).lineLimit(2)
                             }
                             Spacer(minLength: 0)
+                            Image(systemName: "chevron.right").font(.caption2).foregroundStyle(palette.color)
                         }.padding(.horizontal, 8).frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 10))
-                            .accessibilityElement(children: .contain)
+                        }.buttonStyle(.plain).foregroundStyle(Color.ink)
                             .accessibilityLabel(historyLabel(entry, undone: entry.kind == .move && !active.contains(index)))
                             .accessibilityIdentifier("history_\(entry.kind.rawValue)_\(index)")
                     }
@@ -42,8 +54,11 @@ struct HistoryView: View {
             }.background(Color.limestone)
                 .navigationTitle(L10n.text("history")).navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .confirmationAction) { Button(L10n.text("done")) { dismiss() } } }
-        }.presentationDetents(dynamicType.isAccessibilitySize ? [.large] : [.height(500), .large])
-            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : 500))
+                .navigationDestination(item: $replayStep) { step in
+                    if let game { GameReplayView(game: game, startStep: step) }
+                }
+        }.presentationDetents(dynamicType.isAccessibilitySize || replayStep != nil ? [.large] : [.height(500), .large])
+            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize || replayStep != nil ? 760 : 500))
     }
     private func historyLabel(_ entry: GameHistoryEntry, undone: Bool) -> String {
         switch entry.kind {
@@ -74,6 +89,83 @@ struct HistoryView: View {
         return lines.joined(separator: "\n\n")
     }
 }
+
+private struct GameReplayView: View {
+    @Environment(\.accentPalette) private var palette
+    @Environment(\.dynamicTypeSize) private var dynamicType
+    @Environment(AppPreferences.self) private var preferences
+    let game: SavedGame
+    @State private var step: Int
+    @State private var frame: ReplayFrame?
+    init(game: SavedGame, startStep: Int) {
+        self.game = game
+        _step = State(initialValue: startStep)
+        _frame = State(initialValue: try? game.replay(at: startStep))
+    }
+    var body: some View {
+        GeometryReader { geometry in
+            if let frame {
+                Group {
+                    if geometry.size.width > geometry.size.height {
+                        HStack(spacing: 20) {
+                            board(frame)
+                            controls(frame).frame(width: geometry.size.width * 0.45)
+                        }
+                    } else {
+                        VStack(spacing: 16) {
+                            board(frame)
+                            controls(frame)
+                        }
+                    }
+                }.padding(20)
+            } else { ContentUnavailableView(L10n.text("replay_unavailable"), systemImage: "exclamationmark.circle") }
+        }.background(Color.limestone)
+            .navigationTitle(L10n.text("replay_title")).navigationBarTitleDisplayMode(.inline)
+            .onChange(of: step) { _, value in frame = try? game.replay(at: value) }
+    }
+    private func board(_ frame: ReplayFrame) -> some View {
+        GeometryReader { geometry in
+            let side = max(0, min(geometry.size.width, geometry.size.height))
+            BoardView(position: frame.position, moves: frame.moves, animateStones: preferences.animateStones,
+                      selected: frame.entry?.kind == .hint && frame.highlight?.kind == 1 ? frame.highlight?.from : nil,
+                      hint: frame.entry?.kind == .hint ? frame.highlight : nil,
+                      recentActions: frame.entry?.kind == .hint && frame.highlight?.kind != 1 ? [] : frame.highlight.map { [$0] } ?? [],
+                      showLegalMoves: false, interactive: false)
+                .frame(width: side, height: side).frame(maxWidth: .infinity, maxHeight: .infinity)
+                .accessibilityElement(children: .contain)
+                .accessibilityIdentifier("replay_board")
+        }
+    }
+    private func controls(_ frame: ReplayFrame) -> some View {
+        VStack(spacing: 12) {
+            Text(frame.caption).font(.headline).foregroundStyle(Color.ink)
+                .multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, minHeight: dynamicType.isAccessibilitySize ? 70 : 44)
+                .accessibilityIdentifier("replay_caption")
+            Text(L10n.format("replay_step", step, game.historyEntries.count))
+                .font(.caption).monospacedDigit().foregroundStyle(Color.quietInk)
+                .accessibilityIdentifier("replay_step")
+            Slider(value: Binding(get: { Double(step) }, set: { step = Int($0) }),
+                   in: 0...Double(max(1, game.historyEntries.count)), step: 1)
+                .disabled(game.historyEntries.isEmpty)
+                .accessibilityLabel(L10n.text("replay_title"))
+                .accessibilityValue(L10n.format("replay_step", step, game.historyEntries.count))
+                .accessibilityIdentifier("replay_slider")
+            HStack(spacing: 0) {
+                control("replay_first", icon: "backward.end", disabled: step == 0) { step = 0 }
+                control("replay_previous", icon: "chevron.left", disabled: step == 0) { step -= 1 }
+                control("replay_next", icon: "chevron.right", disabled: step == game.historyEntries.count) { step += 1 }
+                control("replay_last", icon: "forward.end", disabled: step == game.historyEntries.count) { step = game.historyEntries.count }
+            }.background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 18))
+        }
+    }
+    private func control(_ key: String, icon: String, disabled: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) { Image(systemName: icon).font(.system(size: 22)).frame(maxWidth: .infinity, minHeight: 52) }
+            .foregroundStyle(palette.color).disabled(disabled).opacity(disabled ? 0.35 : 1)
+            .accessibilityLabel(L10n.text(key)).accessibilityIdentifier(key)
+    }
+}
+
 struct LegalMovesView: View {
     @Environment(\.accentPalette) private var palette
     @Environment(\.dismiss) private var dismiss

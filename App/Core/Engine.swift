@@ -157,6 +157,61 @@ struct SavedGame: Codable, Sendable {
     }
 }
 
+struct ReplayFrame {
+    let position: Position
+    let moves: [MoveRecord]
+    let entry: GameHistoryEntry?
+    let highlight: EngineAction?
+
+    var caption: String {
+        guard let entry else { return L10n.text("replay_start") }
+        switch entry.kind {
+        case .hint: return L10n.format("history_hint", entry.notation)
+        case .undo: return L10n.format("history_undo", entry.moveNumber, entry.remainingMoves)
+        case .move:
+            let side = L10n.text(entry.side == 0 ? "white" : "black")
+            guard let action = highlight else { return "\(side): \(entry.notation)" }
+            let target = position.nodes[action.to].label
+            let move: String
+            switch action.kind {
+            case 0: move = L10n.format("last_placed_at", target)
+            case 1: move = "\(position.nodes[action.from].label) → \(target)"
+            default: move = L10n.format("last_removed_at", target)
+            }
+            return "\(side): \(move)"
+        }
+    }
+}
+
+extension SavedGame {
+    // Replay a journal prefix, including abandoned branches. This is a value
+    // snapshot only: reviewing never invokes GameStore, AI, saving or networking.
+    func replay(at step: Int) throws -> ReplayFrame {
+        let entries = historyEntries
+        guard (0...entries.count).contains(step) else { throw EngineError.rejected("invalidHistory") }
+        var snapshot = self
+        snapshot.moves = []
+        for entry in entries.prefix(step) {
+            switch entry.kind {
+            case .move: snapshot.moves.append(MoveRecord(notation: entry.notation, side: entry.side))
+            case .hint: break
+            case .undo:
+                guard (0...snapshot.moves.count).contains(entry.remainingMoves) else { throw EngineError.rejected("invalidHistory") }
+                snapshot.moves = Array(snapshot.moves.prefix(entry.remainingMoves))
+            }
+        }
+        let position = try Engine.query(snapshot)
+        let entry = step == 0 ? nil : entries[step - 1]
+        let highlight: EngineAction?
+        switch entry?.kind {
+        case .hint: highlight = position.legal.first { $0.notation == entry?.notation }
+        case .move: highlight = position.lastTurn.last { $0.notation == entry?.notation }
+        default: highlight = nil
+        }
+        return ReplayFrame(position: position, moves: snapshot.moves, entry: entry, highlight: highlight)
+    }
+}
+
 enum EngineError: LocalizedError {
     case rejected(String)
     var errorDescription: String? { L10n.text("engine_error") }

@@ -1,8 +1,9 @@
 # Muehlenstein
 
 Development after 1.3.1: hints and undo operations are retained in the game
-history and summarized in game details. A dismissible result alert makes wins
-and draws explicit; legal capture targets can glow with the existing display
+history and summarized in game details. Every entry opens a graphical replay
+with step controls, including hints and undone branches. A result card in the
+app's visual style makes wins and draws explicit; legal capture targets can glow with the existing display
 option. Published saves remain readable. These changes are not yet a new
 App Store release; see [the changelog](CHANGELOG.md).
 

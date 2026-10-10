@@ -3,6 +3,58 @@ import XCTest
 import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    @MainActor func testInteractiveReplayReviewsHintsAndUndoWithoutChangingGame() {
+        let app = launch(demo: true)
+        app.buttons["hint"].tap()
+        XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+        app.buttons["undo"].tap()
+        app.buttons["history"].tap()
+        while !app.buttons["history_move_7"].exists && app.buttons["next_page"].isEnabled { app.buttons["next_page"].tap() }
+        app.buttons["history_move_7"].tap()
+        XCTAssertTrue(app.staticTexts["replay_step"].waitForExistence(timeout: 3))
+        XCTAssertEqual(app.staticTexts["replay_step"].label, "Schritt 8 von 10")
+        XCTAssertTrue(app.otherElements["replay_board"].buttons["node_d5"].label.contains("Schwarz"))
+        XCTAssertFalse(app.otherElements["replay_board"].buttons["node_d5"].isEnabled)
+        app.buttons["replay_next"].tap()
+        XCTAssertTrue(app.staticTexts["replay_caption"].label.hasPrefix("Tipp"))
+        record("Replay-Hint", app: app)
+        app.buttons["replay_next"].tap()
+        XCTAssertTrue(app.staticTexts["replay_caption"].label.contains("8 → 7"))
+        XCTAssertTrue(app.otherElements["replay_board"].buttons["node_d5"].label.contains("frei"))
+        XCTAssertFalse(app.buttons["replay_next"].isEnabled)
+        record("Replay-Undo", app: app)
+        app.buttons["replay_previous"].tap()
+        XCTAssertTrue(app.otherElements["replay_board"].buttons["node_d5"].label.contains("Schwarz"))
+        app.buttons["replay_first"].tap()
+        XCTAssertEqual(app.staticTexts["replay_step"].label, "Schritt 0 von 10")
+        XCTAssertFalse(app.buttons["replay_previous"].isEnabled)
+        XCTAssertTrue(app.otherElements["replay_board"].buttons["node_a7"].label.contains("frei"))
+        app.buttons["replay_last"].tap()
+        XCTAssertEqual(app.staticTexts["replay_step"].label, "Schritt 10 von 10")
+        app.navigationBars["Rückblick"].buttons.element(boundBy: 0).tap()
+        app.buttons["Spieldetails"].tap()
+        XCTAssertTrue(app.textViews.firstMatch.value.debugDescription.contains("Tipps genutzt: 1"))
+        XCTAssertTrue(app.textViews.firstMatch.value.debugDescription.contains("Rücknahmen: 1"))
+        app.buttons["Fertig"].tap()
+        XCTAssertTrue(app.buttons["node_d5"].label.contains("frei"))
+    }
+
+    @MainActor func testReplayAtLargestTextInLandscape() {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-demo", "-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        app.buttons["history"].tap()
+        app.buttons["replay_game"].tap()
+        for key in ["replay_first", "replay_previous", "replay_next", "replay_last"] { assertVisible(app.buttons[key], in: app) }
+        app.buttons["replay_next"].tap()
+        XCTAssertEqual(app.staticTexts["replay_step"].label, "Step 1 of 8")
+        XCTAssertTrue(app.otherElements["replay_board"].buttons["node_a7"].label.contains("White"))
+        record("Replay-Largest-Landscape", app: app)
+        XCTAssertEqual(app.scrollViews.count, 0)
+    }
+
     @MainActor func testAssistanceHistoryAndDetailsSurviveRelaunch() {
         let app = XCUIApplication()
         app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
@@ -62,16 +114,17 @@ final class MuehlensteinUITests: XCTestCase {
         app.launchArguments = base + ["-ui-demo", "-ui-moves", "d6,a4,g1,d2,f4,b4,c4,d1,d3,f2,b2,a7,a1,g7,d7,d5,e4,g4,e4-e5,d5-c5,e5-d5,xc5,b4-b6"]
         app.launch()
         app.buttons["node_c4"].tap(); app.buttons["node_b4"].tap()
-        XCTAssertTrue(app.alerts["Partie beendet"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.alerts.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Weiß gewinnt")).firstMatch.exists)
-        record("Game-Over-Win", app: app)
-        app.alerts.buttons["Brett ansehen"].tap()
+        XCTAssertTrue(app.buttons["result_done"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Weiß gewinnt."].exists)
+        XCTAssertFalse(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Tipps genutzt")).firstMatch.exists)
+        record("Result-Card-Win", app: app)
+        app.buttons["result_done"].tap()
         XCTAssertTrue(app.buttons["history"].isHittable)
         record("Game-Over-Board", app: app)
         app.terminate(); app.launchArguments = base; app.launch()
         app.buttons["continue_game"].tap()
         XCTAssertTrue(app.buttons["history"].waitForExistence(timeout: 5))
-        XCTAssertEqual(app.alerts.count, 0)
+        XCTAssertFalse(app.buttons["result_done"].exists)
     }
 
     @MainActor func testDrawNoticeInEnglishAtLargestText() {
@@ -80,10 +133,10 @@ final class MuehlensteinUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-ui-testing", "-ui-demo", "-ui-moves", "g4,f2,e5,e3,a7,a4,g7,d5,d7,xe3,g1,d2,b4,c4,f4,f6,d6,d1,d3,e5-e4,d3-c3,e4-e3,c3-d3,e3-e4,d3-e3,e4-e5,e3-d3,e5-e4", "-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
-        XCTAssertTrue(app.alerts["Game over"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.alerts.buttons["View board"].isHittable)
-        record("Game-Over-Draw-Largest-Landscape", app: app)
-        app.alerts.buttons["View board"].tap()
+        XCTAssertTrue(app.buttons["result_done"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["result_done"].isHittable)
+        record("Result-Card-Draw-Largest-Landscape", app: app)
+        app.buttons["result_done"].tap()
         XCTAssertTrue(app.buttons["history"].isHittable)
     }
 
@@ -419,7 +472,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(app.scrollViews.count, 0)
         record("Hint-Largest-Landscape", app: app)
         app.buttons["history"].tap()
-        assertVisible(app.otherElements["history_move_0"], in: app)
+        assertVisible(app.buttons["history_move_0"], in: app)
         assertVisible(app.buttons["next_page"], in: app)
         app.buttons["next_page"].tap()
         XCTAssertTrue(app.staticTexts["page_count"].label.hasPrefix("2"))
@@ -459,13 +512,13 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
         XCTAssertEqual(app.buttons["node_a7"].frame, board)
         app.buttons["history"].tap()
-        let first = app.otherElements["history_move_0"]
-        let second = app.otherElements["history_move_1"]
+        let first = app.buttons["history_move_0"]
+        let second = app.buttons["history_move_1"]
         XCTAssertTrue(first.waitForExistence(timeout: 3))
         XCTAssertEqual(first.frame.minY, second.frame.minY, accuracy: 1)
         XCTAssertGreaterThan(second.frame.minX, first.frame.minX)
         if UIDevice.current.userInterfaceIdiom == .pad {
-            XCTAssertEqual(first.frame.minY, app.otherElements["history_move_2"].frame.minY, accuracy: 1)
+            XCTAssertEqual(first.frame.minY, app.buttons["history_move_2"].frame.minY, accuracy: 1)
         }
         XCTAssertEqual(app.scrollViews.count, 0)
         record("History-Grid", app: app)
@@ -640,7 +693,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["history"].tap()
         XCTAssertTrue(app.staticTexts["e5"].waitForExistence(timeout: 3))
         XCTAssertTrue(app.staticTexts["xa7"].exists)
-        XCTAssertTrue(app.otherElements["history_move_5"].label.contains("zurückgenommen"))
+        XCTAssertTrue(app.buttons["history_move_5"].label.contains("zurückgenommen"))
     }
     @MainActor func testComputerRepliesAndUndoReturnsToOpening() {
         let app = launch()
@@ -739,8 +792,8 @@ final class MuehlensteinUITests: XCTestCase {
                     app.buttons["node_\(node)"].tap()
                 }
             }
-            XCTAssertTrue(app.alerts["Partie beendet"].waitForExistence(timeout: 3))
-            app.alerts.buttons["Brett ansehen"].tap()
+            XCTAssertTrue(app.buttons["result_done"].waitForExistence(timeout: 3))
+            app.buttons["result_done"].tap()
             XCTAssertTrue(app.buttons["play_again"].waitForExistence(timeout: 3))
             if fromHome {
                 app.navigationBars.buttons.element(boundBy: 0).tap()

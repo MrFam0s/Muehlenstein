@@ -883,3 +883,51 @@ Interaktionsprotokolle: `.build/Feedback-Visual-Dark/`. Die Prüfsitzung ist bee
 Geprüft auf dem projektspezifischen iPhone-Simulator mit iOS 27. Kein erneuter
 Test auf einem physischen iPhone, kein zweiter WLAN-Gerätetest, kein Apple-Upload.
 VoiceOver und Akkumessungen bleiben wie vereinbart zurückgestellt.
+
+## Abschlusskarte und grafischer Rückblick — 10.10.2026
+
+Die Spielende-Anzeige verwendet jetzt eine eigene Karte mit den Farben,
+Steinen und Schriften der App. Ein skalierbares Lorbeerzeichen umrahmt den
+Gewinnerstein; bei Remis stehen beide Steine nebeneinander. Die Karte enthält
+keine Hilfen-Zähler. Bei sehr großer Schrift hat der Text Vorrang vor dem
+dekorativen Zeichen. Ergebnisbestätigung und erneutes Öffnen bleiben gespeichert.
+
+Verlaufseinträge öffnen eine grafische Rückschau. Die Pfeile, Anfang/Ende und
+der Schieberegler navigieren eine eingefrorene Kopie des Verlaufs. Die jeweilige
+Stellung zeigt den gespielten Zug oder den damaligen Tipp; Rücknahmen und
+verworfene Zugfolgen sind enthalten. Weder Spielstand noch Hilfen-Zähler werden
+beim Ansehen verändert. Bereits veröffentlichte Spielstände ohne Ereignisjournal
+können ihre gespeicherte Zugfolge ebenfalls wiedergeben.
+
+**Modellprüfung bestanden:** Alle 41 funktionalen GameStore-Tests. Jede der
+1.000 Aktionen aus den 18 Referenzpartien wird zusätzlich mit der rekonstruierten
+Stellung und der markierten Aktion verglichen. Ein gesonderter Test prüft
+zurückgenommene Abnahmen, eine alternative Abnahme, Tipps, die Ausgangsstellung,
+ungültige Schrittgrenzen und byteweise unveränderte gespeicherte Daten.
+Nachweis: `.build/Replay-Checks.xcresult` und `.build/Replay-Checks.log`.
+
+**Bedienprüfung bestanden:** sechs gezielte UI-Abläufe. Die beiden bestehenden
+Verlauf-/Tippprüfungen bestehen im ersten Lauf. Die eigene Abschlusskarte mit
+Sieg, Schließen und Neustart sowie Remis bei größter englischer Schrift im
+Querformat bestehen in `.build/Replay-UI-Verified.xcresult`. Beide Rückblicktests
+in `.build/Replay-Navigation-Verified.xcresult` prüfen Einstieg über einen
+zurückgenommenen Eintrag, Tipp/Undo-Stellungen, Anfang/Ende, Vor/Zurück,
+unveränderte Hilfen-Zähler und größte Schrift im Querformat.
+
+Die ersten UI-Läufe deckten eine vererbte Accessibility-Kennung der neuen Karte
+und zu weit gefasste Testabfragen auf. Die Karte und das Rückblickbrett haben
+nun eigene Accessibility-Container. Die Tests blättern bei Bedarf zur richtigen
+Verlaufsseite und unterscheiden Rückblickbrett und darunterliegendes Live-Brett.
+Die korrigierten Abläufe bestehen. Exportierte Aufnahmen der Karte und des
+Rückblicks wurden gesichtet; die Ergebnisanzeige enthält keine Hilfen-Zähler.
+
+Die ergänzende Sichtprüfung bestätigt auf dem Projekt-iPhone 17e/iOS 27 im
+Dunkelmodus und Hochformat: zentrierte Abschlusskarte, Schließen, Einstieg
+über Verlaufseintrag 4, Schritt 4/5, Anfang/Ende und erkennbar abgeblendete
+inaktive Pfeile. Brett, Beschriftung, Schieberegler und Bedienleiste sind
+vollständig sichtbar. Der aktuelle Stand wurde dafür erneut gebaut und
+installiert; die Sitzung ist beendet. Screenshots/Hierarchien/Logs:
+`.build/Replay-Visual-Dark/`. Keine zusätzliche physische Geräteprüfung.
+
+Alle 230 Textschlüssel in acht Sprachen sind vollständig. Keine Änderung an
+Engine, Spielregeln, Versionsnummer, Buildnummer oder veröffentlichtem Tag.

@@ -4,6 +4,42 @@ import UIKit
 @testable import Muehlenstein
 
 final class GameStoreTests: XCTestCase {
+    @MainActor func testReplayIncludesHintsUndoAndAbandonedCaptureWithoutChangingSave() throws {
+        let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: file) }
+        let store = GameStore(storageURL: file)
+        store.start(GameSettings(opponent: .local))
+        for notation in ["c5", "a7", "d5", "d7", "e5", "xa7"] {
+            store.play(try XCTUnwrap(store.position?.legal.first { $0.notation == notation }))
+        }
+        let abandoned = try XCTUnwrap(store.position).fen
+        store.undo()
+        let beforeCapture = try XCTUnwrap(store.position).fen
+        store.play(try XCTUnwrap(store.position?.legal.first { $0.notation == "xd7" }))
+        var snapshot = try XCTUnwrap(store.game)
+        let savedBytes = try Data(contentsOf: file)
+        let originalMoves = snapshot.moves
+        XCTAssertEqual(try snapshot.replay(at: 6).position.fen, abandoned)
+        XCTAssertEqual(try snapshot.replay(at: 6).highlight?.kind, 2)
+        XCTAssertEqual(try snapshot.replay(at: 7).position.fen, beforeCapture)
+        XCTAssertEqual(try snapshot.replay(at: 8).position.fen, store.position?.fen)
+        XCTAssertEqual(try snapshot.replay(at: 0).moves.count, 0)
+        let hint = try XCTUnwrap(store.position?.legal.first)
+        snapshot.record(GameHistoryEntry(kind: .hint, moveNumber: snapshot.moves.count, side: store.position!.side, notation: hint.notation))
+        let hinted = try snapshot.replay(at: 9)
+        XCTAssertEqual(hinted.highlight, hint)
+        XCTAssertEqual(hinted.position.fen, store.position?.fen)
+        XCTAssertEqual(hinted.moves, originalMoves)
+        XCTAssertEqual(try Data(contentsOf: file), savedBytes)
+        XCTAssertEqual(store.game?.undoCount, 1)
+        XCTAssertEqual(store.game?.hintCount, 0)
+        XCTAssertThrowsError(try snapshot.replay(at: -1))
+        XCTAssertThrowsError(try snapshot.replay(at: 10))
+        // A published save has only canonical moves; it is still reviewable.
+        snapshot.history = nil
+        XCTAssertEqual(try snapshot.replay(at: originalMoves.count).position.fen, store.position?.fen)
+    }
+
     @MainActor func testAssistanceJournalSurvivesUndoBranchesAndRelaunch() async throws {
         let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
         defer { try? FileManager.default.removeItem(at: file) }
@@ -266,7 +302,7 @@ final class GameStoreTests: XCTestCase {
             return try XCTUnwrap(PropertyListSerialization.propertyList(from: Data(contentsOf: url), format: nil) as? [String: String])
         }
         let english = try strings("en")
-        XCTAssertEqual(english.count, 221)
+        XCTAssertEqual(english.count, 230)
         let format = try NSRegularExpression(pattern: "%[@d]")
         func arguments(_ value: String) -> [String] {
             format.matches(in: value, range: NSRange(value.startIndex..., in: value))
@@ -731,6 +767,10 @@ final class GameStoreTests: XCTestCase {
                 store.tap(action.to)
                 XCTAssertEqual(store.game?.moves.last?.notation, notation)
                 XCTAssertNil(store.errorMessage)
+                let replayGame = try XCTUnwrap(store.game)
+                let replay = try replayGame.replay(at: replayGame.historyEntries.count)
+                XCTAssertEqual(replay.position.fen, store.position?.fen, fixture.name)
+                XCTAssertEqual(replay.highlight, action, fixture.name)
                 let restored = GameStore(storageURL: file)
                 XCTAssertNil(restored.errorMessage)
                 XCTAssertEqual(restored.game?.moves, store.game?.moves)

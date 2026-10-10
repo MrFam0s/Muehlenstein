@@ -51,14 +51,13 @@ struct GameView: View {
                 .padding(12).frame(maxWidth: 1120).frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }.background(Color.limestone)
-        .alert(L10n.text("game_over"), isPresented: Binding(
+        .fullScreenCover(isPresented: Binding(
             get: { store.hasUnacknowledgedResult && !hasPresentedSheet },
             set: { if !$0 { store.acknowledgeResult() } }
         )) {
-            Button(L10n.text("view_board"), role: .cancel) { store.acknowledgeResult() }
-        } message: {
             if let position = store.position {
-                Text(statusText(position) + (store.game?.settings.opponent == .network ? "" : "\n\n" + (store.game?.assistanceSummary ?? "")))
+                GameResultView(position: position) { store.acknowledgeResult() }
+                    .presentationBackground(.clear)
             }
         }
         .navigationTitle(L10n.text("app_name")).navigationBarTitleDisplayMode(.inline)
@@ -102,7 +101,11 @@ struct GameView: View {
             }
         }
         .onAppear { store.resumeComputer(); store.network?.reconnect() }
-        .onDisappear { store.suspend(); store.network?.pause() }
+        .onDisappear {
+            store.suspend()
+            // Covering the finished board must not interrupt the final peer acknowledgement.
+            if !store.hasUnacknowledgedResult || hasPresentedSheet { store.network?.pause() }
+        }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active { store.resumeComputer(); store.network?.reconnect() }
             else { store.suspend(); if phase == .background { store.network?.pause() } }
@@ -261,6 +264,51 @@ struct GameView: View {
             Circle().fill(Color.quietInk).frame(width: 3, height: 3).accessibilityHidden(true)
             Text(L10n.moveCount(store.game?.moves.count ?? 0))
         }.font(.caption).foregroundStyle(Color.quietInk).lineLimit(1)
+    }
+}
+
+private struct GameResultView: View {
+    @Environment(\.accentPalette) private var palette
+    @Environment(\.dynamicTypeSize) private var dynamicType
+    let position: Position
+    let close: () -> Void
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.opacity(0.3).ignoresSafeArea()
+                ViewThatFits(in: .vertical) {
+                    card(showEmblem: !dynamicType.isAccessibilitySize || geometry.size.height > 650)
+                        .fixedSize(horizontal: false, vertical: true)
+                    ScrollView { card(showEmblem: false) }
+                        .scrollBounceBehavior(.basedOnSize)
+                }.frame(maxWidth: 440).padding(24)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }.accessibilityElement(children: .contain).accessibilityAddTraits(.isModal)
+            .accessibilityIdentifier("game_result")
+    }
+    private func card(showEmblem: Bool) -> some View {
+        VStack(spacing: 22) {
+            if showEmblem {
+                HStack(spacing: 0) {
+                    Image(systemName: "laurel.leading").font(.system(size: 84, weight: .ultraLight))
+                    if position.outcome == "draw" {
+                        HStack(spacing: -12) { Stone(side: 0, size: 42); Stone(side: 1, size: 42) }
+                    } else { Stone(side: position.winner, size: 64) }
+                    Image(systemName: "laurel.trailing").font(.system(size: 84, weight: .ultraLight))
+                }.foregroundStyle(palette.color).frame(height: 106).accessibilityHidden(true)
+            }
+            VStack(spacing: 8) {
+                Text(L10n.text("game_over")).font(.subheadline).foregroundStyle(Color.quietInk)
+                Text(position.outcome == "draw" ? L10n.text("draw") : L10n.format("wins", L10n.text(position.winner == 0 ? "white" : "black")))
+                    .font(.system(.title, design: .serif).weight(.medium)).foregroundStyle(Color.ink)
+            }.multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
+            Button(L10n.text("view_board"), action: close).buttonStyle(PrimaryButton())
+                .accessibilityIdentifier("result_done")
+        }.padding(28).frame(maxWidth: .infinity)
+            .background(Color.limestone, in: RoundedRectangle(cornerRadius: 30))
+            .overlay { RoundedRectangle(cornerRadius: 30).strokeBorder(palette.color.opacity(0.2), lineWidth: 1) }
+            .shadow(color: .black.opacity(0.15), radius: 24, y: 10)
     }
 }
 
