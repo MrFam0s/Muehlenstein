@@ -1,8 +1,22 @@
 # App-Store-Vorbereitung
 
-## Neuer Release — 08.10.2026, Version 1.3.1 (Build 11)
+## Quellrelease — 10.10.2026, Version 1.4 (Build 12)
 
-Der neueste Stand ergänzt den WLAN-Modus um den bewusst fehlbaren
+Tag **v1.4** bündelt die grafische Rückschau, protokollierte Tipps und Rücknahmen,
+die Abschlusskarte und die zuschaltbare Markierung erlaubter Abnahmen.
+Version und Build sind lokal angehoben; die Versionsanzeige ist im Release-Build
+geprüft. [Releaseprotokoll 1.4](RELEASE-1.4-12.md).
+
+Für Build 12 wurden kein signiertes Gerätearchiv und kein Apple-Upload erstellt.
+Die Felder `version`, `build_number` und `source_tag` in `metadata.json` bezeichnen
+den neuen Quellstand. Die separat datierten Apple-/TestFlight-Felder und die
+Store-Texte unter `metadata/` dokumentieren weiterhin 1.3.1; vor einer nächsten
+Einreichung sind Store-Versionshinweise und Aufnahmen zu aktualisieren.
+Das Website-Paket bleibt beim zuletzt dokumentierten veröffentlichten Stand 1.3.1.
+
+## Zuletzt dokumentierter App-Store-Release — 08.10.2026, Version 1.3.1 (Build 11)
+
+Dieser Stand ergänzt den WLAN-Modus um den bewusst fehlbaren
 Anfängergegner und die stabile Spieleinrichtung. Signierter Build,
 44 Release-Prüfungen einschließlich der neuen Versionsanzeige sowie
 80 aktuelle Original-Screenshots sind geprüft. Seit **08.10.2026 um
@@ -25,7 +39,7 @@ Version 1.2 (8) ist inzwischen im App Store verfügbar, über Apple am
 07.10.2026 als `READY_FOR_DISTRIBUTION` bestätigt.
 [Aktueller Release- und Prüfstand für 1.3](RELEASE-1.3-9.md).
 
-## Aktueller Quellrelease — 06.10.2026, Version 1.2 (Build 8)
+## Früherer Quellrelease — 06.10.2026, Version 1.2 (Build 8)
 
 Quelltag: [`v1.2`](https://github.com/MrFam0s/Muehlenstein/tree/v1.2).
 Fünf weitere native Sprachen ergänzen Deutsch und Englisch. Chinesisch erhält

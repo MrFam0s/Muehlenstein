@@ -105,3 +105,13 @@ und Geräteumfang sind im [Validierungsprotokoll](VALIDATION.md) dokumentiert.
 ## Lokale Netzwerkpartien · 07.10.2026
 
 Der Entwicklungsstand enthält jetzt 212 gemeinsame Textschlüssel in acht Sprachen. Einladungen, Suche, Verbindung, Fehler- und Wiederaufnahmehinweise sind vollständig lokalisiert. `InfoPlist.strings` enthält zusätzlich zur App-Benennung die jeweilige Begründung für den lokalen Netzwerkzugriff. Die Datenschutzhinweise erläutern die direkte verschlüsselte Geräteverbindung. Die Sprachwahl selbst löst weiterhin keine Netzwerkzugriffe aus.
+
+## Rückblick und Spielrückmeldungen · 1.4 (12), 10.10.2026
+
+Alle acht nativen Sprachfassungen enthalten jetzt **230 gemeinsame Textschlüssel**.
+Neu sind die protokollierte Nutzung von Tipps und Rücknahmen, die Spieldetails,
+die Abschlusskarte und die Bedienung der grafischen Rückschau. Der Generator
+und der Bundle-Test prüfen Vollständigkeit und Formatargumente. Der genaue
+Prüfstand steht im [Validierungsprotokoll](VALIDATION.md).
+Die Store-Texte bleiben vom nativen Quellrelease getrennt; für 1.4 wurde noch
+kein Text bei Apple gespeichert oder zur Prüfung eingereicht.

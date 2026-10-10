@@ -931,3 +931,32 @@ installiert; die Sitzung ist beendet. Screenshots/Hierarchien/Logs:
 
 Alle 230 Textschlüssel in acht Sprachen sind vollständig. Keine Änderung an
 Engine, Spielregeln, Versionsnummer, Buildnummer oder veröffentlichtem Tag.
+
+## Quellrelease 1.4 (Build 12) — 10.10.2026
+
+Versionsnummer und Buildnummer sind in `Configuration/App.xcconfig` auf
+**1.4 / 12** angehoben; der vorhandene Versionsanzeige-Test erwartet denselben
+Stand. Der Produktcode bleibt gegenüber `431a992` unverändert. Quelltag: `v1.4`.
+
+Der Release-Build auf dem projektspezifischen iPhone-17e-Simulator mit iOS 27
+besteht **drei gezielte Prüfungen ohne Fehler**:
+
+- `testAboutShowsVersionImprintSourceAndBundledNotices`: Anzeige
+  „Version 1.4 · Build 12“, Anbieter, Datenschutz, Herkunft und Offline-Lizenzen.
+- `testBuildInformationUsesBundleValuesAndLicensesAreBundled`: aufgelöste
+  Bundle-Werte und 20 vollständige Lizenzgruppen einschließlich Rust-Dritthinweisen.
+- `testNativeLocalizationsAreBundledCompleteAndUseValidFormats`: acht Sprachen,
+  je 230 Schlüssel, nichtleere Texte und korrekte Formatargumente.
+
+Ergebnis: **TEST SUCCEEDED** in `.build/Version-1.4-Checks.log`, mit
+`.build/Version-1.4-Checks.xcresult`. Das tatsächlich erzeugte App-Bundle wurde
+zusätzlich ausgelesen: Version `1.4`, Build `12`, Bundle-ID
+`org.amosystems.Muehlenstein`. Die Prüfmodi des Ressourcen- und Lizenzgenerators
+sowie `git diff --check` bestehen. Die Metadatenprüfung bestätigt, dass nur
+Quellversion, Build, Tag und der erläuternde Status geändert wurden; die datierten
+Apple-/TestFlight-Felder bleiben erhalten.
+
+Die umfassenderen Funktions- und Bedienprüfungen der vorherigen Abschnitte
+gelten für denselben Produktcode. Für den Versionsschritt kein erneuter
+physischer Geräte-/WLAN-Test, kein signiertes Gerätearchiv und kein Apple-Upload.
+[Releaseprotokoll](../Store/RELEASE-1.4-12.md).

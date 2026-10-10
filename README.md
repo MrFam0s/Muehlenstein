@@ -1,13 +1,16 @@
 # Muehlenstein
 
-Development after 1.3.1: hints and undo operations are retained in the game
-history and summarized in game details. Every entry opens a graphical replay
-with step controls, including hints and undone branches. A result card in the
-app's visual style makes wins and draws explicit; legal capture targets can glow with the existing display
-option. Published saves remain readable. These changes are not yet a new
-App Store release; see [the changelog](CHANGELOG.md).
+**Quellrelease 1.4 (Build 12)**, Tag
+[v1.4](https://github.com/MrFam0s/Muehlenstein/tree/v1.4): Tipps und Rücknahmen
+bleiben im Verlauf erhalten und werden in den Spieldetails zusammengefasst.
+Jeder Eintrag öffnet eine grafische Rückschau mit Vor-/Zurück-Steuerung,
+einschließlich Tipps und verworfener Zugfolgen. Eine Abschlusskarte im Stil
+der App zeigt Sieg oder Remis; erlaubte Abnahmen lassen sich hervorheben.
+Bestehende Spielstände bleiben lesbar. Für diesen Stand erfolgte noch kein
+Apple-Upload. [Versionshinweise](CHANGELOG.md) und
+[Releaseprotokoll](Store/RELEASE-1.4-12.md).
 
-**Version 1.3.1 (Build 11)** ergänzt den WLAN-Modus um einen bewusst
+Zuletzt dokumentierter App-Store-Stand: **Version 1.3.1 (Build 11)** ergänzt den WLAN-Modus um einen bewusst
 fehlbaren Anfängergegner auf Stufe 1 und eine Einrichtung mit gleichbleibender
 Höhe beim Moduswechsel. [Verhalten und Vergleichspartien](Docs/AI_OPTIONS.md).
 Seit **08.10.2026, 10:53:55 Uhr (Europe/Berlin)** im App Store veröffentlicht
@@ -60,12 +63,12 @@ Choose the **Muehlenstein** scheme and an iPhone or iPad simulator. The Xcode bu
 - Reproducible paired engine tournaments through the production bridge, with archived results: [2,048-game comparison at the original middle level](Docs/Benchmarks/ERGEBNISSE-2026-09-30.md). No reliable playing-strength advantage was established for either search method under those conditions.
 - [Original-app settings review](Docs/AI_OPTIONS.md) and [576 games across two separate style comparisons](Docs/Benchmarks/SPIELSTILE-2026-10-01.md). Balanced remains the default; database/LLM features are not silently folded into difficulty levels.
 - Cooperative native search cancellation on suspension or game replacement, with stale-result protection.
-- Fixed, scroll-free home, setup and game surfaces in portrait and landscape; centered game status and paged rules. About, privacy, credits and complete license texts use structured, scrollable reading pages. History uses a responsive two/three-column grid with a separate Game details tab for difficulty and configuration. Legal moves open as a compact paged selection grid.
+- Fixed, scroll-free home, setup and game surfaces in portrait and landscape; centered game status and paged rules. About, privacy, credits and complete license texts use structured, scrollable reading pages. History uses a responsive two/three-column grid; each entry opens a graphical replay with step controls and a slider. A separate Game details tab summarizes difficulty, configuration and assistance use. Legal moves open as a compact paged selection grid.
 - Native German, English, French, Spanish, Japanese, Korean and Chinese text (Simplified and Traditional): eight complete offline localizations, chosen through iOS language preferences. See [language selection and maintenance](Docs/LOCALIZATION.md). Light / dark semantic colors, adaptive iPad layout, labelled board positions for VoiceOver and a separate paged legal-move chooser at accessibility text sizes.
 
 ## Deliberately still pending
 
-Full Sanmill feature parity: remaining seven rule presets in the UI, broader opening recognition/training / Human DB / Perfect DB, additional search methods and calibrated strengths, analysis/replay navigation, puzzles and imports/exports. The large Perfect DB is deferred by product decision, not exposed as a placeholder setting. Local network play is included in 1.3; internet matchmaking remains outside the current scope. See [the plan](Docs/PROJECT_PLAN.md), [AI options and rating roadmap](Docs/AI_OPTIONS.md) and [architecture](Docs/ARCHITECTURE.md).
+Full Sanmill feature parity: remaining seven rule presets in the UI, broader opening recognition/training / Human DB / Perfect DB, additional search methods and calibrated strengths, deeper position analysis, puzzles and imports/exports. The large Perfect DB is deferred by product decision, not exposed as a placeholder setting. Local network play is included in 1.3; internet matchmaking remains outside the current scope. See [the plan](Docs/PROJECT_PLAN.md), [AI options and rating roadmap](Docs/AI_OPTIONS.md) and [architecture](Docs/ARCHITECTURE.md).
 
 The original engine code is retained; the app's search orchestration is new. Equal playing strength to the Sanmill app has **not** been established. The public source repository is [MrFam0s/Muehlenstein](https://github.com/MrFam0s/Muehlenstein); recorded distribution status is in the [release documentation](Docs/RELEASE.md).
 

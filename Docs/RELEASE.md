@@ -1,8 +1,21 @@
 # Distribution requirements and open decisions
 
-## Release 1.3.1 (11) — 2026-10-08
+## Source release 1.4 (12) — 2026-10-10
 
-The current release contains local Wi-Fi play, the deliberately fallible
+Version **1.4**, build **12**, annotated source tag **v1.4** bundles the graphical
+game replay, persistent hint/undo history, the themed result card and optional
+capture-target highlights. All eight app languages contain 230 text keys.
+Shared version values remain in `Configuration/App.xcconfig`; internal Cargo
+package versions are unchanged. See the [changelog](../CHANGELOG.md) and
+[release and validation record](../Store/RELEASE-1.4-12.md).
+
+This is a repository release. No signed device archive, Apple upload or review
+submission was made for build 12. The dated distribution evidence below still
+refers to 1.3.1 (11); Apple status has not been queried again for this source release.
+
+## Published release 1.3.1 (11) — 2026-10-08
+
+That release contains local Wi-Fi play, the deliberately fallible
 beginner opponent and stable game setup. Source tag: `v1.3.1`, commit
 `36d3f27d7e0acb60ec0f11c35ac34d3bdaf54d94`. Its product logic matches
 the fully tested build 10; only version/build configuration differs.
@@ -13,8 +26,8 @@ Apple's public German storefront lookup returns version **1.3.1**.
 Rechecked on **2026-10-08 at 18:55:38 UTC**. TestFlight separately remains
 `WAITING_FOR_BETA_REVIEW`, assigned to the existing three-tester group
 with automatic notification enabled. External installation still awaits
-Apple's beta approval. No new build, version bump or source tag is needed.
-[Current release and distribution record](../Store/RELEASE-1.3.1-11.md).
+Apple's beta approval at that verification. No new build or tag was needed for
+that status check. [Dated release and distribution record](../Store/RELEASE-1.3.1-11.md).
 
 The App Store submission of 1.3 (9) was withdrawn for this replacement.
 A separate 1.3.1 TestFlight version avoids the already pending beta review
