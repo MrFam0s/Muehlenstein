@@ -2,11 +2,17 @@
 
 ## Distribution release 1.4 (13) — 2026-10-10
 
-Build **13** prepares the existing 1.4 feature set for App Store and the
-existing external TestFlight group. New source tag: **v1.4-build.13**; the
+Build **13** has been submitted to App Store review and TestFlight with the
+existing 1.4 feature set. New source tag: **v1.4-build.13**; the
 source-only **v1.4** tag remains fixed at build 12. Product logic, engine and
 dependencies are unchanged. The signed archive and App Store IPA have been
-verified; eight localized release notes and test instructions are prepared.
+verified; eight localized release notes and test instructions are saved and
+read back. All 80 current screenshots are processed, with checksums and order
+verified. Submitted to App Store review at **2026-10-10 21:50:18 UTC**:
+**WAITING_FOR_REVIEW**, automatic release after approval. TestFlight was
+submitted at **21:40:29 UTC** and remains **WAITING_FOR_BETA_REVIEW**, assigned
+to the existing three testers with automatic notification enabled. These are
+pending submissions, not yet public or external-test availability of build 13.
 See the [current release record](../Store/RELEASE-1.4-13.md) for submission
 and availability evidence.
 

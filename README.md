@@ -6,8 +6,11 @@ bleiben im Verlauf erhalten und werden in den Spieldetails zusammengefasst.
 Jeder Eintrag öffnet eine grafische Rückschau mit Vor-/Zurück-Steuerung,
 einschließlich Tipps und verworfener Zugfolgen. Eine Abschlusskarte im Stil
 der App zeigt Sieg oder Remis; erlaubte Abnahmen lassen sich hervorheben.
-Bestehende Spielstände bleiben lesbar. Der signierte Build ist bei Apple
-hochgeladen und verarbeitet; App-Store- und TestFlight-Einreichung werden vorbereitet.
+Bestehende Spielstände bleiben lesbar. Am **10.10.2026 um 23:50 Uhr** zur
+App-Store-Prüfung eingereicht (**`WAITING_FOR_REVIEW`**); automatische
+Veröffentlichung nach Freigabe. TestFlight wartet separat auf Beta-Freigabe
+(**`WAITING_FOR_BETA_REVIEW`**), mit bestätigter Zuordnung zu **Externe Tests**
+und automatischer Benachrichtigung der drei Tester. Noch nicht neu installierbar.
 [Versionshinweise](CHANGELOG.md) und
 [Releaseprotokoll](Store/RELEASE-1.4-13.md). Der ursprüngliche Quelltag
 [v1.4](https://github.com/MrFam0s/Muehlenstein/tree/v1.4) bleibt bei Build 12.

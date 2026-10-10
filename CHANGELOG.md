@@ -6,8 +6,12 @@
   Produktcode, Engine und Abhängigkeiten entsprechen dem Quellrelease Build 12.
 - Buildnummer auf **13** angehoben; neuer Quelltag **v1.4-build.13**.
   Der bestehende Tag **v1.4** bleibt unverändert.
-- Versionshinweise und TestFlight-Testhinweise in acht Sprachen vorbereitet.
-  Signiertes Archiv und App-Store-IPA erstellt und geprüft.
+- Versionshinweise und TestFlight-Testhinweise in acht Sprachen gespeichert
+  und bei Apple abgeglichen. 80 aktuelle Store-Aufnahmen vollständig verarbeitet.
+- Am 10.10.2026 für App Store und TestFlight eingereicht; beide Apple-Prüfungen
+  stehen noch aus. Store-Veröffentlichung und Testerbenachrichtigung erfolgen
+  automatisch nach der jeweiligen Freigabe. 44 Release-Prüfungen sowie beide
+  Screenshotdurchläufe bestanden.
 - [Aktueller Prüf- und Distributionsstand](Store/RELEASE-1.4-13.md).
 
 ## 1.4 · Build 12 — Rückblick und Spielrückmeldungen (10.10.2026)

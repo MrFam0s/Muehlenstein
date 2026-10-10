@@ -980,3 +980,17 @@ Privacy Manifest, Bonjour und Verschlüsselungsangaben. Sprachressourcen
 `VALID` verarbeitet. Keine erneute physische WLAN-, VoiceOver- oder
 Akkuprüfung; die vorherige Funktionsabdeckung bleibt dokumentiert.
 [Distributionsprotokoll](../Store/RELEASE-1.4-13.md).
+
+Zusätzlich besteht der Store-Screenshotablauf auf iPhone 18 Pro Max und
+iPad Pro 13 Zoll (M5), jeweils über alle acht Sprachen. 80 unveränderte
+RGB-Originalaufnahmen wurden vollständig exportiert, per SHA-256 erfasst
+und in acht Kontaktbögen visuell geprüft. Die beiden ausschließlich dafür
+angelegten temporären Simulatoren sind nach dem Export entfernt.
+Nachweis: `.build/Release-1.4-13/Store-Screenshots.xcresult`.
+
+App-Store- und TestFlight-Validierung für Build 13: **0 Fehler, 0 Warnungen,
+0 Blocker**. Der informative Datenschutz-Hinweis ist über die veröffentlichte
+Apple-Seite (Keine Daten erfasst) geprüft. Alle 80 Screenshots sind bei Apple
+`COMPLETE`; Abmessungen, Reihenfolge und MD5 stimmen überein. Alle acht
+Versionslokalisierungen und Testhinweise wurden erneut abgeglichen. Beide
+Einreichungen sind bestätigt; Details im Distributionsprotokoll.

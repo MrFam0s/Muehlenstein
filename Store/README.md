@@ -5,7 +5,13 @@
 Neuer Distributionsbuild **1.4 (13)**, Quelltag **v1.4-build.13**, mit dem
 Funktionsumfang des unveränderten Tags **v1.4 (12)**. Signiertes Archiv und
 IPA sind geprüft. Versionshinweise und TestFlight-Hinweise liegen in acht
-Sprachen vor. [Aktueller Prüf- und Distributionsstand](RELEASE-1.4-13.md).
+Sprachen bei Apple vor; 80 aktuelle Originalaufnahmen sind vollständig
+verarbeitet und abgeglichen. **App Store: `WAITING_FOR_REVIEW`**, eingereicht
+am 10.10.2026 um **23:50:18 Uhr (Europe/Berlin)**, automatische Veröffentlichung
+nach Freigabe. **TestFlight: `WAITING_FOR_BETA_REVIEW`**, den drei bestehenden
+Testern zugeordnet, automatische Benachrichtigung aktiviert. Noch keine
+Installationsfreigabe für Build 13.
+[Aktueller Prüf- und Distributionsstand](RELEASE-1.4-13.md).
 
 Die Statusprüfung am 10.10.2026 bestätigt **1.3.1 (11)** weiterhin im App
 Store und inzwischen auch für externe Tester (`IN_BETA_TESTING`). Die

@@ -1,562 +1,562 @@
 [
   {
     "path": "de-DE/iPad-13/01-Game.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "c947c194afe4889750df4880d95f81a77d8984f3837741f9b96aeda63e45b9ec"
+    "sha256": "27d6bdbbe9c13a60b44f89012b3ad69a8f321400f1a31522e802c9086bc9c35e"
   },
   {
     "path": "de-DE/iPad-13/02-Hint.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "aa94044b8886835b5d3c214d9aaa64ad7a43ea172d8c4766c761cce43c71e74a"
+    "sha256": "49636d23b326c9b32c5160d09887b7052671ad7481ac2efde0d022251f93d8ce"
   },
   {
     "path": "de-DE/iPad-13/03-Setup.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "9ea4fef030adf829ec96e5552b3a6fcb8f7864d935d12e364476a88673d7d325"
+    "sha256": "512cf5a7a64b94d18e84adce899ecf63062ccebd96af419bb353003d2915e053"
   },
   {
     "path": "de-DE/iPad-13/04-Home.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "c2746b1e7c9b1f8036383d9b9cbbb39af977296f024a1a8b8a27dfb8a06da558"
+    "sha256": "6bd989eb14e650db822d1a202b9bcc6989ec78914a5745de0487ccf11a853f0f"
   },
   {
     "path": "de-DE/iPad-13/05-Network.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "adfa9cab1ada86ef6c6fdc8202816308dfed707782411e440ce776514fc0a628"
+    "sha256": "e05844cc28b0300a9da57efff9fc54740d09c214376abe815f12fe45c80a61d3"
   },
   {
     "path": "de-DE/iPhone-6.9/01-Game.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "0e0a7b415edf318bea0e3fdeb9241c0c7cef569d90bb3ba52b4b71f433d9aeae"
+    "sha256": "ba27d2b76349ff0c3787ff8d0a700c29ea213416bdf234c56efa938ed2cfb973"
   },
   {
     "path": "de-DE/iPhone-6.9/02-Hint.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "4ce6bcba1f92e4c7f5799754941688c4ee7bd9ae519e457bf912d52574d20300"
+    "sha256": "4a58324a180b8904de489237c5a06cbb7a2ba15c0f1003746c01931d43a6a355"
   },
   {
     "path": "de-DE/iPhone-6.9/03-Setup.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "d20fd9d539c93fb921bad8c0057864037918f9cae8d4b2612a7affcb427f6db8"
+    "sha256": "0fe87c8d40a0d7599bad2e77ed9d635748ed2aeb091617428bc3f95e7d5a5c4a"
   },
   {
     "path": "de-DE/iPhone-6.9/04-Home.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "60ad55d98f7c05954730c9d6b9c2882ae61feee98341d29495f8c879fbd25fa1"
+    "sha256": "2ff36a09db943e227f6f50b24a62ee04a52e579d411eefc5e6cf078b7b3e364c"
   },
   {
     "path": "de-DE/iPhone-6.9/05-Network.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "a68bdcc9dd11747cc512a3997646768624aacb5bc4fcad936c58e3cf22c8ea9b"
+    "sha256": "78aedf5c82d3ff66cf363f00def3df1a77d82a1a4dd5afb85d055e1b881de347"
   },
   {
     "path": "en-US/iPad-13/01-Game.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "664bf676aed835e5464128aa3ffe41849ec63a065237180e978f74c4846e8f7c"
+    "sha256": "573ced11c85a8fb4134c1b683eee81c2fc4bb9cdb92c2b04f37f6da70c519546"
   },
   {
     "path": "en-US/iPad-13/02-Hint.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "27e35655f70de6860f755d7135b877759dcea4d0cfac6990a4c2026b80bfd19f"
+    "sha256": "f59c6a7904a94b2c3d15ca29ed8e4be8b109b860bc7d42bdd87b40546c5ec649"
   },
   {
     "path": "en-US/iPad-13/03-Setup.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "5d930998328f95973a28e0ad916632ccc29db150772d5efee7d645f76cae27ed"
+    "sha256": "b30575181d7b032b17bb323c3491894fab30071c9f525934b8f5a50fe07ce1a0"
   },
   {
     "path": "en-US/iPad-13/04-Home.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "296a23b7eb0b8521b69e3b21ce87b6d39e9d61a7cace27cab379d1ec8c1206ab"
+    "sha256": "bb9d8f081e80b64d4b5dfdd04ffe6ab01d6e16adba13ef7c50cb2e91013f66cc"
   },
   {
     "path": "en-US/iPad-13/05-Network.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "f3ed86ee377f6b68ea4f3ed5eac5476af9871b7635c76c63b02228f80977b765"
+    "sha256": "f62415867791dc82cd362032af8e2d6be5d50dd0a07cb00d4cc555955f764817"
   },
   {
     "path": "en-US/iPhone-6.9/01-Game.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "8f4ac762e039f0e299fb01d08c9395361b2b25c9a05a6a9e6af401d700410867"
+    "sha256": "ee4336779e2a7c940f2df73f63458b88a4063cde1c65652130a8b158ae227c9a"
   },
   {
     "path": "en-US/iPhone-6.9/02-Hint.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "845024ca047390c462e3123fc567dc9c588764f645eaf79481c6b00d55b4463e"
+    "sha256": "150ee253f86293a7d8019aa7e96bd357302d400b6daa01e1bde10d4666b5692f"
   },
   {
     "path": "en-US/iPhone-6.9/03-Setup.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "7c9d4d5d15639c8d45ed2d2958f8cc9baf1482bf5f11136376c933a2e97a7876"
+    "sha256": "cde2268cc7d01c7b4be8d6831acf8b24cc46d438ec13a0e14a7ffa10625468b3"
   },
   {
     "path": "en-US/iPhone-6.9/04-Home.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "cb2077e019732aa37b97f47f8ba83d54458923bc9d3c66608c87603cedd61591"
+    "sha256": "a6efe6d3b0d22a6d0d2a8c17ae17f839627556edca7d434035552f498f3175cd"
   },
   {
     "path": "en-US/iPhone-6.9/05-Network.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "58eed91fe140b3296d9e1b9a65af2e961e801ccd16c7c9f0b6d0fdf08443d134"
+    "sha256": "1f0205ea4db116ecd940f41cbeea825f0d6cb2c5fc092647d9526f638dee1501"
   },
   {
     "path": "es-ES/iPad-13/01-Game.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "26451a98e5db771f45dfb43ce4dc09e3d2d4bd634b4450df29192735ed289468"
+    "sha256": "383654b6c13bb7bdca4e9a93947603604f16751ff2a2f11b3eaa125e981512b9"
   },
   {
     "path": "es-ES/iPad-13/02-Hint.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "fade48fd09d2a293fe2a01c206e3bee07d5543436705f49cf35b76a2f208156f"
+    "sha256": "892293aa87e54cecea898d0dce63bfc9f77dc0d690718d4850816d09b5c18ef4"
   },
   {
     "path": "es-ES/iPad-13/03-Setup.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "b8555b644e0fe3039c0b6af73bc50fddc33e7f82e1b7826aa733655a19029be2"
+    "sha256": "bfcf99b3455fddc601a6d9ebf77ed40c3fc34d06c9d12c8719f4badeb2b33ec1"
   },
   {
     "path": "es-ES/iPad-13/04-Home.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "79dea7dded3b39b64dbe2c61c6618a9c975a78a027109a1ff1da14fe97185680"
+    "sha256": "0452a03718f8b29e1599df7cdfb71892cd9ac16e1c23aa9bbc6cb7b68e65d8f7"
   },
   {
     "path": "es-ES/iPad-13/05-Network.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "516813d369e5df028f0f98b5c013e8f7e8bdce9c3ea7bfb1ee6cc4deb78cfadf"
+    "sha256": "74f82a7ac35d34306c515f615c516160b3fef3f0c61cddca0146816ab965912d"
   },
   {
     "path": "es-ES/iPhone-6.9/01-Game.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "ef1ad2790fa6e738373971e39681e6eb9af7d17846658acb89f2fa5393bdbdf7"
+    "sha256": "a2b6a7c32a3827dfd7c625f4b33b5a78917dd83f986b05197ef42a29b064902e"
   },
   {
     "path": "es-ES/iPhone-6.9/02-Hint.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "cea0429ec4e8b336e11aa069f801f28839305b26ab7c50d8f71da0329c0e06aa"
+    "sha256": "f9556c40a00c9b877719636e66b7dca2f943160dd4bfcec5f72bd82d675c0b21"
   },
   {
     "path": "es-ES/iPhone-6.9/03-Setup.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "0072e9233f4a89e123476de1ad51f84210dd1c75afd7f8046a0b13bb3c0ad119"
+    "sha256": "aaeb0c83414864503b6083b5233e30168dc3284e599eeddaba65ba67c7634a25"
   },
   {
     "path": "es-ES/iPhone-6.9/04-Home.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "586f93a813bd786355166e40fb3793edb1732ad0083dd66d213b723e8d049bc8"
+    "sha256": "db727dec5a85fdfbbe99a09ea67ff413943a9cbd6d33e35ac7b50f53839c1b6b"
   },
   {
     "path": "es-ES/iPhone-6.9/05-Network.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "a30a55d510be02d8ed0b9c395bfba59f34632d48a3f7618d57469295b8eba88d"
+    "sha256": "5e82445348d2528a84462b3b264f07da0bb37a5598cf0f7bfe12a0e75ae226d3"
   },
   {
     "path": "fr-FR/iPad-13/01-Game.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "83ccde17b517d2fa030d5299571e4a18eab846157e3edf369e42fa77161eb819"
+    "sha256": "93935fd18dd31ba3a6d21686b82046e06fb8eace1396893ed7f3c6a6a8e6070b"
   },
   {
     "path": "fr-FR/iPad-13/02-Hint.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "f4c35767c3e568d756af498de9dd09bb897e755af7605ae85afd5cbae0b3c8b3"
+    "sha256": "a8eb58b4557e73478c68c4c8d111e4843b75e79d0024bc894834ec8fe047eace"
   },
   {
     "path": "fr-FR/iPad-13/03-Setup.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "f73b623ba68a1b88061be1fb074b72e971b2fe4605b05c7ad36e1f58dbd61529"
+    "sha256": "ed532c8ca36e2ff465c15e992b356c01c95eef69f739812ee00ba50f77dfe223"
   },
   {
     "path": "fr-FR/iPad-13/04-Home.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "d326f1b777ae89385d5fe6fbd47310a5c20aa7e5f9c38887467a7413089cd478"
+    "sha256": "df3328cf33da52872f7d10be1fa010eefab53b2537aa5ab7eecde6e6570e433b"
   },
   {
     "path": "fr-FR/iPad-13/05-Network.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "db8529ee5faec7380c0cad955aec5404068db4a94865954ccbfaea56cead569a"
+    "sha256": "91b9d2116966a1c0778b4ba77e3f90b1b6fef737fb3c725805ab6c8191268fcb"
   },
   {
     "path": "fr-FR/iPhone-6.9/01-Game.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "b8796c9bfa9d7cfe576e281891853c7fe3f06014160a5ef7fb1d02e938f65772"
+    "sha256": "e8d333fe788b53b133804015bbec69ceb163b48399ba6f60bca50f19d23ff61b"
   },
   {
     "path": "fr-FR/iPhone-6.9/02-Hint.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "4081b99f9d1f0555872974f7f086dcf552a894c1bdb86df8814fb260ceedcf90"
+    "sha256": "94916b33414ee4a9fda719ddae7f759125bcdcae3467565721f4c85ef1d1a210"
   },
   {
     "path": "fr-FR/iPhone-6.9/03-Setup.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "2f4af46363b1c2fb0953daa312ec83f483e840a2cab4f6654344343bd3ae9f17"
+    "sha256": "74d12e7b9d9707002b30805551078dd7987a63d869049fbf73752ee3d7bf176a"
   },
   {
     "path": "fr-FR/iPhone-6.9/04-Home.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "e9d8f1f444969ff4e455c47f816a11456924f45b5f04c759f4d0ba375a5a1daf"
+    "sha256": "dd45e392dfe900078de50f5ca4833810ff485a66152900c7dbd9ae6745ef2886"
   },
   {
     "path": "fr-FR/iPhone-6.9/05-Network.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "ba8c6e67af47028a4b6157235d695e7ba1a9027d9d1c84e1c8dd2a2216735865"
+    "sha256": "bef33fdac55b52f25a5b49f1dc1a497157eeec9d15ef828f694f5eab6262bc31"
   },
   {
     "path": "ja/iPad-13/01-Game.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "6e7688582ce31ec8daa6489e9ff598fa314a11e8937718bebf9fcf9c10dc6ff3"
+    "sha256": "e1d4469ea0a421385bf54ee40e02a148fded36ac89bb66ddfb61d8e858130a72"
   },
   {
     "path": "ja/iPad-13/02-Hint.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "23737951c54313fd78b4e1b453d99c608e7d0de8e0d46db76fb73dc47ed1dd22"
+    "sha256": "71400ce2cf6988c1b0c818127aedcb9a626f6d60fe50aae6774fa54d1dd63cec"
   },
   {
     "path": "ja/iPad-13/03-Setup.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "98b677b3254eb2c4185367ce38f70fd72a04856e2fb04822c8b5fba08312813c"
+    "sha256": "36f86dfcf0ea379a3b4f004dcf18647689d9165df701dce5cc036037c5e815b3"
   },
   {
     "path": "ja/iPad-13/04-Home.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "c3d1129675920d8d493ffbf7eee08389be352fcd2ffd2a491470be0cf5e90e63"
+    "sha256": "8ac4b79d02d213143e16f84618086e65dc249c88e813fd3b6da8d20ad52e1eec"
   },
   {
     "path": "ja/iPad-13/05-Network.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "25bb463f4cd59ecac1fe735ba2ff9c315b73d1c8baf06cc4142a525ce46c4a3d"
+    "sha256": "da4ce51a7fdb2d329a56f1e040871529dee508e99eb3c77514293a15b44fc0c5"
   },
   {
     "path": "ja/iPhone-6.9/01-Game.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "6373f5028fe254aa8f2e43103b57e7ee66dbb22d090a5379377dbfe6dbe35e4c"
+    "sha256": "40c72c94c96c24b2f1031530fea468f048528abc9cb17277c688c0351dc3ff5d"
   },
   {
     "path": "ja/iPhone-6.9/02-Hint.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "8e59a155d073fb584d0d4a7645b7277b5d15248f18654de00932ab49449beeac"
+    "sha256": "bf07d29e929d5963da9d8a9b359d587f706bae50f09a606513a5b138e56d59c3"
   },
   {
     "path": "ja/iPhone-6.9/03-Setup.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "c939ae43bfb34180b015d78a484232f325d0876ce07ebb2a396bcbd59487c49d"
+    "sha256": "b4f9127d79b8b6a4c56170bd742b7ef1c3dc5f039017626722fd063e0de953c9"
   },
   {
     "path": "ja/iPhone-6.9/04-Home.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "39fbf8fbe14c020ecc5c2906fc11612bb744e2c4346bd56cadd32dcecd395aea"
+    "sha256": "67d106556d698de498f3843ccdfdcf4aa6b8d1407bdb69cd9bd702357bcc0fb8"
   },
   {
     "path": "ja/iPhone-6.9/05-Network.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "32604d1ea4e1b5ed0cfa4882303dc61e11335717cc3b481471cdd287c93a43ac"
+    "sha256": "e12cdd49e3356ec9ec3797ac4a37a2c9716a3a706396142d733bb9343c137023"
   },
   {
     "path": "ko/iPad-13/01-Game.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "0bdb8482091a8b394fabe3e1cc67230c1e75fe30d9f7ea5ac1ab09e98e5a0aff"
+    "sha256": "ef3047b961250b072494b803dc83135b10a7d1e0678cdefb75fe60a0ed4447c5"
   },
   {
     "path": "ko/iPad-13/02-Hint.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "5d8d6a81da0de59095e3969286080874842551ef06875c9a08e28f301c120eae"
+    "sha256": "6e9b7d98801dbe3b188012c70e71fedacb0e945c4d40a98ceec50aad994152c6"
   },
   {
     "path": "ko/iPad-13/03-Setup.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "dde45f4d7d57e4d87d91ad848fae067d84328c0859cf451ab78613464cb2ec89"
+    "sha256": "dbcda80b1f4e4024139fe9cacd35cd0a5c6924e9de6dfcef3a83d13a5bc3b301"
   },
   {
     "path": "ko/iPad-13/04-Home.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "e6ce79d2038066c78b087f2a005a170535e3ad92f6569e334da58f8c83c36fef"
+    "sha256": "ef0d1a69fa5900b83e3aaa241f7a88916e2c6f10660a9c5c9deef52b35efa41d"
   },
   {
     "path": "ko/iPad-13/05-Network.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "3ca8099f9fa31d8baaca15147ddc7e4006fbfd114d8f3b318204218646fa08f8"
+    "sha256": "0a1801f892c9af80ee9789fef456eaf5a70fbfec84f860eca0aa038886fb5c75"
   },
   {
     "path": "ko/iPhone-6.9/01-Game.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "d3608ee8f9ffe2454bae01098caf03e7898383f64c89f49459a66d3ace5e7ca4"
+    "sha256": "a8b9d0486c8a460f667568d6e790a9b1e57bc77f2eea1474c15929296f660ade"
   },
   {
     "path": "ko/iPhone-6.9/02-Hint.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "a6eebdee1a9e927d2cfe5543c15240e7a034afb314c48c3a62afb79faf24030a"
+    "sha256": "34172192ba79092687d48cae56827fe76b0187054e4145b8de0a5dcabb8196bc"
   },
   {
     "path": "ko/iPhone-6.9/03-Setup.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "e759d3ceb50feaf20cc34a612b9e36d067dd2305960080bcfeedb3a29172361c"
+    "sha256": "2fd41c5197fb697eeecf6f7863451a09d5064c899c05b9eb94112cc84492c68c"
   },
   {
     "path": "ko/iPhone-6.9/04-Home.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "b338260b6bb58ace1f4426793f29dddd39f978f569873c2849db733075ba1078"
+    "sha256": "19eba07c036a7c182c3a54d8e5274b77b2b047fe8e13328498edede4f17e6f9a"
   },
   {
     "path": "ko/iPhone-6.9/05-Network.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "fc73ba0c87a92e3d668f931d5f013f4028ef54d433705cb0b741804c200857f3"
+    "sha256": "171f8e94617473e70eef76f12f4dac4979ff4cc169bae633f74b1833676ccd6d"
   },
   {
     "path": "zh-Hans/iPad-13/01-Game.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "11211d68c523c80e2faaa923895d87fc2b4040d39b0c508e62df190baeb6ba6a"
+    "sha256": "fb63611fa1c02135e3ba35db9475cc24f12fd3de360d218271da88c448640cc2"
   },
   {
     "path": "zh-Hans/iPad-13/02-Hint.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "929ab0b9f47ce56594f78adb9906ebbde27910b0d241ab4ff98dfc2b051c2698"
+    "sha256": "968efee2efb2694542327fb85a522d7ed0abc2288d913ffed65d4a32813e40c9"
   },
   {
     "path": "zh-Hans/iPad-13/03-Setup.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "e83c10673f7071c3ece03186e0ed2b9fba6d45ca45547aad161761aa9e248884"
+    "sha256": "b1aa0bf7f8336ee1539c7124b2415ee0adc283825d875ca65017f77371f98fee"
   },
   {
     "path": "zh-Hans/iPad-13/04-Home.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "31cdc733333ed63ad69d23fd9ce3499d11259866d795e890b2061995e85ebb0f"
+    "sha256": "7354ad5f904917afc26fea89a9668506067889523142d10bb82037e45b7c7099"
   },
   {
     "path": "zh-Hans/iPad-13/05-Network.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "56dfd7b840b3fc4303079f0fa1f05af0b879c2a98c6d6b50b0f0a57839185d9b"
+    "sha256": "1b7f4ec73eda30c5e86b65b59ff16dea3451c16700ba1e92762395dcd71743e7"
   },
   {
     "path": "zh-Hans/iPhone-6.9/01-Game.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "537a90f7bfd5e226b1b6b7ca7b2cb41d7796b0896af81c2161826527340e5033"
+    "sha256": "5eda3466a31099c4cfb924017e00e734d8f99f9c87055c47aa163f62fb7692e3"
   },
   {
     "path": "zh-Hans/iPhone-6.9/02-Hint.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "369669c23372df7576711d76ccd949efbc626b7c8d5ba3c34fcfddf289e2f18f"
+    "sha256": "f111fe81618770a29080168f4d073b618ba45b788a3418a3acfc38cb2e6bf917"
   },
   {
     "path": "zh-Hans/iPhone-6.9/03-Setup.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "f549ecc3a105783577851e0e30362d12ae99427d857e75241ba0c4988bb4eedb"
+    "sha256": "bda733d07ba672be9eacad973422ca6ecf5066bc0da188e411afc63f1c21e5b9"
   },
   {
     "path": "zh-Hans/iPhone-6.9/04-Home.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "5f5f250f0ab5407ecfec73ca57655a22036fcb1f0273f29e409130e323687d43"
+    "sha256": "785ecdfbdac368c7720fb57b194bd57fda587ebd4e443a91a683cef828f8cc38"
   },
   {
     "path": "zh-Hans/iPhone-6.9/05-Network.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "fae64d17aad4f445f00ef3a9e4601f98c01e781a04c1e6c124045d2cd794a9c2"
+    "sha256": "faafcf862d45678b9c73efb0dc40db8a124f14c8999b860f567865cb76ff497f"
   },
   {
     "path": "zh-Hant/iPad-13/01-Game.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "6701e4c84b742004c72ddfa90a02100727e039c7789c75613e0b028f7aabd85f"
+    "sha256": "95247911544fcfd64cad682244629d7c6a4126cb2ccb32340ee4bb1401526a52"
   },
   {
     "path": "zh-Hant/iPad-13/02-Hint.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "602c017a7706041bdbe9329ea501ddcd5ccf4c03d60dc86c6bc7c9efab563dcc"
+    "sha256": "4128f4c2dd93a9a861a994a241931f1cbbd6739aadd8254a4036e5577f66dcc1"
   },
   {
     "path": "zh-Hant/iPad-13/03-Setup.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "14e96d3bc37055de9f0dc9e238184d89166d3bc2e451f90b7d2f7ed134d723f9"
+    "sha256": "87d170246b3dfd297031037cfe142b3a37e2a761d647f85504710c311d13a3bf"
   },
   {
     "path": "zh-Hant/iPad-13/04-Home.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "fa6f0a925a6eb1e28226ab0ef9898c554adc52ea2b1535b45addf45c4bb32382"
+    "sha256": "b4873f59c78a4071016b01b27bd47443d9592b9b02f4b586fdace0037fb7aa8e"
   },
   {
     "path": "zh-Hant/iPad-13/05-Network.png",
-    "device": "iPad Pro 13-inch (M5)",
+    "device": "Muehlenstein Temp iPad Release14",
     "width": 2064,
     "height": 2752,
-    "sha256": "720a1fc7e3a9eca37cc9436ccf793f6c7aaef607a94f174c53eedececf3f53af"
+    "sha256": "2776825bf1db87b07890e8abaf4e511fe7a71d3dd73df14f71ec7be394c04110"
   },
   {
     "path": "zh-Hant/iPhone-6.9/01-Game.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "f05e764445cfae660c041caabf08bca6cd0c211d2b48ffb81e2b1329db386d81"
+    "sha256": "61bbdc0059f0f8dc1278147e247a1545fb7ddbc0c3d8da04d23e2e41bd12f4a1"
   },
   {
     "path": "zh-Hant/iPhone-6.9/02-Hint.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "7b501d15ef25f8b2326f44e93dbc3b1aa348f7093d67c4de22b85cda824996e3"
+    "sha256": "13a53e53f2e2b047c9e15a622d663916bb817e4615007186918b72b39fe40e7b"
   },
   {
     "path": "zh-Hant/iPhone-6.9/03-Setup.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "d87306e9a72b4c16703cd225351a55c99a2bd2ad0c3ec7677e10768cc99fc5bd"
+    "sha256": "cb40a26ee02ad2576038b4f60be5288477149d5e40fe95794a1ef151103531cb"
   },
   {
     "path": "zh-Hant/iPhone-6.9/04-Home.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "8b72c37b5f134467bb5acae70340b191799f8c6ae44a914b1e711a1a1d8bc259"
+    "sha256": "d2c1ba40778001198250853144b31bc9101a20bbc67bc6429c1988c39a70c2fe"
   },
   {
     "path": "zh-Hant/iPhone-6.9/05-Network.png",
-    "device": "iPhone 18 Pro Max",
+    "device": "Muehlenstein Temp iPhone Release14",
     "width": 1320,
     "height": 2868,
-    "sha256": "e55887a9b4b68b425752a2851abf8106b3ee778133d8339d0ca611afb16d8350"
+    "sha256": "3aaa12575d425ddcbfb995ffd172e3790e5b77c67538a75df41774190ad1e632"
   }
 ]

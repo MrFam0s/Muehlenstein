@@ -5,6 +5,22 @@ bestehende TestFlight-Gruppe. Version 1.3.1 (11) war bei der Ausgangsprüfung
 bereits im App Store veröffentlicht und extern in TestFlight verfügbar.
 Für den Quellrelease 1.4 (12) existierte noch kein Apple-Build.
 
+## Bestätigte Einreichungen
+
+| Kanal | Von Apple bestätigter Stand |
+| --- | --- |
+| App Store | **WAITING_FOR_REVIEW**, eingereicht am 10.10.2026 um **23:50:18 Uhr (Europe/Berlin)** |
+| Veröffentlichung | **AFTER_APPROVAL**, automatisch nach App-Store-Freigabe |
+| TestFlight extern | **WAITING_FOR_BETA_REVIEW**, eingereicht am 10.10.2026 um **23:40:29 Uhr (Europe/Berlin)** |
+| Tester | **Externe Tests**, drei Tester, Build-Zuordnung bestätigt, `autoNotifyEnabled = true` |
+| Bereits verfügbar | **1.3.1 (11)** im App Store und extern in TestFlight |
+
+App-Store-Einreichung: `e8edde7e-a036-43b9-8c35-316992ffb363`, genau eine
+App-Version. Apples Einreichungszeit: `2026-10-10T21:50:18.185Z`.
+Die erneute Versionsabfrage bestätigt die Verknüpfung zu Build 13.
+Build 13 ist bis zur jeweiligen Apple-Freigabe noch nicht öffentlich bzw.
+für externe Tester installierbar.
+
 ## Identität und Quellstand
 
 - App `6818139673`; Bundle-ID `org.amosystems.Muehlenstein`; iOS.
@@ -47,14 +63,47 @@ Acht lokalisierte Versionshinweise liegen unter `metadata/version/1.4/`,
 acht Testanleitungen unter `Store/TestFlight-1.4.json`; beide sind bei Apple
 gespeichert und erneut vollständig abgeglichen. Die bestehende Gruppe
 **Externe Tests** (`d6665987-bb28-44ae-9306-0125eda4801e`) enthält drei Tester.
-Aktuelle iPhone-/iPad-Store-Aufnahmen werden vor der Einreichung geprüft.
+80 neue Originalaufnahmen zeigen je fünf Motive in acht Sprachen auf
+iPhone 18 Pro Max und iPad Pro 13 Zoll (M5). Beide Screenshotdurchläufe
+sind bestanden; alle acht Kontaktbögen sind visuell geprüft. RGB-Format,
+Abmessungen, Vollständigkeit und lokale SHA-256-Prüfsummen sind bestätigt.
+Die Aufnahmen ersetzen die geerbten Bilder ausschließlich in Version 1.4.
+Alle 80 Bilder sind bei Apple **COMPLETE**; Dateireihenfolge, Abmessungen
+und MD5-Prüfsummen stimmen mit den lokalen Originalen überein.
 Preise, Länderverfügbarkeit und Testerkreis bleiben unverändert.
 
 Die strikten App-Store- und TestFlight-Prüfungen melden keine Fehler,
 Warnungen oder Blocker. Der informative App-Privacy-Hinweis wurde anhand der
 öffentlichen Apple-Seite geprüft: **Keine Daten erfasst** ist veröffentlicht.
-Die automatische App-Store-Veröffentlichung nach Freigabe ist vorgesehen;
-automatische Testerbenachrichtigung ist am Build aktiviert.
+Die automatische App-Store-Veröffentlichung nach Freigabe ist gespeichert.
+TestFlight ist eingereicht: **WAITING_FOR_BETA_REVIEW**, mit bestätigter
+Gruppenzuordnung und automatischer Testerbenachrichtigung nach Freigabe.
+Die Beta-Einreichungs-ID entspricht der Build-ID. Externe Installation von
+Build 13 ist vor Apples Freigabe noch nicht möglich.
+
+Quellcommit **89d3630de33493f90d02bdd405220c7378de0942** und annotierter Tag
+**v1.4-build.13** sind auf `origin` verifiziert. Alle 194 erfassten Quelldateien
+stimmen mit dem Archivierungsstand überein; die bereits vorhandene reine
+Umsortierung im Xcode-Projekt wurde strukturell normalisiert und unverändert
+im lokalen Arbeitsbaum belassen.
+
+Die beiden für diesen Release erzeugten temporären Simulatoren wurden nach
+dem Export der Aufnahmen heruntergefahren und entfernt. Der dauerhafte
+Projekt-iPhone-Simulator bleibt erhalten. Das Website-Paket bleibt beim
+veröffentlichten Stand 1.3.1.
 
 Lokale Nachweise: `.build/Release-1.4-13/` und
 `.build/Release-Status-2026-10-10/`.
+
+## Status erneut prüfen
+
+```sh
+asc review status --app 6818139673 --version 1.4 --platform IOS
+asc review submissions-get --id e8edde7e-a036-43b9-8c35-316992ffb363
+asc testflight distribution view --build-id 03388cfe-cbdd-4860-8336-26662a843e04
+asc testflight review submissions view --id 03388cfe-cbdd-4860-8336-26662a843e04
+```
+
+Letzte API-Bestätigung: `2026-10-10T21:50:30+00:00`. Der bestehende Review-Entwurf wurde
+nach vollständigem Screenshot-Upload wiederverwendet; es gibt keine doppelte
+Einreichung.
