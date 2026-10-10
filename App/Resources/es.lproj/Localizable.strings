@@ -127,7 +127,7 @@
 "show_last" = "Última jugada";
 "disable_stone_animations" = "Desactivar animaciones";
 "display_help" = "Sobre estas opciones";
-"display_help_body" = "Destinos posibles\nMarca puntos libres para colocar, destinos válidos para la ficha seleccionada y capturas disponibles. Desactivarlo oculta las marcas sin cambiar las reglas.\n\nÚltima jugada\nMuestra el destino, el origen y las fichas capturadas en el último turno. Las jugadas de la computadora también tienen una breve descripción. El historial está disponible de forma independiente.\n\nDetalles de la partida\nEncontrarás la dificultad, la variante y más información en Historial → Detalles de la partida. El nivel no es una puntuación Elo medida.\n\nEstas preferencias se guardan en este dispositivo. Las pistas solicitadas y el selector de jugadas posibles siguen disponibles aunque se oculten las marcas.\n\nDesactivar animaciones\nActívalo para mostrar los cambios al instante. Si está desactivado, las fichas se deslizan hasta su destino y aparecen o desaparecen suavemente al colocarlas o capturarlas. El ajuste Reducir movimiento de iOS tiene prioridad. La pausa para pensar de la computadora no cambia.\n\nLos tres interruptores están desactivados inicialmente: sin marcas de destinos ni de última jugada, con movimientos suaves de las fichas.\n\nColor de acento\nAzul pizarra es el color predeterminado. Tu elección se aplica a toda la app y se guarda en este dispositivo. La arena, el grafito y las fichas conservan sus colores.";
+"display_help_body" = "Destinos posibles\nMarca puntos libres para colocar, destinos válidos para la ficha seleccionada y capturas disponibles. Desactivarlo oculta las marcas sin cambiar las reglas.\n\nÚltima jugada\nMuestra el destino, el origen y las fichas capturadas en el último turno. Las jugadas de la computadora también tienen una breve descripción. El historial está disponible de forma independiente.\n\nDetalles de la partida\nEncontrarás la dificultad, la variante y más información en Historial → Detalles de la partida. El nivel no es una puntuación Elo medida.\n\nEstas preferencias se guardan en este dispositivo. Las pistas solicitadas y el selector de jugadas posibles siguen disponibles aunque se oculten las marcas.\n\nDesactivar animaciones\nActívalo para mostrar los cambios al instante. Si está desactivado, las fichas se deslizan hasta su destino y aparecen o desaparecen suavemente al colocarlas o capturarlas. El ajuste Reducir movimiento de iOS tiene prioridad. La pausa para pensar de la computadora no cambia.\n\nLos tres interruptores están desactivados inicialmente: sin marcas de destinos ni de última jugada, con movimientos suaves de las fichas.\n\nColor de acento\nAzul pizarra es el color predeterminado. Tu elección se aplica a toda la app y se guarda en este dispositivo. La arena, el grafito y las fichas conservan sus colores.\n\nConsejos y deshacer\nCada consejo mostrado y cada uso de deshacer quedan en el historial, incluso después de deshacer más jugadas. Las jugadas deshechas aparecen tachadas. Los detalles de la partida muestran los totales. Con los destinos legales activados, las fichas que se pueden capturar tienen un borde luminoso.";
 "computer_options" = "Dificultad";
 "computer_style" = "Estilo de juego";
 "opening_book" = "Apertura";
@@ -210,3 +210,12 @@
 "network_accept" = "Aceptar";
 "network_decline" = "Rechazar";
 "network_error_declined" = "La invitación se ha rechazado. Puedes buscar otra partida.";
+"history_hint" = "Consejo · %@";
+"history_undo" = "Deshacer · %d → %d";
+"move_undone" = "deshecho";
+"hints_used" = "Consejos usados: %d";
+"undos_used" = "Veces que se ha deshecho: %d";
+"assistance_past_unknown" = "El uso anterior de consejos y de deshacer no se registró en esta partida guardada.";
+"game_over" = "Partida terminada";
+"view_board" = "Ver tablero";
+"capturable_stone" = "se puede capturar";

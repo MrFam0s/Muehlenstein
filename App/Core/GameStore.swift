@@ -49,6 +49,15 @@ import Observation
     var canUndo: Bool { game?.settings.opponent != .network && !(game?.moves.isEmpty ?? true) && !isThinking }
     var canHint: Bool { game?.settings.opponent != .network && isHumanTurn }
     var hasOngoingGame: Bool { position?.isOver == false }
+    var hasUnacknowledgedResult: Bool {
+        guard let game, let position, position.isOver else { return false }
+        return game.dismissedResult != position.fen
+    }
+    func acknowledgeResult() {
+        guard let position, position.isOver else { return }
+        game?.dismissedResult = position.fen
+        persist()
+    }
 
     func start(_ settings: GameSettings) {
         guard settings.opponent != .network else { return }
@@ -56,7 +65,7 @@ import Observation
         network = nil
         cancelWork()
         do {
-            let next = SavedGame(settings: settings)
+            let next = SavedGame(settings: settings, history: GameHistory())
             let position = try Engine.query(next)
             boardID = UUID()
             game = next
@@ -82,7 +91,11 @@ import Observation
     private func observeNetwork() {
         network?.onUpdate = { [weak self] game, position in
             guard let self else { return }
-            self.game = game
+            var next = game
+            if self.game?.network?.id == game.network?.id, self.position?.fen == position.fen {
+                next.dismissedResult = self.game?.dismissedResult
+            }
+            self.game = next
             self.position = position
             self.selectedNode = nil
             self.hint = nil
@@ -113,6 +126,7 @@ import Observation
             return
         }
         guard var next = game, let position, position.legal.contains(action) else { return }
+        next.record(GameHistoryEntry(kind: .move, moveNumber: next.moves.count + 1, side: position.side, notation: action.notation))
         next.moves.append(MoveRecord(notation: action.notation, side: position.side))
         do {
             let updated = try Engine.query(next)
@@ -127,12 +141,18 @@ import Observation
     func undo() {
         guard canUndo, var next = game else { return }
         cancelWork()
+        let previousCount = next.moves.count
+        // Initialize the journal before removing moves, including legacy saves.
+        let previousEntries = next.historyEntries
+        if next.history == nil { next.history = GameHistory(includesWholeGame: false, entries: previousEntries) }
         if next.settings.opponent == .computer {
             while next.moves.last?.side == 1 { next.moves.removeLast() }
             while next.moves.last?.side == 0 { next.moves.removeLast() }
         } else { next.moves.removeLast() }
         do {
             let updated = try Engine.query(next)
+            next.record(GameHistoryEntry(kind: .undo, moveNumber: previousCount, side: position?.side ?? 0, remainingMoves: next.moves.count))
+            next.dismissedResult = nil
             game = next
             position = updated
             selectedNode = nil
@@ -206,6 +226,8 @@ import Observation
                     self.hint = best
                     self.hintExplanation = HintExplanation(action: best, source: result.moveSource, facts: result.moveInsights ?? [])
                     self.selectedNode = best.kind == 1 ? best.from : nil
+                    self.game?.record(GameHistoryEntry(kind: .hint, moveNumber: game.moves.count, side: result.side, notation: best.notation))
+                    self.persist()
                 } else { self.apply(best) }
             } catch is CancellationError {
                 guard let self, self.generation == token else { return }
@@ -241,10 +263,18 @@ import Observation
         } catch { errorMessage = L10n.text("save_error") }
     }
     // Deterministic UI-test fixture; never loaded during ordinary launches.
-    func loadPreviewGame() {
+    func loadPreviewGame(notations: [String] = ["a7", "d7", "g7", "b6", "d6", "f6", "c5", "d5"]) {
         cancelWork()
-        let moves = ["a7", "d7", "g7", "b6", "d6", "f6", "c5", "d5"]
-        let demo = SavedGame(settings: GameSettings(opponent: .local), moves: moves.enumerated().map { MoveRecord(notation: $0.element, side: $0.offset % 2) })
-        do { position = try Engine.query(demo); game = demo } catch { errorMessage = error.localizedDescription }
+        var demo = SavedGame(settings: GameSettings(opponent: .local), history: GameHistory())
+        do {
+            var updated = try Engine.query(demo)
+            for notation in notations {
+                demo.record(GameHistoryEntry(kind: .move, moveNumber: demo.moves.count + 1, side: updated.side, notation: notation))
+                demo.moves.append(MoveRecord(notation: notation, side: updated.side))
+                updated = try Engine.query(demo)
+            }
+            position = updated
+            game = demo
+        } catch { errorMessage = error.localizedDescription }
     }
 }

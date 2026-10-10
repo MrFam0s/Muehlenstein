@@ -16,18 +16,27 @@ struct HistoryView: View {
                 }.pickerStyle(.segmented).padding(.horizontal, 16).padding(.top, 8)
                     .accessibilityIdentifier("history_section")
                 if showsDetails { PagedReadingView(text: details) }
-                else if let game, !game.moves.isEmpty {
-                    PagedGrid(items: game.moves) { index, move in
+                else if let game, !game.historyEntries.isEmpty {
+                    let active = game.activeHistoryMoves
+                    PagedGrid(items: game.historyEntries) { index, entry in
                         HStack(spacing: 6) {
-                            Text("\(index + 1)").font(.caption2).monospacedDigit().foregroundStyle(Color.quietInk)
-                            Stone(side: move.side, size: 14)
-                            Text(move.notation).font(.system(.body, design: .monospaced))
+                            if entry.kind == .move {
+                                Text("\(entry.moveNumber)").font(.caption2).monospacedDigit().foregroundStyle(Color.quietInk)
+                                Stone(side: entry.side, size: 14)
+                                Text(entry.notation).font(.system(.body, design: .monospaced))
+                                    .strikethrough(!active.contains(index))
+                                    .foregroundStyle(active.contains(index) ? Color.ink : Color.quietInk)
+                            } else {
+                                Image(systemName: entry.kind == .hint ? "lightbulb" : "arrow.uturn.backward")
+                                Text(entry.kind == .hint ? L10n.format("history_hint", entry.notation) : L10n.format("history_undo", entry.moveNumber, entry.remainingMoves))
+                                    .font(.caption).lineLimit(2)
+                            }
                             Spacer(minLength: 0)
                         }.padding(.horizontal, 8).frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 10))
                             .accessibilityElement(children: .contain)
-                            .accessibilityLabel(L10n.text(move.side == 0 ? "white" : "black"))
-                            .accessibilityIdentifier("history_move_\(index)")
+                            .accessibilityLabel(historyLabel(entry, undone: entry.kind == .move && !active.contains(index)))
+                            .accessibilityIdentifier("history_\(entry.kind.rawValue)_\(index)")
                     }
                 } else { ContentUnavailableView(L10n.text("no_moves"), systemImage: "list.bullet") }
             }.background(Color.limestone)
@@ -36,12 +45,22 @@ struct HistoryView: View {
         }.presentationDetents(dynamicType.isAccessibilitySize ? [.large] : [.height(500), .large])
             .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : 500))
     }
+    private func historyLabel(_ entry: GameHistoryEntry, undone: Bool) -> String {
+        switch entry.kind {
+        case .move:
+            return "\(entry.moveNumber), \(L10n.text(entry.side == 0 ? "white" : "black")), \(entry.notation)" + (undone ? ", " + L10n.text("move_undone") : "")
+        case .hint: return L10n.format("history_hint", entry.notation)
+        case .undo: return L10n.format("history_undo", entry.moveNumber, entry.remainingMoves)
+        }
+    }
     private var details: String {
         guard let game, let position else { return L10n.text("no_moves") }
         let outcome = position.isOver
             ? (position.outcome == "draw" ? L10n.text("draw") : L10n.format("wins", L10n.text(position.winner == 0 ? "white" : "black")))
             : L10n.format("side_to_move", L10n.text(position.side == 0 ? "white" : "black"))
-        var lines = [L10n.text(game.settings.variant.key), outcome,
+        var lines = [L10n.text(game.settings.variant.key), outcome]
+        if game.settings.opponent != .network { lines.append(game.assistanceSummary) }
+        lines += [
             L10n.text(position.isOver ? "finished" : position.action == 2 ? "capture_phase" : position.phase == 2 ? "moving_phase" : "placing_phase"),
             L10n.moveCount(game.moves.count),
             L10n.format("side_counts", L10n.text("white"), position.onBoard[0], position.hand[0]),

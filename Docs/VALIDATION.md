@@ -838,3 +838,48 @@ Diese Prüfung betrifft den Distributionsstatus; die früheren Build- und
 Geräteprüfungen wurden nicht erneut ausgeführt. Nachweise:
 `.build/Release-Status-2026-10-08/` und
 [aktuelles Releaseprotokoll](../Store/RELEASE-1.3.1-11.md).
+
+## Verlauf, Spielende und Schlagziele — 10.10.2026
+
+**Bestanden:** Release-Simulatorbuild, alle 40 funktionalen GameStore-Tests
+und sechs gezielte UI-Abläufe. Die Änderungen liegen nach dem veröffentlichten
+Stand 1.3.1 (11); Versionsnummer, Buildnummer und Quelltag sind unverändert.
+
+- Der Verlauf behält angezeigte Tipps, Rücknahmen und verworfene Zugzweige
+  nach Speichern und erneutem Öffnen. Abbruch/Ausblenden eines Tipps,
+  nicht verfügbare Rücknahmen und eine neue Partie sind getrennt geprüft.
+- Ein veröffentlichter Spielstand ohne Journal wird weiter gelesen. Frühere
+  Hilfen gelten ausdrücklich als unbekannt; neue Ereignisse werden ergänzt.
+- Die 18 archivierten Offline-Partien prüfen die Ergebnisbestätigung,
+  Wiederherstellung sowie Rücknahme und erneutes Erreichen des Endes.
+  Die Netzwerk-Referenzpartien prüfen zusätzlich, dass unveränderte
+  Positionsmeldungen eine bestätigte Meldung nicht erneut öffnen.
+- UI-Prüfungen decken Verlauf/Spieldetails einschließlich Neustart,
+  ein- und ausgeschaltete Schlagziele für beide Steinfarben, geschützte
+  Mühlen, ruhige Tippanzeige und den bestehenden Schlag-/Rücknahmeablauf ab.
+  Siegmeldung, Bestätigung und Neustart sowie ein englisches Remis bei
+  größter Schrift im Querformat sind ebenfalls bestanden.
+- Die gesichteten Aufnahmen zeigen einen festen leuchtenden Rand um erlaubte
+  Schlagziele, lesbare Hilfen-Zähler und eine eindeutige Ergebnis-Meldung.
+  Der Rand verschwindet unmittelbar nach der Abnahme. Die Ergebnis-Meldung
+  verwendet den nativen Dialog; bei größter Schrift kann dessen Inhalt
+  scrollen, die Schaltfläche bleibt erreichbar.
+- Alle 221 Textschlüssel in acht Sprachen sind vollständig. Sechs bestehende
+  Python-Prüfungen sowie die Prüfung auf Whitespace-Fehler bestehen ebenfalls.
+
+Nachweise: `.build/Feedback-Verified.xcresult` (40 Funktions- und vier UI-Tests,
+Gesamtlauf erfolgreich), `.build/Feedback-Checks.xcresult` (die beiden
+erfolgreichen Ergebnis-UI-Tests) und zugehörige Protokolle/Attachment-Exporte.
+Im ersten Lauf wurden zwei Testannahmen korrigiert: die vorherige Anzahl von
+212 Sprachschlüsseln und das Antippen der ganzen Schalterzeile statt des
+eigentlichen Schalters. Der zweite Lauf bestätigt diese Prüfungen.
+
+Eine ergänzende Sichtprüfung im Dunkelmodus auf dem Projekt-iPhone 17e
+bestätigt Verlauf, Spieldetails, ein-/ausgeschaltete Schlagmarkierung und
+die Ergebnis-Meldung mit anschließender Brettansicht. Keine Überlagerungen
+oder abgeschnittenen Texte gefunden. Screenshots, UI-Hierarchie und
+Interaktionsprotokolle: `.build/Feedback-Visual-Dark/`. Die Prüfsitzung ist beendet.
+
+Geprüft auf dem projektspezifischen iPhone-Simulator mit iOS 27. Kein erneuter
+Test auf einem physischen iPhone, kein zweiter WLAN-Gerätetest, kein Apple-Upload.
+VoiceOver und Akkumessungen bleiben wie vereinbart zurückgestellt.

@@ -4,6 +4,64 @@ import UIKit
 @testable import Muehlenstein
 
 final class GameStoreTests: XCTestCase {
+    @MainActor func testAssistanceJournalSurvivesUndoBranchesAndRelaunch() async throws {
+        let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: file) }
+        let store = GameStore(storageURL: file)
+        store.start(GameSettings(opponent: .local, level: 4))
+        store.toggleHint()
+        store.toggleHint() // Cancel before the result is displayed.
+        try await Task.sleep(for: .milliseconds(50))
+        XCTAssertEqual(store.game?.hintCount, 0)
+        store.toggleHint()
+        try await waitForHuman(store)
+        XCTAssertEqual(store.game?.hintCount, 1)
+        store.toggleHint() // Hiding a displayed hint is not another use.
+        XCTAssertEqual(store.game?.hintCount, 1)
+        store.play(try XCTUnwrap(store.position?.legal.first))
+        store.undo()
+        XCTAssertEqual(store.game?.historyEntries.map(\.kind), [.hint, .move, .undo])
+        XCTAssertEqual(store.game?.undoCount, 1)
+        XCTAssertTrue(store.game?.activeHistoryMoves.isEmpty == true)
+        store.toggleHint()
+        try await waitForHuman(store)
+        store.suspend()
+        let restored = GameStore(storageURL: file)
+        XCTAssertEqual(restored.game?.hintCount, 2)
+        XCTAssertEqual(restored.game?.undoCount, 1)
+        XCTAssertEqual(restored.game?.historyEntries, store.game?.historyEntries)
+        XCTAssertTrue(restored.game?.moves.isEmpty == true)
+        restored.play(try XCTUnwrap(restored.position?.legal.first))
+        XCTAssertEqual(restored.game?.activeHistoryMoves, [4])
+        restored.play(try XCTUnwrap(restored.position?.legal.first))
+        restored.undo()
+        XCTAssertEqual(restored.game?.activeHistoryMoves, [4])
+        restored.undo()
+        restored.undo() // An unavailable undo is not logged.
+        XCTAssertEqual(restored.game?.undoCount, 3)
+        XCTAssertEqual(restored.game?.hintCount, 2)
+        XCTAssertEqual(restored.game?.history?.includesWholeGame, true)
+        restored.start(GameSettings(opponent: .local))
+        XCTAssertEqual(restored.game?.hintCount, 0)
+        XCTAssertEqual(restored.game?.undoCount, 0)
+        XCTAssertTrue(restored.game?.historyEntries.isEmpty == true)
+    }
+
+    @MainActor func testPublishedSaveWithoutJournalRetainsUnknownPastAssistance() throws {
+        let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: file) }
+        let old = SavedGame(settings: GameSettings(opponent: .local), moves: [MoveRecord(notation: "a7", side: 0)])
+        try JSONEncoder().encode(old).write(to: file)
+        let store = GameStore(storageURL: file)
+        XCTAssertNil(store.errorMessage)
+        XCTAssertNil(store.game?.history)
+        XCTAssertEqual(store.game?.historyEntries.count, 1)
+        store.undo()
+        XCTAssertEqual(store.game?.historyEntries.map(\.kind), [.move, .undo])
+        XCTAssertEqual(store.game?.history?.includesWholeGame, false)
+        XCTAssertEqual(GameStore(storageURL: file).game?.undoCount, 1)
+    }
+
     @MainActor func testNetworkDuplicateProposalAndLateAcknowledgementCannotAdvanceTwice() throws {
         let link = MatchTestLink()
         let host = LocalMatchSession(transport: link.white), guest = LocalMatchSession(transport: link.black)
@@ -115,6 +173,12 @@ final class GameStoreTests: XCTestCase {
             XCTAssertEqual(host.position?.fen, fixture.fen, fixture.name)
             XCTAssertEqual(guest.position?.outcome, fixture.outcome, fixture.name)
             XCTAssertFalse(host.canPlay); XCTAssertFalse(guest.canPlay)
+            XCTAssertTrue(white.hasUnacknowledgedResult); XCTAssertTrue(black.hasUnacknowledgedResult)
+            white.acknowledgeResult(); black.acknowledgeResult()
+            // Session snapshots do not own the local UI acknowledgement.
+            host.onUpdate?(try XCTUnwrap(host.game), try XCTUnwrap(host.position))
+            guest.onUpdate?(try XCTUnwrap(guest.game), try XCTUnwrap(guest.position))
+            XCTAssertFalse(white.hasUnacknowledgedResult); XCTAssertFalse(black.hasUnacknowledgedResult)
             host.stop(); guest.stop()
         }
     }
@@ -202,7 +266,7 @@ final class GameStoreTests: XCTestCase {
             return try XCTUnwrap(PropertyListSerialization.propertyList(from: Data(contentsOf: url), format: nil) as? [String: String])
         }
         let english = try strings("en")
-        XCTAssertEqual(english.count, 212)
+        XCTAssertEqual(english.count, 221)
         let format = try NSRegularExpression(pattern: "%[@d]")
         func arguments(_ value: String) -> [String] {
             format.matches(in: value, range: NSRange(value.startIndex..., in: value))
@@ -681,6 +745,10 @@ final class GameStoreTests: XCTestCase {
             XCTAssertEqual(store.position?.reason, fixture.reason, fixture.name)
             XCTAssertEqual(store.position?.fen, fixture.fen, fixture.name)
             XCTAssertTrue(store.position?.legal.isEmpty == true)
+            XCTAssertTrue(store.hasUnacknowledgedResult, fixture.name)
+            store.acknowledgeResult()
+            XCTAssertFalse(store.hasUnacknowledgedResult)
+            XCTAssertFalse(GameStore(storageURL: file).hasUnacknowledgedResult)
             store.tap(23)
             store.toggleHint()
             store.resumeComputer()
@@ -692,6 +760,7 @@ final class GameStoreTests: XCTestCase {
             let last = try XCTUnwrap(store.position?.legal.first { $0.notation == fixture.moves.last })
             store.play(last)
             XCTAssertEqual(store.position?.reason, fixture.reason)
+            XCTAssertTrue(store.hasUnacknowledgedResult, "Replaying an undone finish must announce the new result")
             for _ in fixture.moves { store.undo() }
             XCTAssertTrue(store.game?.moves.isEmpty == true)
             XCTAssertEqual(store.position?.fen, opening.fen)

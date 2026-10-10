@@ -38,7 +38,7 @@ struct BoardView: View {
         return ""
     }
     private func accessibilityValue(_ node: Int) -> String {
-        [selected == node ? L10n.text("selected") : "", destination(node) ? L10n.text("legal_target") : "", recentValue(node)]
+        [selected == node ? L10n.text("selected") : "", destination(node) ? L10n.text(position.action == 2 ? "capturable_stone" : "legal_target") : "", recentValue(node)]
             .filter { !$0.isEmpty }.joined(separator: ", ")
     }
     var body: some View {
@@ -100,7 +100,7 @@ struct BoardView: View {
                     ForEach(pieces) { piece in
                         Stone(side: piece.side, size: min(32, size * 0.09))
                             .overlay {
-                                if destination(piece.node) || hint?.to == piece.node {
+                                if hint?.to == piece.node {
                                     Circle().strokeBorder(palette.stoneMark(side: piece.side),
                                                           style: StrokeStyle(lineWidth: 2, dash: [3, 3]))
                                         .frame(width: 22, height: 22)
@@ -112,6 +112,19 @@ struct BoardView: View {
                     }
                 }.frame(width: size, height: size)
                     .animation(animateStones && !reduceMotion ? .easeInOut(duration: 0.32) : nil, value: pieces)
+                    .allowsHitTesting(false).accessibilityHidden(true)
+                // Capture choices belong to fixed board coordinates: the glow
+                // disappears immediately on capture, without following a fading stone.
+                ZStack {
+                    ForEach(pieces) { piece in
+                        if position.action == 2, destination(piece.node) {
+                            Circle().strokeBorder(palette.stoneMark(side: piece.side), lineWidth: 2.5)
+                                .frame(width: min(32, size * 0.09) + 8, height: min(32, size * 0.09) + 8)
+                                .shadow(color: palette.stoneMark(side: piece.side).opacity(0.65), radius: 4)
+                                .position(point(piece.node, size: size))
+                        }
+                    }
+                }.transaction { $0.animation = nil }
                     .allowsHitTesting(false).accessibilityHidden(true)
                 // Selection belongs to the fixed board, not the animated stone. Remove it
                 // immediately when a move starts, without a fading or travelling ring.

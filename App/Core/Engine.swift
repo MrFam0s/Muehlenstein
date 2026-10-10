@@ -102,6 +102,18 @@ struct MoveRecord: Codable, Equatable, Sendable {
     let notation: String
     let side: Int
 }
+struct GameHistoryEntry: Codable, Equatable, Sendable {
+    enum Kind: String, Codable, Sendable { case move, hint, undo }
+    var kind: Kind
+    var moveNumber: Int
+    var side: Int
+    var notation: String = ""
+    var remainingMoves: Int = 0
+}
+struct GameHistory: Codable, Sendable {
+    var includesWholeGame = true
+    var entries: [GameHistoryEntry] = []
+}
 struct SavedGame: Codable, Sendable {
     var schema = 2
     var engineRevision = "8901a06f088bf49a1602fee8686ed25ac5a33925"
@@ -109,6 +121,40 @@ struct SavedGame: Codable, Sendable {
     var moves: [MoveRecord] = []
     var updatedAt = Date()
     var network: LocalMatchIdentity?
+    // Optional so published 1.3.1 saves remain readable. Unknown past aid use
+    // must never be presented as proof that no assistance was used.
+    var history: GameHistory?
+    var dismissedResult: String?
+
+    var historyEntries: [GameHistoryEntry] {
+        history?.entries ?? moves.enumerated().map {
+            GameHistoryEntry(kind: .move, moveNumber: $0.offset + 1, side: $0.element.side, notation: $0.element.notation)
+        }
+    }
+    mutating func record(_ entry: GameHistoryEntry) {
+        if history == nil { history = GameHistory(includesWholeGame: false, entries: historyEntries) }
+        history?.entries.append(entry)
+    }
+    var hintCount: Int { historyEntries.filter { $0.kind == .hint }.count }
+    var undoCount: Int { historyEntries.filter { $0.kind == .undo }.count }
+    var assistanceSummary: String {
+        var lines = [L10n.format("hints_used", hintCount), L10n.format("undos_used", undoCount)]
+        if history?.includesWholeGame != true { lines.append(L10n.text("assistance_past_unknown")) }
+        return lines.joined(separator: "\n")
+    }
+    // Entries are retained when a move is undone; only the active path is marked
+    // as current. This also works after replacing an undone move with another one.
+    var activeHistoryMoves: Set<Int> {
+        var active: [Int] = []
+        for (index, entry) in historyEntries.enumerated() {
+            switch entry.kind {
+            case .move: active.append(index)
+            case .undo: active = Array(active.prefix(max(0, entry.remainingMoves)))
+            case .hint: break
+            }
+        }
+        return Set(active)
+    }
 }
 
 enum EngineError: LocalizedError {

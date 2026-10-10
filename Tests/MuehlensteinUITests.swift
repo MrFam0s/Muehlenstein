@@ -3,6 +3,90 @@ import XCTest
 import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    @MainActor func testAssistanceHistoryAndDetailsSurviveRelaunch() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        app.buttons["hint"].tap()
+        XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+        app.buttons["hint"].tap()
+        app.buttons["node_a7"].tap()
+        app.buttons["undo"].tap()
+        app.buttons["history"].tap()
+        XCTAssertTrue(app.descendants(matching: .any)["history_hint_0"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.descendants(matching: .any)["history_undo_2"].exists)
+        XCTAssertTrue(app.descendants(matching: .any)["history_move_1"].label.contains("zurückgenommen"))
+        record("Assistance-History", app: app)
+        app.segmentedControls["history_section"].buttons["Spieldetails"].tap()
+        XCTAssertTrue(app.textViews.firstMatch.value.debugDescription.contains("Tipps genutzt: 1"))
+        XCTAssertTrue(app.textViews.firstMatch.value.debugDescription.contains("Rücknahmen: 1"))
+        record("Assistance-Details", app: app)
+        app.terminate(); app.launch()
+        app.buttons["continue_game"].tap()
+        app.buttons["history"].tap()
+        XCTAssertTrue(app.descendants(matching: .any)["history_undo_2"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor func testCapturableStonesFollowLegalTargets() {
+        let app = launch()
+        app.buttons["new_game"].tap()
+        app.buttons["opponent_local"].tap()
+        app.buttons["start_game"].tap()
+        for node in ["c5", "a7", "d5", "d7", "e5"] { app.buttons["node_" + node].tap() }
+        XCTAssertFalse((app.buttons["node_a7"].value as? String ?? "").contains("kann entfernt werden"))
+        app.buttons["game_options"].tap(); app.buttons["Darstellung"].tap()
+        toggleSwitch("show_legal", in: app)
+        app.buttons["display_done"].tap()
+        XCTAssertTrue((app.buttons["node_a7"].value as? String ?? "").contains("kann entfernt werden"))
+        XCTAssertTrue((app.buttons["node_d7"].value as? String ?? "").contains("kann entfernt werden"))
+        XCTAssertFalse((app.buttons["node_c5"].value as? String ?? "").contains("kann entfernt werden"))
+        record("Capture-Targets-Black", app: app)
+        app.buttons["node_a7"].tap()
+        XCTAssertFalse((app.buttons["node_d7"].value as? String ?? "").contains("kann entfernt werden"))
+        for node in ["g7", "b6", "a7"] { app.buttons["node_" + node].tap() }
+        // The white mill is protected while b6 can be captured.
+        XCTAssertTrue((app.buttons["node_b6"].value as? String ?? "").contains("kann entfernt werden"))
+        XCTAssertFalse((app.buttons["node_c5"].value as? String ?? "").contains("kann entfernt werden"))
+        record("Capture-Targets-White", app: app)
+        app.buttons["game_options"].tap(); app.buttons["Darstellung"].tap()
+        toggleSwitch("show_legal", in: app); app.buttons["display_done"].tap()
+        XCTAssertFalse((app.buttons["node_b6"].value as? String ?? "").contains("kann entfernt werden"))
+    }
+
+    @MainActor func testGameOverNoticeDismissesAndDoesNotReturnOnRelaunch() {
+        let app = XCUIApplication()
+        let base = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launchArguments = base + ["-ui-demo", "-ui-moves", "d6,a4,g1,d2,f4,b4,c4,d1,d3,f2,b2,a7,a1,g7,d7,d5,e4,g4,e4-e5,d5-c5,e5-d5,xc5,b4-b6"]
+        app.launch()
+        app.buttons["node_c4"].tap(); app.buttons["node_b4"].tap()
+        XCTAssertTrue(app.alerts["Partie beendet"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.alerts.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Weiß gewinnt")).firstMatch.exists)
+        record("Game-Over-Win", app: app)
+        app.alerts.buttons["Brett ansehen"].tap()
+        XCTAssertTrue(app.buttons["history"].isHittable)
+        record("Game-Over-Board", app: app)
+        app.terminate(); app.launchArguments = base; app.launch()
+        app.buttons["continue_game"].tap()
+        XCTAssertTrue(app.buttons["history"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.alerts.count, 0)
+    }
+
+    @MainActor func testDrawNoticeInEnglishAtLargestText() {
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-demo", "-ui-moves", "g4,f2,e5,e3,a7,a4,g7,d5,d7,xe3,g1,d2,b4,c4,f4,f6,d6,d1,d3,e5-e4,d3-c3,e4-e3,c3-d3,e3-e4,d3-e3,e4-e5,e3-d3,e5-e4", "-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        XCTAssertTrue(app.alerts["Game over"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.alerts.buttons["View board"].isHittable)
+        record("Game-Over-Draw-Largest-Landscape", app: app)
+        app.alerts.buttons["View board"].tap()
+        XCTAssertTrue(app.buttons["history"].isHittable)
+    }
+
     @MainActor func testNewGameModeChangesKeepLayoutAndDisableComputerControls() {
         XCUIDevice.shared.orientation = .portrait
         let app = launch()
@@ -555,7 +639,8 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Eine Mühle."].exists)
         app.buttons["history"].tap()
         XCTAssertTrue(app.staticTexts["e5"].waitForExistence(timeout: 3))
-        XCTAssertFalse(app.staticTexts["xa7"].exists)
+        XCTAssertTrue(app.staticTexts["xa7"].exists)
+        XCTAssertTrue(app.otherElements["history_move_5"].label.contains("zurückgenommen"))
     }
     @MainActor func testComputerRepliesAndUndoReturnsToOpening() {
         let app = launch()
@@ -654,6 +739,8 @@ final class MuehlensteinUITests: XCTestCase {
                     app.buttons["node_\(node)"].tap()
                 }
             }
+            XCTAssertTrue(app.alerts["Partie beendet"].waitForExistence(timeout: 3))
+            app.alerts.buttons["Brett ansehen"].tap()
             XCTAssertTrue(app.buttons["play_again"].waitForExistence(timeout: 3))
             if fromHome {
                 app.navigationBars.buttons.element(boundBy: 0).tap()

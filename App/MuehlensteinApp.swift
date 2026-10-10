@@ -15,7 +15,11 @@ import SwiftUI
             testStorage = URL.applicationSupportDirectory.appending(path: "MuehlensteinTests/\(id.uuidString).json")
         }
         let store = GameStore(inMemory: isTest && testStorage == nil, storageURL: testStorage)
-        if ProcessInfo.processInfo.arguments.contains("-ui-demo") { store.loadPreviewGame() }
+        if isTest, args.contains("-ui-demo") {
+            if let index = args.firstIndex(of: "-ui-moves"), args.indices.contains(index + 1) {
+                store.loadPreviewGame(notations: args[index + 1].split(separator: ",").map(String.init))
+            } else { store.loadPreviewGame() }
+        }
         _store = State(initialValue: store)
         let defaults = isTest ? UserDefaults(suiteName: "MuehlensteinTests.\(testStorage?.lastPathComponent ?? UUID().uuidString)")! : .standard
         _preferences = State(initialValue: AppPreferences(defaults: defaults))

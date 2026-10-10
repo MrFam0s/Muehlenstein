@@ -14,6 +14,35 @@ The small C ABI accepts a versioned JSON request and returns owned JSON. Swift f
 
 A saved game records schema, pinned engine revision, preset/opponent/level/search algorithm/effort and canonical notation with actor labels. The development save format is now schema 2 with five difficulty levels. No migration of earlier development saves is provided; unknown enum values are rejected. The current state is always reconstructed using `GameKernel::apply`, including the upstream full-history repetition path. Writes are atomic in the app's Application Support directory. Incompatible or invalid saves show an error and remain untouched until the user explicitly starts a replacement game.
 
+### Assistance history and result acknowledgement — 10 October 2026
+
+Schema 2 now has optional `history` and `dismissedResult` fields; published
+1.3.1 saves still decode. The canonical `moves` list continues to contain only
+the current legal game. A separate chronological journal retains played moves,
+displayed hints and successful undo operations. An undo records the action
+count before and after it; all journal entries survive, including abandoned
+branches. The UI crosses out move entries outside the active branch. A hint
+is recorded only after a valid, uncancelled search result becomes visible;
+hiding it, a failed search and an unavailable undo do not add entries.
+One undo command counts once even when it removes a computer turn and several
+associated captures. New games start a fresh journal; restored journals retain
+their totals. For older saves, earlier assistance is explicitly unknown and
+only subsequent uses are counted. These are local game records, not a
+tamper-proof competition record or transmitted analytics.
+
+The result alert handles both wins and draws and defers while another game
+sheet is open. Its acknowledgement is saved against the terminal FEN, so
+reopening the game does not repeat it. Undo clears acknowledgement; replaying
+the finish announces the new result. Repeated network updates of the same
+position preserve the local acknowledgement. The network protocol itself is
+unchanged and still disallows hints and unilateral undo.
+
+Legal capture targets have a solid outline and glow when legal-target display
+and human interaction are enabled. The engine's legal list remains the sole
+source, including protected-mill exceptions. This stationary overlay has no
+pulse or movement animation and disappears immediately after capture; explicit
+hint markers remain available when automatic legal-target display is off.
+
 A snapshot request replays the bounded log (maximum 2048 individual actions). This is intentionally simple for the first integration milestone. Profile replay costs before longer records, analysis trees or networking. If an owned session handle replaces this transport later, preserve the versioned transcript as the durable interchange format.
 
 `Tests/Fixtures/offline-games.json` freezes 18 completed games (1,000 actions) from the archived search comparison, with archive SHA-256 and original outcome/FEN expectations. Rust replays every prefix and checks terminal results, flying and rejection of actions after game end. Swift plays the same corpus through board input, persists and reloads after each action, checks pending captures and repetition-based endings, then undoes to the opening. The fixture is a model-test resource only and is not bundled in the app. Separate cases cover protected mills, multiple captures, Lasker placement/movement, corrupt save metadata and search interruption.

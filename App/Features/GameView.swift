@@ -51,6 +51,16 @@ struct GameView: View {
                 .padding(12).frame(maxWidth: 1120).frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }.background(Color.limestone)
+        .alert(L10n.text("game_over"), isPresented: Binding(
+            get: { store.hasUnacknowledgedResult && !hasPresentedSheet },
+            set: { if !$0 { store.acknowledgeResult() } }
+        )) {
+            Button(L10n.text("view_board"), role: .cancel) { store.acknowledgeResult() }
+        } message: {
+            if let position = store.position {
+                Text(statusText(position) + (store.game?.settings.opponent == .network ? "" : "\n\n" + (store.game?.assistanceSummary ?? "")))
+            }
+        }
         .navigationTitle(L10n.text("app_name")).navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -99,13 +109,19 @@ struct GameView: View {
         }
         .sensoryFeedback(.selection, trigger: store.game?.moves.count ?? 0)
     }
+    private var hasPresentedSheet: Bool {
+        showingHistory || showingRules || showingNewGame || showingMoves || showingHintExplanation ||
+        showingDisplayOptions || showingComputerOptions || showingNetwork
+    }
     private func status(_ position: Position, compact: Bool) -> some View {
         VStack(spacing: 4) {
             ZStack {
-                Text(statusText(position)).font(.system(.title2, design: .serif).weight(.medium))
+                (position.isOver ? Text(Image(systemName: "flag.checkered")) + Text(" " + statusText(position)) : Text(statusText(position)))
+                    .font(.system(.title2, design: .serif).weight(.medium))
                     .lineLimit(dynamicType.isAccessibilitySize ? 2 : 1, reservesSpace: true).multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, minHeight: 44).padding(.horizontal, 24)
                     .accessibilityIdentifier("game_status")
+                    .accessibilityLabel(statusText(position))
                     .opacity(compact && store.hint != nil && !store.searchProgress.isVisible ? 0 : 1)
                     .accessibilityHidden(compact && store.hint != nil && !store.searchProgress.isVisible)
                     .overlay(alignment: .trailing) {

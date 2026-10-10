@@ -127,7 +127,7 @@
 "show_last" = "Dernier coup";
 "disable_stone_animations" = "Désactiver les animations";
 "display_help" = "À propos de ces options";
-"display_help_body" = "Destinations possibles\nIndique les points de pose libres, les destinations autorisées pour le pion sélectionné et les prises possibles. Désactiver l’option masque les repères sans changer les règles.\n\nDernier coup\nIndique l’arrivée, le départ et les pions pris lors du dernier tour. Les coups de l’ordinateur ont aussi une courte description. L’historique reste disponible indépendamment.\n\nDétails de la partie\nRetrouvez le niveau, la variante et les autres informations sous Historique → Détails de la partie. Le niveau n’est pas un classement Elo mesuré.\n\nCes préférences sont enregistrées sur cet appareil. Les conseils demandés et la liste des coups possibles restent disponibles sans les repères.\n\nDésactiver les animations\nActivez cette option pour des changements immédiats. Sinon, les pions glissent vers leur destination et apparaissent ou disparaissent en douceur lors des poses et des prises. Le réglage iOS Réduire les animations est prioritaire. La pause de réflexion de l’ordinateur ne change pas.\n\nLes trois interrupteurs sont désactivés par défaut : aucun repère de destination ou de dernier coup, avec des déplacements de pions doux.\n\nCouleur d’accent\nLe bleu ardoise est la couleur par défaut. Votre choix s’applique à toute l’app et est enregistré sur cet appareil. Le sable, le graphite et les pions conservent leurs couleurs.";
+"display_help_body" = "Destinations possibles\nIndique les points de pose libres, les destinations autorisées pour le pion sélectionné et les prises possibles. Désactiver l’option masque les repères sans changer les règles.\n\nDernier coup\nIndique l’arrivée, le départ et les pions pris lors du dernier tour. Les coups de l’ordinateur ont aussi une courte description. L’historique reste disponible indépendamment.\n\nDétails de la partie\nRetrouvez le niveau, la variante et les autres informations sous Historique → Détails de la partie. Le niveau n’est pas un classement Elo mesuré.\n\nCes préférences sont enregistrées sur cet appareil. Les conseils demandés et la liste des coups possibles restent disponibles sans les repères.\n\nDésactiver les animations\nActivez cette option pour des changements immédiats. Sinon, les pions glissent vers leur destination et apparaissent ou disparaissent en douceur lors des poses et des prises. Le réglage iOS Réduire les animations est prioritaire. La pause de réflexion de l’ordinateur ne change pas.\n\nLes trois interrupteurs sont désactivés par défaut : aucun repère de destination ou de dernier coup, avec des déplacements de pions doux.\n\nCouleur d’accent\nLe bleu ardoise est la couleur par défaut. Votre choix s’applique à toute l’app et est enregistré sur cet appareil. Le sable, le graphite et les pions conservent leurs couleurs.\n\nIndices et annulations\nChaque indice affiché et chaque annulation restent dans l’historique, même après d’autres annulations. Les coups annulés sont barrés. Les détails de la partie affichent les totaux. Lorsque les destinations autorisées sont activées, les pions pouvant être capturés ont un contour lumineux.";
 "computer_options" = "Difficulté";
 "computer_style" = "Style de jeu";
 "opening_book" = "Ouverture";
@@ -210,3 +210,12 @@
 "network_accept" = "Accepter";
 "network_decline" = "Refuser";
 "network_error_declined" = "L’invitation a été refusée. Vous pouvez chercher une autre partie.";
+"history_hint" = "Indice · %@";
+"history_undo" = "Annuler · %d → %d";
+"move_undone" = "annulé";
+"hints_used" = "Indices utilisés : %d";
+"undos_used" = "Annulations : %d";
+"assistance_past_unknown" = "L’utilisation antérieure des indices et des annulations n’a pas été enregistrée dans cette partie sauvegardée.";
+"game_over" = "Partie terminée";
+"view_board" = "Voir le plateau";
+"capturable_stone" = "peut être capturé";
