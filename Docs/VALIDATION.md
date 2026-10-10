@@ -960,3 +960,23 @@ Die umfassenderen Funktions- und Bedienprüfungen der vorherigen Abschnitte
 gelten für denselben Produktcode. Für den Versionsschritt kein erneuter
 physischer Geräte-/WLAN-Test, kein signiertes Gerätearchiv und kein Apple-Upload.
 [Releaseprotokoll](../Store/RELEASE-1.4-12.md).
+
+## Distributionsbuild 1.4 (13) — 10.10.2026
+
+Produktcode, Engine und Abhängigkeiten bleiben gegenüber `v1.4` unverändert.
+Die Buildnummer und der bestehende Versionsanzeige-Test sind auf **13**
+angehoben; neuer Quelltag **v1.4-build.13**.
+
+**44 Release-Prüfungen bestanden**, keine Fehler oder übersprungenen Tests:
+41 funktionale Modell-/Pakettests sowie Versionsanzeige/Lizenzen,
+grafische Rückschau und gespeicherte Spielhilfen im UI. Projekt-iPhone
+`4B91CD4C-CBD0-4993-85D7-2FA995662B84`, iOS 27. Nachweis:
+`.build/Release-1.4-13/Checks.xcresult`.
+
+Signiertes Gerätearchiv und App-Store-Export sind erfolgreich. Das IPA
+bestätigt Bundle-ID, Version/Build, Distributionssignatur, acht Sprachen,
+Privacy Manifest, Bonjour und Verschlüsselungsangaben. Sprachressourcen
+(230 Schlüssel) und Lizenzinventar sind geprüft. Apple hat den Build als
+`VALID` verarbeitet. Keine erneute physische WLAN-, VoiceOver- oder
+Akkuprüfung; die vorherige Funktionsabdeckung bleibt dokumentiert.
+[Distributionsprotokoll](../Store/RELEASE-1.4-13.md).

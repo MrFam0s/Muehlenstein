@@ -1,5 +1,16 @@
 # App-Store-Vorbereitung
 
+## Distribution — 10.10.2026, Version 1.4 (Build 13)
+
+Neuer Distributionsbuild **1.4 (13)**, Quelltag **v1.4-build.13**, mit dem
+Funktionsumfang des unveränderten Tags **v1.4 (12)**. Signiertes Archiv und
+IPA sind geprüft. Versionshinweise und TestFlight-Hinweise liegen in acht
+Sprachen vor. [Aktueller Prüf- und Distributionsstand](RELEASE-1.4-13.md).
+
+Die Statusprüfung am 10.10.2026 bestätigt **1.3.1 (11)** weiterhin im App
+Store und inzwischen auch für externe Tester (`IN_BETA_TESTING`). Die
+nachfolgenden Angaben zum Warten auf Beta Review sind historische Nachweise.
+
 ## Quellrelease — 10.10.2026, Version 1.4 (Build 12)
 
 Tag **v1.4** bündelt die grafische Rückschau, protokollierte Tipps und Rücknahmen,

@@ -1,23 +1,25 @@
 # Muehlenstein
 
-**Quellrelease 1.4 (Build 12)**, Tag
-[v1.4](https://github.com/MrFam0s/Muehlenstein/tree/v1.4): Tipps und Rücknahmen
+**Distributionsrelease 1.4 (Build 13)**, Quelltag **v1.4-build.13**:
+Tipps und Rücknahmen
 bleiben im Verlauf erhalten und werden in den Spieldetails zusammengefasst.
 Jeder Eintrag öffnet eine grafische Rückschau mit Vor-/Zurück-Steuerung,
 einschließlich Tipps und verworfener Zugfolgen. Eine Abschlusskarte im Stil
 der App zeigt Sieg oder Remis; erlaubte Abnahmen lassen sich hervorheben.
-Bestehende Spielstände bleiben lesbar. Für diesen Stand erfolgte noch kein
-Apple-Upload. [Versionshinweise](CHANGELOG.md) und
-[Releaseprotokoll](Store/RELEASE-1.4-12.md).
+Bestehende Spielstände bleiben lesbar. Der signierte Build ist bei Apple
+hochgeladen und verarbeitet; App-Store- und TestFlight-Einreichung werden vorbereitet.
+[Versionshinweise](CHANGELOG.md) und
+[Releaseprotokoll](Store/RELEASE-1.4-13.md). Der ursprüngliche Quelltag
+[v1.4](https://github.com/MrFam0s/Muehlenstein/tree/v1.4) bleibt bei Build 12.
 
 Zuletzt dokumentierter App-Store-Stand: **Version 1.3.1 (Build 11)** ergänzt den WLAN-Modus um einen bewusst
 fehlbaren Anfängergegner auf Stufe 1 und eine Einrichtung mit gleichbleibender
 Höhe beim Moduswechsel. [Verhalten und Vergleichspartien](Docs/AI_OPTIONS.md).
 Seit **08.10.2026, 10:53:55 Uhr (Europe/Berlin)** im App Store veröffentlicht
-(**`READY_FOR_DISTRIBUTION`**). TestFlight wartet separat auf Apples
-Beta-Freigabe (**`WAITING_FOR_BETA_REVIEW`**); Build 11 ist der Gruppe
+(**`READY_FOR_DISTRIBUTION`**). TestFlight ist inzwischen ebenfalls verfügbar
+(**`IN_BETA_TESTING`**); Build 11 ist der Gruppe
 **Externe Tests** mit drei Testern zugeordnet, automatische Benachrichtigung
-ist aktiviert. Status am **08.10.2026, 20:55 Uhr** erneut geprüft.
+ist aktiviert. Status am **10.10.2026** erneut geprüft.
 [Release- und Distributionsprotokoll](Store/RELEASE-1.3.1-11.md).
 
 Build 9 wurde zuvor zur App-Store-Prüfung eingereicht; sein unveränderter

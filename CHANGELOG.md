@@ -1,5 +1,15 @@
 # Versionshinweise
 
+## 1.4 · Build 13 — App-Store- und TestFlight-Distribution (10.10.2026)
+
+- Distributionsbuild für den bereits vorbereiteten Funktionsumfang von 1.4.
+  Produktcode, Engine und Abhängigkeiten entsprechen dem Quellrelease Build 12.
+- Buildnummer auf **13** angehoben; neuer Quelltag **v1.4-build.13**.
+  Der bestehende Tag **v1.4** bleibt unverändert.
+- Versionshinweise und TestFlight-Testhinweise in acht Sprachen vorbereitet.
+  Signiertes Archiv und App-Store-IPA erstellt und geprüft.
+- [Aktueller Prüf- und Distributionsstand](Store/RELEASE-1.4-13.md).
+
 ## 1.4 · Build 12 — Rückblick und Spielrückmeldungen (10.10.2026)
 
 Quellrelease **v1.4**. Noch kein Upload oder Review-Antrag bei Apple für diesen
