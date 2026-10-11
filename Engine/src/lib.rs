@@ -4,6 +4,9 @@ mod beginner;
 mod cancellation;
 mod move_insights;
 mod opening_book;
+mod variation;
+#[cfg(test)]
+mod variation_tests;
 
 use serde::Deserialize;
 use serde_json::{Value, json};
@@ -43,6 +46,9 @@ struct Request {
     purpose: SearchPurpose,
     #[serde(default)]
     selection_seed: Option<u64>,
+    // Explicit opt-in keeps archived bridge comparisons reproducible.
+    #[serde(default)]
+    varied_play: bool,
 }
 fn default_level() -> u8 {
     2
@@ -111,6 +117,31 @@ fn search_budget(level: u8, effort: Effort) -> (i32, u64) {
         (3, Effort::Extended) => (8, 1800),
         (4, Effort::Extended) => (12, 2600),
         (_, Effort::Extended) => (16, 3600),
+    }
+}
+
+// Vary order, not score: the engine still retains only a strict improvement.
+// In particular, root fail-low bounds must not be treated as equal-value moves.
+fn search_options(
+    request: &Request,
+    level: u8,
+    seed: Option<u64>,
+    time_limit_ms: Option<u64>,
+) -> SearchOptions {
+    SearchOptions {
+        time_limit_ms,
+        shuffle_root: seed.is_some(),
+        move_order_context: MoveOrderContext {
+            algorithm: match request.algorithm {
+                Algorithm::Mtdf => MoveOrderAlgorithm::Mtdf,
+                Algorithm::Pvs => MoveOrderAlgorithm::Pvs,
+            },
+            skill_level: (level + 1) * 4,
+            shuffling: seed.is_some(),
+            shuffle_seed: seed.unwrap_or_default(),
+            ..Default::default()
+        },
+        ..Default::default()
     }
 }
 
@@ -196,6 +227,15 @@ fn process(input: &str) -> Result<Value, String> {
         "searchDepth": 0, "searchNodes": 0, "moveSource": null, "moveInsights": []
     });
     if request.search && outcome_kind == "ongoing" && !legal.is_empty() {
+        // Fresh entropy on every decision, including after app restarts or undo.
+        // Hints stay stable; saved actions/replay never call this selection path.
+        let variation_seed = (request.varied_play
+            && matches!(request.purpose, SearchPurpose::Opponent))
+        .then(|| {
+            request
+                .selection_seed
+                .unwrap_or_else(|| RandomState::new().hash_one(&request.moves))
+        });
         if beginner && !beginner_hint {
             let seed = request
                 .selection_seed
@@ -213,6 +253,7 @@ fn process(input: &str) -> Result<Value, String> {
             request.opening_book,
             result["fen"].as_str().expect("exported FEN"),
             &legal,
+            variation_seed,
         ) {
             check_cancelled()?;
             result["best"] = action_json(action);
@@ -226,6 +267,9 @@ fn process(input: &str) -> Result<Value, String> {
         let mut workbench = game.build_workbench(&snapshot);
         // 16 MiB is a deliberate prototype budget; strength parity is not asserted.
         let mut searcher = Searcher::<MillGame>::with_shared_tt(SharedTt::with_capacity_mb(16, 14));
+        if let Some(seed) = variation_seed {
+            searcher.set_random_seed(seed);
+        }
         searcher.set_abort_flag(Arc::clone(&abort));
         searcher.set_policy(SearchPolicy {
             quiescence_kind_tag: Some(MillActionKind::Remove as i16),
@@ -241,19 +285,12 @@ fn process(input: &str) -> Result<Value, String> {
             if remaining.is_zero() {
                 break;
             }
-            searcher.set_options(SearchOptions {
-                time_limit_ms: Some(remaining.as_millis() as u64),
-                move_order_context: MoveOrderContext {
-                    algorithm: match request.algorithm {
-                        Algorithm::Mtdf => MoveOrderAlgorithm::Mtdf,
-                        Algorithm::Pvs => MoveOrderAlgorithm::Pvs,
-                    },
-                    skill_level: (search_level + 1) * 4,
-                    shuffling: false,
-                    ..Default::default()
-                },
-                ..Default::default()
-            });
+            searcher.set_options(search_options(
+                &request,
+                search_level,
+                variation_seed,
+                Some(remaining.as_millis() as u64),
+            ));
             let candidate = match request.algorithm {
                 Algorithm::Mtdf => searcher.search_mtdf_with_guess(&mut workbench, depth, guess),
                 Algorithm::Pvs => searcher.search_pvs(&mut workbench, depth),
@@ -711,7 +748,8 @@ mod tests {
                     let v = process(
                         &json!({"version":1,"preset":preset,
                         "moves":["c5","a7","d5","d7","e5"],"search":true,
-                        "level":level,"level_scale":"five","algorithm":algorithm})
+                        "level":level,"level_scale":"five","algorithm":algorithm,
+                        "varied_play":true,"selection_seed":42})
                         .to_string(),
                     )
                     .unwrap();
@@ -765,7 +803,7 @@ mod tests {
                 let result = process(
                     &json!({"version":1,"preset":0,"moves":["a7"],
                     "search":true,"level":5,"level_scale":"five","effort":"extended",
-                    "algorithm":algorithm,"search_id":id})
+                    "algorithm":algorithm,"search_id":id,"varied_play":true})
                     .to_string(),
                 );
                 send.send(result).unwrap();

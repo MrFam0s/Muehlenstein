@@ -1,6 +1,6 @@
 # Spielhilfen, Suchverfahren und Spielstärke
 
-Stand: 08.10.2026, Stufe 1 als eigener Anfängermodus und ruhige Einrichtung ergänzt. Die Optionsprüfung vom 01.10.2026 weiter unten beschreibt den damaligen Suchstand. Produktentscheidung für den lokalen Prototyp, einschließlich Abgleich mit der Original-App.
+Stand: 11.10.2026, automatische Zugvariation ergänzt. Stufe 1 bleibt der eigene Anfängermodus vom 08.10.2026. Die Optionsprüfung vom 01.10.2026 weiter unten beschreibt den damaligen Suchstand. Produktentscheidung einschließlich Abgleich mit der Original-App.
 
 **Ergänzung nach der unten dokumentierten ersten Optionsprüfung:** Das kleine klassische Eröffnungsorakel ist inzwischen integriert: automatisch auf Stufe 4/5, unter Erweitert → Eröffnung abschaltbar, mit legalitätsgeprüften Symmetrien und Such-Fallback. Die vollständige Perfect DB und ihre Teilpakete bleiben nach konkreter Aufwand-/Nutzenprüfung zurückgestellt. Die bisherige Bezeichnung „separater C++-Wrapper“ ist zu präzisieren: Upstream besitzt bereits einen Rust-nativen Leser mit optionalem C++-Vergleich. Entscheidung, Größen, Grenzen und Prüfungen stehen in `OPENING_AND_DATABASE.md`; die Tabelle unten berücksichtigt diese Ergänzung. Die Suchbudgets auf Stufe 2–5 bleiben gleich, Buchtreffer ändern auf Stufe 4/5 jedoch die Zugwahl. Die neue Ausnahme für Stufe 1 ist unten beschrieben.
 
@@ -23,6 +23,53 @@ Die geräteweit gespeicherten Spielhilfen schalten Zugziele, letzten Zug und Ste
 Ab Stufe 2 sind Tiefe und Zeit Suchgrenzen. Der Suchlauf kann früher enden; kooperative Zeitprüfung, Replay und Darstellung ergeben keine garantierte Gesamtantwortzeit. Beide Verfahren verwenden denselben Sanmill-Evaluator und reservieren jeweils 16 MiB Transpositionstabelle. Daraus folgt keine Gleichheit des gesamten Speicherverbrauchs oder der Laufzeit. Ein Vergleich auf echten iOS-Geräten bleibt offen. Die längere Suche erhöht die möglichen Rechenkosten; konkrete Energie- und Stärkegewinne sind noch zu messen.
 
 Die Entwicklung verwendet Spielstand-Schema 2 ohne Migration früherer Schemata. Der zusätzliche Stil wird mit der Partie gespeichert; fehlt das Feld, gilt die bisherige ausgewogene Bewertung. Die getrennte Engine-Schnittstelle kennzeichnet das Suchprofil mit `level_scale: "five"`; ihre alte Dreierskala bleibt ausschließlich zur eindeutigen Wiederholung archivierter Vergleichspläne verfügbar. Auch Vergleichspläne ohne Stil behalten ausdrücklich die bisherige ausgewogene Bewertung.
+
+## Abwechslung ohne absichtliche Schwächung — 11.10.2026
+
+Die Ursache wiederkehrender Computerpartien war die explizit abgeschaltete
+Zugmischung der Suche und die stets erste Empfehlung des Eröffnungsbuchs.
+Der Computer verwendet jetzt automatisch frische Auswahlzufallswerte pro
+Entscheidung. Dies gilt auch nach App-Neustart, Rücknahme und neuer Partie.
+Es gibt dafür keinen weiteren Schalter in der Oberfläche.
+
+- **Suche ab Stufe 2:** Die vorhandene Sanmill-Mischung der Zugprioritäten und
+  der Wurzelreihenfolge ist für MTD(f) und PVS aktiv. Taktische Prioritäten
+  bleiben berücksichtigt. Der beste Zug wird weiterhin nur bei einer besseren
+  Suchbewertung ersetzt; Bewertungen bekommen kein Zufallsrauschen. Es wird
+  nicht nachträglich unter vermeintlich gleich bewerteten PVS-/MTD(f)-Einträgen
+  ausgelost, deren Werte lediglich Suchschranken sein können.
+- **Eröffnungsbuch auf Stufe 4/5:** Auswahl ausschließlich unter den tatsächlich
+  legalen Empfehlungen des vorhandenen Sanmill-Orakels. Keine zusätzlichen
+  unbewerteten Linien und kein beliebiger Zufallszug. Die Orakelempfehlungen
+  sind weiterhin keine bewiesenen Perfect-DB-Werte.
+- **Stufe 1:** Der gesonderte Lerngegner bleibt bewusst fehlbar und zufällig;
+  seine Wahrscheinlichkeiten werden durch die neue Variation nicht verändert.
+- **Tipps:** Weiterhin die bisherige Suche bzw. erste Buch-Empfehlung. Die
+  Variation des Gegners ändert weder einen bereits gezeigten Tipp noch das
+  Hilfenprotokoll. Historische Züge und Rückschau werden nicht neu ausgewürfelt.
+- **Budgets:** Alle Tiefen, Zeitgrenzen, Bewertungsfunktionen und die
+  16-MiB-Suchtabelle bleiben erhalten. Eine andere Reihenfolge kann bei einer
+  Zeitgrenze eine andere abgeschlossene Tiefe erreichen. Gleiche Spielstärke
+  in sämtlichen Partien oder eine garantierte Niederlage des Menschen ist
+  damit nicht bewiesen. Eindeutig beste/erzwungene Züge dürfen sich wiederholen.
+
+Die Swift-Anbindung setzt intern `varied_play: true` nur für den Gegner.
+Alte Bridge-Aufrufe ohne dieses Feld behalten die bisherige Reihenfolge;
+archivierte Vergleiche bleiben interpretierbar. `selection_seed` erlaubt
+reproduzierbare Such- und Buchprüfungen. Im Spiel wird kein fester Seed aus
+dem Brett oder Spielstand abgeleitet. Neue Abhängigkeiten und Änderungen
+an vendorten Sanmill-Dateien sind nicht erforderlich.
+
+**Nachweis:** 68 Stellungen aus den bestehenden Referenzpartien, zwei Spielstile,
+zwei Verfahren und acht Seeds ergeben 2.176 Vergleiche bei Tiefe 3. Gegen eine
+vollständige Wurzelbewertung bleiben bester Wert und die Auswahl aus den besten
+Zügen erhalten, einschließlich 65 Fällen mit genau einer besten Antwort.
+Wiederholte Anfänge und Antworten auf denselben Menschenzug liefern verschiedene
+Züge. Hinzu kommen Legalitäts-/Buchprüfungen und 128 vollständige Partien der
+variierten gegen die bisherige Stufe 3, mit Farbtausch. Diese Stichprobe ist
+keine Elo-Kalibrierung oder statistischer Gleichwertigkeitsbeweis.
+[Vergleichsbericht](Benchmarks/ZUGVARIATION-2026-10-11.md),
+[App- und Engine-Prüfungen](VALIDATION.md).
 
 ## Sehr leicht als Lerngegner — 08.10.2026
 
@@ -97,7 +144,7 @@ Der am 01.10.2026 mit `git ls-remote` überprüfte öffentliche HEAD ist weiterh
 | „Menschliche Erfahrung“ | Der historische deutsche Text meint adaptive Setzphasen-Suchtiefe. Die aktuelle englische Beschriftung heißt „Use adaptive placement depth“. Kein trainiertes Modell und keine menschliche Partiedatenbank. Die Tabellen können Tiefe begrenzen. | Nicht als stärkesteigernden Zuschlag einschalten. Unsere festen Profile und Zeitgrenzen beibehalten; eine spätere Phasenoptimierung separat auf Qualität und Zeitersparnis prüfen. |
 | Auf Wegblockierung fokussieren | Unter bestimmten Bedingungen unterdrückt die Bewertung den Materialterm zugunsten der Beweglichkeit. Das betrifft die Setzphase und bestimmte Stellungen vor dem gegnerischen Springen. Der englische Originaltext warnt ausdrücklich vor schwächeren Zügen. | Als optionaler **Blockierstil** implementiert. **Ausgewogen** bleibt auf jeder Stufe Standard. Kein automatisches Zuschalten auf Stufe 5. |
 | Passiv | Begrenzt bei klarem Vorteil die weitere Suchtiefe; kann den schnellsten Gewinn verpassen. | Nicht übernehmen. Kein Stärkegewinn; eine versteckte Abschwächung innerhalb derselben Stufe wäre schwer verständlich. |
-| Zufällige Züge | „Vary move selection“ verändert Reihenfolge/Auswahl vergleichbarer Züge. Das ist vom separaten Verfahren „Random“, das einen beliebigen legalen Zug wählt, zu unterscheiden. Zeitbegrenzte Suche kann durch andere Reihenfolge ebenfalls andere Ergebnisse liefern. | Kein automatischer Stärkehebel. Ein späterer Schalter „Abwechslung“ wäre möglich, müsste schwächere Zufallszüge zuverlässig begrenzen und mit Seed reproduzierbar geprüft werden. Derzeit nicht eingebaut. |
+| Zufällige Züge | „Vary move selection“ verändert Reihenfolge/Auswahl vergleichbarer Züge. Das ist vom separaten Verfahren „Random“, das einen beliebigen legalen Zug wählt, zu unterscheiden. Zeitbegrenzte Suche kann durch andere Reihenfolge ebenfalls andere Ergebnisse liefern. | Seit 11.10.2026 automatisch für Computerzüge aktiv: variierte Suchreihenfolge und legale Orakelempfehlungen, mit reproduzierbaren Seeds geprüft. Kein zusätzlicher Stärkehebel oder UI-Schalter; Details oben. |
 | Eröffnungsbuch | Liefert frühe Züge vor der normalen Suche; das aktuelle eingebaute Buch hat eigene Varianten- und Phasengrenzen (Nine Men's Morris / El Filja). Legalitätsprüfung und Rückfall auf Suche sind nötig. | Inzwischen umgesetzt: nur das verfasste klassische Orakel, automatisch auf Stufe 4/5, abschaltbar, mit Legalitätsprüfung und Such-Fallback. Details in `OPENING_AND_DATABASE.md`. |
 | Perfekte Datenbank | Liefert bewiesen optimale Züge für abgedeckte Stellungen und exakt passende Regeln. Treffer umgehen weitgehend Stufe und Suchstil; fehlende Sektoren benötigen Such-Fallback. Separater Rust-nativer Leser mit optionalem C++-Vergleich und umfangreichen Datenpaketen, kein einzelnes Boolean in unserem Kern. | Nach konkreter Daten-/Aufwandsprüfung vorerst zurückgestellt, später für einen eigenen Analysemodus bewerten. Nicht als pauschales „Stufe 10 = perfekt“. Unsere Morabaraba-Variante erlaubt Mehrfachabnahme; der geprüfte Datenbank-Regelfilter verbietet sie. Ein passender Name allein genügt deshalb nicht. |
 | Fallen-Erkennung | `trapAwareness` markiert Fallen in der datenbankgestützten Analyse. Das ist nicht dasselbe wie die normale Suche nach taktischen Antworten. | Keine versteckte Stärkeoption. Erst zusammen mit einer künftigen Analyse-/Datenbankansicht sinnvoll. |

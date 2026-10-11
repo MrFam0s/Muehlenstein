@@ -242,13 +242,15 @@ enum Engine {
         let opening_book: Bool
         let search_id: UInt64?
         let purpose: String
+        let varied_play: Bool
     }
     static func query(_ game: SavedGame, search: Bool = false, isHint: Bool = false, cancellation: SearchCancellation? = nil) throws -> Position {
         let data = try JSONEncoder().encode(Request(preset: game.settings.variant.rawValue,
             moves: game.moves.map(\.notation), search: search, level: game.settings.level,
             algorithm: game.settings.algorithm, effort: game.settings.effort, style: game.settings.style,
             opening_book: game.settings.openingBook,
-            search_id: cancellation?.id, purpose: isHint ? "hint" : "opponent"))
+            search_id: cancellation?.id, purpose: isHint ? "hint" : "opponent",
+            varied_play: !isHint))
         let input = String(decoding: data, as: UTF8.self)
         let output = withExtendedLifetime(cancellation) {
             input.withCString { ms_request($0) }

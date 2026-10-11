@@ -1,0 +1,22 @@
+{
+  "seed": 2026101101,
+  "pairs_per_variant": 16,
+  "presets": [0, 1, 3, 5],
+  "a": {
+    "algorithm": "mtdf",
+    "level": 3,
+    "level_scale": "five",
+    "effort": "standard",
+    "selection_seed": 2026101102,
+    "varied_play": true
+  },
+  "b": {
+    "algorithm": "mtdf",
+    "level": 3,
+    "level_scale": "five",
+    "effort": "standard",
+    "varied_play": false
+  },
+  "max_actions": 512,
+  "max_seconds": 900
+}

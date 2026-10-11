@@ -1,0 +1,19 @@
+{
+  "source_sha256": {
+    "Engine/src/lib.rs": "ab07c9772c7c4b0695b3527f0a957405158b8243bf294f02b788d03f3fe2e95c",
+    "Engine/src/cancellation.rs": "0027b4130ee01d9aea12e614181e1e271519f783ffbb92bf2462af7d6fc92a3e",
+    "Engine/src/beginner.rs": "8bddc262306ccca8e9d8f27bc1664e6107612306c1a750cbde66f33fd2042ebf",
+    "Engine/src/variation.rs": "2d953e7fb2b388f7438457c98fffccca616865f83cbae93d48d93cb878404760",
+    "Engine/src/move_insights.rs": "163867a397f1d1457177d4428e923a6e1183dbdc95c43e6553c6f66eae9d3333",
+    "Engine/src/opening_book.rs": "46de43acbf0816304d94d8a2ff40ddea707723d8b182272695f17dbf2c4bf30b",
+    "Engine/examples/compare_search.rs": "cf29729fded34e0e156b30f7d237f0a607b2d04ae06ea5314f56943e76003f6b",
+    "Engine/Cargo.lock": "3ae111f0c41342fa32348ab14ceb13cd9ef6529c488eaf5ed42d8c13e1917018",
+    "Engine/UPSTREAM_SHA256.json": "eb75bbc550f5f461eb830fd980bbab573bc4626c562c9fcbfb0573922b885264",
+    "Scripts/compare-search.sh": "ddd082ac15c800bcab43c13f91f1fc818e00b9f7b4b0119968d0384037e1b531",
+    "Scripts/summarize-search.py": "bc0f1278babe2643e85546f54685434d76d8263a44046c07a2ca3c4574670894",
+    "Engine/target/release/examples/compare_search": "5cfd948c66c1a5db28f84314f0c0a1ea38866e7504522f3b6bc9a22fb3d463a8"
+  },
+  "verified_upstream_files": 86,
+  "host": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "machine": "arm64"
+}

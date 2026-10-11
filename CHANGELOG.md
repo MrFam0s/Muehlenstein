@@ -1,5 +1,12 @@
 # Versionshinweise
 
+## Noch nicht veröffentlicht — Abwechslungsreiche Computerzüge (11.10.2026)
+
+- Der Computer variiert die Suchreihenfolge in MTD(f) und PVS bei jeder neuen Entscheidung. Bewertung, Suchbudgets und Stufengrenzen bleiben erhalten; die Suche behält ihren besten Zug statt einen beliebigen legalen Zug zu wählen.
+- Das Eröffnungsbuch wechselt zwischen seinen legalen, von Sanmill empfohlenen Alternativen. Einträge mit nur einer Empfehlung bleiben eindeutig. Stufe 1 behält ihr bewusst fehlbares Verhalten.
+- Tipps bleiben von dieser Variation ausgenommen. Rückschau, gespeicherte Züge, Netzwerkpartien und Hilfen-Zähler verändern sich dadurch nicht.
+- Geprüft mit 2.176 Suchvergleichen bei gleicher Tiefe, 128 Vergleichspartien und 44 App-Funktionstests. [Verfahren und Grenzen](Docs/AI_OPTIONS.md). Version 1.4 (12) und Tag v1.4 bleiben unverändert.
+
 ## 1.4 · Build 13 — App-Store- und TestFlight-Distribution (10.10.2026)
 
 - Distributionsbuild für den bereits vorbereiteten Funktionsumfang von 1.4.

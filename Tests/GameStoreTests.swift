@@ -708,6 +708,32 @@ final class GameStoreTests: XCTestCase {
         XCTAssertEqual(try Engine.query(game, search: true).moveSource, "search")
     }
 
+    func testComputerVariesSearchAndBookWhileHintsAndReplayStayStable() throws {
+        for algorithm in SearchAlgorithm.allCases {
+            for level in [2, 4] {
+                let game = SavedGame(settings: GameSettings(level: level, algorithm: algorithm), moves: [])
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .sortedKeys
+                let before = try encoder.encode(game)
+                let position = try Engine.query(game)
+                let hint = try Engine.query(game, search: true, isHint: true)
+                var choices = Set<String>()
+                for _ in 0..<24 {
+                    let response = try Engine.query(game, search: true)
+                    let action = try XCTUnwrap(response.best)
+                    XCTAssertTrue(response.legal.contains(action))
+                    XCTAssertEqual(response.fen, position.fen)
+                    choices.insert(action.notation)
+                }
+                // Exercise the real unseeded Swift/C route, not just the Rust test hook.
+                XCTAssertGreaterThan(choices.count, 1, "Repeated games need different computer choices")
+                XCTAssertEqual(try Engine.query(game, search: true, isHint: true).best, hint.best)
+                XCTAssertEqual(try Engine.query(game).fen, position.fen)
+                XCTAssertEqual(try encoder.encode(game), before)
+            }
+        }
+    }
+
     func testComputerStylesPersistWithoutChangingRules() throws {
         for variant in Variant.allCases {
             let moves = [MoveRecord(notation: "a7", side: 0), MoveRecord(notation: "g7", side: 1)]

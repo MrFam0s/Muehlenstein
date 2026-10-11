@@ -961,6 +961,47 @@ gelten für denselben Produktcode. Für den Versionsschritt kein erneuter
 physischer Geräte-/WLAN-Test, kein signiertes Gerätearchiv und kein Apple-Upload.
 [Releaseprotokoll](../Store/RELEASE-1.4-12.md).
 
+## Variable Computerzugwahl — 11.10.2026
+
+Die App aktiviert für Computerentscheidungen die vorhandene Sanmill-Variation
+der Suchreihenfolge. Frische Seeds je Entscheidung vermeiden feste Antworten
+allein aufgrund der Brettkoordinaten. Buchtreffer variieren innerhalb der
+legalen Orakelempfehlungen. Bewertung, Suchbudgets, Speicherbudget, Lerngegner
+auf Stufe 1, Hinweise und gespeicherte Züge bleiben erhalten.
+
+Bestanden:
+
+- **31 Adaptertests im finalen Release-Lauf**, einschließlich 2.176 Vergleichen
+  bei gleicher Suchtiefe, Varianten-/Stufen-/Verfahrensmatrix, aktiver
+  Suchunterbrechung, wiederholbaren Seeds, legaler Buchauswahl und unterschiedlichen
+  Antworten auf denselben Menschenzug.
+- **288 bestehende Tests der unveränderten Sanmill-Pakete** (71 Core, 173 Mill,
+  44 Search). Der gesamte normale Engine-Prüflauf bestand ebenfalls; vor der
+  letzten Ergänzung des Antworttests enthielt er 30 Adaptertests.
+- **44 GameStore-Tests in der Release-Konfiguration auf iPhone 17e/iOS 27.**
+  Der neue Test verwendet die echte Swift-/C-Schnittstelle ohne vorgegebenen Seed
+  und sieht unterschiedliche Computerzüge sowohl aus der Suche als auch aus
+  dem Buch. Tipps bleiben stabil, das gespeicherte Spiel unverändert. Die
+  bestehenden Prüfungen für Rücknahme, Rückschau, Abbruch und Netzwerk bestehen.
+- **128 vollständige Vergleichspartien**, variierte gegen bisherige Stufe 3,
+  vier Varianten und Farbtausch, ohne Fehler oder abgeschnittene Partien.
+  [Ergebnisse und Grenzen](Benchmarks/ZUGVARIATION-2026-10-11.md).
+- Sechs Python-Prüfungen für Projektsynchronisierung und Vergleichsauswertung;
+  `git diff --check`. Keine Änderung am importierten Quellbestand oder an den
+  Lizenzabhängigkeiten.
+
+Lokale Nachweise: `.build/Variation-Final-Engine-Checks.log`,
+`.build/Variation-All-Engine-Tests.log`, `.build/Variation-App-Checks.xcresult`
+und `.build/Variation-App-Checks.log`. Der erste optimierte Host-Testlauf meldete
+eine fehlende optionale LLVM-Bibliothek beim Entfernen von Debug-Informationen;
+der abschließende Release-Lauf verwendet dafür `CARGO_PROFILE_RELEASE_STRIP=none`
+und besteht ohne diese Warnung.
+
+Die Oberfläche selbst wurde nicht verändert. Keine neue physische Geräteprüfung,
+kein Apple-Upload, keine Versionserhöhung; 1.4 (12) und der bestehende Quelltag
+bleiben erhalten. Die endlichen Such-/Partieprüfungen beweisen keine exakt
+gleichbleibende menschliche Spielstärke oder garantierte Unschlagbarkeit.
+
 ## Distributionsbuild 1.4 (13) — 10.10.2026
 
 Produktcode, Engine und Abhängigkeiten bleiben gegenüber `v1.4` unverändert.

@@ -99,7 +99,7 @@ def summarize(directory):
 
 def record_provenance(path):
     root = Path(__file__).resolve().parent.parent
-    files = ["Engine/src/lib.rs", "Engine/src/cancellation.rs", "Engine/src/beginner.rs",
+    files = ["Engine/src/lib.rs", "Engine/src/cancellation.rs", "Engine/src/beginner.rs", "Engine/src/variation.rs",
              "Engine/src/move_insights.rs", "Engine/src/opening_book.rs", "Engine/examples/compare_search.rs",
              "Engine/Cargo.lock", "Engine/UPSTREAM_SHA256.json", "Scripts/compare-search.sh", "Scripts/summarize-search.py",
              "Engine/target/release/examples/compare_search"]

@@ -1,5 +1,10 @@
 # Muehlenstein
 
+Entwicklung nach 1.4: Der Computer variiert seine Suchreihenfolge und die
+empfohlenen Eröffnungszüge. Bewertung und Suchbudgets bleiben erhalten;
+Tipps und Rückschau bleiben stabil. [Prüfung und Grenzen](Docs/AI_OPTIONS.md).
+Diese Ergänzung ist noch kein neuer App-Store-Release.
+
 **Distributionsrelease 1.4 (Build 13)**, Quelltag **v1.4-build.13**:
 Tipps und Rücknahmen
 bleiben im Verlauf erhalten und werden in den Spieldetails zusammengefasst.

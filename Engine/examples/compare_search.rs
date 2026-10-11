@@ -21,6 +21,8 @@ struct Player {
     style: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     selection_seed: Option<u64>,
+    #[serde(default)]
+    varied_play: bool,
 }
 fn balanced_style() -> String {
     "balanced".into()
@@ -71,7 +73,7 @@ impl Random {
 }
 
 fn query(preset: i32, moves: &[String], player: &Player, search: bool) -> Result<Value, String> {
-    // Fixed byte hashing makes beginner choices reproducible across host runs.
+    // Fixed byte hashing makes beginner and varied search choices reproducible.
     let selection_seed = player.selection_seed.map(|seed| {
         moves
             .iter()
@@ -83,7 +85,8 @@ fn query(preset: i32, moves: &[String], player: &Player, search: bool) -> Result
     let input = CString::new(
         json!({"version":1,"preset":preset,"moves":moves,"search":search,
         "level":player.level,"level_scale":player.level_scale,
-        "algorithm":player.algorithm,"effort":player.effort,"style":player.style,"selection_seed":selection_seed})
+        "algorithm":player.algorithm,"effort":player.effort,"style":player.style,
+        "selection_seed":selection_seed,"varied_play":player.varied_play})
         .to_string(),
     )
     .unwrap();
