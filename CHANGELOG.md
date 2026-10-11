@@ -2,7 +2,10 @@
 
 ## 1.4.1 · Build 14 — Abwechslungsreiche Computerzüge (11.10.2026)
 
-Distributionsrelease in Vorbereitung, Quelltag **v1.4.1**.
+Distributionsrelease, Quelltag **v1.4.1**. Am 11.10.2026 für App Store und
+TestFlight eingereicht; beide Apple-Prüfungen stehen aus. Automatische
+Veröffentlichung und Testerbenachrichtigung nach Freigabe. Ersetzt die
+App-Store-Einreichung von 1.4 (13). 319 Rust- und 46 Release-App-Prüfungen bestanden.
 [Release- und Prüfstand](Store/RELEASE-1.4.1-14.md).
 
 - Der Computer variiert die Suchreihenfolge in MTD(f) und PVS bei jeder neuen Entscheidung. Bewertung, Suchbudgets und Stufengrenzen bleiben erhalten; die Suche behält ihren besten Zug statt einen beliebigen legalen Zug zu wählen.

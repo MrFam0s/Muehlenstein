@@ -1,5 +1,19 @@
 # Mühlenstein 1.4 · Build 13
 
+## Nachtrag 11.10.2026: App-Store-Einreichung ersetzt
+
+Die erneute Statusprüfung bestätigte `IN_REVIEW` für den App Store und
+`WAITING_FOR_BETA_REVIEW` für TestFlight. Für die vom Nutzer beauftragte
+Veröffentlichung der neueren Computerzug-Variation wurde die
+App-Store-Einreichung `e8edde7e-a036-43b9-8c35-316992ffb363` zurückgezogen.
+Apple bestätigte `COMPLETE` für die beendete Einreichung und
+`DEVELOPER_REJECTED` für die Version. Der bestehende Versionsdatensatz wurde
+auf **1.4.1** umgestellt; die Screenshots bleiben erhalten. Das ist keine
+inhaltliche Ablehnung durch Apple. Der TestFlight-Build 13 wurde nicht beendet.
+[Nachfolgender Release 1.4.1 (14)](RELEASE-1.4.1-14.md).
+
+Die nachfolgenden Angaben bewahren den Stand vom 10.10.2026.
+
 Stand: 10.10.2026. Distribution auf Nutzerauftrag für App Store und die
 bestehende TestFlight-Gruppe. Version 1.3.1 (11) war bei der Ausgangsprüfung
 bereits im App Store veröffentlicht und extern in TestFlight verfügbar.

@@ -1,6 +1,6 @@
 # Mühlenstein 1.4.1 · Build 14
 
-Stand: 11.10.2026. Auf Nutzerauftrag vorbereiteter Release für App Store und
+Stand: 11.10.2026. Auf Nutzerauftrag eingereichter Release für App Store und
 die bestehende externe TestFlight-Gruppe. Die Ausgangsprüfung bestätigt
 Version **1.3.1 (11)** als veröffentlicht. **1.4 (13)** ist `IN_REVIEW` und
 wartet in TestFlight auf Beta-Freigabe. Der lokale Quellstand `1ac4ccc`
@@ -9,7 +9,7 @@ mit abwechslungsreicheren Computerzügen war noch nicht hochgeladen.
 ## Identität und Umfang
 
 - App `6818139673`, Bundle-ID `org.amosystems.Muehlenstein`, iOS.
-- Neue Version **1.4.1**, Build **14**, vorgesehener annotierter Tag **v1.4.1**.
+- Neue Version **1.4.1**, Build **14**, annotierter Tag **v1.4.1**.
 - Die Computerentscheidung variiert die Suchreihenfolge und die Auswahl
   empfohlener Buchzüge. Bewertung, Suchbudgets und Stufengrenzen bleiben
   erhalten; Tipps sind von der Variation ausgenommen.
@@ -55,6 +55,52 @@ Die Such-/Partieprüfungen belegen keine exakt gleiche menschliche Spielstärke.
 
 ## Distribution
 
-Die Veröffentlichung und TestFlight-Verteilung sind in Vorbereitung.
-Dieses Protokoll wird nach Prüfung und Apple-Einreichung mit den tatsächlich
-bestätigten Zuständen und Kennungen ergänzt.
+| Kanal | Von Apple bestätigter Stand am 11.10.2026 |
+| --- | --- |
+| App Store | **WAITING_FOR_REVIEW**, eingereicht um **18:40:52 Uhr (Europe/Berlin)** |
+| Veröffentlichung | **AFTER_APPROVAL**, automatisch nach Freigabe |
+| TestFlight extern | **WAITING_FOR_BETA_REVIEW**, eingereicht um **18:41:09 Uhr (Europe/Berlin)** |
+| Tester | **Externe Tests**, drei Tester, Build-Zuordnung bestätigt, `autoNotifyEnabled = true` |
+| Bereits veröffentlicht | **1.3.1 (11)** bleibt im App Store verfügbar |
+
+Build 14 ist als `VALID` verarbeitet. App-Store- und TestFlight-Validierung
+melden jeweils **0 Fehler, 0 Warnungen, 0 Blocker**. Den informativen
+App-Privacy-Hinweis deckt die öffentliche Apple-Seite mit **Keine Daten
+erfasst** ab; die Datenverarbeitung hat sich nicht geändert. Alle acht
+Versionslokalisierungen und Testanleitungen sind bei Apple gespeichert und
+erneut mit den kanonischen Dateien abgeglichen.
+
+- Build-ID und Beta-Einreichung: `45c1b8fb-6f0b-40d7-b8a8-3fb8b2639c63`.
+- App-Store-Version: `fb6a5be1-03a5-48c1-8d96-b5d486cbd729`, mit Build 14 verknüpft.
+- App-Store-Einreichung: `8de01bf4-8894-445b-b50c-58fc48878ca7`, genau eine App-Version.
+- Apple-Einreichungszeit: `2026-10-11T16:40:52.39Z`.
+- Beta-Einreichungszeit: `2026-10-11T09:41:09-07:00`.
+- Gruppe: `d6665987-bb28-44ae-9306-0125eda4801e`.
+
+Die bisherige App-Store-Einreichung von 1.4 (13) wurde für diesen neueren
+Quellstand zurückgezogen. Nach Bestätigung durch Apple wurde der vorhandene
+Versionsdatensatz auf 1.4.1 umgestellt und Build 14 angehängt. Dadurch bleiben
+die 80 geprüften Screenshots erhalten. Die frühere Einreichung ist beendet;
+es besteht genau eine aktive App-Store-Einreichung. Ältere TestFlight-Builds
+wurden nicht beendet. Preise, Länderverfügbarkeit und Testerkreis bleiben
+unverändert.
+
+**Build 14 ist noch nicht öffentlich oder extern installierbar.** Beide
+Apple-Freigaben stehen aus. Store-Veröffentlichung und Testerbenachrichtigung
+erfolgen nach der jeweiligen Freigabe automatisch.
+
+Quellcommit **e2ea4616a012f5c3bdf0d2a1b8c6bc98f8492e51** und Tag **v1.4.1**
+sind auf `origin` verifiziert. Alle **196 erfassten Quelldateien** stimmen
+mit dem Archivierungsstand überein; das Xcode-Projekt wurde dabei zusätzlich
+strukturell verglichen. Keine temporären Simulatoren angelegt.
+
+## Status erneut prüfen
+
+```sh
+asc review status --app 6818139673 --version 1.4.1 --platform IOS
+asc review submissions-get --id 8de01bf4-8894-445b-b50c-58fc48878ca7
+asc testflight distribution view --build-id 45c1b8fb-6f0b-40d7-b8a8-3fb8b2639c63
+asc testflight review submissions view --id 45c1b8fb-6f0b-40d7-b8a8-3fb8b2639c63
+```
+
+Letzte API-Bestätigung: `2026-10-11T16:42:55+00:00`.

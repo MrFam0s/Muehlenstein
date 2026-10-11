@@ -2,14 +2,20 @@
 
 ## Distribution release 1.4.1 (14) — 2026-10-11
 
-Version **1.4.1**, build **14**, is being prepared for App Store and the
-existing external TestFlight group. It includes varied computer search and
-opening choices plus the unreleased 1.4 features. Intended source tag:
-**v1.4.1**. [Current release record](../Store/RELEASE-1.4.1-14.md).
+Version **1.4.1**, build **14**, has been submitted to App Store review at
+**16:40:52 UTC** and TestFlight beta review at **16:41:09 UTC** on 2026-10-11.
+App Store: **WAITING_FOR_REVIEW**, automatic release after approval.
+TestFlight: **WAITING_FOR_BETA_REVIEW**, assigned to **Externe Tests** with
+three testers and automatic notification enabled. These are pending
+submissions; build 14 is not yet publicly or externally installable.
+It includes varied computer search and opening choices plus the unreleased
+1.4 features. Source tag **v1.4.1**, commit **e2ea461**; both pushed and verified.
+319 Rust checks and 46 Release app checks passed. All eight localized notes
+and 80 screenshots are verified. [Current release record](../Store/RELEASE-1.4.1-14.md).
 
-The initial live check confirms **1.3.1 (11)** as published. The prior
-**1.4 (13)** submission is `IN_REVIEW`; its external beta still awaits
-approval. The following sections retain their dated historical evidence.
+The live check confirms **1.3.1 (11)** as published. The prior **1.4 (13)**
+App Store submission was withdrawn and replaced by 1.4.1 (14); older beta
+builds remain unexpired. The following sections retain dated historical evidence.
 
 ## Distribution release 1.4 (13) — 2026-10-10
 

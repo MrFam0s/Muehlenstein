@@ -1,15 +1,19 @@
 # Muehlenstein
 
-**Version 1.4.1 (Build 14)** ist für App Store und TestFlight in Vorbereitung.
+**Version 1.4.1 (Build 14)**, Quelltag **v1.4.1**, ist am 11.10.2026 für
+App Store und TestFlight eingereicht. **App Store: `WAITING_FOR_REVIEW`**;
+**TestFlight: `WAITING_FOR_BETA_REVIEW`**, der Gruppe **Externe Tests** mit
+drei Testern zugeordnet. Veröffentlichung und Testerbenachrichtigung erfolgen
+nach der jeweiligen Apple-Freigabe automatisch. Noch nicht neu installierbar.
 Der Computer variiert seine Suchreihenfolge und die
 empfohlenen Eröffnungszüge. Bewertung und Suchbudgets bleiben erhalten;
 Tipps und Rückschau bleiben stabil. [Prüfung und Grenzen](Docs/AI_OPTIONS.md).
 [Aktuelles Releaseprotokoll](Store/RELEASE-1.4.1-14.md).
 
-Die Statusprüfung am 11.10.2026 bestätigt **1.3.1 (11)** als veröffentlicht;
-**1.4 (13)** befindet sich in App-Store-Prüfung (`IN_REVIEW`) und wartet
-separat auf Beta-Freigabe. Die folgenden Absätze bewahren den Stand der
-vorherigen Einreichungen.
+Die Statusprüfung am 11.10.2026 bestätigt **1.3.1 (11)** als veröffentlicht.
+Die App-Store-Einreichung von **1.4 (13)** wurde durch **1.4.1 (14)** ersetzt.
+319 Rust-Prüfungen und 46 Release-App-Prüfungen bestanden. Die folgenden
+Absätze bewahren den Stand der vorherigen Einreichungen.
 
 **Distributionsrelease 1.4 (Build 13)**, Quelltag **v1.4-build.13**:
 Tipps und Rücknahmen

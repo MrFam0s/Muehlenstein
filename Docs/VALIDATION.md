@@ -19,6 +19,12 @@ Nachweise: `.build/Release-1.4.1-14/Checks.xcresult`, `Engine-Tests.log`,
 `ipa-verification.json` und `screenshot-verification.json` in demselben Ordner.
 [Release- und Distributionsstand](../Store/RELEASE-1.4.1-14.md).
 
+App Store und TestFlight melden nach Einreichung `WAITING_FOR_REVIEW` bzw.
+`WAITING_FOR_BETA_REVIEW`. Beide strikten Bereitschaftsprüfungen: 0 Fehler,
+0 Warnungen, 0 Blocker. Acht Versionslokalisierungen und Testanleitungen
+sind vollständig erneut abgeglichen; Build 14 ist der bestehenden Gruppe
+mit drei Testern zugeordnet, automatische Benachrichtigung ist aktiviert.
+
 Lokaler Entwicklungsstand, Xcode 27.0, Swift 6.4, offizieller projektlokaler Rust-Compiler 1.98.1. Deployment-Ziel iOS 18.0. Die Simulatoren verwenden iOS 27.0.
 
 ## Bestätigte Icon-Farbinversion — 01.10.2026

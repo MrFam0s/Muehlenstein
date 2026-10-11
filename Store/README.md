@@ -4,13 +4,18 @@
 
 Der neue Build ergänzt abwechslungsreichere Computerzüge und enthält den
 Funktionsumfang von 1.4. Version **1.4.1 (14)** und Quelltag **v1.4.1** sind
-für App Store und die bestehende TestFlight-Gruppe in Vorbereitung.
-Versions- und Testhinweise liegen in acht Sprachen vor.
+geprüft, committet und gepusht. App Store: **`WAITING_FOR_REVIEW`**, eingereicht
+um **18:40:52 Uhr (Europe/Berlin)**. TestFlight: **`WAITING_FOR_BETA_REVIEW`**,
+eingereicht um **18:41:09 Uhr**, den drei bestehenden Testern zugeordnet.
+Veröffentlichung und Testerbenachrichtigung erfolgen nach Freigabe automatisch.
+319 Rust- und 46 Release-App-Prüfungen bestanden. Versions- und Testhinweise
+liegen in acht Sprachen bei Apple vor; alle 80 Store-Bilder sind geprüft.
 [Aktueller Release- und Prüfstand](RELEASE-1.4.1-14.md).
 
-Die Ausgangsprüfung bestätigt 1.3.1 (11) als veröffentlicht. Die vorherige
-Version 1.4 (13) ist `IN_REVIEW` und wartet auf Beta-Freigabe. Nachfolgende
-Abschnitte dokumentieren den früheren, jeweils datierten Stand.
+1.3.1 (11) bleibt veröffentlicht. Die vorherige App-Store-Einreichung von
+1.4 (13) wurde durch 1.4.1 (14) ersetzt. Build 14 ist noch nicht öffentlich
+oder extern installierbar. Nachfolgende Abschnitte dokumentieren den
+früheren, jeweils datierten Stand.
 
 ## Distribution — 10.10.2026, Version 1.4 (Build 13)
 
