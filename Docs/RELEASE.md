@@ -1,5 +1,16 @@
 # Distribution requirements and open decisions
 
+## Distribution release 1.4.1 (14) — 2026-10-11
+
+Version **1.4.1**, build **14**, is being prepared for App Store and the
+existing external TestFlight group. It includes varied computer search and
+opening choices plus the unreleased 1.4 features. Intended source tag:
+**v1.4.1**. [Current release record](../Store/RELEASE-1.4.1-14.md).
+
+The initial live check confirms **1.3.1 (11)** as published. The prior
+**1.4 (13)** submission is `IN_REVIEW`; its external beta still awaits
+approval. The following sections retain their dated historical evidence.
+
 ## Distribution release 1.4 (13) — 2026-10-10
 
 Build **13** has been submitted to App Store review and TestFlight with the

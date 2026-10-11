@@ -1,5 +1,17 @@
 # App-Store-Vorbereitung
 
+## Distribution — 11.10.2026, Version 1.4.1 (Build 14)
+
+Der neue Build ergänzt abwechslungsreichere Computerzüge und enthält den
+Funktionsumfang von 1.4. Version **1.4.1 (14)** und Quelltag **v1.4.1** sind
+für App Store und die bestehende TestFlight-Gruppe in Vorbereitung.
+Versions- und Testhinweise liegen in acht Sprachen vor.
+[Aktueller Release- und Prüfstand](RELEASE-1.4.1-14.md).
+
+Die Ausgangsprüfung bestätigt 1.3.1 (11) als veröffentlicht. Die vorherige
+Version 1.4 (13) ist `IN_REVIEW` und wartet auf Beta-Freigabe. Nachfolgende
+Abschnitte dokumentieren den früheren, jeweils datierten Stand.
+
 ## Distribution — 10.10.2026, Version 1.4 (Build 13)
 
 Neuer Distributionsbuild **1.4 (13)**, Quelltag **v1.4-build.13**, mit dem

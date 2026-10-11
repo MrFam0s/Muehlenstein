@@ -1,9 +1,15 @@
 # Muehlenstein
 
-Entwicklung nach 1.4: Der Computer variiert seine Suchreihenfolge und die
+**Version 1.4.1 (Build 14)** ist für App Store und TestFlight in Vorbereitung.
+Der Computer variiert seine Suchreihenfolge und die
 empfohlenen Eröffnungszüge. Bewertung und Suchbudgets bleiben erhalten;
 Tipps und Rückschau bleiben stabil. [Prüfung und Grenzen](Docs/AI_OPTIONS.md).
-Diese Ergänzung ist noch kein neuer App-Store-Release.
+[Aktuelles Releaseprotokoll](Store/RELEASE-1.4.1-14.md).
+
+Die Statusprüfung am 11.10.2026 bestätigt **1.3.1 (11)** als veröffentlicht;
+**1.4 (13)** befindet sich in App-Store-Prüfung (`IN_REVIEW`) und wartet
+separat auf Beta-Freigabe. Die folgenden Absätze bewahren den Stand der
+vorherigen Einreichungen.
 
 **Distributionsrelease 1.4 (Build 13)**, Quelltag **v1.4-build.13**:
 Tipps und Rücknahmen

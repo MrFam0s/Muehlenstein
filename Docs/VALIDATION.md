@@ -1,5 +1,24 @@
 # Prüfstand — begonnen 30.09.2026, ergänzt 01.10.2026
 
+## Distributionsbuild 1.4.1 (14) — 11.10.2026
+
+**319 Rust-Prüfungen** und **46 Release-App-Prüfungen** bestanden: 31 eigene
+Engine-/Variationsprüfungen, 288 Upstream-Bibliothekstests, 42 funktionale
+Modelltests und vier UI-Abläufe. Die UI-Prüfungen decken Version/Lizenzen,
+Computerantwort/Rücknahme, grafische Rückschau und gespeicherte Spielhilfen
+auf dem dauerhaften Projekt-iPhone mit iOS 27 ab.
+
+Archiv und App-Store-Export sind erfolgreich; Version 1.4.1, Build 14,
+Bundle-ID, Signatur, acht Sprachen, Privacy Manifest und Netzwerkdeklaration
+sind geprüft. Sprach- und Lizenzprüfung bestehen. 80 bestehende Store-Bilder
+sind bei Apple vollständig verarbeitet und stimmen in Reihenfolge,
+Abmessungen und Prüfsummen mit den Originalen überein. Keine neue physische
+WLAN-, VoiceOver- oder Akkuprüfung.
+
+Nachweise: `.build/Release-1.4.1-14/Checks.xcresult`, `Engine-Tests.log`,
+`ipa-verification.json` und `screenshot-verification.json` in demselben Ordner.
+[Release- und Distributionsstand](../Store/RELEASE-1.4.1-14.md).
+
 Lokaler Entwicklungsstand, Xcode 27.0, Swift 6.4, offizieller projektlokaler Rust-Compiler 1.98.1. Deployment-Ziel iOS 18.0. Die Simulatoren verwenden iOS 27.0.
 
 ## Bestätigte Icon-Farbinversion — 01.10.2026
