@@ -93,6 +93,7 @@ struct HistoryView: View {
 private struct GameReplayView: View {
     @Environment(\.accentPalette) private var palette
     @Environment(\.dynamicTypeSize) private var dynamicType
+    @Environment(\.usesCompactSideToolbar) private var usesCompactSideToolbar
     @Environment(AppPreferences.self) private var preferences
     let game: SavedGame
     @State private var step: Int
@@ -106,7 +107,15 @@ private struct GameReplayView: View {
         GeometryReader { geometry in
             if let frame {
                 Group {
-                    if geometry.size.width > geometry.size.height {
+                    if #available(iOS 27.1, *), !geometry.reservedRegions(kind: .division).isEmpty {
+                        ArrangementView {
+                            board(frame)
+                        } secondary: {
+                            controls(frame).frame(maxWidth: 420).padding(.horizontal, 8)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        }
+                        .arrangementViewStyle(.split)
+                    } else if geometry.size.width > geometry.size.height {
                         HStack(spacing: 20) {
                             board(frame)
                             controls(frame).frame(width: geometry.size.width * 0.45)
@@ -121,6 +130,11 @@ private struct GameReplayView: View {
             } else { ContentUnavailableView(L10n.text("replay_unavailable"), systemImage: "exclamationmark.circle") }
         }.background(Color.limestone)
             .navigationTitle(L10n.text("replay_title")).navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                if usesCompactSideToolbar, frame != nil {
+                    ToolbarItemGroup(placement: .bottomBar) { replayButtons }
+                }
+            }
             .onChange(of: step) { _, value in frame = try? game.replay(at: value) }
     }
     private func board(_ frame: ReplayFrame) -> some View {
@@ -151,18 +165,35 @@ private struct GameReplayView: View {
                 .accessibilityLabel(L10n.text("replay_title"))
                 .accessibilityValue(L10n.format("replay_step", step, game.historyEntries.count))
                 .accessibilityIdentifier("replay_slider")
-            HStack(spacing: 0) {
-                control("replay_first", icon: "backward.end", disabled: step == 0) { step = 0 }
-                control("replay_previous", icon: "chevron.left", disabled: step == 0) { step -= 1 }
-                control("replay_next", icon: "chevron.right", disabled: step == game.historyEntries.count) { step += 1 }
-                control("replay_last", icon: "forward.end", disabled: step == game.historyEntries.count) { step = game.historyEntries.count }
-            }.background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 18))
+            if !usesCompactSideToolbar {
+                HStack(spacing: 0) { replayButtons }
+                    .labelStyle(ReplayButtonLabelStyle())
+                    .foregroundStyle(palette.color)
+                    .background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 18))
+            }
         }
     }
+
+    @ViewBuilder private var replayButtons: some View {
+        control("replay_first", icon: "backward.end", disabled: step == 0) { step = 0 }
+        control("replay_previous", icon: "chevron.left", disabled: step == 0) { step -= 1 }
+        control("replay_next", icon: "chevron.right", disabled: step == game.historyEntries.count) { step += 1 }
+        control("replay_last", icon: "forward.end", disabled: step == game.historyEntries.count) { step = game.historyEntries.count }
+    }
+
     private func control(_ key: String, icon: String, disabled: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) { Image(systemName: icon).font(.system(size: 22)).frame(maxWidth: .infinity, minHeight: 52) }
-            .foregroundStyle(palette.color).disabled(disabled).opacity(disabled ? 0.35 : 1)
-            .accessibilityLabel(L10n.text(key)).accessibilityIdentifier(key)
+        Button(L10n.text(key), systemImage: icon, action: action)
+            .disabled(disabled)
+            .accessibilityLabel(L10n.text(key))
+            .accessibilityIdentifier(key)
+    }
+
+    private struct ReplayButtonLabelStyle: LabelStyle {
+        @Environment(\.isEnabled) private var isEnabled
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.icon.font(.system(size: 22)).frame(maxWidth: .infinity, minHeight: 52)
+                .opacity(isEnabled ? 1 : 0.35)
+        }
     }
 }
 

@@ -19,7 +19,20 @@ struct HomeView: View {
             GeometryReader { geometry in
                 let horizontal = geometry.size.width > geometry.size.height
                 Group {
-                    if horizontal && dynamicType.isAccessibilitySize {
+                    if #available(iOS 27.1, *), !geometry.reservedRegions(kind: .division).isEmpty {
+                        ArrangementView {
+                            illustration
+                        } secondary: {
+                            ViewThatFits(in: .vertical) {
+                                VStack(spacing: 20) { heading; actions() }
+                                    .fixedSize(horizontal: false, vertical: true)
+                                actions()
+                            }
+                            .padding(.horizontal, 8)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        }
+                        .arrangementViewStyle(.split)
+                    } else if horizontal && dynamicType.isAccessibilitySize {
                         actions(horizontal: true)
                     } else if horizontal {
                         HStack(spacing: 24) {
@@ -42,12 +55,12 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button { showingRules = true } label: { Image(systemName: "book.closed") }
-                        .accessibilityLabel(L10n.text("rules")).accessibilityIdentifier("learn_rules")
+                    Button(L10n.text("rules"), systemImage: "book.closed") { showingRules = true }
+                        .accessibilityIdentifier("learn_rules")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { showingAbout = true } label: { Image(systemName: "info.circle") }
-                        .accessibilityLabel(L10n.text("about")).accessibilityIdentifier("about")
+                    Button(L10n.text("about"), systemImage: "info.circle") { showingAbout = true }
+                        .accessibilityIdentifier("about")
                 }
             }
             .navigationDestination(for: String.self) { _ in GameView(store: store) }

@@ -3,6 +3,7 @@ import SwiftUI
 
 struct GameView: View {
     @Environment(\.accentPalette) private var palette
+    @Environment(\.usesCompactSideToolbar) private var usesCompactSideToolbar
     @Bindable var store: GameStore
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicType
@@ -21,17 +22,20 @@ struct GameView: View {
             if let position = store.position, let game = store.game {
                 let horizontal = geometry.size.width > geometry.size.height
                 Group {
-                    if horizontal {
+                    if #available(iOS 27.1, *), !geometry.reservedRegions(kind: .division).isEmpty {
+                        ArrangementView {
+                            fittedBoard(position)
+                        } secondary: {
+                            sideControls(position, game: game, compact: dynamicType.isAccessibilitySize)
+                                .padding(.horizontal, 8)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                        }
+                        .arrangementViewStyle(.split)
+                    } else if horizontal {
                         HStack(spacing: 20) {
                             fittedBoard(position)
-                            VStack(spacing: 20) {
-                                status(position, compact: true)
-                                if !dynamicType.isAccessibilitySize { players(position, game: game) }
-                                VStack(spacing: 12) {
-                                    controls(position)
-                                    if !dynamicType.isAccessibilitySize { phaseNote(position) }
-                                }
-                            }.frame(width: min(360, geometry.size.width * 0.44))
+                            sideControls(position, game: game, compact: true)
+                                .frame(width: min(360, geometry.size.width * 0.44))
                         }
                     } else {
                         VStack(spacing: 12) {
@@ -62,24 +66,17 @@ struct GameView: View {
         }
         .navigationTitle(L10n.text("app_name")).navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Section {
-                        Button(L10n.text("new_game"), systemImage: "plus") { showingNewGame = true }
-                        if store.network != nil {
-                            Button(L10n.text("network_connection"), systemImage: "wifi") { showingNetwork = true }
-                        }
-                        if store.game?.settings.opponent == .computer {
-                            Button(L10n.text("computer_options"), systemImage: "slider.horizontal.3") { showingComputerOptions = true }
-                        }
-                    }
-                    Section {
-                        Button(L10n.text("display_options"), systemImage: "paintpalette") { showingDisplayOptions = true }
-                        Button(L10n.text("legal_moves"), systemImage: "square.grid.3x3") { showingMoves = true }
-                            .disabled(!store.isHumanTurn || store.isThinking)
-                        Button(L10n.text("rules"), systemImage: "book.closed") { showingRules = true }
-                    }
-                } label: { Image(systemName: "ellipsis") }.accessibilityLabel(L10n.text("game_options")).accessibilityIdentifier("game_options")
+            if #available(iOS 27.1, *), usesCompactSideToolbar {
+                ToolbarOverflowMenu { gameOptions }
+                if let position = store.position {
+                    ToolbarItemGroup(placement: .bottomBar) { actionButtons(position) }
+                }
+            } else {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu { gameOptions } label: {
+                        Label(L10n.text("game_options"), systemImage: "ellipsis")
+                    }.accessibilityIdentifier("game_options")
+                }
             }
         }
         .sheet(isPresented: $showingNetwork) {
@@ -112,9 +109,36 @@ struct GameView: View {
         }
         .sensoryFeedback(.selection, trigger: store.game?.moves.count ?? 0)
     }
+    @ViewBuilder private var gameOptions: some View {
+        Section {
+            Button(L10n.text("new_game"), systemImage: "plus") { showingNewGame = true }
+            if store.network != nil {
+                Button(L10n.text("network_connection"), systemImage: "wifi") { showingNetwork = true }
+            }
+            if store.game?.settings.opponent == .computer {
+                Button(L10n.text("computer_options"), systemImage: "slider.horizontal.3") { showingComputerOptions = true }
+            }
+        }
+        Section {
+            Button(L10n.text("display_options"), systemImage: "paintpalette") { showingDisplayOptions = true }
+            Button(L10n.text("legal_moves"), systemImage: "square.grid.3x3") { showingMoves = true }
+                .disabled(!store.isHumanTurn || store.isThinking)
+            Button(L10n.text("rules"), systemImage: "book.closed") { showingRules = true }
+        }
+    }
     private var hasPresentedSheet: Bool {
         showingHistory || showingRules || showingNewGame || showingMoves || showingHintExplanation ||
         showingDisplayOptions || showingComputerOptions || showingNetwork
+    }
+    private func sideControls(_ position: Position, game: SavedGame, compact: Bool) -> some View {
+        VStack(spacing: 20) {
+            status(position, compact: compact)
+            if !dynamicType.isAccessibilitySize { players(position, game: game) }
+            VStack(spacing: 12) {
+                controls(position)
+                if !dynamicType.isAccessibilitySize { phaseNote(position) }
+            }
+        }.frame(maxWidth: 420)
     }
     private func status(_ position: Position, compact: Bool) -> some View {
         VStack(spacing: 4) {
@@ -229,33 +253,42 @@ struct GameView: View {
         .accessibilityLabel(L10n.format("side_counts", L10n.text(side == 1 && game.settings.opponent == .computer ? "computer" : side == 0 ? "white" : "black"), position.onBoard[side], position.hand[side]))
         .accessibilityIdentifier("player_\(side)")
     }
-    private func controls(_ position: Position) -> some View {
-        HStack(spacing: 0) {
-            if position.isOver {
-                control("play_again", icon: "plus", disabled: false) { showingNewGame = true }
-            } else if store.network != nil {
-                control("network_connection", icon: "wifi", disabled: false) { showingNetwork = true }
-            } else if !store.isHumanTurn && !store.isThinking {
-                control("resume_computer", icon: "play.fill", disabled: false) { store.resumeComputer() }
-            } else {
-                control("undo", icon: "arrow.uturn.backward", disabled: !store.canUndo) { store.undo() }
-            }
-            if store.network == nil {
-                control("hint", icon: "lightbulb", disabled: !store.canHint) { store.toggleHint() }
-            }
-            if dynamicType.isAccessibilitySize {
-                control("legal_moves", icon: "square.grid.3x3", disabled: !store.isHumanTurn || store.isThinking) { showingMoves = true }
-            }
-            control("history", icon: "list.bullet", disabled: false) { showingHistory = true }
-        }.background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 18))
+    @ViewBuilder private func controls(_ position: Position) -> some View {
+        if !usesCompactSideToolbar {
+            HStack(spacing: 0) { actionButtons(position) }
+                .background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 18))
+        }
     }
-    private func control(_ key: String, icon: String, disabled: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 4) {
-                Image(systemName: icon).font(.system(size: 21))
-                if !dynamicType.isAccessibilitySize { Text(L10n.text(key)).font(.caption).lineLimit(1) }
-            }.frame(maxWidth: .infinity).frame(height: 56)
-        }.disabled(disabled).accessibilityLabel(L10n.text(key)).accessibilityIdentifier(key)
+    @ViewBuilder private func actionButtons(_ position: Position) -> some View {
+        if position.isOver {
+            control("play_again", icon: "plus", disabled: false) { showingNewGame = true }
+        } else if store.network != nil {
+            control("network_connection", icon: "wifi", disabled: false) { showingNetwork = true }
+        } else if !store.isHumanTurn && !store.isThinking {
+            control("resume_computer", icon: "play.fill", disabled: false) { store.resumeComputer() }
+        } else {
+            control("undo", icon: "arrow.uturn.backward", disabled: !store.canUndo) { store.undo() }
+        }
+        if store.network == nil {
+            control("hint", icon: "lightbulb", disabled: !store.canHint) { store.toggleHint() }
+        }
+        if dynamicType.isAccessibilitySize {
+            control("legal_moves", icon: "square.grid.3x3", disabled: !store.isHumanTurn || store.isThinking) { showingMoves = true }
+        }
+        control("history", icon: "list.bullet", disabled: false) { showingHistory = true }
+    }
+    @ViewBuilder private func control(_ key: String, icon: String, disabled: Bool, action: @escaping () -> Void) -> some View {
+        if usesCompactSideToolbar {
+            Button(L10n.text(key), systemImage: icon, action: action)
+                .disabled(disabled).accessibilityIdentifier(key)
+        } else {
+            Button(action: action) {
+                VStack(spacing: 4) {
+                    Image(systemName: icon).font(.system(size: 21))
+                    if !dynamicType.isAccessibilitySize { Text(L10n.text(key)).font(.caption).lineLimit(1) }
+                }.frame(maxWidth: .infinity).frame(height: 56)
+            }.disabled(disabled).accessibilityLabel(L10n.text(key)).accessibilityIdentifier(key)
+        }
     }
     private func phaseNote(_ position: Position) -> some View {
         HStack(spacing: 8) {
@@ -273,19 +306,31 @@ private struct GameResultView: View {
     let position: Position
     let close: () -> Void
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Color.black.opacity(0.3).ignoresSafeArea()
-                ViewThatFits(in: .vertical) {
-                    card(showEmblem: !dynamicType.isAccessibilitySize || geometry.size.height > 650)
-                        .fixedSize(horizontal: false, vertical: true)
-                    ScrollView { card(showEmblem: false) }
-                        .scrollBounceBehavior(.basedOnSize)
-                }.frame(maxWidth: 440).padding(24)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+        ZStack {
+            Color.black.opacity(0.3).ignoresSafeArea()
+            if #available(iOS 27.1, *) {
+                ArrangementView {
+                    resultCard
+                } secondary: {
+                    Color.clear
+                }
+                .arrangementViewStyle(.overlay)
+            } else {
+                resultCard
             }
         }.accessibilityElement(children: .contain).accessibilityAddTraits(.isModal)
             .accessibilityIdentifier("game_result")
+    }
+    private var resultCard: some View {
+        GeometryReader { geometry in
+            ViewThatFits(in: .vertical) {
+                card(showEmblem: !dynamicType.isAccessibilitySize || geometry.size.height > 650)
+                    .fixedSize(horizontal: false, vertical: true)
+                ScrollView { card(showEmblem: false) }
+                    .scrollBounceBehavior(.basedOnSize)
+            }.frame(maxWidth: 440).padding(24)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
     }
     private func card(showEmblem: Bool) -> some View {
         VStack(spacing: 22) {

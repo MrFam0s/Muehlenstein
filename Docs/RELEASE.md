@@ -1,5 +1,9 @@
 # Distribution requirements and open decisions
 
+## iPhone Duo update 1.5 (17)
+
+The app uses the iOS 27.2 SDK. The release record lists the layout changes, source, screenshots and App Store status. [Releaseprotokoll](../Store/RELEASE-1.5-17.md).
+
 ## Distribution release 1.4.1 (14) — 2026-10-11
 
 Version **1.4.1**, build **14**, has been submitted to App Store review at

@@ -1,5 +1,18 @@
 # Prüfstand — begonnen 30.09.2026, ergänzt 01.10.2026
 
+## iPhone Duo · 1.5 (17) · 24.11.2026
+
+Auf dem iPhone-18-Pro-Simulator bestanden 44 Modelltests und drei UI-Tests
+für Start und Einrichtung, Versions- und Lizenzanzeige sowie interaktive
+Rückschau. Die Engine-Prüfung bestand mit 31 eigenen Tests und 288 Tests der
+eingebundenen Bibliotheken. Die Sprachprüfung erfasste 230 Schlüssel in acht
+Sprachen. Auch das Lizenzinventar wurde geprüft.
+
+Der Duo-Simulator zeigt in Buchstellung Brett und Bediengruppe auf gleicher
+Höhe. Die anhand der zugänglichen Elemente gemessenen Mittelpunkte liegen
+bei 358,5 und 362,9 pt. Auf dem geschlossenen Gerät erscheinen Rücknahme,
+Tipp und Verlauf in der rechten Systemleiste. [Releaseprotokoll](../Store/RELEASE-1.5-17.md).
+
 ## Distributionsbuild 1.4.1 (14) — 11.10.2026
 
 **319 Rust-Prüfungen** und **46 Release-App-Prüfungen** bestanden: 31 eigene

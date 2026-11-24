@@ -1,5 +1,15 @@
 # Versionshinweise
 
+## 1.5 · Build 17 — iPhone Duo (24.11.2026)
+
+Auf dem angewinkelten iPhone Duo liegen Spielbrett und Bedienung auf je einer
+Displayhälfte. Auch die Rückschau trennt Brett und Zugsteuerung. Auf der
+Startseite stehen die Aktionen gegenüber der Illustration. Die Ergebniskarte
+und ihre Schaltfläche erscheinen zusammen auf einer Seite.
+Auf dem Außendisplay liegen Rücknahme, Tipp und Verlauf in der nativen
+Seitenleiste. Beim Durchsehen der Partie wechseln die Pfeile dort den Zug.
+[Releaseprotokoll](Store/RELEASE-1.5-17.md).
+
 ## 1.4.1 · Build 14 — Abwechslungsreiche Computerzüge (11.10.2026)
 
 Distributionsrelease, Quelltag **v1.4.1**. Am 11.10.2026 für App Store und

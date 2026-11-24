@@ -1,19 +1,14 @@
 # Muehlenstein
 
-**Version 1.4.1 (Build 14)**, Quelltag **v1.4.1**, ist am 11.10.2026 für
-App Store und TestFlight eingereicht. **App Store: `WAITING_FOR_REVIEW`**;
-**TestFlight: `WAITING_FOR_BETA_REVIEW`**, der Gruppe **Externe Tests** mit
-drei Testern zugeordnet. Veröffentlichung und Testerbenachrichtigung erfolgen
-nach der jeweiligen Apple-Freigabe automatisch. Noch nicht neu installierbar.
-Der Computer variiert seine Suchreihenfolge und die
-empfohlenen Eröffnungszüge. Bewertung und Suchbudgets bleiben erhalten;
-Tipps und Rückschau bleiben stabil. [Prüfung und Grenzen](Docs/AI_OPTIONS.md).
-[Aktuelles Releaseprotokoll](Store/RELEASE-1.4.1-14.md).
+**Version 1.5 (Build 17)** passt Startseite, Spielbrett und Rückschau an die
+Falz des iPhone Duo an. In Buch- und Laptopstellung bekommen Brett und
+Bedienelemente jeweils eine Displayhälfte. Auf dem Außendisplay stehen
+Spielaktionen und Rückschausteuerung in der nativen Seitenleiste. [Releaseprotokoll](Store/RELEASE-1.5-17.md).
 
-Die Statusprüfung am 11.10.2026 bestätigt **1.3.1 (11)** als veröffentlicht.
-Die App-Store-Einreichung von **1.4 (13)** wurde durch **1.4.1 (14)** ersetzt.
-319 Rust-Prüfungen und 46 Release-App-Prüfungen bestanden. Die folgenden
-Absätze bewahren den Stand der vorherigen Einreichungen.
+Am 24.11.2026 bestätigte App Store Connect **1.4.1 (14)** als veröffentlicht.
+Diese Version variiert die Suchreihenfolge und die empfohlenen Eröffnungszüge
+des Computers. [Prüfung und Grenzen](Docs/AI_OPTIONS.md) · [Releaseprotokoll 1.4.1](Store/RELEASE-1.4.1-14.md).
+Die folgenden Absätze dokumentieren frühere Einreichungen.
 
 **Distributionsrelease 1.4 (Build 13)**, Quelltag **v1.4-build.13**:
 Tipps und Rücknahmen
@@ -60,7 +55,7 @@ with public [support](Docs/SUPPORT.md) and [privacy information](Docs/PRIVACY.md
 
 ## Run
 
-Requirements: Apple Silicon Mac, Xcode 27 (iOS 18 deployment target), Python 3, Cargo. The official Rust 1.98.1 compiler and iOS libraries are isolated inside `.build`; no global Rust installation is changed.
+Requirements: Apple Silicon Mac, Xcode 27.1 or later (iOS 18 deployment target), Python 3, Cargo. The official Rust 1.98.1 compiler and iOS libraries are isolated inside `.build`; no global Rust installation is changed.
 
 ```sh
 bash Scripts/setup-rust.sh

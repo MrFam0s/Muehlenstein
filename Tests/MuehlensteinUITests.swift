@@ -89,7 +89,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["start_game"].tap()
         for node in ["c5", "a7", "d5", "d7", "e5"] { app.buttons["node_" + node].tap() }
         XCTAssertFalse((app.buttons["node_a7"].value as? String ?? "").contains("kann entfernt werden"))
-        app.buttons["game_options"].tap(); app.buttons["Darstellung"].tap()
+        gameOptions(in: app).tap(); app.buttons["Darstellung"].tap()
         toggleSwitch("show_legal", in: app)
         app.buttons["display_done"].tap()
         XCTAssertTrue((app.buttons["node_a7"].value as? String ?? "").contains("kann entfernt werden"))
@@ -103,7 +103,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue((app.buttons["node_b6"].value as? String ?? "").contains("kann entfernt werden"))
         XCTAssertFalse((app.buttons["node_c5"].value as? String ?? "").contains("kann entfernt werden"))
         record("Capture-Targets-White", app: app)
-        app.buttons["game_options"].tap(); app.buttons["Darstellung"].tap()
+        gameOptions(in: app).tap(); app.buttons["Darstellung"].tap()
         toggleSwitch("show_legal", in: app); app.buttons["display_done"].tap()
         XCTAssertFalse((app.buttons["node_b6"].value as? String ?? "").contains("kann entfernt werden"))
     }
@@ -243,7 +243,7 @@ final class MuehlensteinUITests: XCTestCase {
     }
     @MainActor func testNetworkSetupFitsAndCancelPreservesSavedGame() {
         let app = launch(demo: true)
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Neue Partie"].tap()
         app.buttons["opponent_network"].tap()
         app.buttons["start_game"].tap()
@@ -344,7 +344,7 @@ final class MuehlensteinUITests: XCTestCase {
             XCTAssertTrue(app.textViews.firstMatch.waitForExistence(timeout: 3))
             record("Native-\(language)-Hint", app: app)
             app.buttons[done].tap()
-            app.buttons["game_options"].tap()
+            gameOptions(in: app).tap()
             app.buttons[appearance].tap()
             assertVisible(app.switches["disable_stone_animations"].firstMatch, in: app)
             assertVisible(app.buttons["accent_slate"], in: app)
@@ -392,7 +392,7 @@ final class MuehlensteinUITests: XCTestCase {
     @MainActor func testAboutShowsVersionImprintSourceAndBundledNotices() {
         let app = launch()
         app.buttons["about"].tap()
-        XCTAssertTrue(app.staticTexts["about_version"].label.contains("Version 1.4.1 · Build 14"))
+        XCTAssertTrue(app.staticTexts["about_version"].label.contains("Version 1.5 · Build 17"))
         XCTAssertTrue(app.scrollViews["about_sections"].exists)
         XCTAssertFalse(app.buttons["next_page"].exists)
         record("About-Overview", app: app)
@@ -526,7 +526,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains("Klassische Mühle") == true)
         record("History-Details", app: app)
         app.buttons["Fertig"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Mögliche Züge"].tap()
         let action = app.buttons["legal_action_e5"]
         XCTAssertTrue(action.waitForExistence(timeout: 3))
@@ -592,7 +592,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.buttons["node_a7"].waitForExistence(timeout: 5))
         try capture("Game")
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Darstellung"].tap()
         try capture("Appearance")
         app.buttons["display_done"].tap()
@@ -699,7 +699,7 @@ final class MuehlensteinUITests: XCTestCase {
         let app = launch()
         app.buttons["new_game"].tap()
         app.buttons["start_game"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Darstellung"].tap()
         toggleSwitch("show_last", in: app)
         app.buttons["display_done"].tap()
@@ -762,7 +762,7 @@ final class MuehlensteinUITests: XCTestCase {
                 app.buttons["new_game"].tap()
             } else {
                 app.buttons["node_a7"].tap()
-                app.buttons["game_options"].tap()
+                gameOptions(in: app).tap()
                 app.buttons["Neue Partie"].tap()
             }
             XCTAssertEqual(start.label, "Partie beginnen")
@@ -818,7 +818,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["node_a7"].tap()
         app.buttons["node_g7"].tap()
         app.buttons["node_a7"].tap() // Already selected, as it may also be after a hint.
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Mögliche Züge"].tap()
         let move = app.buttons["a7-d7"]
         for _ in 0..<12 {
@@ -850,7 +850,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(app.buttons["node_d7"].frame, target)
         app.buttons["undo"].tap()
         XCTAssertTrue(app.buttons["node_a7"].label.contains("Weiß"))
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Darstellung"].tap()
         XCTAssertEqual(app.switches["disable_stone_animations"].firstMatch.value as? String, "0")
         toggleSwitch("disable_stone_animations", in: app)
@@ -981,6 +981,65 @@ final class MuehlensteinUITests: XCTestCase {
         assertVariantsVisible(app)
         record("Fixed-Setup", app: app)
     }
+    @MainActor private func gameOptions(in app: XCUIApplication) -> XCUIElement {
+        app.buttons.matching(NSPredicate(format: "identifier IN %@",
+                                        ["game_options", "BottomOverflowBarButtonItem"])).firstMatch
+    }
+    @MainActor private func tapGameBack(in app: XCUIApplication) {
+        // The Duo's vertical system toolbar exposes Back outside a navigation bar.
+        let back = app.descendants(matching: .any)["BackButton"].firstMatch
+        if back.exists { back.tap() } else { app.navigationBars.buttons.firstMatch.tap() }
+    }
+    @MainActor func testDuoBookCentersControlsBesideBoard() throws {
+        // Run with the Duo partially open in book posture and DUO_BOOK_E2E=1 in the test runner.
+        try XCTSkipUnless(ProcessInfo.processInfo.environment["DUO_BOOK_E2E"] == "1",
+                          "Requires an iPhone Duo in book posture")
+        XCUIDevice.shared.orientation = .landscapeLeft
+        let app = launch(demo: true)
+        let first = app.buttons["node_a7"]
+        XCTAssertTrue(first.waitForExistence(timeout: 5))
+        let board = first.frame.union(app.buttons["node_g1"].frame)
+        let status = app.staticTexts["game_status"]
+        let count = app.staticTexts["8 Züge"]
+        assertVisible(status, in: app)
+        assertVisible(count, in: app)
+        for key in ["undo", "hint", "history"] {
+            let action = app.buttons[key]
+            assertVisible(action, in: app)
+            XCTAssertGreaterThan(action.frame.minX, board.maxX, key)
+        }
+        let controls = status.frame.union(count.frame)
+        XCTAssertEqual(controls.midY, board.midY, accuracy: 10)
+        record("Duo-Book-Centered-Controls", app: app)
+    }
+    @MainActor func testDuoOuterGameActionsAndReplay() throws {
+        try XCTSkipUnless(ProcessInfo.processInfo.environment["DUO_OUTER_E2E"] == "1",
+                          "Requires a closed iPhone Duo")
+        XCUIDevice.shared.orientation = .portrait
+        let app = launch(demo: true)
+        let boardEdge = app.buttons["node_g1"].frame.maxX
+        for key in ["undo", "hint", "history", "BottomOverflowBarButtonItem"] {
+            let action = app.buttons[key]
+            assertVisible(action, in: app)
+            XCTAssertGreaterThan(action.frame.minX, boardEdge, key)
+        }
+        gameOptions(in: app).tap()
+        app.buttons["Darstellung"].tap()
+        app.buttons["display_done"].tap()
+        app.buttons["hint"].tap()
+        XCTAssertTrue(app.staticTexts["hint_suggestion"].waitForExistence(timeout: 8))
+        app.buttons["undo"].tap()
+        app.buttons["history"].tap()
+        app.buttons["replay_game"].tap()
+        app.buttons["replay_next"].tap()
+        XCTAssertTrue(app.staticTexts["replay_step"].label.hasPrefix("Schritt 1 von "))
+        app.buttons["replay_last"].tap()
+        XCTAssertFalse(app.buttons["replay_next"].isEnabled)
+        app.buttons["replay_previous"].tap()
+        app.buttons["replay_first"].tap()
+        XCTAssertFalse(app.buttons["replay_previous"].isEnabled)
+        record("Duo-Outer-Replay", app: app)
+    }
     @MainActor func testBoardStaysFixedInPortrait() {
         let app = launch(demo: true)
         assertFixedBoard(app)
@@ -989,12 +1048,13 @@ final class MuehlensteinUITests: XCTestCase {
         // Measure the whole reserve row, independent of whose turn it is.
         let reserveBottom = max(app.otherElements["player_0"].frame.maxY,
                                 app.otherElements["player_1"].frame.maxY)
-        let controlsTop = app.buttons["undo"].frame.minY
+        let footer = app.buttons["BottomOverflowBarButtonItem"].exists
+            ? app.staticTexts["Setzen"] : app.buttons["undo"]
         XCTAssertGreaterThan(reserveBottom, 0)
-        XCTAssertEqual(boardCenter, (reserveBottom + controlsTop) / 2, accuracy: 1,
-                       "Center the board between the reserve row and the controls")
+        XCTAssertEqual(boardCenter, (reserveBottom + footer.frame.minY) / 2, accuracy: 1,
+                       "Center the board between the reserve row and the footer")
         record("Fixed-Game-Portrait", app: app)
-        app.navigationBars.buttons.firstMatch.tap()
+        tapGameBack(in: app)
         assertVisible(app.staticTexts["home_title"], in: app)
         record("Home-With-Saved-Game", app: app)
     }
@@ -1004,7 +1064,7 @@ final class MuehlensteinUITests: XCTestCase {
         let app = launch(demo: true)
         assertFixedBoard(app)
         record("Fixed-Game-Landscape", app: app)
-        app.navigationBars.buttons.firstMatch.tap()
+        tapGameBack(in: app)
         assertVisible(app.buttons["continue_game"], in: app)
         assertVisible(app.buttons["new_game"], in: app)
         record("Fixed-Home-Landscape", app: app)
@@ -1101,7 +1161,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Du bist am Zug."].waitForExistence(timeout: 10))
         XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges")).count, 0)
         let boardFrame = app.buttons["node_a7"].frame
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         record("Options-Game-Menu", app: app)
         XCTAssertEqual(app.buttons["Darstellung"].label, "Darstellung")
         XCTAssertEqual(app.buttons["Spielstärke"].label, "Spielstärke")
@@ -1121,7 +1181,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["continue_game"].tap()
         XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "mögliches Ziel")).count, 22)
         XCTAssertEqual(app.buttons.matching(NSPredicate(format: "value CONTAINS %@", "Ziel des letzten Zuges")).count, 1)
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Darstellung"].tap()
         for key in ["show_legal", "show_last", "disable_stone_animations"] {
             XCTAssertEqual(app.switches[key].firstMatch.value as? String, "1")
@@ -1153,7 +1213,7 @@ final class MuehlensteinUITests: XCTestCase {
         record("Palette-Slate-Home-Light", app: app)
         app.buttons["new_game"].tap()
         app.buttons["start_game"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Darstellung"].tap()
         XCTAssertTrue(app.buttons["accent_slate"].isSelected)
         XCTAssertLessThan(app.buttons["accent_slate"].frame.minX, app.buttons["accent_forest"].frame.minX)
@@ -1174,7 +1234,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.launch()
         record("Palette-Rose-Home-Restored", app: app)
         app.buttons["continue_game"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Darstellung"].tap()
         XCTAssertTrue(app.buttons["accent_rose"].isSelected)
         app.terminate()
@@ -1182,7 +1242,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.launch()
         record("Palette-Rose-Home-Dark", app: app)
         app.buttons["continue_game"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Darstellung"].tap()
         XCTAssertTrue(app.buttons["accent_rose"].isSelected)
         record("Palette-Rose-Options-Dark", app: app)
@@ -1205,21 +1265,21 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertEqual(app.staticTexts["difficulty_value"].label, "1 · Sehr leicht")
         app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: 0.75)
         app.buttons["start_game"].tap()
-        XCTAssertTrue(app.buttons["game_options"].waitForExistence(timeout: 5))
+        XCTAssertTrue(gameOptions(in: app).waitForExistence(timeout: 5))
 
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Neue Partie"].tap()
         XCTAssertEqual(app.staticTexts["difficulty_value"].label, "4 · Schwer")
         app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: 0)
         app.buttons["start_game"].tap() // Replacement is only proposed, not confirmed.
         app.navigationBars["Neue Partie"].buttons["Abbrechen"].tap()
 
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Spielstärke"].tap()
         XCTAssertEqual(app.staticTexts["difficulty_value"].label, "4 · Schwer")
         app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: 1)
         app.buttons["computer_done"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Spielstärke"].tap()
         XCTAssertEqual(app.staticTexts["difficulty_value"].label, "5 · Sehr schwer")
         app.sliders["difficulty_slider"].adjust(toNormalizedSliderPosition: 0)
@@ -1232,8 +1292,8 @@ final class MuehlensteinUITests: XCTestCase {
         app.buttons["opponent_local"].tap()
         app.buttons["start_game"].tap()
         app.buttons["start_game"].tap()
-        XCTAssertTrue(app.buttons["game_options"].waitForExistence(timeout: 5))
-        app.buttons["game_options"].tap()
+        XCTAssertTrue(gameOptions(in: app).waitForExistence(timeout: 5))
+        gameOptions(in: app).tap()
         app.buttons["Neue Partie"].tap()
         XCTAssertEqual(app.staticTexts["difficulty_value"].label, "5 · Sehr schwer")
     }
@@ -1299,7 +1359,7 @@ final class MuehlensteinUITests: XCTestCase {
         }
         app.navigationBars["Suchverfahren erklärt"].buttons["Fertig"].tap()
         app.buttons["start_game"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Spielstärke"].tap()
         showSetupPanel("advanced", in: app)
         XCTAssertTrue(app.buttons["algorithm_pvs"].isSelected)
@@ -1313,7 +1373,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.terminate()
         app.launch()
         app.buttons["continue_game"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Spielstärke"].tap()
         showSetupPanel("style", in: app)
         XCTAssertTrue(app.buttons["style_blocking"].isSelected)
@@ -1322,7 +1382,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.buttons["book_off"].isSelected)
         app.buttons["book_automatic"].tap()
         app.buttons["computer_done"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Spielstärke"].tap()
         showSetupPanel("style", in: app)
         XCTAssertTrue(app.buttons["style_balanced"].isSelected)
@@ -1348,7 +1408,7 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("5"))
         app.buttons["start_game"].tap()
         XCTAssertFalse(app.otherElements["player_1"].label.contains("Stufe"))
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Spielstärke"].tap()
         showSetupPanel("advanced", in: app)
         app.buttons["algorithm_pvs"].tap()
@@ -1358,7 +1418,7 @@ final class MuehlensteinUITests: XCTestCase {
         showSetupPanel("book", in: app)
         app.buttons["book_off"].tap()
         app.navigationBars["Spielstärke"].buttons["Abbrechen"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Spielstärke"].tap()
         showSetupPanel("advanced", in: app)
         XCTAssertTrue(app.buttons["algorithm_mtdf"].isSelected)
@@ -1379,7 +1439,7 @@ final class MuehlensteinUITests: XCTestCase {
         app.launchArguments = ["-ui-testing", "-ui-demo", "-AppleLanguages", "(de)", "-AppleLocale", "de_DE",
                                "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Darstellung"].tap()
         for key in ["show_legal", "show_last", "disable_stone_animations"] {
             let toggle = app.switches[key].firstMatch
@@ -1402,7 +1462,7 @@ final class MuehlensteinUITests: XCTestCase {
         }
         record("Palette-Largest-Landscape", app: app)
         app.buttons["display_done"].tap()
-        app.buttons["game_options"].tap()
+        gameOptions(in: app).tap()
         app.buttons["Neue Partie"].tap()
         showSetupPanel("difficulty", in: app)
         assertVisible(app.sliders["difficulty_slider"], in: app)

@@ -13,6 +13,14 @@ private struct AccentPaletteKey: EnvironmentKey {
     static let defaultValue = AccentPalette.slate
 }
 extension EnvironmentValues {
+    // The outer display has compact width and a system bar along one side.
+    var usesCompactSideToolbar: Bool {
+        if #available(iOS 27.1, *) {
+            return horizontalSizeClass == .compact && toolbarVerticalEdge != nil
+        }
+        return false
+    }
+
     var accentPalette: AccentPalette {
         get { self[AccentPaletteKey.self] }
         set { self[AccentPaletteKey.self] = newValue }

@@ -1,0 +1,114 @@
+[
+  {
+    "path": "de-DE/iPhone-Duo/01-Inner-Game.png",
+    "device": "iPhone Duo",
+    "width": 2853,
+    "height": 2007,
+    "sha256": "7b3094be3c467c99efabab5666627c2716880ac1df5e628f6d368b820bdeed46"
+  },
+  {
+    "path": "de-DE/iPhone-Duo/02-Outer-Game.png",
+    "device": "iPhone Duo",
+    "width": 1398,
+    "height": 2034,
+    "sha256": "82abe02c6e8bc1bd1be6472643aba6f4ef7369f8ba087d091584b4f6980e6613"
+  },
+  {
+    "path": "en-US/iPhone-Duo/01-Inner-Game.png",
+    "device": "iPhone Duo",
+    "width": 2853,
+    "height": 2007,
+    "sha256": "6ef063eccc610ad7c3fd632488eba055f74a36210efc63604a112e9b125e0ece"
+  },
+  {
+    "path": "en-US/iPhone-Duo/02-Outer-Game.png",
+    "device": "iPhone Duo",
+    "width": 1398,
+    "height": 2034,
+    "sha256": "1876f014ecb74923aea7a1323c8f23244150fbc00ff6835614db9ce9720b44b2"
+  },
+  {
+    "path": "es-ES/iPhone-Duo/01-Inner-Game.png",
+    "device": "iPhone Duo",
+    "width": 2853,
+    "height": 2007,
+    "sha256": "116da7a1d2bed9a2665e9211820989f0c43e9023772b322f76e489823537841c"
+  },
+  {
+    "path": "es-ES/iPhone-Duo/02-Outer-Game.png",
+    "device": "iPhone Duo",
+    "width": 1398,
+    "height": 2034,
+    "sha256": "6ad0674967d2b64a89f0b614e8185206fc3d16ee7e6d381272549a7711d98fb9"
+  },
+  {
+    "path": "fr-FR/iPhone-Duo/01-Inner-Game.png",
+    "device": "iPhone Duo",
+    "width": 2853,
+    "height": 2007,
+    "sha256": "3cae1ab4541661f6cbbb6e2212b8671986a9d04667a8d6c9e7c5eb5684d3d099"
+  },
+  {
+    "path": "fr-FR/iPhone-Duo/02-Outer-Game.png",
+    "device": "iPhone Duo",
+    "width": 1398,
+    "height": 2034,
+    "sha256": "93b8429f949ee4d506765e9d27b8e65b29157bffb336b59d818d06a35b893c48"
+  },
+  {
+    "path": "ja/iPhone-Duo/01-Inner-Game.png",
+    "device": "iPhone Duo",
+    "width": 2853,
+    "height": 2007,
+    "sha256": "ede01399d4bc3fd7a1b435a78b45401389db68bd957f06d4801af26645f1602a"
+  },
+  {
+    "path": "ja/iPhone-Duo/02-Outer-Game.png",
+    "device": "iPhone Duo",
+    "width": 1398,
+    "height": 2034,
+    "sha256": "89e10461c11f7f7d722aa95d8b4f61f40c67af6a00854ff90bc3a7c702237943"
+  },
+  {
+    "path": "ko/iPhone-Duo/01-Inner-Game.png",
+    "device": "iPhone Duo",
+    "width": 2853,
+    "height": 2007,
+    "sha256": "5bbe5a20a26fc722a95fa8517792cb15fcd872e48e279ce9c40d4f9e5215e6ba"
+  },
+  {
+    "path": "ko/iPhone-Duo/02-Outer-Game.png",
+    "device": "iPhone Duo",
+    "width": 1398,
+    "height": 2034,
+    "sha256": "87f7ddeef2e40536d0a8715f16b5de86d4d41a090a82273bef069551cb0958b7"
+  },
+  {
+    "path": "zh-Hans/iPhone-Duo/01-Inner-Game.png",
+    "device": "iPhone Duo",
+    "width": 2853,
+    "height": 2007,
+    "sha256": "73af057b374c0e035de1bc55684bca41bc9e499187a498d2541c9d762b89c26c"
+  },
+  {
+    "path": "zh-Hans/iPhone-Duo/02-Outer-Game.png",
+    "device": "iPhone Duo",
+    "width": 1398,
+    "height": 2034,
+    "sha256": "43eed2c1053beb427e962791ddce6f2899e3e68fd8889244a29a2b5883ebf169"
+  },
+  {
+    "path": "zh-Hant/iPhone-Duo/01-Inner-Game.png",
+    "device": "iPhone Duo",
+    "width": 2853,
+    "height": 2007,
+    "sha256": "9524a01d0aaa960132ce0ec00962389001ca6be35c1a94c70402b688178d6f79"
+  },
+  {
+    "path": "zh-Hant/iPhone-Duo/02-Outer-Game.png",
+    "device": "iPhone Duo",
+    "width": 1398,
+    "height": 2034,
+    "sha256": "9c7c0a5e49d181347fea8fbb62c6f24429b05a6e280dcc9070f84fb8abb502c3"
+  }
+]

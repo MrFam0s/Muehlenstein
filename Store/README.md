@@ -1,5 +1,9 @@
 # App-Store-Vorbereitung
 
+## Version 1.5 (Build 17) für iPhone Duo
+
+Der Release umfasst die angepasste Spielansicht und eigene Store-Aufnahmen für die Displays des iPhone Duo. [Releaseprotokoll](RELEASE-1.5-17.md).
+
 ## Distribution — 11.10.2026, Version 1.4.1 (Build 14)
 
 Der neue Build ergänzt abwechslungsreichere Computerzüge und enthält den
