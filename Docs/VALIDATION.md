@@ -11,7 +11,12 @@ Sprachen. Auch das Lizenzinventar wurde geprüft.
 Der Duo-Simulator zeigt in Buchstellung Brett und Bediengruppe auf gleicher
 Höhe. Die anhand der zugänglichen Elemente gemessenen Mittelpunkte liegen
 bei 358,5 und 362,9 pt. Auf dem geschlossenen Gerät erscheinen Rücknahme,
-Tipp und Verlauf in der rechten Systemleiste. [Releaseprotokoll](../Store/RELEASE-1.5-17.md).
+Tipp und Verlauf in der rechten Systemleiste. Drei UI-Prüfungen auf dem
+Außendisplay und eine in Buchstellung bestanden. Die Tests bedienten auch das
+Systemmenü und alle vier Schritte in der Rückschau. Ein auf a1 gesetzter
+weißer Stein und das Zugrecht von Schwarz blieben im selben App-Prozess bei
+Buchstellung, Laptopstellung, geschlossenem und vollständig offenem Gerät
+erhalten. In jeder Haltung waren alle 24 Punkte zugänglich. [Releaseprotokoll](../Store/RELEASE-1.5-17.md).
 
 ## Distributionsbuild 1.4.1 (14) — 11.10.2026
 

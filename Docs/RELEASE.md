@@ -2,7 +2,10 @@
 
 ## iPhone Duo update 1.5 (17)
 
-The app uses the iOS 27.2 SDK. The release record lists the layout changes, source, screenshots and App Store status. [Releaseprotokoll](../Store/RELEASE-1.5-17.md).
+The signed iOS 27.2 build is tagged `v1.5`. Apple received the external
+TestFlight submission on 24 November 2026 at 10:40:54 UTC. The release record
+lists the App Store status, the 16 new Duo screenshots and the tests of both
+displays. [Releaseprotokoll](../Store/RELEASE-1.5-17.md).
 
 ## Distribution release 1.4.1 (14) — 2026-10-11
 

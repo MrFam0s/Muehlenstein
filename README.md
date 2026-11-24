@@ -5,6 +5,10 @@ Falz des iPhone Duo an. In Buch- und Laptopstellung bekommen Brett und
 Bedienelemente jeweils eine Displayhälfte. Auf dem Außendisplay stehen
 Spielaktionen und Rückschausteuerung in der nativen Seitenleiste. [Releaseprotokoll](Store/RELEASE-1.5-17.md).
 
+Version **1.5 (17)** wartet seit dem **24.11.2026** auf App Review und die
+externe TestFlight-Prüfung. Apple veröffentlicht sie nach Freigabe automatisch
+und benachrichtigt die drei Mitglieder der Gruppe „Externe Tests“ nach Beta-Freigabe.
+
 Am 24.11.2026 bestätigte App Store Connect **1.4.1 (14)** als veröffentlicht.
 Diese Version variiert die Suchreihenfolge und die empfohlenen Eröffnungszüge
 des Computers. [Prüfung und Grenzen](Docs/AI_OPTIONS.md) · [Releaseprotokoll 1.4.1](Store/RELEASE-1.4.1-14.md).

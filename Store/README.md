@@ -2,7 +2,7 @@
 
 ## Version 1.5 (Build 17) für iPhone Duo
 
-Der Release umfasst die angepasste Spielansicht und eigene Store-Aufnahmen für die Displays des iPhone Duo. [Releaseprotokoll](RELEASE-1.5-17.md).
+Am 24.11.2026 zur App-Store-Prüfung und zur externen Beta-Prüfung eingereicht. Die 16 neuen Aufnahmen zeigen das Spiel auf beiden Displays des iPhone Duo. [Releaseprotokoll](RELEASE-1.5-17.md).
 
 ## Distribution — 11.10.2026, Version 1.4.1 (Build 14)
 
