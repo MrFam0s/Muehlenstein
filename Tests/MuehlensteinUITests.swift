@@ -3,6 +3,30 @@ import XCTest
 import UIKit
 
 final class MuehlensteinUITests: XCTestCase {
+    @MainActor func testFinishedGameAnalysisComparesBoardsAndReturnsToSelectedMove() {
+        let app = XCUIApplication()
+        let played = "g4,f2,e5,e3,a7,a4,g7,d5,d7,xe3,g1,d2,b4,c4,f4,f6,d6,d1,d3,e5-e4,d3-c3,e4-e3,c3-d3,e3-e4,d3-e3,e4-e5,e3-d3,e5-e4"
+        app.launchArguments = ["-ui-testing", "-ui-demo", "-ui-moves", played, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        app.buttons["result_done"].tap()
+        app.buttons["history"].tap()
+        app.buttons["history_move_0"].tap()
+        app.buttons["analyze_move"].tap()
+        let why = app.staticTexts["analysis_explanation"]
+        XCTAssertTrue(why.waitForExistence(timeout: 10))
+        XCTAssertFalse(why.label.isEmpty)
+        let point = app.otherElements["analysis_board"].buttons["node_g4"]
+        XCTAssertTrue(point.label.contains("frei"))
+        record("Move-Analysis-Comparison", app: app)
+        app.buttons["analysis_played"].tap()
+        XCTAssertTrue(point.label.contains("Weiß"))
+        app.buttons["analysis_suggested"].tap()
+        XCTAssertTrue(point.label.contains("frei"))
+        app.navigationBars["Zuganalyse"].buttons.element(boundBy: 0).tap()
+        XCTAssertEqual(app.staticTexts["replay_step"].label, "Schritt 1 von 28")
+        XCTAssertTrue(app.otherElements["replay_board"].buttons["node_g4"].label.contains("Weiß"))
+    }
+
     @MainActor func testInteractiveReplayReviewsHintsAndUndoWithoutChangingGame() {
         let app = launch(demo: true)
         app.buttons["hint"].tap()
@@ -12,6 +36,7 @@ final class MuehlensteinUITests: XCTestCase {
         while !app.buttons["history_move_7"].exists && app.buttons["next_page"].isEnabled { app.buttons["next_page"].tap() }
         app.buttons["history_move_7"].tap()
         XCTAssertTrue(app.staticTexts["replay_step"].waitForExistence(timeout: 3))
+        XCTAssertFalse(app.buttons["analyze_move"].exists)
         XCTAssertEqual(app.staticTexts["replay_step"].label, "Schritt 8 von 10")
         XCTAssertTrue(app.otherElements["replay_board"].buttons["node_d5"].label.contains("Schwarz"))
         XCTAssertFalse(app.otherElements["replay_board"].buttons["node_d5"].isEnabled)

@@ -228,3 +228,15 @@
 "replay_first" = "回到开始";
 "replay_last" = "跳到最后一条记录";
 "replay_unavailable" = "无法显示此局面。";
+"analysis_action" = "分析此步";
+"analysis_title" = "着法分析";
+"analysis_played" = "实战着法";
+"analysis_suggested" = "AI 推荐";
+"analysis_match" = "AI 也推荐这一步。";
+"analysis_only" = "这是当时局面中唯一的合法着法。";
+"analysis_book" = "开局库在当时的局面下推荐这一步。";
+"analysis_connections" = "走完这一步后，与 %@ 直接相连的空点有 %d 个。";
+"analysis_depth" = "AI 已按搜索深度 %d 评估了该局面。";
+"analysis_reply" = "%@的一种后续着法：%@。";
+"analysis_retry" = "重试";
+"analysis_calculating" = "正在分析局面…";

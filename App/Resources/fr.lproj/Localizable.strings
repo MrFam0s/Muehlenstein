@@ -228,3 +228,15 @@
 "replay_first" = "Aller au début";
 "replay_last" = "Aller à la dernière entrée";
 "replay_unavailable" = "Cette position ne peut pas être affichée.";
+"analysis_action" = "Analyser le coup";
+"analysis_title" = "Analyse du coup";
+"analysis_played" = "Coup joué";
+"analysis_suggested" = "Suggestion de l’IA";
+"analysis_match" = "L’IA recommande le même coup.";
+"analysis_only" = "C’était le seul coup légal dans cette position.";
+"analysis_book" = "Le répertoire d’ouvertures recommande ce coup dans cette position.";
+"analysis_connections" = "Après ce coup, %@ est relié directement à %d points libres.";
+"analysis_depth" = "L’IA a évalué la position jusqu’à une profondeur de recherche de %d.";
+"analysis_reply" = "Suite possible pour %@ : %@.";
+"analysis_retry" = "Réessayer";
+"analysis_calculating" = "Analyse de la position…";

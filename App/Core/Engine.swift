@@ -6,6 +6,15 @@ struct EngineAction: Codable, Equatable, Sendable {
     let from: Int
     let to: Int
     let notation: String
+
+    func description(in position: Position) -> String {
+        let target = position.nodes[to].label
+        switch kind {
+        case 0: return L10n.format("last_placed_at", target)
+        case 1: return "\(position.nodes[from].label) → \(target)"
+        default: return L10n.format("last_removed_at", target)
+        }
+    }
 }
 struct BoardNode: Codable, Identifiable, Sendable {
     let id: Int
@@ -37,6 +46,12 @@ struct Position: Decodable, Sendable {
     let moveSource: String?
     let moveInsights: [String]?
     var isOver: Bool { outcome != "ongoing" }
+
+    func emptyNeighbours(of point: Int) -> Int {
+        edges.filter { edge in
+            edge.contains(point) && edge.contains { $0 != point && board[$0] == 0 }
+        }.count
+    }
 }
 
 struct HintExplanation: Sendable {
@@ -157,7 +172,7 @@ struct SavedGame: Codable, Sendable {
     }
 }
 
-struct ReplayFrame {
+struct ReplayFrame: Sendable {
     let position: Position
     let moves: [MoveRecord]
     let entry: GameHistoryEntry?
@@ -171,14 +186,7 @@ struct ReplayFrame {
         case .move:
             let side = L10n.text(entry.side == 0 ? "white" : "black")
             guard let action = highlight else { return "\(side): \(entry.notation)" }
-            let target = position.nodes[action.to].label
-            let move: String
-            switch action.kind {
-            case 0: move = L10n.format("last_placed_at", target)
-            case 1: move = "\(position.nodes[action.from].label) → \(target)"
-            default: move = L10n.format("last_removed_at", target)
-            }
-            return "\(side): \(move)"
+            return "\(side): \(action.description(in: position))"
         }
     }
 }
@@ -209,6 +217,80 @@ extension SavedGame {
         default: highlight = nil
         }
         return ReplayFrame(position: position, moves: snapshot.moves, entry: entry, highlight: highlight)
+    }
+}
+
+/// A review uses the active branch as it stood just before the chosen action.
+struct MoveAnalysisRequest: Sendable {
+    let before: SavedGame
+    let played: EngineAction
+
+    init?(game: SavedGame, finished: Bool, frame: ReplayFrame) {
+        guard finished, let entry = frame.entry, entry.kind == .move,
+              let action = frame.highlight, entry.notation == action.notation,
+              frame.moves.last == MoveRecord(notation: action.notation, side: entry.side) else { return nil }
+        switch game.settings.opponent {
+        case .computer: guard entry.side == 0 else { return nil }
+        case .network: guard entry.side == game.network?.side else { return nil }
+        case .local: break // Both people play on this device.
+        }
+        var snapshot = game
+        snapshot.moves = Array(frame.moves.dropLast())
+        before = snapshot
+        played = action
+    }
+
+    func evaluate(cancellation: SearchCancellation) throws -> MoveAnalysis {
+        let position = try Engine.query(before, search: true, isHint: true, cancellation: cancellation)
+        guard position.legal.contains(played), let choice = position.best else {
+            throw EngineError.rejected("analysisUnavailable")
+        }
+        var line = before
+        line.moves.append(MoveRecord(notation: choice.notation, side: position.side))
+        let facts = position.moveInsights ?? []
+        let next = try Engine.query(line)
+        // If no immediate feature explains a quiet move, look one turn further.
+        var reply: EngineAction?
+        let connections = choice.kind == 2 ? 0 : next.emptyNeighbours(of: choice.to)
+        if facts.isEmpty, connections < 2, position.moveSource == "search", position.legal.count > 1, !next.isOver {
+            do {
+                reply = try Engine.query(line, search: true, isHint: true, cancellation: cancellation).best
+            } catch is CancellationError {
+                throw CancellationError()
+            } catch EngineError.rejected("searchIncomplete") {
+                // The main suggestion is still valid when the optional search times out.
+            }
+        }
+        return MoveAnalysis(choice: choice, position: next, moves: line.moves, facts: facts, freeNeighbours: connections,
+                            onlyMove: position.legal.count == 1, fromBook: position.moveSource == "book",
+                            depth: position.searchDepth, reply: reply)
+    }
+}
+
+struct MoveAnalysis: Sendable {
+    let choice: EngineAction
+    let position: Position // Board after the recommended action, including captures.
+    let moves: [MoveRecord]
+    let facts: [String]
+    let freeNeighbours: Int
+    let onlyMove: Bool
+    let fromBook: Bool
+    let depth: Int
+    let reply: EngineAction?
+
+    var explanation: String {
+        var lines = facts.map { L10n.text("hint_fact_" + $0) }
+        if facts.isEmpty && freeNeighbours >= 2 {
+            lines.append(L10n.format("analysis_connections", position.nodes[choice.to].label, freeNeighbours))
+        }
+        if onlyMove { lines.insert(L10n.text("analysis_only"), at: 0) }
+        else if fromBook { lines.append(L10n.text("analysis_book")) }
+        else { lines.append(L10n.format("analysis_depth", depth)) }
+        if let reply {
+            let side = L10n.text(position.side == 0 ? "white" : "black")
+            lines.append(L10n.format("analysis_reply", side, reply.description(in: position)))
+        }
+        return lines.joined(separator: "\n\n")
     }
 }
 

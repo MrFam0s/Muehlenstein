@@ -223,6 +223,21 @@ copy.pop(' twelve')
 copy.update({'replay_game': ('Partie ansehen', 'Review game'), 'replay_title': ('Rückblick', 'Replay'), 'replay_start': ('Ausgangsstellung', 'Starting position'), 'replay_step': ('Schritt %d von %d', 'Step %d of %d'), 'replay_previous': ('Vorheriger Schritt', 'Previous step'), 'replay_next': ('Nächster Schritt', 'Next step'), 'replay_first': ('Zum Anfang', 'Go to start'), 'replay_last': ('Zum letzten Eintrag', 'Go to last entry'), 'replay_unavailable': ('Diese Stellung kann nicht angezeigt werden.', 'This position cannot be displayed.')})
 copy['display_help_body'] = tuple(text + '\n\n' + note for text, note in zip(copy['display_help_body'], ('Tippe einen Eintrag an, um die damalige Stellung auf dem Brett anzusehen. Im Rückblick kannst du vor- und zurückgehen, ohne deine Partie zu verändern.', 'Tap an entry to view the board at that point. Step forward and backward in the replay without changing your game.')))
 
+copy.update({
+    'analysis_action': ('Zug untersuchen', 'Analyze move'),
+    'analysis_title': ('Zuganalyse', 'Move analysis'),
+    'analysis_played': ('Gespielt', 'Played'),
+    'analysis_suggested': ('KI-Vorschlag', 'AI suggestion'),
+    'analysis_match': ('Die KI empfiehlt denselben Zug.', 'The AI recommends the same move.'),
+    'analysis_only': ('In dieser Stellung war nur dieser Zug erlaubt.', 'This was the only legal move in this position.'),
+    'analysis_book': ('Das Eröffnungsbuch empfiehlt diesen Zug für die damalige Stellung.', 'The opening book recommends this move for that position.'),
+    'analysis_connections': ('Von %@ aus sind nach diesem Zug %d direkt verbundene Punkte frei.', 'After this move, %@ has %d directly connected empty points.'),
+    'analysis_depth': ('Die KI hat die Stellung bis Suchtiefe %d untersucht.', 'The AI evaluated the position to search depth %d.'),
+    'analysis_reply': ('Eine mögliche Fortsetzung für %@: %@.', 'One possible continuation for %@: %@.'),
+    'analysis_retry': ('Erneut versuchen', 'Try again'),
+    'analysis_calculating': ('Stellung wird untersucht …', 'Analyzing position…'),
+})
+
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--check-localizations', action='store_true')
 args = parser.parse_args()

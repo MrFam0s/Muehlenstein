@@ -228,3 +228,15 @@
 "replay_first" = "Zum Anfang";
 "replay_last" = "Zum letzten Eintrag";
 "replay_unavailable" = "Diese Stellung kann nicht angezeigt werden.";
+"analysis_action" = "Zug untersuchen";
+"analysis_title" = "Zuganalyse";
+"analysis_played" = "Gespielt";
+"analysis_suggested" = "KI-Vorschlag";
+"analysis_match" = "Die KI empfiehlt denselben Zug.";
+"analysis_only" = "In dieser Stellung war nur dieser Zug erlaubt.";
+"analysis_book" = "Das Eröffnungsbuch empfiehlt diesen Zug für die damalige Stellung.";
+"analysis_connections" = "Von %@ aus sind nach diesem Zug %d direkt verbundene Punkte frei.";
+"analysis_depth" = "Die KI hat die Stellung bis Suchtiefe %d untersucht.";
+"analysis_reply" = "Eine mögliche Fortsetzung für %@: %@.";
+"analysis_retry" = "Erneut versuchen";
+"analysis_calculating" = "Stellung wird untersucht …";

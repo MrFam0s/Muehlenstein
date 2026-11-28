@@ -228,5 +228,17 @@
   "replay_next": "다음 단계",
   "replay_first": "처음으로",
   "replay_last": "마지막 기록으로",
-  "replay_unavailable": "이 배치를 표시할 수 없습니다."
+  "replay_unavailable": "이 배치를 표시할 수 없습니다.",
+  "analysis_action": "수 분석하기",
+  "analysis_title": "수 분석",
+  "analysis_played": "실제 둔 수",
+  "analysis_suggested": "AI 추천 수",
+  "analysis_match": "AI도 같은 수를 추천합니다.",
+  "analysis_only": "이 국면에서 둘 수 있는 유일한 수였습니다.",
+  "analysis_book": "오프닝 북이 이 국면에서 추천하는 수입니다.",
+  "analysis_depth": "AI가 탐색 깊이 %d까지 국면을 평가했습니다.",
+  "analysis_reply": "%@의 다음 수 예시: %@.",
+  "analysis_retry": "다시 시도",
+  "analysis_calculating": "국면 분석 중…",
+  "analysis_connections": "이 수를 둔 뒤 %@에 바로 연결된 빈자리는 %d곳입니다."
 }

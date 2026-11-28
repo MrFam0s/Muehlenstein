@@ -228,3 +228,15 @@
 "replay_first" = "Go to start";
 "replay_last" = "Go to last entry";
 "replay_unavailable" = "This position cannot be displayed.";
+"analysis_action" = "Analyze move";
+"analysis_title" = "Move analysis";
+"analysis_played" = "Played";
+"analysis_suggested" = "AI suggestion";
+"analysis_match" = "The AI recommends the same move.";
+"analysis_only" = "This was the only legal move in this position.";
+"analysis_book" = "The opening book recommends this move for that position.";
+"analysis_connections" = "After this move, %@ has %d directly connected empty points.";
+"analysis_depth" = "The AI evaluated the position to search depth %d.";
+"analysis_reply" = "One possible continuation for %@: %@.";
+"analysis_retry" = "Try again";
+"analysis_calculating" = "Analyzing position…";

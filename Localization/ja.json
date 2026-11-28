@@ -228,5 +228,17 @@
   "replay_next": "次のステップ",
   "replay_first": "最初へ",
   "replay_last": "最後の記録へ",
-  "replay_unavailable": "この局面を表示できません。"
+  "replay_unavailable": "この局面を表示できません。",
+  "analysis_action": "手を分析",
+  "analysis_title": "指し手の分析",
+  "analysis_played": "実際の手",
+  "analysis_suggested": "AIの推奨手",
+  "analysis_match": "AIも同じ手を推奨します。",
+  "analysis_only": "この局面で合法な手はこれだけでした。",
+  "analysis_book": "定跡集がこの局面で推奨している手です。",
+  "analysis_depth": "AIは探索深度%dまで局面を評価しました。",
+  "analysis_reply": "%@の次の手の例：%@。",
+  "analysis_retry": "再試行",
+  "analysis_calculating": "局面を分析中…",
+  "analysis_connections": "この手の後、%@に直接つながる空き点は%dか所あります。"
 }

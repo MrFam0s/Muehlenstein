@@ -4,6 +4,42 @@ import UIKit
 @testable import Muehlenstein
 
 final class GameStoreTests: XCTestCase {
+    func testAnalysisComparesPlayedMoveWithBookFromTheHistoricalPosition() throws {
+        let settings = GameSettings(opponent: .local, level: 4)
+        let original = SavedGame(settings: settings, moves: [.init(notation: "a7", side: 0)])
+        let played = try original.replay(at: 1)
+        let request = try XCTUnwrap(MoveAnalysisRequest(game: original, finished: true, frame: played))
+        let result = try request.evaluate(cancellation: SearchCancellation())
+        XCTAssertTrue(request.before.moves.isEmpty)
+        XCTAssertEqual(request.played.notation, "a7")
+        XCTAssertTrue(result.fromBook)
+        XCTAssertEqual(result.choice.notation, "d2")
+        XCTAssertNotEqual(result.position.fen, played.position.fen)
+        XCTAssertTrue(result.explanation.contains(L10n.text("analysis_book")))
+        XCTAssertEqual(original.hintCount, 0)
+        let matching = SavedGame(settings: settings, moves: result.moves)
+        let same = try XCTUnwrap(MoveAnalysisRequest(game: matching, finished: true, frame: matching.replay(at: 1)))
+        XCTAssertEqual(try same.evaluate(cancellation: SearchCancellation()).choice, same.played)
+    }
+
+    func testAnalysisIsLimitedToFinishedGamesAndHumanActionsOnThisDevice() throws {
+        var game = SavedGame(settings: GameSettings(opponent: .computer),
+                             moves: [.init(notation: "a7", side: 0), .init(notation: "d7", side: 1)])
+        let white = try game.replay(at: 1)
+        let black = try game.replay(at: 2)
+        XCTAssertNil(MoveAnalysisRequest(game: game, finished: false, frame: white))
+        XCTAssertNil(MoveAnalysisRequest(game: game, finished: true, frame: try game.replay(at: 0)))
+        XCTAssertNil(MoveAnalysisRequest(game: game, finished: true, frame: black))
+        XCTAssertNotNil(MoveAnalysisRequest(game: game, finished: true, frame: white))
+        game.settings.opponent = .network
+        game.network = LocalMatchIdentity(id: UUID(), side: 1, resumeKey: UUID())
+        XCTAssertNil(MoveAnalysisRequest(game: game, finished: true, frame: white))
+        XCTAssertNotNil(MoveAnalysisRequest(game: game, finished: true, frame: black))
+        game.settings.opponent = .local
+        XCTAssertNotNil(MoveAnalysisRequest(game: game, finished: true, frame: white))
+        XCTAssertNotNil(MoveAnalysisRequest(game: game, finished: true, frame: black))
+    }
+
     @MainActor func testReplayIncludesHintsUndoAndAbandonedCaptureWithoutChangingSave() throws {
         let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
         defer { try? FileManager.default.removeItem(at: file) }
@@ -35,6 +71,17 @@ final class GameStoreTests: XCTestCase {
         XCTAssertEqual(store.game?.hintCount, 0)
         XCTAssertThrowsError(try snapshot.replay(at: -1))
         XCTAssertThrowsError(try snapshot.replay(at: 10))
+        // Both captures must be evaluated from the same pre-capture position.
+        let undone = try XCTUnwrap(MoveAnalysisRequest(game: snapshot, finished: true, frame: snapshot.replay(at: 6)))
+        let replacement = try XCTUnwrap(MoveAnalysisRequest(game: snapshot, finished: true, frame: snapshot.replay(at: 8)))
+        XCTAssertEqual(undone.before.moves, replacement.before.moves)
+        XCTAssertNotEqual(undone.played, replacement.played)
+        let capture = try replacement.evaluate(cancellation: SearchCancellation())
+        XCTAssertTrue(capture.facts.contains("capture"))
+        XCTAssertEqual(capture.moves.last?.side, 0)
+        XCTAssertNil(MoveAnalysisRequest(game: snapshot, finished: true, frame: try snapshot.replay(at: 7)))
+        XCTAssertNil(MoveAnalysisRequest(game: snapshot, finished: true, frame: hinted))
+        XCTAssertEqual(try Data(contentsOf: file), savedBytes)
         // A published save has only canonical moves; it is still reviewable.
         snapshot.history = nil
         XCTAssertEqual(try snapshot.replay(at: originalMoves.count).position.fen, store.position?.fen)
@@ -302,7 +349,7 @@ final class GameStoreTests: XCTestCase {
             return try XCTUnwrap(PropertyListSerialization.propertyList(from: Data(contentsOf: url), format: nil) as? [String: String])
         }
         let english = try strings("en")
-        XCTAssertEqual(english.count, 230)
+        XCTAssertEqual(english.count, 242)
         let format = try NSRegularExpression(pattern: "%[@d]")
         func arguments(_ value: String) -> [String] {
             format.matches(in: value, range: NSRange(value.startIndex..., in: value))

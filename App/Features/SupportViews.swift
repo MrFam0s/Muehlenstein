@@ -55,7 +55,7 @@ struct HistoryView: View {
                 .navigationTitle(L10n.text("history")).navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .confirmationAction) { Button(L10n.text("done")) { dismiss() } } }
                 .navigationDestination(item: $replayStep) { step in
-                    if let game { GameReplayView(game: game, startStep: step) }
+                    if let game { GameReplayView(game: game, finished: position?.isOver == true, startStep: step) }
                 }
         }.presentationDetents(dynamicType.isAccessibilitySize || replayStep != nil ? [.large] : [.height(500), .large])
             .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize || replayStep != nil ? 760 : 500))
@@ -96,37 +96,19 @@ private struct GameReplayView: View {
     @Environment(\.usesCompactSideToolbar) private var usesCompactSideToolbar
     @Environment(AppPreferences.self) private var preferences
     let game: SavedGame
+    let finished: Bool
     @State private var step: Int
     @State private var frame: ReplayFrame?
-    init(game: SavedGame, startStep: Int) {
+    init(game: SavedGame, finished: Bool, startStep: Int) {
+        self.finished = finished
         self.game = game
         _step = State(initialValue: startStep)
         _frame = State(initialValue: try? game.replay(at: startStep))
     }
     var body: some View {
-        GeometryReader { geometry in
+        Group {
             if let frame {
-                Group {
-                    if #available(iOS 27.1, *), !geometry.reservedRegions(kind: .division).isEmpty {
-                        ArrangementView {
-                            board(frame)
-                        } secondary: {
-                            controls(frame).frame(maxWidth: 420).padding(.horizontal, 8)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        }
-                        .arrangementViewStyle(.split)
-                    } else if geometry.size.width > geometry.size.height {
-                        HStack(spacing: 20) {
-                            board(frame)
-                            controls(frame).frame(width: geometry.size.width * 0.45)
-                        }
-                    } else {
-                        VStack(spacing: 16) {
-                            board(frame)
-                            controls(frame)
-                        }
-                    }
-                }.padding(20)
+                ReplayLayout { board(frame) } controls: { controls(frame) }
             } else { ContentUnavailableView(L10n.text("replay_unavailable"), systemImage: "exclamationmark.circle") }
         }.background(Color.limestone)
             .navigationTitle(L10n.text("replay_title")).navigationBarTitleDisplayMode(.inline)
@@ -156,6 +138,14 @@ private struct GameReplayView: View {
                 .multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, minHeight: dynamicType.isAccessibilitySize ? 70 : 44)
                 .accessibilityIdentifier("replay_caption")
+            if let request = MoveAnalysisRequest(game: game, finished: finished, frame: frame) {
+                NavigationLink {
+                    MoveAnalysisView(request: request, playedFrame: frame)
+                } label: {
+                    Label(L10n.text("analysis_action"), systemImage: "magnifyingglass")
+                        .frame(minHeight: 44)
+                }.accessibilityIdentifier("analyze_move")
+            }
             Text(L10n.format("replay_step", step, game.historyEntries.count))
                 .font(.caption).monospacedDigit().foregroundStyle(Color.quietInk)
                 .accessibilityIdentifier("replay_step")
@@ -194,6 +184,127 @@ private struct GameReplayView: View {
             configuration.icon.font(.system(size: 22)).frame(maxWidth: .infinity, minHeight: 52)
                 .opacity(isEnabled ? 1 : 0.35)
         }
+    }
+}
+
+private struct ReplayLayout<Board: View, Controls: View>: View {
+    @ViewBuilder let board: () -> Board
+    @ViewBuilder let controls: () -> Controls
+
+    var body: some View {
+        GeometryReader { geometry in
+            Group {
+                if #available(iOS 27.1, *), !geometry.reservedRegions(kind: .division).isEmpty {
+                    ArrangementView { board() } secondary: {
+                        controls().frame(maxWidth: 420).padding(.horizontal, 8)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }.arrangementViewStyle(.split)
+                } else if geometry.size.width > geometry.size.height {
+                    HStack(spacing: 20) {
+                        board()
+                        controls().frame(width: geometry.size.width * 0.45)
+                    }
+                } else {
+                    VStack(spacing: 16) {
+                        board()
+                        controls()
+                    }
+                }
+            }.padding(20)
+        }
+    }
+}
+
+private struct MoveAnalysisView: View {
+    let request: MoveAnalysisRequest
+    let playedFrame: ReplayFrame
+    @State private var result: MoveAnalysis?
+    @State private var showPlayed = false
+    @State private var failed = false
+    @State private var attempt = 0
+
+    var body: some View {
+        ReplayLayout {
+            GeometryReader { geometry in
+                let recommendation = showPlayed ? nil : result
+                let side = min(geometry.size.width, geometry.size.height)
+                BoardView(position: recommendation?.position ?? playedFrame.position,
+                          moves: recommendation?.moves ?? playedFrame.moves,
+                          animateStones: false, recentActions: [recommendation?.choice ?? request.played],
+                          showLegalMoves: false, interactive: false)
+                    .frame(width: side, height: side).frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .accessibilityElement(children: .contain).accessibilityIdentifier("analysis_board")
+            }
+        } controls: {
+            ViewThatFits(in: .vertical) {
+                comparison.fixedSize(horizontal: false, vertical: true)
+                ScrollView { comparison }
+            }
+        }
+        .background(Color.limestone)
+        .navigationTitle(L10n.text("analysis_title")).navigationBarTitleDisplayMode(.inline)
+        .task(id: attempt) {
+            do {
+                failed = false
+                let token = try SearchCancellation()
+                let answer = try await withTaskCancellationHandler {
+                    try await Task.detached(priority: .userInitiated) { [request] in
+                        try request.evaluate(cancellation: token)
+                    }.value
+                } onCancel: { token.cancel() }
+                try Task.checkCancellation()
+                result = answer
+            } catch {
+                if !Task.isCancelled { failed = true }
+            }
+        }
+    }
+
+    private var comparison: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            if let result {
+                if result.choice == request.played {
+                    Text(L10n.text("analysis_match")).font(.headline)
+                        .accessibilityIdentifier("analysis_match")
+                    Text(request.played.description(in: playedFrame.position))
+                } else {
+                    moveButton("analysis_played", action: request.played, played: true)
+                    moveButton("analysis_suggested", action: result.choice, played: false)
+                }
+                if result.choice != request.played {
+                    Text(L10n.text("hint_explanation")).font(.subheadline.weight(.semibold))
+                }
+                Text(result.explanation).font(.subheadline)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityIdentifier("analysis_explanation")
+            } else if failed {
+                Text(L10n.text("engine_error"))
+                Button(L10n.text("analysis_retry")) { attempt += 1 }
+            } else {
+                ProgressView(L10n.text("analysis_calculating"))
+            }
+        }.foregroundStyle(Color.ink).frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func moveButton(_ key: String, action: EngineAction, played: Bool) -> some View {
+        Button {
+            showPlayed = played
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: showPlayed == played ? "checkmark.circle.fill" : "circle")
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(L10n.text(key)).font(.caption).foregroundStyle(Color.quietInk)
+                    Text(action.description(in: playedFrame.position)).font(.headline).foregroundStyle(Color.ink)
+                }
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, 12).padding(.vertical, 6).frame(minHeight: 44)
+            .background(Color.boardSurface, in: RoundedRectangle(cornerRadius: 12))
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(showPlayed == played ? .isSelected : [])
+        .accessibilityIdentifier(key)
     }
 }
 

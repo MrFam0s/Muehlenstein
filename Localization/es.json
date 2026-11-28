@@ -228,5 +228,17 @@
   "replay_next": "Paso siguiente",
   "replay_first": "Ir al inicio",
   "replay_last": "Ir al último evento",
-  "replay_unavailable": "No se puede mostrar esta posición."
+  "replay_unavailable": "No se puede mostrar esta posición.",
+  "analysis_action": "Analizar jugada",
+  "analysis_title": "Análisis de la jugada",
+  "analysis_played": "Jugada realizada",
+  "analysis_suggested": "Sugerencia de la IA",
+  "analysis_match": "La IA recomienda la misma jugada.",
+  "analysis_only": "Era la única jugada legal en esa posición.",
+  "analysis_book": "El libro de aperturas recomienda esta jugada para esa posición.",
+  "analysis_depth": "La IA evaluó la posición con una profundidad de búsqueda de %d.",
+  "analysis_reply": "Una posible continuación para %@: %@.",
+  "analysis_retry": "Volver a intentar",
+  "analysis_calculating": "Analizando la posición…",
+  "analysis_connections": "Tras esta jugada, %@ conecta directamente con %d puntos libres."
 }
