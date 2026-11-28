@@ -9,7 +9,10 @@ iOS-Version, Spielvariante und die Schritte, bei denen das Problem auftritt.
 Screenshots sind freiwillig; bitte entferne persönliche Inhalte vor dem Senden.
 
 - **Partie fortsetzen:** Die aktuelle Partie wird automatisch auf dem Gerät gespeichert.
-- **Spielstärke:** Unter „Neue Partie“ gibt es fünf Stufen; während einer Computerpartie sind sie über Mehr → Spielstärke erreichbar. Die erweiterten Optionen erläutern Suche, Rechenzeit, Spielstil und Eröffnung.
+- **Steine schieben und springen lassen.** Ziehe einen eigenen Stein auf einen erlaubten freien Punkt und lasse ihn dort los. Du kannst auch erst den Stein und dann das Ziel antippen. Setzen und Schlagen funktionieren durch Antippen.
+- **Züge nachspielen.** Öffne nach einer beendeten Partie den Verlauf, tippe auf einen eigenen Zug und wähle „Zug untersuchen“. „Gespielt“ und „KI-Vorschlag“ zeigen die jeweilige Stellung. Die KI erklärt ihren Vorschlag oder bestätigt denselben Zug. Dabei wird kein Tipp zur Partie gezählt.
+- **Spielstärke wählen.** Unter „Neue Partie“ und während einer Computerpartie unter „Mehr → Spielstärke“ kannst du „Fest“ oder „Automatisch“ wählen. Die Automatik startet auf Stufe 1. Zwei Siege in Folge auf oder über der empfohlenen Stufe erhöhen sie für die nächste Partie um eins. Zwei Niederlagen auf oder unter der Empfehlung senken sie um eins. Ein Remis unterbricht die Serie.
+- **Gewertete Partien.** Es zählen beendete Computerpartien in beiden Modi, die auf einer Stufe und ohne Tipps oder Rücknahmen gespielt wurden. Die Empfehlung wird lokal gespeichert. Deine letzte feste Stufe bleibt beim Umschalten erhalten.
 - **Tipp:** Ein Tippen zeigt den Vorschlag auf dem Brett; erneutes Tippen blendet ihn aus.
 - **Darstellung:** Im Mehr-Menü der Partie. Zugziele und letzter Zug sind anfangs aus. „Steinanimationen deaktivieren“ ist ebenfalls aus, sodass Steine sanft bewegt werden.
 - **Zu zweit:** Beide Personen spielen abwechselnd auf demselben Gerät.
@@ -28,7 +31,10 @@ your device model, iOS version, game variant and steps to reproduce the issue.
 Screenshots are optional; remove any personal content before sending them.
 
 - **Resume play:** The current game is saved automatically on your device.
-- **Difficulty:** New game offers five levels; during a computer game, use More → Difficulty. Advanced options explain search, thinking time, play style and openings.
+- **Moving and flying.** Drag your piece onto a legal empty point and release it. You can also tap the piece and then its destination. Tap to place or capture a piece.
+- **Review a move.** After the game, open History, select one of your moves and choose “Analyze move”. Switch between “Played” and “AI suggestion” to compare the boards. The explanation describes the suggestion or confirms that the AI chose the same move. Reviewing a move does not add to the game's hint count.
+- **Choosing difficulty.** Select Fixed or Automatic in New game or under More → Difficulty during a computer game. Automatic starts at level 1. Two consecutive wins at or above the recommended level raise it by one for the next game. Two consecutive losses at or below it lower it by one. A draw breaks the streak.
+- **Games that count.** Completed computer games in either mode count when played at a single level without hints or undos. The recommendation is saved on your device. Switching modes preserves your last fixed level.
 - **Hints:** Tap Hint to show a suggested move on the board; tap again to hide it.
 - **Appearance:** In the game’s More menu. Legal targets and last-move markers are off by default. “Disable stone animations” is also off, keeping gentle movements enabled.
 - **Two players:** Take turns on the same device.

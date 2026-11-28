@@ -1,5 +1,11 @@
 # Versionshinweise
 
+## 1.6 · Build 20 (28.11.2026)
+
+- Beim Schieben und Springen kannst du einen eigenen Stein direkt auf ein erlaubtes Feld ziehen. Alternativ kannst du weiterhin zuerst den Stein und dann das Ziel antippen. Ein ungültiges Ablegen verbraucht keinen Zug.
+- Nach der Partie kannst du im Verlauf einen eigenen Zug auswählen und „Zug untersuchen“ öffnen. Vergleiche die gespielte Stellung und den KI-Vorschlag auf dem Brett. Die Erklärung nennt beispielsweise eine geschlossene Mühle oder eine blockierte Reihe. Bei Übereinstimmung bestätigt die Analyse deinen Zug.
+- Unter „Spielstärke“ stehen „Fest“ und „Automatisch“ zur Wahl. Die Automatik lernt aus beendeten Computerpartien und passt die nächste Partie um höchstens eine der fünf Stufen an. Die zuletzt bestätigte feste Stufe bleibt separat gespeichert.
+
 ## 1.5 · Build 17 — iPhone Duo (24.11.2026)
 
 Auf dem angewinkelten iPhone Duo liegen Spielbrett und Bedienung auf je einer

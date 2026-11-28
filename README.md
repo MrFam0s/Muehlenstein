@@ -1,5 +1,7 @@
 # Muehlenstein
 
+**Version 1.6 (Build 20)** ergänzt das direkte Ziehen von Steinen, die grafische Zuganalyse im Verlauf beendeter Partien und die optionale adaptive Spielstärke. Antippen und feste Stufen sind weiterhin verfügbar. [Bedienung auf Deutsch und Englisch](Docs/SUPPORT.md) · [Versionshinweise](CHANGELOG.md)
+
 **Version 1.5 (Build 17)** passt Startseite, Spielbrett und Rückschau an die
 Falz des iPhone Duo an. In Buch- und Laptopstellung bekommen Brett und
 Bedienelemente jeweils eine Displayhälfte. Auf dem Außendisplay stehen
