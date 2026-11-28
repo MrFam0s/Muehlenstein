@@ -233,7 +233,7 @@ struct GameView: View {
         BoardView(position: position, moves: store.game?.moves, animateStones: preferences.animateStones,
                   selected: store.selectedNode, hint: store.hint,
                   recentActions: preferences.showLastMove ? position.lastTurn : [], showLegalMoves: preferences.showLegalMoves,
-                  interactive: store.isHumanTurn && !store.isThinking, tap: store.tap)
+                  interactive: store.isHumanTurn && !store.isThinking, tap: store.tap, play: store.play)
             .id(store.boardID)
     }
     private func players(_ position: Position, game: SavedGame) -> some View {

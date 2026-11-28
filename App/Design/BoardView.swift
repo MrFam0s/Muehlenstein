@@ -4,6 +4,13 @@ import SwiftUI
 struct BoardView: View {
     @Environment(\.accentPalette) private var palette
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    private struct StoneDrag {
+        let origin: Int
+        let translation: CGSize
+    }
+
+    @GestureState private var drag: StoneDrag?
+    @Namespace private var boardSpace
     let position: Position
     var moves: [MoveRecord]? = nil
     var animateStones = true
@@ -13,6 +20,8 @@ struct BoardView: View {
     var showLegalMoves = true
     var interactive = true
     var tap: (Int) -> Void = { _ in }
+
+    var play: (EngineAction) -> Void = { _ in }
 
     private func coordinate(_ value: Double, size: CGFloat) -> CGFloat {
         // Preserve node identity; spread nested squares evenly for finger targets.
@@ -24,11 +33,40 @@ struct BoardView: View {
         let n = position.nodes[node]
         return CGPoint(x: coordinate(n.x, size: size), y: coordinate(n.y, size: size))
     }
+    private func moveGesture(from origin: Int, size: CGFloat) -> some Gesture {
+        DragGesture(minimumDistance: 7, coordinateSpace: .named(boardSpace))
+            .updating($drag) { value, state, _ in
+                state = StoneDrag(origin: origin, translation: value.translation)
+            }
+            .onEnded { value in
+                // Only a drop close to a real board point counts. Dropping near an
+                // occupied or unreachable point never redirects to a legal neighbor.
+                let radius = min(22, size * 0.07)
+                let target = position.nodes.compactMap { node -> (id: Int, distance: CGFloat)? in
+                    let center = point(node.id, size: size)
+                    let distance = hypot(center.x - value.location.x, center.y - value.location.y)
+                    return distance < radius ? (node.id, distance) : nil
+                }.min { $0.distance < $1.distance }
+                guard interactive, let target,
+                      let move = position.legal.first(where: { $0.kind == 1 && $0.from == origin && $0.to == target.id })
+                else { return }
+                play(move)
+            }
+    }
+
+    private func stoneCenter(_ node: Int, size: CGFloat) -> CGPoint {
+        let center = point(node, size: size)
+        guard let drag, drag.origin == node else { return center }
+        return CGPoint(x: center.x + drag.translation.width, y: center.y + drag.translation.height)
+    }
+
+    private var activeOrigin: Int? { drag?.origin ?? selected }
+
     private func destination(_ node: Int) -> Bool {
         guard interactive, showLegalMoves else { return false }
         return position.legal.contains { a in
             if a.kind == 0 || a.kind == 2 { return a.to == node }
-            return selected != nil && a.kind == 1 && a.from == selected && a.to == node
+            return a.kind == 1 && a.from == activeOrigin && a.to == node
         }
     }
     private func recentValue(_ node: Int) -> String {
@@ -79,7 +117,7 @@ struct BoardView: View {
                                 Circle().fill(Color.boardSurface).frame(width: 23, height: 23)
                                 Image(systemName: "xmark").font(.system(size: 12, weight: .medium)).foregroundStyle(palette.color)
                             }
-                            if destination(node.id), stone == 0, selected == nil, hint?.to != node.id {
+                            if destination(node.id), stone == 0, activeOrigin == nil, hint?.to != node.id {
                                 Circle().fill(palette.color).frame(width: 9, height: 9)
                             } else if stone == 0 && (destination(node.id) || hint?.to == node.id) {
                                 Circle().strokeBorder(palette.color, lineWidth: 2)
@@ -88,12 +126,15 @@ struct BoardView: View {
                         }.frame(width: 44, height: 44).contentShape(Circle())
                     }
                     .buttonStyle(BoardPointStyle())
+                    .highPriorityGesture(moveGesture(from: node.id, size: size), isEnabled:
+                        interactive && !position.isOver && position.legal.contains { $0.kind == 1 && $0.from == node.id })
                     .disabled(!interactive || position.isOver)
                     .accessibilityLabel("\(node.label), \(L10n.text(stone == 0 ? "empty" : stone == 1 ? "white" : "black"))")
                     .accessibilityValue(accessibilityValue(node.id))
                     .accessibilityIdentifier("node_\(node.label)")
                     .position(point(node.id, size: size))
                 }
+                .id(position.fen) // Cancel touches that began on an earlier position.
                 // Only this visual layer animates. Board coordinates, buttons and game state
                 // update immediately, so a transition never queues or blocks a player's input.
                 ZStack {
@@ -106,12 +147,14 @@ struct BoardView: View {
                                         .frame(width: 22, height: 22)
                                 }
                             }
-                            .position(point(piece.node, size: size))
+                            .position(stoneCenter(piece.node, size: size))
                             .transition(.opacity)
-                            .zIndex(position.lastTurn.contains { $0.kind == 1 && $0.to == piece.node } ? 1 : 0)
+                            .zIndex(drag?.origin == piece.node ? 2 : position.lastTurn.contains { $0.kind == 1 && $0.to == piece.node } ? 1 : 0)
                     }
                 }.frame(width: size, height: size)
                     .animation(animateStones && !reduceMotion ? .easeInOut(duration: 0.32) : nil, value: pieces)
+                    .animation(drag == nil && animateStones && !reduceMotion ? .easeOut(duration: 0.18) : nil,
+                               value: drag?.origin)
                     .allowsHitTesting(false).accessibilityHidden(true)
                 // Capture choices belong to fixed board coordinates: the glow
                 // disappears immediately on capture, without following a fading stone.
@@ -129,14 +172,14 @@ struct BoardView: View {
                 // Selection belongs to the fixed board, not the animated stone. Remove it
                 // immediately when a move starts, without a fading or travelling ring.
                 ZStack {
-                    if let selected {
+                    if drag == nil, let selected {
                         Circle().strokeBorder(palette.color, lineWidth: 2)
                             .frame(width: min(32, size * 0.09) + 8, height: min(32, size * 0.09) + 8)
                             .position(point(selected, size: size))
                     }
                 }.transaction { $0.animation = nil }
                     .allowsHitTesting(false).accessibilityHidden(true)
-            }
+            }.coordinateSpace(name: boardSpace)
         }.aspectRatio(1, contentMode: .fit)
     }
 }

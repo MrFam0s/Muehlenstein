@@ -108,6 +108,40 @@ final class MuehlensteinUITests: XCTestCase {
         XCTAssertFalse((app.buttons["node_b6"].value as? String ?? "").contains("kann entfernt werden"))
     }
 
+    @MainActor func testDragMovesOnceAndInvalidDropsLeaveTapPlayAvailable() {
+        let app = XCUIApplication()
+        let moves = "f2,d6,b6,a4,a1,g1,f4,d2,c4,f6,b4,b2,e4,g4,g7,d5,d7,e5"
+        app.launchArguments = ["-ui-testing", "-ui-demo", "-ui-moves", moves,
+                               "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        let stone = app.buttons["node_c4"]
+        let target = app.buttons["node_c5"]
+        XCTAssertTrue(stone.waitForExistence(timeout: 5))
+        let center = CGVector(dx: 0.5, dy: 0.5)
+        let start = stone.coordinate(withNormalizedOffset: center)
+        let end = target.coordinate(withNormalizedOffset: center)
+        let midpoint = start.withOffset(CGVector(dx: 0, dy: (end.screenPoint.y - start.screenPoint.y) / 2))
+        for invalid in [app.buttons["node_a7"].coordinate(withNormalizedOffset: center), midpoint] {
+            start.press(forDuration: 0.1, thenDragTo: invalid)
+            XCTAssertTrue(stone.label.contains("Weiß"))
+            XCTAssertTrue(target.label.contains("frei"))
+        }
+        start.press(forDuration: 0.1, thenDragTo: end)
+        XCTAssertTrue(stone.label.contains("frei"))
+        XCTAssertTrue(target.label.contains("Weiß"))
+
+        // Black can still make the next move using the two original taps.
+        app.buttons["node_g1"].tap()
+        app.buttons["node_d1"].tap()
+        XCTAssertTrue(app.buttons["node_d1"].label.contains("Schwarz"))
+        XCTAssertTrue(app.buttons["node_g1"].label.contains("frei"))
+        app.buttons["undo"].tap()
+        app.buttons["undo"].tap()
+        XCTAssertTrue(stone.label.contains("Weiß"))
+        XCTAssertTrue(target.label.contains("frei"))
+        XCTAssertTrue(app.buttons["node_g1"].label.contains("Schwarz"))
+    }
+
     @MainActor func testGameOverNoticeDismissesAndDoesNotReturnOnRelaunch() {
         let app = XCUIApplication()
         let base = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
