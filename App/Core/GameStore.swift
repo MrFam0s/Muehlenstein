@@ -59,13 +59,22 @@ import Observation
         persist()
     }
 
+    private var progressForNextGame: AdaptiveStrength {
+        guard let game, let position else { return AdaptiveStrength() }
+        return game.strengthAfterGame(at: position)
+    }
+    var recommendedLevel: Int { progressForNextGame.level }
+
     func start(_ settings: GameSettings) {
         guard settings.opponent != .network else { return }
         network?.stop()
         network = nil
         cancelWork()
         do {
-            let next = SavedGame(settings: settings, history: GameHistory())
+            let progress = progressForNextGame
+            var next = SavedGame(settings: settings, history: GameHistory(), priorStrength: progress)
+            next.settings.adaptive = settings.opponent == .computer && settings.adaptive
+            if next.settings.adaptive { next.settings.level = progress.level }
             let position = try Engine.query(next)
             boardID = UUID()
             game = next
@@ -76,7 +85,8 @@ import Observation
         } catch { errorMessage = error.localizedDescription }
     }
     func adoptNetwork(_ session: LocalMatchSession) {
-        guard session.hasStarted, let game = session.game, let position = session.position else { return }
+        guard session.hasStarted, var game = session.game, let position = session.position else { return }
+        game.priorStrength = progressForNextGame
         cancelWork()
         network?.stop()
         network = session
@@ -92,6 +102,7 @@ import Observation
         network?.onUpdate = { [weak self] game, position in
             guard let self else { return }
             var next = game
+            next.priorStrength = self.game?.priorStrength
             if self.game?.network?.id == game.network?.id, self.position?.fen == position.fen {
                 next.dismissedResult = self.game?.dismissedResult
             }
@@ -166,8 +177,13 @@ import Observation
         search(isHint: false)
     }
     func updateComputerSettings(_ settings: GameSettings) {
-        guard var next = game, next.settings.opponent == .computer else { return }
-        next.settings.level = settings.level
+        guard var next = game, next.settings.opponent == .computer, position?.isOver == false else { return }
+        let level = settings.adaptive ? recommendedLevel : settings.level
+        if level != next.settings.level && next.moves.contains(where: { $0.side == 1 }) {
+            next.playedAtMultipleLevels = true
+        }
+        next.settings.adaptive = settings.adaptive
+        next.settings.level = level
         next.settings.algorithm = settings.algorithm
         next.settings.effort = settings.effort
         next.settings.style = settings.style

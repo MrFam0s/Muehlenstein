@@ -238,6 +238,15 @@ copy.update({
     'analysis_calculating': ('Stellung wird untersucht …', 'Analyzing position…'),
 })
 
+copy.update({
+    'strength_fixed': ('Fest', 'Fixed'),
+    'strength_auto': ('Automatisch', 'Automatic'),
+})
+copy['computer_help_body'] = tuple(note + '\n\n' + body for note, body in zip((
+    'Im automatischen Modus beginnt der Computer auf Stufe 1. Zwei Siege in Folge auf mindestens der empfohlenen Stufe erhöhen die nächste Partie um eine Stufe. Zwei Niederlagen auf höchstens der empfohlenen Stufe senken sie. Ein Remis unterbricht die Serie.\n\nEs zählen beendete Computerpartien mit fester und automatischer Stärke. Partien mit Tipps, Rücknahmen oder auf mehreren Stufen bleiben unberücksichtigt. Deine feste Stufe bleibt separat gespeichert.',
+    'Automatic difficulty starts at level 1. Two consecutive wins at or above the recommended level raise it by one for the next game. Two losses in a row at or below it lower it by one. A draw breaks the streak.\n\nCompleted games against the computer count in either mode. Games with hints, undone moves or more than one difficulty level are excluded. Your fixed level is saved separately.',
+), copy['computer_help_body']))
+
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--check-localizations', action='store_true')
 args = parser.parse_args()

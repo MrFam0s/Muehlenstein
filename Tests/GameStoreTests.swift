@@ -349,7 +349,7 @@ final class GameStoreTests: XCTestCase {
             return try XCTUnwrap(PropertyListSerialization.propertyList(from: Data(contentsOf: url), format: nil) as? [String: String])
         }
         let english = try strings("en")
-        XCTAssertEqual(english.count, 242)
+        XCTAssertEqual(english.count, 244)
         let format = try NSRegularExpression(pattern: "%[@d]")
         func arguments(_ value: String) -> [String] {
             format.matches(in: value, range: NSRange(value.startIndex..., in: value))
@@ -687,6 +687,97 @@ final class GameStoreTests: XCTestCase {
         }
         defaults.set("unknown-palette", forKey: "accentPalette")
         XCTAssertEqual(AppPreferences(defaults: defaults).accentPalette, .slate)
+    }
+
+    func testAdaptiveStrengthRequiresRepeatedResultsAgainstComparableOpponents() {
+        var progress = AdaptiveStrength()
+        progress.record(winner: 0, at: 1)
+        progress.record(winner: -1, at: 1)
+        progress.record(winner: 0, at: 1)
+        XCTAssertEqual(progress.level, 1)
+        progress.record(winner: 0, at: 3)
+        XCTAssertEqual(progress.level, 2)
+        for _ in 0..<4 {
+            progress.record(winner: 0, at: 1)
+            progress.record(winner: 1, at: 5)
+        }
+        XCTAssertEqual(progress.level, 2)
+        for level in 2..<5 {
+            progress.record(winner: 0, at: level)
+            XCTAssertEqual(progress.level, level)
+            progress.record(winner: 0, at: level)
+            XCTAssertEqual(progress.level, level + 1)
+        }
+        for _ in 0..<4 { progress.record(winner: 0, at: 5) }
+        XCTAssertEqual(progress.level, 5)
+        for level in (2...5).reversed() {
+            progress.record(winner: 1, at: level)
+            XCTAssertEqual(progress.level, level)
+            progress.record(winner: 1, at: level - 1)
+            XCTAssertEqual(progress.level, level - 1)
+        }
+        for _ in 0..<4 { progress.record(winner: 1, at: 1) }
+        XCTAssertEqual(progress.level, 1)
+    }
+
+    @MainActor func testAdaptiveResultSurvivesRelaunchWithoutDoubleCountingOrRatingUndo() throws {
+        let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "offline-games", withExtension: "json"))
+        let fixtures = try JSONDecoder().decode(OfflineFixtures.self, from: Data(contentsOf: url))
+        let win = try XCTUnwrap(fixtures.games.first { $0.name == "0-loseNoLegalMoves" })
+        let preview = GameStore(inMemory: true)
+        preview.loadPreviewGame(notations: Array(win.moves.dropLast()))
+        var baseline = AdaptiveStrength()
+        baseline.record(winner: 0, at: 1)
+        var saved = try XCTUnwrap(preview.game)
+        saved.settings.opponent = .computer
+        saved.priorStrength = baseline
+        let file = URL.temporaryDirectory.appending(path: UUID().uuidString + ".json")
+        defer { try? FileManager.default.removeItem(at: file) }
+        try JSONEncoder().encode(saved).write(to: file)
+        let store = GameStore(storageURL: file)
+        XCTAssertEqual(store.recommendedLevel, 1)
+        let winningMove = try XCTUnwrap(store.position?.legal.first { $0.notation == win.moves.last })
+        store.play(winningMove)
+        XCTAssertEqual(store.position?.winner, 0)
+        XCTAssertEqual(store.game?.settings.level, 1)
+        XCTAssertEqual(store.recommendedLevel, 2)
+        store.acknowledgeResult()
+        let restored = GameStore(storageURL: file)
+        XCTAssertEqual(restored.recommendedLevel, 2)
+        let terminal = try XCTUnwrap(store.position)
+        var assisted = try XCTUnwrap(store.game)
+        assisted.record(.init(kind: .hint, moveNumber: 1, side: 0))
+        XCTAssertEqual(assisted.strengthAfterGame(at: terminal), baseline)
+        var mixed = try XCTUnwrap(store.game)
+        mixed.playedAtMultipleLevels = true
+        XCTAssertEqual(mixed.strengthAfterGame(at: terminal), baseline)
+        store.undo()
+        XCTAssertEqual(store.recommendedLevel, 1)
+        XCTAssertEqual(store.game?.undoCount, 1)
+
+        // Persisted advice belongs to this device even as a network peer moves.
+        let link = MatchTestLink()
+        let host = LocalMatchSession(transport: link.white), guest = LocalMatchSession(transport: link.black)
+        host.host(variant: .classic)
+        guest.browse()
+        guest.join(NearbyGame(id: "test", matchID: try XCTUnwrap(host.identity).id, variant: .classic))
+        link.connect()
+        link.pump()
+        host.acceptInvitation()
+        link.pump()
+        restored.adoptNetwork(guest)
+        host.play(try XCTUnwrap(host.position?.legal.first))
+        link.pump()
+        XCTAssertEqual(restored.game?.moves.count, 1)
+        XCTAssertEqual(restored.recommendedLevel, 2)
+        restored.start(GameSettings(opponent: .local))
+        XCTAssertEqual(restored.recommendedLevel, 2)
+        restored.start(GameSettings(level: 5, adaptive: true))
+        XCTAssertEqual(restored.game?.settings.level, 2)
+        XCTAssertEqual(GameStore(storageURL: file).recommendedLevel, 2)
+        restored.start(GameSettings(level: 4))
+        XCTAssertEqual(restored.game?.settings.level, 4)
+        XCTAssertEqual(restored.recommendedLevel, 2)
     }
 
     @MainActor func testComputerLevelDefaultsToOneAndPersists() throws {

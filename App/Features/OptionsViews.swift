@@ -86,28 +86,32 @@ struct ComputerOptionsView: View {
     @Environment(AppPreferences.self) private var preferences
     @State private var settings: GameSettings
     @State private var expanded = false
+    let recommendedLevel: Int
     let apply: (GameSettings) -> Void
 
-    init(settings: GameSettings, apply: @escaping (GameSettings) -> Void) {
-        _settings = State(initialValue: settings)
+    init(settings: GameSettings, fixedLevel: Int, recommendedLevel: Int, apply: @escaping (GameSettings) -> Void) {
+        self.recommendedLevel = recommendedLevel
+        var draft = settings
+        if settings.adaptive { draft.level = fixedLevel }
+        _settings = State(initialValue: draft)
         self.apply = apply
     }
     var body: some View {
         NavigationStack {
-            GameSetupEditor(settings: $settings, expanded: $expanded, includesGame: false)
+            GameSetupEditor(settings: $settings, expanded: $expanded, recommendedLevel: recommendedLevel, includesGame: false)
                 .padding(16).background(Color.limestone)
                 .navigationTitle(L10n.text("computer_options")).navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) { Button(L10n.text("cancel")) { dismiss() } }
                     ToolbarItem(placement: .confirmationAction) {
                         Button(L10n.text("done")) {
-                            preferences.lastComputerLevel = settings.level
+                            preferences.rememberComputerSettings(settings)
                             apply(settings)
                             dismiss()
                         }.accessibilityIdentifier("computer_done")
                     }
                 }
-        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(expanded ? 530 : 300)])
-            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : (expanded ? 530 : 300)))
+        }.presentationDetents([dynamicType.isAccessibilitySize ? .large : .height(expanded ? 572 : 342)])
+            .presentationSizing(SettingsSheetSizing(height: dynamicType.isAccessibilitySize ? 760 : (expanded ? 572 : 342)))
     }
 }

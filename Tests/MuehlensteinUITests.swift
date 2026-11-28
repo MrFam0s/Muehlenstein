@@ -1315,6 +1315,44 @@ final class MuehlensteinUITests: XCTestCase {
             XCTAssertLessThanOrEqual(app.buttons["variant_" + key].frame.maxY, app.buttons["start_game"].frame.minY - 2, "Variant must not overlap the start button")
         }
     }
+    @MainActor func testAdaptiveModePersistsWithoutOverwritingTheFixedLevel() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString, "-AppleLanguages", "(de)", "-AppleLocale", "de_DE"]
+        app.launch()
+        app.buttons["new_game"].tap()
+        let picker = app.segmentedControls["strength_mode"]
+        let slider = app.sliders["difficulty_slider"]
+        XCTAssertTrue(picker.buttons["Fest"].isSelected)
+        slider.adjust(toNormalizedSliderPosition: 0.75)
+        app.buttons["start_game"].tap()
+        gameOptions(in: app).tap()
+        app.buttons["Neue Partie"].tap()
+        picker.buttons["Automatisch"].tap()
+        XCTAssertFalse(slider.isEnabled)
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "1 · Sehr leicht")
+        record("Adaptive-Difficulty", app: app)
+        app.buttons["start_game"].tap()
+        app.buttons["start_game"].tap()
+        app.terminate()
+        app.launch()
+        app.buttons["new_game"].tap()
+        XCTAssertTrue(picker.buttons["Automatisch"].isSelected)
+        picker.buttons["Fest"].tap()
+        XCTAssertTrue(slider.isEnabled)
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "4 · Schwer")
+        app.navigationBars.buttons["Abbrechen"].tap()
+        app.buttons["continue_game"].tap()
+        gameOptions(in: app).tap()
+        app.buttons["Spielstärke"].tap()
+        XCTAssertTrue(picker.buttons["Automatisch"].isSelected)
+        picker.buttons["Fest"].tap()
+        XCTAssertEqual(app.staticTexts["difficulty_value"].label, "4 · Schwer")
+        app.buttons["computer_done"].tap()
+        gameOptions(in: app).tap()
+        app.buttons["Neue Partie"].tap()
+        XCTAssertTrue(picker.buttons["Fest"].isSelected)
+    }
+
     @MainActor func testDifficultyStartsAtOneAndRemembersConfirmedLevelAcrossGamesAndRelaunch() {
         let app = XCUIApplication()
         app.launchArguments = ["-ui-testing", "-ui-save", UUID().uuidString,
@@ -1461,8 +1499,9 @@ final class MuehlensteinUITests: XCTestCase {
             XCTAssertTrue(app.buttons["variant_" + key].isSelected)
         }
         app.buttons["opponent_local"].tap()
-        XCTAssertFalse(app.sliders["difficulty_slider"].exists)
-        XCTAssertFalse(app.buttons["advanced_options"].exists)
+        XCTAssertFalse(app.sliders["difficulty_slider"].isEnabled)
+        XCTAssertFalse(app.segmentedControls["strength_mode"].buttons["Automatisch"].isEnabled)
+        XCTAssertFalse(app.buttons["advanced_options"].isEnabled)
         app.buttons["opponent_computer"].tap()
         XCTAssertTrue(app.staticTexts["difficulty_value"].label.hasPrefix("5"))
         app.buttons["start_game"].tap()

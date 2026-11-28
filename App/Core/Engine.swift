@@ -99,7 +99,9 @@ struct GameSettings: Codable, Equatable, Sendable {
     var style: ComputerStyle = .balanced
     var openingBook = true
 
-    enum CodingKeys: String, CodingKey { case variant, opponent, level, algorithm, effort, style, openingBook }
+    var adaptive = false
+
+    enum CodingKeys: String, CodingKey { case variant, opponent, level, algorithm, effort, style, openingBook, adaptive }
 }
 extension GameSettings {
     init(from decoder: Decoder) throws {
@@ -107,6 +109,7 @@ extension GameSettings {
         variant = try values.decode(Variant.self, forKey: .variant)
         opponent = try values.decode(Opponent.self, forKey: .opponent)
         level = try values.decode(Int.self, forKey: .level)
+        adaptive = try values.decodeIfPresent(Bool.self, forKey: .adaptive) ?? false
         algorithm = try values.decode(SearchAlgorithm.self, forKey: .algorithm)
         effort = try values.decode(SearchEffort.self, forKey: .effort)
         style = try values.decodeIfPresent(ComputerStyle.self, forKey: .style) ?? .balanced
@@ -129,6 +132,28 @@ struct GameHistory: Codable, Sendable {
     var includesWholeGame = true
     var entries: [GameHistoryEntry] = []
 }
+/// Results are measured against the recommended level. Beating a weaker opponent
+/// or losing to a harder one cannot push the recommendation in the wrong direction.
+struct AdaptiveStrength: Codable, Equatable, Sendable {
+    private(set) var level = GameSettings.defaultLevel
+    private var previousDirection = 0
+
+    mutating func record(winner: Int, at opponentLevel: Int) {
+        let direction: Int
+        switch winner {
+        case 0 where opponentLevel >= level && level < GameSettings.levels.upperBound: direction = 1
+        case 1 where opponentLevel <= level && level > GameSettings.levels.lowerBound: direction = -1
+        default: direction = 0
+        }
+        if direction != 0 && direction == previousDirection {
+            level += direction
+            previousDirection = 0
+        } else {
+            previousDirection = direction
+        }
+    }
+}
+
 struct SavedGame: Codable, Sendable {
     var schema = 2
     var engineRevision = "8901a06f088bf49a1602fee8686ed25ac5a33925"
@@ -140,6 +165,20 @@ struct SavedGame: Codable, Sendable {
     // must never be presented as proof that no assistance was used.
     var history: GameHistory?
     var dismissedResult: String?
+    // This is the local baseline before this game. Replaying, undoing or reopening
+    // a result never compounds it. The next save carries the updated baseline.
+    var priorStrength: AdaptiveStrength?
+    var playedAtMultipleLevels: Bool?
+
+    func strengthAfterGame(at position: Position) -> AdaptiveStrength {
+        var progress = priorStrength ?? AdaptiveStrength()
+        guard settings.opponent == .computer, position.isOver,
+              position.outcome == "win" || position.outcome == "draw",
+              playedAtMultipleLevels != true, history?.includesWholeGame == true,
+              !historyEntries.contains(where: { $0.kind == .hint || $0.kind == .undo }) else { return progress }
+        progress.record(winner: position.winner, at: settings.level)
+        return progress
+    }
 
     var historyEntries: [GameHistoryEntry] {
         history?.entries ?? moves.enumerated().map {

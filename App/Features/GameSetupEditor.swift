@@ -16,6 +16,7 @@ struct GameSetupEditor: View {
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Binding var settings: GameSettings
     @Binding var expanded: Bool
+    let recommendedLevel: Int
     var includesGame = true
     @State private var panel = Panel.opponent
     @State private var help: Help?
@@ -45,7 +46,7 @@ struct GameSetupEditor: View {
     private func fullControls(wide: Bool) -> some View {
         VStack(spacing: 8) {
             if includesGame { opponent; variants() }
-            difficulty.disabled(settings.opponent != .computer)
+            difficulty(wide: wide).disabled(settings.opponent != .computer)
                 .opacity(settings.opponent == .computer ? 1 : 0.4)
             VStack(spacing: 8) {
                 Button { withAnimation(.easeInOut(duration: 0.2)) { expanded.toggle() } } label: {
@@ -90,7 +91,7 @@ struct GameSetupEditor: View {
             Group {
                 switch selected {
                 case .opponent: opponent
-                case .difficulty: difficulty
+                case .difficulty: difficulty(wide: wide)
                 case .variant: variants(showHeading: false)
                 case .advanced: advanced(wide: wide, includesStyle: false)
                 case .style: style(wide: wide)
@@ -110,24 +111,34 @@ struct GameSetupEditor: View {
             }
         }.accessibilityElement(children: .contain).accessibilityLabel(L10n.text("opponent"))
     }
-    private var difficulty: some View {
-        VStack(spacing: 0) {
+    private var modePicker: some View {
+        Picker(L10n.text("difficulty"), selection: $settings.adaptive) {
+            Text(L10n.text("strength_fixed")).tag(false)
+            Text(L10n.text("strength_auto")).tag(true)
+        }.pickerStyle(.segmented).accessibilityIdentifier("strength_mode")
+    }
+    private func difficulty(wide: Bool) -> some View {
+        let level = settings.adaptive ? recommendedLevel : settings.level
+        return VStack(spacing: 0) {
             HStack(spacing: 8) {
                 Text(L10n.text("difficulty")).font(.subheadline).foregroundStyle(Color.ink)
                 info("computer_help")
+                if wide { modePicker.frame(maxWidth: 240) }
                 Spacer(minLength: 0)
-                Text("\(settings.level) · \(L10n.text("level_\(settings.level)"))")
+                Text("\(level) · \(L10n.text("level_\(level)"))")
                     .font(.subheadline).foregroundStyle(palette.color).multilineTextAlignment(.trailing)
                     .accessibilityIdentifier("difficulty_value")
             }
-            Slider(value: Binding(get: { Double(settings.level) }, set: { settings.level = Int($0.rounded()) }), in: 1...5, step: 1)
+            if !wide { modePicker }
+            Slider(value: Binding(get: { Double(level) }, set: { settings.level = Int($0.rounded()) }), in: 1...5, step: 1)
+                .disabled(settings.adaptive)
                 .accessibilityLabel(L10n.text("difficulty"))
-                .accessibilityValue(L10n.format("level_badge", settings.level))
+                .accessibilityValue(L10n.format("level_badge", level))
                 .accessibilityIdentifier("difficulty_slider")
             HStack {
-                ForEach(GameSettings.levels, id: \.self) { level in
-                    if level > 1 { Spacer(minLength: 0) }
-                    Text("\(level)").font(.caption.weight(level == settings.level ? .semibold : .medium)).monospacedDigit()
+                ForEach(GameSettings.levels, id: \.self) { tick in
+                    if tick > 1 { Spacer(minLength: 0) }
+                    Text("\(tick)").font(.caption.weight(tick == level ? .semibold : .medium)).monospacedDigit()
                         .foregroundStyle(Color.ink)
                 }
             }.padding(.horizontal, 3).accessibilityHidden(true)

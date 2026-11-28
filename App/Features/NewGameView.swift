@@ -7,6 +7,7 @@ struct NewGameView: View {
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(AppPreferences.self) private var preferences
     let hasOngoingGame: Bool
+    let recommendedLevel: Int
     let start: (GameSettings) -> Void
     let startNetwork: (LocalMatchSession) -> Void
     @State private var network = LocalMatchSession()
@@ -16,15 +17,16 @@ struct NewGameView: View {
     @State private var confirmsReplacement = false
     @State private var expanded = false
 
-    init(hasOngoingGame: Bool, initialLevel: Int, startNetwork: @escaping (LocalMatchSession) -> Void, start: @escaping (GameSettings) -> Void) {
+    init(hasOngoingGame: Bool, initialSettings: GameSettings, recommendedLevel: Int, startNetwork: @escaping (LocalMatchSession) -> Void, start: @escaping (GameSettings) -> Void) {
         self.hasOngoingGame = hasOngoingGame
+        self.recommendedLevel = recommendedLevel
         self.start = start
         self.startNetwork = startNetwork
-        _settings = State(initialValue: GameSettings(level: initialLevel))
+        _settings = State(initialValue: initialSettings)
     }
     private var sheetHeight: CGFloat {
         if dynamicType.isAccessibilitySize { return 760 }
-        return expanded ? 750 : 540
+        return expanded ? 792 : 582
     }
 
     var body: some View {
@@ -33,7 +35,7 @@ struct NewGameView: View {
                 if showingNetwork {
                     NetworkLobbyView(session: network, variant: settings.variant).frame(maxHeight: .infinity)
                 } else {
-                    GameSetupEditor(settings: $settings, expanded: $expanded)
+                    GameSetupEditor(settings: $settings, expanded: $expanded, recommendedLevel: recommendedLevel)
                     Button {
                         if hasOngoingGame && !confirmsReplacement { confirmsReplacement = true }
                         else { begin() }
@@ -72,7 +74,7 @@ struct NewGameView: View {
     }
     private func begin() {
         if settings.opponent == .network { showingNetwork = true; return }
-        if settings.opponent == .computer { preferences.lastComputerLevel = settings.level }
+        if settings.opponent == .computer { preferences.rememberComputerSettings(settings) }
         start(settings)
         dismiss()
     }

@@ -17,8 +17,22 @@ enum AccentPalette: String, CaseIterable, Identifiable {
     var accentPalette: AccentPalette { didSet { defaults.set(accentPalette.rawValue, forKey: "accentPalette") } }
     var lastComputerLevel: Int { didSet { defaults.set(lastComputerLevel, forKey: "lastComputerLevel") } }
 
+    private(set) var usesAdaptiveStrength: Bool {
+        didSet { defaults.set(usesAdaptiveStrength, forKey: "usesAdaptiveStrength") }
+    }
+
+    var newGameSettings: GameSettings {
+        GameSettings(level: lastComputerLevel, adaptive: usesAdaptiveStrength)
+    }
+
+    func rememberComputerSettings(_ settings: GameSettings) {
+        usesAdaptiveStrength = settings.adaptive
+        if !settings.adaptive { lastComputerLevel = settings.level }
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
+        usesAdaptiveStrength = defaults.bool(forKey: "usesAdaptiveStrength")
         showLegalMoves = defaults.object(forKey: "showLegalMoves") as? Bool ?? false
         showLastMove = defaults.object(forKey: "showLastMove") as? Bool ?? false
         animateStones = defaults.object(forKey: "animateStones") as? Bool ?? true

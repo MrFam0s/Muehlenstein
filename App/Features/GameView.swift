@@ -85,12 +85,16 @@ struct GameView: View {
         .sheet(isPresented: $showingHistory) { HistoryView(game: store.game, position: store.position) }
         .sheet(isPresented: $showingRules) { RulesView(variant: store.game?.settings.variant ?? .classic) }
         .sheet(isPresented: $showingNewGame) {
-            NewGameView(hasOngoingGame: store.hasOngoingGame, initialLevel: preferences.lastComputerLevel, startNetwork: store.adoptNetwork) { store.start($0) }
+            NewGameView(hasOngoingGame: store.hasOngoingGame, initialSettings: preferences.newGameSettings,
+                            recommendedLevel: store.recommendedLevel, startNetwork: store.adoptNetwork) { store.start($0) }
         }
         .sheet(isPresented: $showingMoves) { LegalMovesView(store: store) }
         .sheet(isPresented: $showingDisplayOptions) { DisplayOptionsView() }
         .sheet(isPresented: $showingComputerOptions) {
-            if let game = store.game { ComputerOptionsView(settings: game.settings, apply: store.updateComputerSettings) }
+            if let game = store.game {
+                ComputerOptionsView(settings: game.settings, fixedLevel: preferences.lastComputerLevel,
+                                    recommendedLevel: store.recommendedLevel, apply: store.updateComputerSettings)
+            }
         }
         .sheet(isPresented: $showingHintExplanation) {
             if let explanation = store.hintExplanation {
@@ -115,7 +119,7 @@ struct GameView: View {
             if store.network != nil {
                 Button(L10n.text("network_connection"), systemImage: "wifi") { showingNetwork = true }
             }
-            if store.game?.settings.opponent == .computer {
+            if store.game?.settings.opponent == .computer && store.hasOngoingGame {
                 Button(L10n.text("computer_options"), systemImage: "slider.horizontal.3") { showingComputerOptions = true }
             }
         }

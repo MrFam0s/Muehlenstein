@@ -81,7 +81,8 @@ struct HistoryView: View {
             L10n.format("side_counts", L10n.text("white"), position.onBoard[0], position.hand[0]),
             L10n.format("side_counts", L10n.text("black"), position.onBoard[1], position.hand[1])]
         if game.settings.opponent == .computer {
-            lines += [L10n.format("computer_configuration", game.settings.level, L10n.text("level_\(game.settings.level)")),
+            let strength = L10n.format("computer_configuration", game.settings.level, L10n.text("level_\(game.settings.level)"))
+            lines += [game.settings.adaptive ? strength + " · " + L10n.text("strength_auto") : strength,
                 L10n.text("computer_style") + ": " + L10n.text("style_" + game.settings.style.rawValue),
                 game.settings.algorithm.name + " · " + L10n.text("effort_" + game.settings.effort.rawValue),
                 L10n.text("opening_book") + ": " + L10n.text(game.settings.openingBook ? "book_automatic" : "book_off")]
