@@ -1,5 +1,9 @@
 # App-Store-Vorbereitung
 
+## Version 1.6 (Build 20)
+
+Steine lassen sich direkt schieben. Der Verlauf bietet eine Zuganalyse nach der Partie. Auf Wunsch passt sich die Spielstärke an abgeschlossene Computerpartien an. Am 28.11.2026 hat Apple die Einreichung angenommen. Beim Abgleich meldete Apple `WAITING_FOR_REVIEW`. Die Veröffentlichung erfolgt automatisch nach Freigabe. [Release- und Prüfnachweis](RELEASE-1.6-20.md)
+
 ## Version 1.5 (Build 17) für iPhone Duo
 
 Am 24.11.2026 zur App-Store-Prüfung und zur externen Beta-Prüfung eingereicht. Die 16 neuen Aufnahmen zeigen das Spiel auf beiden Displays des iPhone Duo. [Releaseprotokoll](RELEASE-1.5-17.md).

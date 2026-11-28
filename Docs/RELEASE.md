@@ -2,7 +2,7 @@
 
 ## iOS 1.6 (20)
 
-The release source is tagged `v1.6` for bundle `org.amosystems.Muehlenstein`. It adds direct dragging alongside tap-to-move, post-game analysis of a player's own moves, and optional adaptive difficulty. The store release is configured for automatic publication after Apple approval. [Version notes](../CHANGELOG.md) · [User guide](SUPPORT.md)
+The release source is tagged `v1.6` for bundle `org.amosystems.Muehlenstein`. It adds direct dragging alongside tap-to-move, post-game analysis of a player's own moves, and optional adaptive difficulty. The store release is configured for automatic publication after Apple approval. [Submission and verification record](../Store/RELEASE-1.6-20.md) · [Version notes](../CHANGELOG.md) · [User guide](SUPPORT.md)
 
 ## iPhone Duo update 1.5 (17)
 
